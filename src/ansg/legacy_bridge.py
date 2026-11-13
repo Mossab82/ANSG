@@ -8,8 +8,8 @@ from dataclasses import dataclass, field
 from typing import Any, Mapping
 import re
 
-ARABIC_DIACRITICS = re.compile(r"[\\u064b-\\u065f\\u0670]")
-TATWEEL = "\\u0640"
+ARABIC_DIACRITICS = re.compile("[ً-ٰٟ]")
+TATWEEL = "ـ"
 VALID_DIALECTS = frozenset({"msa", "egyptian", "levantine", "gulf", "maghrebi"})
 
 
