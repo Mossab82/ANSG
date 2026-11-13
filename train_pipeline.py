@@ -41,7 +41,9 @@ def run_pipeline(config_path,data_path,output_dir,steps_per_stage=1,seed=42,lear
     gen_optimizer=torch.optim.AdamW(generator.parameters(),lr=learning_rate)
     disc_optimizer=torch.optim.AdamW(discriminator.parameters(),lr=learning_rate)
     output=Path(output_dir);output.mkdir(parents=True,exist_ok=True)
-    write_run_manifest(output/'manifest.json',config,data_path,seed)
+    data_label='synthetic' if Path(data_path).as_posix().endswith('examples/demo.jsonl') else 'unspecified'
+    write_run_manifest(output/'manifest.json',config,data_path,seed,
+                       extra={'data_label':data_label,'reward_type':'SURROGATE_NOT_CRAFT'})
     results=[]
     # Real supervised loss and optimizer updates.
     for index,batch in enumerate(batches):

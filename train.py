@@ -21,7 +21,15 @@ def main():
     ap.add_argument('--batch-size',type=int,default=2)
     ap.add_argument('--lr',type=float,default=1e-3)
     ap.add_argument('--seed',type=int,default=42)
+    ap.add_argument('--data-label',choices=['synthetic','real','unspecified'],default=None,
+                    help='provenance label recorded in the run manifest; defaults to "synthetic" for the '
+                         'bundled demo data and "unspecified" otherwise')
     args=ap.parse_args()
+    if args.data_label is None:
+        args.data_label='synthetic' if Path(args.data).as_posix().endswith('examples/demo.jsonl') else 'unspecified'
+    banner=('SYNTHETIC DATA — smoke run, not a dissertation result' if args.data_label=='synthetic'
+            else f'data label: {args.data_label.upper()}')
+    print(banner)
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
     random.seed(args.seed)
@@ -35,7 +43,8 @@ def main():
     opt=torch.optim.AdamW(model.parameters(),lr=args.lr)
     output=Path(args.output)
     output.mkdir(parents=True,exist_ok=True)
-    write_run_manifest(output/'run_manifest.json',cfg,args.data,args.seed)
+    write_run_manifest(output/'run_manifest.json',cfg,args.data,args.seed,
+                       extra={'data_label':args.data_label,'note':banner})
     print('parameters:',json.dumps(count_parameters(model)))
     for epoch in range(args.epochs):
         losses=[]
