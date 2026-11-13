@@ -31,3 +31,9 @@
 5. Build root-aware tokenizer, distributed supervised / adversarial / PPO pipelines and verified CRAFT rewards.
 6. Run ablations, five-seed evaluations and compare against dissertation tables with confidence intervals.
 7. Publish code, model cards, data statements and run logs with truthful execution timestamps.
+
+## Pretrained backbone integration
+
+`src/ansg/pretrained.py` provides an adapter around a Hugging Face causal LM with hidden-state cultural cross-attention and DAL. It uses an explicit 1280→1296→1280 cultural projection to address head divisibility when necessary. **This bridge does not inject pairwise biases into the pretrained LM's internal attention logits**; claim of strict architectural equivalence requires further integration.
+
+The from-scratch `ANSG` model does implement *pairwise* culture-conditioned logit biases through `PairwiseCulturalBias`, projecting twelve cultural bias heads onto the actual decoder attention heads. That projection is a novel engineering decision and not established by the thesis.
