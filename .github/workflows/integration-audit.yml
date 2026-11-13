@@ -1,0 +1,85 @@
+name: Integration audit (Issue #3)
+
+# Evidence for docs/INTEGRATION_COMPATIBILITY_AUDIT.md, re-computed on every run
+# from the untouched source branches. Nothing here merges or modifies a branch.
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [claude/integration-audit]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  governance-checks:
+    name: Topology guard + its tests (stdlib only)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --upgrade pip pytest
+      - name: Package topology of this tree
+        run: python tools/check_package_topology.py
+      - name: Unit tests for the integration tooling
+        run: python -m pytest -q -p no:cacheprovider tests/integration_audit
+
+  cross-branch-compatibility:
+    name: Re-run audit against both implementation branches
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install CPU PyTorch and test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu torch
+          python -m pip install numpy PyYAML pytest
+      - name: Create read-only worktrees of the source branches
+        run: |
+          set -euo pipefail
+          git worktree add --detach ../core origin/implementation/ansg-core-2026
+          git worktree add --detach ../data origin/claude/relaxed-knuth-q63k61
+          mkdir -p audit-evidence
+          git rev-parse origin/master origin/implementation/ansg-core-2026 origin/claude/relaxed-knuth-q63k61 \
+            | tee audit-evidence/branch_heads.txt
+      - name: Each branch's own test suite, in isolation
+        run: |
+          set -euo pipefail
+          (cd ../core && python -m pytest -q -p no:cacheprovider) 2>&1 | tee audit-evidence/core_tests.txt
+          (cd ../data && PYTHONPATH=src python -m pytest -q -p no:cacheprovider) 2>&1 | tee audit-evidence/data_tests.txt
+      - name: Topology of each branch alone (expected clean)
+        run: |
+          set -euo pipefail
+          python tools/check_package_topology.py --root ../core
+          python tools/check_package_topology.py --root ../data
+      - name: Trial merge in a throwaway worktree (never pushed)
+        run: |
+          set -euo pipefail
+          git worktree add --detach ../trial origin/master
+          cd ../trial
+          git -c user.name=audit -c user.email=audit@invalid merge -q --no-edit origin/claude/relaxed-knuth-q63k61
+          git -c user.name=audit -c user.email=audit@invalid merge --no-edit origin/implementation/ansg-core-2026 \
+            > ../trial_merge.txt 2>&1 || true
+          cat ../trial_merge.txt | tee -a "$GITHUB_WORKSPACE/audit-evidence/trial_merge.txt"
+          cd "$GITHUB_WORKSPACE"
+          python tools/check_package_topology.py --root ../trial --json > audit-evidence/trial_topology.json || true
+          cat audit-evidence/trial_topology.json
+          # The audit documents exactly three silent module/package collisions. If this
+          # number changes, the audit is stale and must be revised.
+          python -c "import json,sys; f=json.load(open('audit-evidence/trial_topology.json')); n=sum(x['kind']=='module-package' for x in f); print('module-package collisions:', n); sys.exit(0 if n==3 else 1)"
+      - name: Cross-branch contract probe (synthetic data only)
+        run: python tools/integration_probe.py --core ../core --data ../data --json audit-evidence/probe.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integration-audit-evidence
+          path: audit-evidence/
