@@ -34,6 +34,13 @@ class CulturalSchemaAttention(nn.Module):
             raise ValueError("schema_ids must have shape [batch, schema_count_active]")
         if schema_ids.shape[1] < 1:
             raise ValueError("Provide at least one active schema (the no-schema ID can be 0)")
+        if schema_mask is None:
+            schema_mask = schema_ids.ne(0)
+        if schema_mask.shape != schema_ids.shape:
+            raise ValueError("schema_mask shape mismatch")
+        schema_mask = schema_mask.bool()
+        if (schema_mask & schema_ids.eq(0)).any():
+            raise ValueError("Padding schema ID 0 cannot be active")
         schemas = self.schema_embeddings(schema_ids)
         n = schemas.shape[1]
         q = self.query_proj(hidden_states).view(batch, length, self.num_heads, self.head_dim).transpose(1, 2)
@@ -44,14 +51,12 @@ class CulturalSchemaAttention(nn.Module):
         hb = self.heritage_bias(schemas).permute(0, 2, 1).unsqueeze(2)
         rb = self.rhetorical_bias(schemas).permute(0, 2, 1).unsqueeze(2)
         logits = logits + self.beta * hb + self.gamma * rb
-        if schema_mask is not None:
-            if schema_mask.shape != schema_ids.shape:
-                raise ValueError("schema_mask shape mismatch")
-            # Avoid all-masked rows (which cause NaN)
-            if not schema_mask.any(dim=1).all():
-                raise ValueError("Each example needs at least one unmasked schema")
-            logits = logits.masked_fill(~schema_mask[:, None, None, :].bool(), -torch.inf)
-        attn = torch.softmax(logits, dim=-1)
+        # A row may have no active cultural schema. Mask its logits safely,
+        # then explicitly zero its attention rather than softmax over PAD.
+        active = schema_mask.any(dim=1)
+        logits = logits.masked_fill(~schema_mask[:, None, None, :], -torch.inf)
+        logits = torch.where(active[:, None, None, None], logits, torch.zeros_like(logits))
+        attn = torch.softmax(logits, dim=-1) * schema_mask[:, None, None, :].to(logits.dtype)
         contextualized = attn @ v  # [B,H,T,head_dim]
         group = self.num_heads // 3
         heritage = contextualized[:, :group].transpose(1, 2).reshape(batch, length, group * self.head_dim)
@@ -59,7 +64,8 @@ class CulturalSchemaAttention(nn.Module):
         dialectal = contextualized[:, 2*group:].transpose(1, 2).reshape(batch, length, group * self.head_dim)
         # Project the complete 3-group context back to hidden dimension.
         whole = torch.cat([self.beta * heritage, self.gamma * rhetorical, dialectal], dim=-1)
-        return self.alpha * hidden_states + self.output_proj(whole)
+        output = self.alpha * hidden_states + self.output_proj(whole)
+        return torch.where(active[:, None, None], output, hidden_states)
 
 class PairwiseCulturalBias(nn.Module):
     """Implements Eq.4.12/4.13-like schema-conditioned *token pair* bias.
@@ -82,15 +88,28 @@ class PairwiseCulturalBias(nn.Module):
         self.beta = config.beta_heritage
         self.gamma = config.gamma_rhetorical
 
-    def forward(self, schema_ids, seq_len):
+    def forward(self, schema_ids, seq_len, schema_mask=None):
         if seq_len > self.context_length:
             raise ValueError('Pairwise bias exceeds configured max sequence length')
         b, s = schema_ids.shape
+        if s < 1:
+            raise ValueError("schema_ids must have at least one PAD or real ID")
+        if schema_mask is None:
+            schema_mask = schema_ids.ne(0)
+        if schema_mask.shape != schema_ids.shape:
+            raise ValueError("schema_mask shape mismatch")
+        schema_mask = schema_mask.bool()
+        if (schema_mask & schema_ids.eq(0)).any():
+            raise ValueError("Padding schema ID 0 cannot be active")
         positions=torch.arange(seq_len,device=schema_ids.device)
         left=self.pos_left(positions)[:,None,:].expand(seq_len,seq_len,-1)
         right=self.pos_right(positions)[None,:,:].expand(seq_len,seq_len,-1)
         motifs=self.schema_embeddings(schema_ids)
-        weights=torch.softmax(self.schema_importance(motifs).squeeze(-1),dim=-1)
+        importance = self.schema_importance(motifs).squeeze(-1)
+        active = schema_mask.any(dim=1, keepdim=True)
+        masked = importance.masked_fill(~schema_mask, -torch.inf)
+        masked = torch.where(active, masked, torch.zeros_like(masked))
+        weights = torch.softmax(masked, dim=-1) * schema_mask.to(importance.dtype)
         total=None
         # Incremental evaluation avoids BxTxTxSxD allocation.
         for i in range(s):

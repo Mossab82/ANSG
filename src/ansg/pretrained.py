@@ -39,11 +39,17 @@ class PretrainedANSG(nn.Module):
             raise RuntimeError('Install transformers for pretrained integration') from exc
         return cls(AutoModelForCausalLM.from_pretrained(model_name),**kwargs)
 
-    def forward(self,input_ids,schema_ids,dialect_ids=None,labels=None,attention_mask=None):
+    def forward(self,input_ids,schema_ids,dialect_ids=None,labels=None,attention_mask=None,schema_mask=None):
         out=self.backbone(input_ids=input_ids,attention_mask=attention_mask,output_hidden_states=True,return_dict=True)
         original=out.hidden_states[-1]
-        adapted=self.from_cultural(self.csam(self.to_cultural(original),schema_ids))
-        summary=self.csam.schema_embeddings(schema_ids).mean(dim=1)
+        if schema_mask is None:
+            schema_mask = schema_ids.ne(0)
+        if schema_mask.shape != schema_ids.shape:
+            raise ValueError('schema_mask shape mismatch')
+        schema_mask = schema_mask.bool()
+        adapted=self.from_cultural(self.csam(self.to_cultural(original),schema_ids,schema_mask=schema_mask))
+        schemas=self.csam.schema_embeddings(schema_ids)
+        summary=(schemas * schema_mask.unsqueeze(-1).to(schemas.dtype)).sum(dim=1) / schema_mask.sum(dim=1,keepdim=True).clamp_min(1)
         states=self.final_ln(self.dal(original+adapted,summary,dialect_ids))
         logits=self.backbone.get_output_embeddings()(states)
         result={'logits':logits}

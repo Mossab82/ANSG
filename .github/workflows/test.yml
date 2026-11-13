@@ -1,9 +1,9 @@
 name: Test ANSG research implementation
 on:
   push:
-    branches: [implementation/ansg-core-2026]
+    branches: [implementation/ansg-core-2026, chatgpt/fix-csam-schema-padding]
   pull_request:
-    branches: [master]
+    branches: [master, implementation/ansg-core-2026]
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
