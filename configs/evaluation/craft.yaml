@@ -1,0 +1,34 @@
+# CRAFT evaluation specification registry.
+# Every metric must be transcribed from Chapter 6 with its section reference
+# before status can move beyond "unverified". No metrics are implemented.
+
+dimensions:
+  - cultural_authenticity
+  - dialectal_fidelity
+  - linguistic_quality
+  - narrative_coherence
+
+metrics: []
+#  - name: <metric name as in thesis>
+#    dimension: cultural_authenticity
+#    status: unverified        # unverified | incomplete | specified | implemented
+#    thesis_reference: null    # e.g. "§6.x, Eq. (6.y)"
+#    equation: null            # LaTeX copied from the thesis
+#    range: null
+#    normalization: null
+#    higher_is_better: null
+#    requires: []
+
+aggregation:
+  weights: null
+  verified: false
+  thesis_reference: null
+
+human_evaluation:
+  n_raters: null
+  rater_qualifications: null
+  rating_scale: null
+  n_items: null
+  agreement_statistic: null
+  blinding: null
+  thesis_reference: null
