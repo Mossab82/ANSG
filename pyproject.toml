@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "ansg-research"
+version = "0.1.0"
+description = "Thesis-grounded reproducible research implementation of ANSG"
+requires-python = ">=3.10"
+dependencies = ["torch>=2.1", "numpy>=1.24", "PyYAML>=6.0"]
+[project.optional-dependencies]
+test = ["pytest>=7.4"]
+metrics = ["sacrebleu>=2.4", "rouge-score>=0.1.2"]
+[tool.setuptools.packages.find]
+where = ["src"]
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

@@ -1,0 +1,13 @@
+{
+  "vocab_size": 256,
+  "context_length": 96,
+  "hidden_size": 96,
+  "transformer_heads": 4,
+  "layers": 2,
+  "cultural_heads": 12,
+  "schema_count": 64,
+  "schema_dim": 64,
+  "lora_rank": 8,
+  "lora_alpha": 16.0,
+  "dropout": 0.0
+}
