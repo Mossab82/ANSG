@@ -33,16 +33,8 @@ jobs:
         run: kaggle kernels list --mine --page-size 5
       - name: Push private smoke kernel and launch run
         run: kaggle kernels push -p kaggle/smoke
-      - name: Get Kaggle run status
-        if: always()
-        continue-on-error: true
-        run: kaggle kernels status mossabibrahim/ansg-api-smoke
-      - name: Download output if available
-        if: always()
-        continue-on-error: true
-        run: |
-          mkdir -p kaggle-output
-          kaggle kernels output mossabibrahim/ansg-api-smoke -p kaggle-output
+      - name: Wait for Kaggle run and verify saved GPU report
+        run: python kaggle/smoke/wait_for_result.py
       - name: Publish available logs and artifacts
         if: always()
         uses: actions/upload-artifact@v4
