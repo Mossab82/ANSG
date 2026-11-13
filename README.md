@@ -33,3 +33,13 @@ The Appendix A.25 CSAM excerpt specifies a hidden width of 1280 and 12 heads, wh
 ## Privacy and security
 
 Legacy code on the `master` branch has hard-coded credentials. These should be immediately revoked/rotated and removed from Git history by the account holder; neither copying nor using them is necessary for this reconstruction. Do not publish private or copyrighted corpus material.
+
+## Additional commands
+
+```bash
+python scripts/validate_spec.py
+python scripts/parameter_audit.py --config configs/smoke.json
+python evaluate.py --checkpoint runs/smoke/checkpoint.pt --test-data examples/demo.jsonl --output runs/evaluation.json
+```
+
+An optional `PretrainedANSG.from_pretrained('aubmindlab/aragpt2-large')` wrapper is provided in `src/ansg/pretrained.py`, **not tested against downloaded weights here**. It adds cultural cross-attention and LoRA-like dialectal adapters after the backbone; it does not yet reproduce pre-softmax bias injection inside every pretrained attention layer.

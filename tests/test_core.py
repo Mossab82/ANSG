@@ -84,3 +84,22 @@ def test_pairwise_bias_causal_head_shape(cfg):
     assert bias.shape == (2,cfg.transformer_heads,7,7)
     bias.sum().backward()
     assert pb.schema_embeddings.weight.grad is not None
+
+def test_pretrained_bridge_with_stub(cfg):
+    from torch import nn
+    from ansg.pretrained import PretrainedANSG
+    class StubLM(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.config=type('Conf',(),{'n_embd':96,'n_head':4})()
+            self.embedding=nn.Embedding(256,96)
+            self.lm=nn.Linear(96,256)
+        def forward(self,input_ids,attention_mask=None,output_hidden_states=False,return_dict=False):
+            x=self.embedding(input_ids)
+            return type('Out',(),{'hidden_states':[x]})()
+        def get_output_embeddings(self):return self.lm
+    m=PretrainedANSG(StubLM(),schema_count=64,schema_dim=64,cultural_heads=12)
+    ids=torch.randint(0,256,(2,8))
+    o=m(ids,torch.tensor([[1],[2]]),labels=ids)
+    assert o['logits'].shape==(2,8,256)
+    assert torch.isfinite(o['loss'])
