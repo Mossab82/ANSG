@@ -1,4 +1,4 @@
-from ansg.data.legacy_bridge import normalize_arabic, legacy_sql_row_to_record, NarrativeRecord
+from ansg.legacy_bridge import normalize_arabic, legacy_sql_row_to_record, NarrativeRecord
 import pytest
 
 
@@ -18,7 +18,7 @@ def test_invalid_dialect():
 
 
 def test_annotated_row_keeps_all_three_annotation_layers():
-    from ansg.data.legacy_bridge import annotated_row_to_record
+    from ansg.legacy_bridge import annotated_row_to_record
     record = annotated_row_to_record({
         "story_id": "n-12", "text": "حكاية عن الأمانة",
         "DIA": "levantine", "MOTIF": ["trust"], "MORAL": ["honesty"]
@@ -29,6 +29,6 @@ def test_annotated_row_keeps_all_three_annotation_layers():
 
 
 def test_reject_ambiguous_motif_string():
-    from ansg.data.legacy_bridge import annotated_row_to_record
+    from ansg.legacy_bridge import annotated_row_to_record
     with pytest.raises(TypeError):
         annotated_row_to_record({"story_id": "1", "text": "قصة", "MOTIF": "trust"})
