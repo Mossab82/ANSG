@@ -30,7 +30,28 @@ docs/
 scripts/
 ```
 
-These directories are targets, **not** a claim that their modules already exist.
+As of Phase 1, `src/ansg/data/`, `src/ansg/knowledge/`, `src/ansg/evaluation/` (interfaces only), `configs/`, `tests/`, `docs/` and `scripts/` exist. `models/` and `training/` are still targets, **not** a claim that those modules exist.
+
+## Phase 1: data and knowledge infrastructure
+
+Implemented and tested on CPU (no model training):
+
+- Offset-preserving Arabic normalisation (lossless defaults) and segmentation
+- *One Thousand and One Nights* ingestion: tale identification, night-number parsing, frame-formula detection, provenance
+- ANHC record schema with DIA / MOTIF / MORAL layers, annotation status, copyright-aware export, annotation import
+- Deterministic group-level splits (hash-based or predefined partition)
+- ArabicVerbNet XML parser, ArabicNameNet configurable adapter (format unverified), CKG + CST-Onto interface for CSAM
+- CRAFT interfaces (no metrics implemented)
+
+```bash
+python -m venv .venv && . .venv/bin/activate
+pip install -e ".[test]"          # add ,ontology for CST-Onto RDF loading
+pytest
+ansg-ingest --config configs/data/nights.yaml   # needs your licensed corpus file under data/private/
+python scripts/inspect_resources.py             # reports which knowledge resources are supplied
+```
+
+No corpus, lexicon, ontology, annotation or checkpoint is bundled; test fixtures are synthetic (see `tests/fixtures/README.md`). Start with `docs/REPOSITORY_AUDIT.md` and `docs/IMPLEMENTATION_GAPS.md`.
 
 ## Specification status
 
