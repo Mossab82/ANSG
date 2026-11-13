@@ -15,3 +15,20 @@ def test_legacy_row_does_not_fake_annotations():
 def test_invalid_dialect():
     with pytest.raises(ValueError):
         NarrativeRecord("x", "قصة", dialect="unknown")
+
+
+def test_annotated_row_keeps_all_three_annotation_layers():
+    from ansg.data.legacy_bridge import annotated_row_to_record
+    record = annotated_row_to_record({
+        "story_id": "n-12", "text": "حكاية عن الأمانة",
+        "DIA": "levantine", "MOTIF": ["trust"], "MORAL": ["honesty"]
+    })
+    assert record.dialect == "levantine"
+    assert record.motif_ids == ("trust",)
+    assert record.moral_labels == ("honesty",)
+
+
+def test_reject_ambiguous_motif_string():
+    from ansg.data.legacy_bridge import annotated_row_to_record
+    with pytest.raises(TypeError):
+        annotated_row_to_record({"story_id": "1", "text": "قصة", "MOTIF": "trust"})
