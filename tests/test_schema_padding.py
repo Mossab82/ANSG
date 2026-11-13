@@ -4,7 +4,8 @@ A model must not change an example's predictions solely because the
 other batch member has more cultural schema IDs.
 """
 import pytest
-import torch
+torch = pytest.importorskip("torch", reason="model extra (PyTorch) not installed")
+pytestmark = pytest.mark.model
 
 from ansg.config import ModelConfig
 from ansg.data import collate

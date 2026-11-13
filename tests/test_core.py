@@ -1,6 +1,7 @@
 import json
 import pytest
-import torch
+torch = pytest.importorskip("torch", reason="model extra (PyTorch) not installed")
+pytestmark = pytest.mark.model
 from ansg.config import ModelConfig
 from ansg.model import ANSG,count_parameters
 from ansg.csam import CulturalSchemaAttention
