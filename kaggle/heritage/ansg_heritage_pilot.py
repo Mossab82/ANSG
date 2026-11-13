@@ -109,6 +109,10 @@ def generate_samples(model, tokenizer, stage):
     return samples
 
 def main():
+    # Kaggle notebooks may lack PEFT and MediaWiki parsing packages by default.
+    subprocess.run([sys.executable, "-m", "pip", "install", "-q",
+        "peft==0.15.2", "transformers==4.51.3", "accelerate==1.7.0",
+        "mwparserfromhell==0.7.2"], check=True, timeout=300)
     import torch
     from peft import LoraConfig, get_peft_model
     from transformers import AutoModelForCausalLM, AutoTokenizer
