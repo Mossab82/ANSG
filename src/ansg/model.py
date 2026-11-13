@@ -63,19 +63,28 @@ class ANSG(nn.Module):
         self.output.weight = self.token_embedding.weight
         self.value_head = nn.Linear(config.hidden_size,1)
 
-    def forward(self, input_ids, schema_ids, dialect_ids=None, labels=None):
+    def forward(self, input_ids, schema_ids, dialect_ids=None, labels=None, schema_mask=None):
         b,t = input_ids.shape
         if t > self.config.context_length:
             raise ValueError('Sequence exceeds configured context length')
         if t < 1:
             raise ValueError('Sequence cannot be empty')
+        if schema_mask is None:
+            schema_mask = schema_ids.ne(0)
+        if schema_mask.shape != schema_ids.shape:
+            raise ValueError('schema_mask shape mismatch')
+        schema_mask = schema_mask.bool()
+        if (schema_mask & schema_ids.eq(0)).any():
+            raise ValueError('Padding schema ID 0 cannot be active')
         positions = torch.arange(t,device=input_ids.device)
         x = self.token_embedding(input_ids)+self.position_embedding(positions)[None]
-        pairwise_bias = self.pairwise_cultural_bias(schema_ids,t)
+        pairwise_bias = self.pairwise_cultural_bias(schema_ids,t,schema_mask=schema_mask)
         for block in self.blocks:
             x = block(x,pairwise_bias)
-        x = self.csam(x,schema_ids)
-        summary = self.csam.schema_embeddings(schema_ids).mean(dim=1)
+        x = self.csam(x,schema_ids,schema_mask=schema_mask)
+        embeddings = self.csam.schema_embeddings(schema_ids)
+        masked_embeddings = embeddings * schema_mask.unsqueeze(-1).to(embeddings.dtype)
+        summary = masked_embeddings.sum(dim=1) / schema_mask.sum(dim=1,keepdim=True).clamp_min(1)
         x = self.dal(x,summary,dialect_ids)
         x = self.final_ln(x)
         logits = self.output(x) / math.sqrt(self.config.hidden_size)
@@ -88,7 +97,7 @@ class ANSG(nn.Module):
         return result
 
     @torch.no_grad()
-    def generate(self, input_ids, schema_ids, dialect_ids=None, max_new_tokens=32, temperature=1.0, top_k=None):
+    def generate(self, input_ids, schema_ids, dialect_ids=None, max_new_tokens=32, temperature=1.0, top_k=None, schema_mask=None):
         if temperature <= 0:
             raise ValueError('temperature must be > 0')
         was_training=self.training
@@ -97,7 +106,7 @@ class ANSG(nn.Module):
             tokens = input_ids
             for _ in range(max_new_tokens):
                 recent = tokens[:,-self.config.context_length:]
-                logits = self(recent,schema_ids,dialect_ids)['logits'][:,-1,:]/temperature
+                logits = self(recent,schema_ids,dialect_ids,schema_mask=schema_mask)['logits'][:,-1,:]/temperature
                 if top_k is not None:
                     threshold=torch.topk(logits,min(top_k,logits.shape[-1]),dim=-1).values[:,-1,None]
                     logits=logits.masked_fill(logits<threshold,-torch.inf)
