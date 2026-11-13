@@ -448,7 +448,7 @@ def Title_extractor(par):
 def Verbs_Extractor():
     db = DataBase_Connector("Story_Narative")
     cursor = db.cursor()
-    client = repustate.Client(api_key='151decd958d370b5d28288100a26d82b69048e0d2f761b5ec26bed25')
+    client = repustate.Client(api_key=os.environ["ANSG_REPUSTATE_API_KEY"])
     sql_select_Query = "select Sentance,Sent_Loc_Story,Sent_Loc_Par,Sent_Loc_In_Par from Nartive_Sentances"
     cursor.execute(sql_select_Query)
     records = cursor.fetchall()
@@ -484,7 +484,7 @@ def Sentances_extractor(s_id, s_title, s_body):
     db = DataBase_Connector("Story_Narative")
     cursor = db.cursor()
     Story_Sentances = list()
-    client = repustate.Client(api_key='151decd958d370b5d28288100a26d82b69048e0d2f761b5ec26bed25')
+    client = repustate.Client(api_key=os.environ["ANSG_REPUSTATE_API_KEY"])
     for p in s_body:
         par_sentances = p.split('،')
         for sent in par_sentances:
@@ -561,8 +561,8 @@ def ANER(t):
 
 # Database Connector Function
 def DataBase_Connector(database_Name):
-    mydb = mysql.connector.connect(user='Mossab', password='Allah@12',
-                                   host='127.0.0.1', database=database_Name,
+    mydb = mysql.connector.connect(user='Mossab', password=os.environ["ANSG_MYSQL_PASSWORD"],
+                                   host=os.getenv("ANSG_MYSQL_HOST", "127.0.0.1"), database=database_Name,
                                    auth_plugin='mysql_native_password')
 
     return mydb

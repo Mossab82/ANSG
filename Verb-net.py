@@ -1,3 +1,4 @@
+import os
 
 import xml.etree.ElementTree as ET
 import glob
@@ -17,8 +18,8 @@ class vbo:
 
 def DataBase_Connector(DataBase):
 
-    mydb = mysql.connector.connect(user='root', password='Allah@12',
-                              host='127.0.0.1', database=DataBase,
+    mydb = mysql.connector.connect(user=os.getenv("ANSG_MYSQL_USER", "root"), password=os.environ["ANSG_MYSQL_PASSWORD"],
+                              host=os.getenv("ANSG_MYSQL_HOST", "127.0.0.1"), database=DataBase,
                               auth_plugin='mysql_native_password')
 
     return mydb
