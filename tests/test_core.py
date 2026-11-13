@@ -103,3 +103,14 @@ def test_pretrained_bridge_with_stub(cfg):
     o=m(ids,torch.tensor([[1],[2]]),labels=ids)
     assert o['logits'].shape==(2,8,256)
     assert torch.isfinite(o['loss'])
+
+def test_end_to_end_three_stage_pipeline(tmp_path):
+    from pathlib import Path
+    import sys
+    root=Path(__file__).resolve().parents[1]
+    sys.path.insert(0,str(root))
+    from train_pipeline import run_pipeline
+    stats=run_pipeline(root/'configs/smoke.json',root/'examples/demo.jsonl',tmp_path,steps_per_stage=1)
+    assert [s['stage'] for s in stats]==['supervised','adversarial','ppo']
+    assert (tmp_path/'model.pt').exists()
+    assert (tmp_path/'training_results.json').exists()

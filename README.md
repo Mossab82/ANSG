@@ -43,3 +43,11 @@ python evaluate.py --checkpoint runs/smoke/checkpoint.pt --test-data examples/de
 ```
 
 An optional `PretrainedANSG.from_pretrained('aubmindlab/aragpt2-large')` wrapper is provided in `src/ansg/pretrained.py`, **not tested against downloaded weights here**. It adds cultural cross-attention and LoRA-like dialectal adapters after the backbone; it does not yet reproduce pre-softmax bias injection inside every pretrained attention layer.
+
+## Execute all three training stages (research smoke test)
+
+```bash
+python train_pipeline.py --config configs/smoke.json --data examples/demo.jsonl --steps-per-stage 1 --output runs/pipeline
+```
+
+The three stages execute actual gradient updates and save checkpoint+run manifest; adversarial reward and PPO return are deliberately marked **surrogate**, not thesis CRAFT. For thesis-scale training, install and validate true ANHC/CKG data, root-aware tokenizer, reward evaluators and matching backbone first.

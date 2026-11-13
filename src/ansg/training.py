@@ -49,7 +49,7 @@ def generator_adversarial_step(model,discriminator,prompt_ids,schema_ids,optimiz
     optimizer.step()
     return float(loss.detach())
 
-def ppo_update(model,old_logprobs,ids,schema_ids,actions,advantages,returns,optimizer,dialect_ids=None,clip_eps=0.2,value_coef=0.5):
+def ppo_update(model,old_logprobs,ids,schema_ids,actions,advantages,returns,optimizer,dialect_ids=None,clip_eps=0.2,value_coef=0.5,action_mask=None):
     """Clipped PPO on a fixed rollout; caller must supply same states/actions as rollout.
 
     ids: [B,T] states; actions: [B,T] actual next tokens; mask per-token
@@ -62,8 +62,16 @@ def ppo_update(model,old_logprobs,ids,schema_ids,actions,advantages,returns,opti
     if current.shape!=old_logprobs.shape or advantages.shape!=current.shape or returns.shape!=current.shape:
         raise ValueError('PPO tensors must match [batch,seq_len]')
     ratio=(current-old_logprobs.detach()).exp()
-    policy_loss=-torch.minimum(ratio*advantages,torch.clamp(ratio,1-clip_eps,1+clip_eps)*advantages).mean()
-    value_loss=F.mse_loss(out['values'],returns)
+    surrogate=torch.minimum(ratio*advantages,torch.clamp(ratio,1-clip_eps,1+clip_eps)*advantages)
+    if action_mask is None:
+        policy_loss=-surrogate.mean()
+        value_loss=F.mse_loss(out['values'],returns)
+    else:
+        if action_mask.shape!=current.shape or action_mask.sum()<=0:
+            raise ValueError('PPO action_mask must match actions and select at least one token')
+        mask=action_mask.to(current.dtype)
+        policy_loss=-(surrogate*mask).sum()/mask.sum()
+        value_loss=(((out['values']-returns)**2)*mask).sum()/mask.sum()
     loss=policy_loss+value_coef*value_loss
     optimizer.zero_grad(set_to_none=True)
     loss.backward()

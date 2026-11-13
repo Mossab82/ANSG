@@ -78,7 +78,7 @@ class ANSG(nn.Module):
         summary = self.csam.schema_embeddings(schema_ids).mean(dim=1)
         x = self.dal(x,summary,dialect_ids)
         x = self.final_ln(x)
-        logits = self.output(x)
+        logits = self.output(x) / math.sqrt(self.config.hidden_size)
         values = self.value_head(x).squeeze(-1)
         result = {'logits':logits, 'values':values}
         if labels is not None:
