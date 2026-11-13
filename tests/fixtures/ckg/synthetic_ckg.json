@@ -1,0 +1,17 @@
+{
+  "metadata": {"name": "SYNTHETIC TEST CKG", "version": "test", "source": "hand-written fixture", "license": "n/a"},
+  "ontology_classes": [
+    {"iri": "urn:test:onto#CulturalSchema", "label": "Schema"},
+    {"iri": "urn:test:onto#Motif", "label": "Motif", "parents": ["urn:test:onto#CulturalSchema"]},
+    {"iri": "urn:test:onto#Transformation", "label": "Transformation", "parents": ["urn:test:onto#Motif"]}
+  ],
+  "nodes": [
+    {"id": "schema:test_hospitality", "kind": "schema", "labels": {"en": "test hospitality"}, "ontology_class": "urn:test:onto#CulturalSchema", "triggers": ["ضيف"]},
+    {"id": "motif:test_magic_ring", "kind": "motif", "labels": {"en": "test ring"}, "ontology_class": "urn:test:onto#Motif", "triggers": ["خاتم", "خاتمًا"]},
+    {"id": "motif:test_transformation", "kind": "motif", "labels": {"en": "test transformation"}, "ontology_class": "urn:test:onto#Transformation", "triggers": ["مسخ"]}
+  ],
+  "edges": [
+    {"source": "motif:test_magic_ring", "relation": "instance_of", "target": "schema:test_hospitality", "weight": 0.5},
+    {"source": "motif:test_transformation", "relation": "related_to", "target": "motif:test_magic_ring"}
+  ]
+}
