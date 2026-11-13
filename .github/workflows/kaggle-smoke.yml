@@ -1,0 +1,51 @@
+name: Kaggle API smoke test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  kaggle-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+    steps:
+      - name: Checkout ANSG
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Kaggle CLI
+        run: python -m pip install --upgrade kaggle
+      - name: Verify secret is configured
+        run: |
+          if [ -z "$KAGGLE_API_TOKEN" ]; then
+            echo "::error::Set KAGGLE_API_TOKEN in GitHub Actions repository secrets."
+            exit 1
+          fi
+      - name: Verify Kaggle authentication (read-only)
+        run: kaggle kernels list --mine --page-size 5
+      - name: Push private smoke kernel and launch run
+        run: kaggle kernels push -p kaggle/smoke --accelerator NvidiaTeslaT4
+      - name: Get Kaggle run status
+        if: always()
+        continue-on-error: true
+        run: kaggle kernels status mossabibrahim/ansg-api-smoke
+      - name: Download output if available
+        if: always()
+        continue-on-error: true
+        run: |
+          mkdir -p kaggle-output
+          kaggle kernels output mossabibrahim/ansg-api-smoke -p kaggle-output
+      - name: Publish available logs and artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kaggle-smoke-output
+          path: kaggle-output/
+          if-no-files-found: warn
+          retention-days: 7

@@ -1,0 +1,16 @@
+{
+  "id": "mossabibrahim/ansg-api-smoke",
+  "title": "ansg-api-smoke",
+  "code_file": "ansg_kaggle_smoke.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": [],
+  "kernel_sources": [],
+  "competition_sources": [],
+  "model_sources": [],
+  "machine_shape": "NvidiaTeslaT4"
+}
