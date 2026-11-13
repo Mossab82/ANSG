@@ -11,6 +11,22 @@ to `INTEGRATION_EXECUTION_PLAN.md` and `INTEGRATION_COMPATIBILITY_AUDIT.md`;
 
 Nothing here supplies missing cultural annotations, CRAFT formulas or checkpoints.
 
+## 0. Status after Issue #11
+
+Implemented in the integrated package (synthetic tests only):
+
+| Interface | Module | Tests |
+| --- | --- | --- |
+| `SchemaVocabulary` (PAD = 0, nodes 1..N, CKG SHA-256) | `ansg.data.training_examples` | `tests/unit/test_training_examples.py` |
+| Dialect table MSA/Egyptian/Levantine/Gulf/Maghrebi → 0..4; unknown labels raise | same | same |
+| `TrainingExample` + `ansg-build-examples` CLI (withheld text skipped and counted) | same | same |
+| `NarrativeDataset`: missing `dialect_id` → −1 (unknown), missing `schema_ids` → `[]` | `ansg.data.training_dataset` | `tests/test_model_data_contract.py` |
+| DAL: id −1 → soft gate for that row; known ids unchanged | `ansg.dal` | same |
+| `schema_mask` through collate → CSAM → pairwise bias → DAL summary (#9) | `ansg.model`, `ansg.csam` | `tests/test_schema_padding.py`, E2E |
+| End-to-end synthetic path | `scripts/e2e_smoke.py` | `tests/integration/test_end_to_end_model.py` |
+
+Sections 1–7 below describe the situation **before** Issue #11 and are kept for traceability.
+
 ## 1. What each side exposes today
 
 ### Data/knowledge layer (this branch, torch-free)

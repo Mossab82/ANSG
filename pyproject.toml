@@ -5,20 +5,24 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "ansg"
 version = "0.1.0.dev0"
-description = "ANSG: Automated Arabic Narrative Story Generation — research implementation (Phase 1: data and knowledge infrastructure)"
+description = "ANSG: Automated Arabic Narrative Story Generation — research implementation (data/knowledge layer + PyTorch CSAM/DAL model)"
 readme = "README.md"
 requires-python = ">=3.10"
-# Phase 1 core deliberately depends only on PyYAML: the data/knowledge layer must be
-# importable and testable without GPU stacks. Model dependencies live in extras.
+# The data/knowledge layer must stay importable without PyTorch (Issue #6/#11);
+# model code and its runtime dependencies are in the `model` extra.
 dependencies = [
     "PyYAML>=6.0",
 ]
 
 [project.optional-dependencies]
 test = ["pytest>=7.4"]
-# Phase 2+ (CSAM / DAL / RL). Exact versions must be pinned once the dissertation's
-# reported software versions are reconciled (see docs/IMPLEMENTATION_GAPS.md).
-model = ["torch>=2.1", "transformers>=4.40"]
+# Model, training and generation (formerly core dependencies of ansg-research).
+# Exact versions must follow the reconciled thesis environment (C-ENV-1).
+model = ["torch>=2.1", "numpy>=1.24"]
+# Optional Hugging Face backbone bridge (ansg.pretrained.PretrainedANSG.from_pretrained).
+pretrained = ["transformers>=4.40"]
+# BLEU/ROUGE helpers in ansg.evaluation.basic_metrics.
+metrics = ["sacrebleu>=2.4", "rouge-score>=0.1.2"]
 ontology = ["rdflib>=7.0"]
 splits = ["scikit-learn>=1.2"]
 # Historical scripts at the repository root (not used by src/ansg). Listed for provenance only.
@@ -29,13 +33,16 @@ legacy = [
 
 [project.scripts]
 ansg-ingest = "ansg.data.pipeline:main"
+ansg-build-examples = "ansg.data.training_examples:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.pytest.ini_options]
+pythonpath = ["src"]
 testpaths = ["tests"]
 addopts = "-ra"
 markers = [
     "integration: end-to-end tests over fixture files",
+    "model: requires the `model` extra (PyTorch); skipped when it is not installed",
 ]

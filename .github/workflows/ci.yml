@@ -1,0 +1,120 @@
+name: ANSG CI
+
+# Single workflow for the integrated codebase (Issue #11). It replaces
+#   test.yml               (model branch)    -> job `full-stack`
+#   data-knowledge-tests.yml (Issue #6)      -> jobs `data-only` and `full-stack`
+#   integration-audit.yml  (Issue #3/#6)     -> topology guard + tooling tests run in
+#                                               `data-only`; contract probe in `full-stack`.
+# The cross-branch trial merge of integration-audit.yml is retired: both source
+# branches are merged here and the topology guard runs on every build.
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master, claude/model-data-integration]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    # `bash` = `bash -eo pipefail`, so `cmd | tee` cannot mask a failure.
+    shell: bash
+
+jobs:
+  data-only:
+    name: Data/knowledge layer without PyTorch / Python ${{ matrix.python }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.11", "3.13"]   # 3.10 = thesis Ch.5 §5.2.1 major version
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install (no model extra)
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[test]"
+      - name: PyTorch must not be installed
+        run: python -c "import importlib.util, sys; sys.exit(1 if importlib.util.find_spec('torch') else 0)"
+      - name: import ansg.data / knowledge / evaluation does not import torch
+        run: python -c "import sys, ansg.data, ansg.knowledge, ansg.evaluation; sys.exit(1 if 'torch' in sys.modules else 0)"
+      - name: Full suite (model tests are skipped explicitly)
+        run: |
+          mkdir -p evidence
+          python -m pytest -p no:cacheprovider -rs 2>&1 | tee evidence/pytest_data_only_py${{ matrix.python }}.txt
+      - name: Only model or optional-extra tests may be skipped
+        run: |
+          python - <<'EOF'
+          import re, sys
+          text = open("evidence/pytest_data_only_py${{ matrix.python }}.txt", encoding="utf-8").read()
+          reasons = re.findall(r"^SKIPPED \[\d+\] [^:]+:\d+: (.*)$", text, re.M)
+          allowed = ("model extra (PyTorch) not installed", "could not import 'rdflib'", "could not import 'sklearn'")
+          bad = [r for r in reasons if not r.startswith(allowed)]
+          print("skip reasons:", reasons)
+          sys.exit(1 if bad else 0)
+          EOF
+      - name: Package topology (0 findings)
+        run: python tools/check_package_topology.py | tee evidence/topology_py${{ matrix.python }}.txt
+      - name: Parameter-audit document is current
+        run: python scripts/audit_parameters.py --check
+      - name: Ingestion CLI refuses to run without a licensed corpus (expected exit 2)
+        run: |
+          set +e
+          ansg-ingest --config configs/data/nights.yaml
+          test "$?" -eq 2
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evidence-data-only-py${{ matrix.python }}
+          path: evidence/
+
+  full-stack:
+    name: Full stack (PyTorch CPU + all test extras) — one tree, no skips
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install CPU PyTorch, then the package with model + test extras
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu torch
+          python -m pip install -e ".[test,model,ontology,splits]"
+      - name: Complete combined test suite; fail if anything is skipped
+        run: |
+          mkdir -p evidence
+          python -m pytest -p no:cacheprovider -rs 2>&1 | tee evidence/pytest_full.txt
+          if grep -Eq "[0-9]+ skipped" evidence/pytest_full.txt; then echo "unexpected skipped tests"; exit 1; fi
+      - name: Package topology (0 findings)
+        run: python tools/check_package_topology.py
+      - name: Appendix A.3 dimension check (model branch script)
+        run: python scripts/validate_spec.py | tee evidence/validate_spec.txt
+      - name: Parameter counts of the executable smoke config (model branch script)
+        run: python scripts/parameter_audit.py --config configs/smoke.json | tee evidence/parameter_audit_smoke.json
+      - name: Smoke training on synthetic demo data (flagged synthetic)
+        run: |
+          python train.py --epochs 1 --output runs/smoke | tee evidence/train_smoke.txt
+          python -c "import json,sys; m=json.load(open('runs/smoke/run_manifest.json')); sys.exit(0 if m['data_label']=='synthetic' and m['historical_experiment'] is False else 1)"
+          cp runs/smoke/run_manifest.json evidence/train_smoke_manifest.json
+      - name: Three-stage pipeline smoke (CE -> adversarial -> PPO, surrogate reward)
+        run: python train_pipeline.py --output runs/pipeline --steps-per-stage 1 > evidence/train_pipeline.json
+      - name: Evaluation CLI on the smoke checkpoint (generations only, no metrics)
+        run: python evaluate.py --checkpoint runs/smoke/checkpoint.pt --test-data examples/demo.jsonl --output evidence/evaluate_smoke.json --max-new-tokens 8
+      - name: Synthetic end-to-end smoke test (data -> activation -> CSAM/DAL -> generation)
+        run: |
+          python scripts/e2e_smoke.py --output runs/e2e_smoke | tee evidence/e2e_smoke.txt
+          cp runs/e2e_smoke/e2e_report.json evidence/e2e_report.json
+      - name: Contract probe on the unified tree (regression; FINDINGs are documented)
+        run: python tools/integration_probe.py --core . --data . --json evidence/probe_unified.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evidence-full-stack
+          path: evidence/

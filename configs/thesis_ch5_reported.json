@@ -1,0 +1,11 @@
+{
+  "reported_total_parameters": 847000000,
+  "reported_base_parameters": 774000000,
+  "reported_cultural_parameters": 73000000,
+  "epochs": {"supervised": 30, "adversarial": 35, "ppo": 35},
+  "reward_weights": {"cultural": 0.45, "linguistic": 0.35, "coherence": 0.20},
+  "gpu": "4 x NVIDIA A100 40GB",
+  "torch": "2.0.1",
+  "transformers": "4.30.2",
+  "validation_status": "reported-only; not directly runnable"
+}
