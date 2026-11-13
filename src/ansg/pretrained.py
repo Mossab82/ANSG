@@ -39,8 +39,14 @@ class PretrainedANSG(nn.Module):
             raise RuntimeError('Install transformers for pretrained integration') from exc
         return cls(AutoModelForCausalLM.from_pretrained(model_name),**kwargs)
 
-    def forward(self,input_ids,schema_ids,dialect_ids=None,labels=None,attention_mask=None,schema_mask=None):
-        out=self.backbone(input_ids=input_ids,attention_mask=attention_mask,output_hidden_states=True,return_dict=True)
+    def forward(self,input_ids,schema_ids,dialect_ids=None,labels=None,attention_mask=None,schema_mask=None,
+                past_key_values=None,use_cache=False):
+        # Issue #15: optional backbone KV cache for incremental generation. CSAM (token->schema
+        # cross-attention) and DAL act per position, so the newest positions' outputs only need
+        # the newest backbone hidden states. Defaults keep the previous behaviour unchanged.
+        extra={'past_key_values':past_key_values,'use_cache':True} if use_cache else {}
+        out=self.backbone(input_ids=input_ids,attention_mask=attention_mask,output_hidden_states=True,
+                          return_dict=True,**extra)
         original=out.hidden_states[-1]
         if schema_mask is None:
             schema_mask = schema_ids.ne(0)
@@ -53,6 +59,8 @@ class PretrainedANSG(nn.Module):
         states=self.final_ln(self.dal(original+adapted,summary,dialect_ids))
         logits=self.backbone.get_output_embeddings()(states)
         result={'logits':logits}
+        if use_cache:
+            result['past_key_values']=out.past_key_values
         if labels is not None:
             result['loss']=F.cross_entropy(logits[:,:-1].reshape(-1,logits.size(-1)),labels[:,1:].reshape(-1),ignore_index=-100)
         return result

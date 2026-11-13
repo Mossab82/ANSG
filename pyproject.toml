@@ -34,6 +34,8 @@ legacy = [
 [project.scripts]
 ansg-ingest = "ansg.data.pipeline:main"
 ansg-build-examples = "ansg.data.training_examples:main"
+ansg-generate = "ansg.generation.cli:main"
+ansg-generation-readiness = "ansg.generation.readiness:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
