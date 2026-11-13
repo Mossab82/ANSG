@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SYNTHETIC TEST FIXTURE: structure mirrors legacy Verb-net.py + standard VerbNet; not ArabicVerbNet data. -->
+<VNCLASS ID="test-write-1">
+  <MEMBERS>
+    <MEMBER name="kataba" transname="كتب">
+      <Root name="ك ت ب"/>
+      <Deverbal name="كتابة"/>
+      <Deverbal name="كتب"/>
+      <Participle name="كاتب"/>
+    </MEMBER>
+    <MEMBER name="sajjala" transname="سجل">
+      <Root name="س ج ل"/>
+    </MEMBER>
+  </MEMBERS>
+  <THEMROLES>
+    <THEMROLE type="Agent">
+      <SELRESTRS><SELRESTR Value="+" type="animate"/></SELRESTRS>
+    </THEMROLE>
+    <THEMROLE type="Theme"><SELRESTRS/></THEMROLE>
+  </THEMROLES>
+  <FRAMES>
+    <FRAME>
+      <DESCRIPTION descriptionNumber="0.1" primary="NP V NP" secondary="Basic Transitive"/>
+      <EXAMPLES><EXAMPLE>كتب الولد الرسالة</EXAMPLE></EXAMPLES>
+      <SYNTAX>
+        <VERB/>
+        <NP value="Agent"/>
+        <NP value="Theme"/>
+      </SYNTAX>
+      <SEMANTICS>
+        <PRED value="cause"><ARGS><ARG type="ThemRole" value="Agent"/><ARG type="Event" value="E"/></ARGS></PRED>
+        <PRED value="exist" bool="!"><ARGS><ARG type="ThemRole" value="Theme"/></ARGS></PRED>
+      </SEMANTICS>
+    </FRAME>
+    <FRAME>
+      <DESCRIPTION primary="NP V PP"/>
+      <SYNTAX>
+        <VERB/>
+        <NP value="Agent"/>
+        <PREP value="على"/>
+        <NP value="Theme"/>
+      </SYNTAX>
+    </FRAME>
+  </FRAMES>
+  <SUBCLASSES>
+    <VNSUBCLASS ID="test-write-1-1">
+      <MEMBERS>
+        <MEMBER transname="دون"><Root name="د و ن"/></MEMBER>
+      </MEMBERS>
+      <THEMROLES><THEMROLE type="Recipient"/></THEMROLES>
+      <FRAMES/>
+      <SUBCLASSES/>
+    </VNSUBCLASS>
+  </SUBCLASSES>
+</VNCLASS>

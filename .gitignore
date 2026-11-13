@@ -13,3 +13,8 @@ data/private/
 *.pt
 *.pth
 *.safetensors
+
+# ANSG derived data and build artefacts
+data/processed/
+*.egg-info/
+.pytest_cache/

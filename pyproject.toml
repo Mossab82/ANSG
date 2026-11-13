@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ansg"
+version = "0.1.0.dev0"
+description = "ANSG: Automated Arabic Narrative Story Generation — research implementation (Phase 1: data and knowledge infrastructure)"
+readme = "README.md"
+requires-python = ">=3.10"
+# Phase 1 core deliberately depends only on PyYAML: the data/knowledge layer must be
+# importable and testable without GPU stacks. Model dependencies live in extras.
+dependencies = [
+    "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7.4"]
+# Phase 2+ (CSAM / DAL / RL). Exact versions must be pinned once the dissertation's
+# reported software versions are reconciled (see docs/IMPLEMENTATION_GAPS.md).
+model = ["torch>=2.1", "transformers>=4.40"]
+ontology = ["rdflib>=7.0"]
+splits = ["scikit-learn>=1.2"]
+# Historical scripts at the repository root (not used by src/ansg). Listed for provenance only.
+legacy = [
+    "mysql-connector-python", "nltk", "pyarabic", "tashaphyne", "polyglot",
+    "wikipedia-api", "scikit-learn", "pandas", "textblob", "rake-nltk", "requests",
+]
+
+[project.scripts]
+ansg-ingest = "ansg.data.pipeline:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+markers = [
+    "integration: end-to-end tests over fixture files",
+]

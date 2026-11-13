@@ -1,0 +1,27 @@
+# Linguistic resources (Phase 1). Paths are relative to the repository root.
+
+arabic_verbnet:
+  # The legacy Verb-net.py read "mm/*.xml". Place the ArabicVerbNet XML class files here.
+  directory: data/private/arabic_verbnet
+  pattern: "*.xml"
+  # Member attribute holding the verb form, in priority order. "transname" is
+  # what the legacy script used; "name" is the standard VerbNet attribute.
+  verb_attributes: [transname, name]
+
+arabic_namenet:
+  # FORMAT UNVERIFIED — no ArabicNameNet file or reader exists in this repository.
+  # Fill this mapping once the real resource is supplied.
+  entities:
+    path: data/private/arabic_namenet/entities.tsv
+    format: tsv            # csv | tsv | jsonl
+    columns:
+      id: null             # column holding a stable id (null -> row number)
+      name: null           # REQUIRED: column holding the Arabic name
+      type: null           # column holding the entity type
+      variants: null       # optional column of spelling variants
+    variant_separator: "|"
+    attribute_columns: []  # e.g. [gender, origin, meaning]
+  relations: null
+  #  path: data/private/arabic_namenet/relations.tsv
+  #  format: tsv
+  #  columns: {source: null, relation: null, target: null}

@@ -1,0 +1,172 @@
+# CRAFT evaluation specification registry — transcribed from the dissertation.
+# Full analysis: docs/CRAFT_EVALUATION_SPECIFICATION.md. Conflicts: docs/SPECIFICATION_CONFLICTS.md.
+#
+# No CRAFT metric has a computable definition in the thesis, so every entry is
+# "incomplete" and ansg.evaluation.craft refuses to compute it.
+#
+# The four "dimensions" are the grouping requested in the Phase 1 brief. The thesis
+# itself describes CRAFT in three incompatible ways (C-EVAL-1):
+#   (a) Ch.6 intro: ontology-driven test over 847 CST-Onto concepts; dimensions
+#       = virtue concepts, character archetypes, formulaic expressions;
+#   (b) Ch.6 §6.2.4: "4 dimensions (CMPI, CulturalScore, ALDA, MFA)";
+#   (c) Ch.6 Table 6.4: Rhetoric, Formulaic, Metaphor, Prosody, Moral Framework (+ overall CMPI).
+
+dimensions:
+  - cultural_authenticity
+  - dialectal_fidelity
+  - linguistic_quality
+  - narrative_coherence
+
+metrics:
+  - name: CMPI
+    dimension: cultural_authenticity
+    status: incomplete
+    thesis_reference: "Ch.4 §4.5.1 (Eq.4.26 term); Ch.5 §5.1; Ch.6 intro; App. A.1 Table A.2"
+    equation: null
+    range: [0.0, 1.0]
+    higher_is_better: true
+    requires: [ckg, cst_onto]
+    notes: >-
+      No equation anywhere. Expanded as 'Cultural Motif Preservation Index' (Ch.4, Ch.6, glossary)
+      and 'Cultural Meaning Preservation Index' (Ch.5, Table A.2). Ch.5 §5.1 gives weights rhetorical
+      0.35 / dialectal 0.25 / narrative structure 0.25 / moral 0.15 without sub-metric definitions;
+      Ch.6 says 'hierarchical schema activation scoring' from CULTURA; Table A.2 says 'defined in
+      Chapter 4' but Ch.4 points to §3.6.1 (CRD). Table 6.4 'Overall CMPI' is not a function of the
+      listed dimension scores (ANSG: mean 0.852, overall 0.92). C-EVAL-2.
+
+  - name: CulturalScore
+    dimension: cultural_authenticity
+    status: incomplete
+    thesis_reference: "Ch.6 intro; Ch.3 §3.6.1"
+    range: [0.0, 1.0]
+    higher_is_better: true
+    notes: >-
+      From NarrativeMind; assesses saj', jinas, tibaq presence/appropriateness; human ceiling 0.96.
+      No formula. Ch.3 §3.6.1 instead uses 'CulturalScore' as AHP-based expert ratings on 0-100. C-EVAL-5.
+
+  - name: MFA
+    dimension: cultural_authenticity
+    status: incomplete
+    thesis_reference: "Glossary ('Moral Framework Alignment'); Ch.6 §6.2.4; Table 6.4 'Moral Framework'"
+    range: [0.0, 1.0]
+    higher_is_better: true
+    notes: "No definition. Would presumably use MORAL annotations / CST-Onto SWRL virtue rules — not stated."
+
+  - name: ALDA
+    dimension: dialectal_fidelity
+    status: incomplete
+    thesis_reference: "Glossary ('Arabic Linguistic Dialectal Accuracy'); Ch.6 §6.2.3 Table 6.6; Table 6.9"
+    higher_is_better: true
+    notes: >-
+      Table 6.6 reports four sub-measures (consistency %, native authenticity 1-5, register accuracy %,
+      code-switch quality /5) with no formulas or aggregation. Reported as % (92.3%, Table 6.9) and as
+      0.89 (App. A.26 Listing A.11). C-EVAL-6.
+
+  - name: PCI
+    dimension: narrative_coherence
+    status: incomplete
+    thesis_reference: "Glossary ('Plot Coherence Index'); Ch.4 Table 4.1, §4.1.1"
+    higher_is_better: true
+    notes: "Used as the coherence reward in Table 4.1 / §4.1.1. No definition."
+
+  - name: BLEU-4
+    dimension: linguistic_quality
+    status: incomplete
+    thesis_reference: "Ch.4 Eq.4.27; Ch.6 §6.1.2"
+    higher_is_better: true
+    notes: >-
+      Standard metric, but tokenisation, smoothing and reference sets are not stated. Eq.4.27 uses
+      'reference narratives from ANHC classical stratum' (reward) — contradicts 'RL without
+      ground-truth references' (RQ4). Reported both as 0-1 (0.34, 0.67) and 0-100 (35.8). C-REWARD-3.
+
+  - name: BERTScore
+    dimension: linguistic_quality
+    status: incomplete
+    thesis_reference: "Ch.4 Eq.4.27; App. A.13.2"
+    higher_is_better: true
+    notes: "'using AraBERT embeddings' — model version, layer and rescaling not stated."
+
+  - name: Perplexity
+    dimension: linguistic_quality
+    status: incomplete
+    thesis_reference: "Ch.4 Eq.4.27, §4.5.4; Ch.5 §5.6.3"
+    higher_is_better: false
+    notes: "Scoring LM not stated; Eq.4.27 uses Perplexity^-1 'normalized to [0,1]' (15.3 -> 0.82) with no rule. C-REWARD-5."
+
+  - name: ROUGE-L
+    dimension: linguistic_quality
+    status: incomplete
+    thesis_reference: "App. A.13.2"
+    higher_is_better: true
+    notes: "Listed only in the automatic pipeline; no results reported."
+
+  - name: AGAS
+    dimension: linguistic_quality
+    status: incomplete
+    thesis_reference: "Glossary only ('Arabic Grammatical Accuracy Score')"
+    notes: "Never defined or reported in Chapters 3-6."
+
+  - name: CCS
+    dimension: narrative_coherence
+    status: incomplete
+    thesis_reference: "Glossary only ('Character Consistency Score')"
+    notes: "Never defined or reported in Chapters 3-6."
+
+aggregation:
+  # Table 4.16 / §6.4.4 mention a 'Combined CRAFT score'; Table 4.15 '4-dimensional scoring'.
+  # No aggregation formula or weights are given for CRAFT itself (the AHP weights belong to the RL reward).
+  weights: null
+  verified: false
+  thesis_reference: null
+
+# Fully specified procedures (implemented in ansg.evaluation.statistics / corpus_metrics):
+specified_procedures:
+  gap_closure: {equation: "(ANSG - Baseline) / (Human - Baseline)", thesis_reference: "Ch.6 Eq.6.1"}
+  score_normalization: {equation: "(Raw - min)/(max - min) * 100", thesis_reference: "App. A.10.2 Eq.A.1"}
+  crd: {equation: "sum_i 1[token_i in M_cultural] / total tokens * 1000", thesis_reference: "Ch.3 Eq.3.1",
+        caveat: "multi-word markers and tokenizer unspecified; lexicon (2,847 entries) not supplied"}
+
+generation:
+  # Ch.6 §6.1.2 vs App. A.5 (GPT-4: top_p 0.9) — C-EVAL-7
+  temperature: 0.7
+  top_p: 0.95
+  max_new_tokens: 512
+  seed: 42
+
+test_set_variants:
+  ch6_6_1_2: {n: 500, stratified_by: {dialect: 5, genre: 4, period: 3}}
+  appendix_a14: {n: 500, composition: {msa_classical: 100, msa_contemporary: 100, egyptian: 100, levantine: 75, gulf: 75, maghrebi: 50}, avg_tokens: 712}
+  ch5_split: {n: 525, source: "§5.4.4 test split"}
+  table_6_6_dialect_n: {gulf: 150, egyptian: 200, msa: 250, levantine: 175, maghrebi: 125, total: 900}
+
+human_evaluation_variants:
+  ch6_6_1_3:
+    n_raters: 5
+    panel: "2 PhD classical Arabic literature (Al-Azhar, Cairo); 1 PhD sociolinguistics; 1 PhD comparative literature; 1 hakawati (25+ y)"
+    items_per_system: 200
+    scale: [1, 5]
+    dimensions: [fluency, coherence, cultural_authenticity, overall_quality]
+    blinding: "system identity hidden; per-rater randomised order; same prompt shown with all outputs"
+    justification_required: "ratings at the scale extremes (symbols illegible in export: '<=2 or >=5' presumed)"
+    disagreement: "SD > 1.0 -> committee discussion to within +/-0.5"
+    reported_agreement: {fleiss_kappa: 0.82, icc: 0.87}
+    statistics: "paired t-tests, Bonferroni (9 comparisons), Cohen's d, 95% CI"
+  appendix_a13_1:
+    n_raters: 5
+    panel: "5 PhDs in Arabic literature: 2 Levantine, 1 Egyptian, 1 Gulf, 1 Maghrebi; >=10 y; EUR 50/h"
+    items_per_rater: 200
+    scale: [1, 5]
+    n_dimensions: 4
+    quality_control: "10% duplicates (intra-rater), attention checks, target kappa > 0.7"
+  appendix_a24:
+    n_raters: 30
+    panel: "Egypt 8, Levant 7, Gulf 6, Maghreb 5, MSA specialists 4; Master's/PhD"
+    training: "4-hour workshop; 20 calibration narratives; final calibration ICC 0.84"
+    scale: [1, 5]
+    dimensions: [fluency, coherence, cultural_authenticity]
+    statistics: "mixed-effects (rater random effect; system, dialect, length fixed); Tukey HSD + Bonferroni"
+    error_thresholds:
+      grammatical: ">=2 major (case/agreement/tense) OR >=5 minor (spelling/punctuation)"
+      coherence: ">=1 significant contradiction OR >=3 unclear referents"
+      cultural: ">=1 severe violation OR >=3 minor violations"
+      register: ">=2 inappropriate dialect/formal mixings in the same context"

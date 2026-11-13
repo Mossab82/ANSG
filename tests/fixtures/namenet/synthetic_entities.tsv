@@ -1,0 +1,5 @@
+entity_id	name	type	variants	gender
+e1	شهريار	person		m
+e2	شهرزاد	person	شهرازاد|شهرزاد	f
+e3	شاه الزمان	person		m
+e4	سمرقند	place		

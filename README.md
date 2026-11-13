@@ -106,11 +106,24 @@ The project is being consolidated from earlier Arabic NLP utilities and independ
 | [`docs/`](docs/) | Research governance, technical audits, architecture decisions and integration plan |
 | [`tools/`](tools/) | Repository integrity, packaging and cross-branch verification tools |
 | [`tests/`](tests/) | Automated validation and synthetic integration checks |
+| [`src/ansg/`](src/ansg/) | Data and knowledge layer: One Thousand and One Nights ingestion, Arabic normalisation, ANHC records (DIA/MOTIF/MORAL), ArabicVerbNet/ArabicNameNet adapters, CKG/CST-Onto interfaces, CRAFT specification registry and supported statistics (no PyTorch dependency) |
+| [`configs/`](configs/), [`scripts/`](scripts/) | Data, knowledge, evaluation and dissertation-variant configurations; resource inspection and parameter-audit scripts |
 | [`implementation/ansg-core-2026`](../../tree/implementation/ansg-core-2026) | PyTorch research model, CSAM, DAL and training prototypes |
 | [`claude/relaxed-knuth-q63k61`](../../tree/claude/relaxed-knuth-q63k61) | Arabic data ingestion, ANHC records, CKG adapters and evaluation interfaces |
 | [`chatgpt/fix-csam-schema-padding`](../../tree/chatgpt/fix-csam-schema-padding) | Independent CSAM masking and batching corrections under review |
 
-**Development note:** The default branch currently retains the historical scripts and shared governance/integration tooling. Some newer components are in the linked development branches pending compatibility review and integration. The branches are not interchangeable runnable releases.
+**Development note:** The default branch currently retains the historical scripts and shared governance/integration tooling. Some newer components are in the linked development branches pending compatibility review and integration. The branches are not interchangeable runnable releases. The data and knowledge layer from `claude/relaxed-knuth-q63k61` is included in the default branch (Issue #6); the PyTorch model is not yet.
+
+### Data and knowledge layer: quick start
+
+```bash
+python -m pip install -e ".[test]"         # no PyTorch required
+python -m pytest                           # synthetic fixtures only
+python tools/check_package_topology.py     # must report 0 findings
+ansg-ingest --config configs/data/nights.yaml   # requires your licensed corpus under data/private/
+```
+
+Dissertation specifications and their inter-chapter conflicts are transcribed in [`docs/EXPERIMENTAL_SPECIFICATIONS.md`](docs/EXPERIMENTAL_SPECIFICATIONS.md) and [`docs/SPECIFICATION_CONFLICTS.md`](docs/SPECIFICATION_CONFLICTS.md); interfaces to the model are in [`docs/MODEL_INTEGRATION_INTERFACES.md`](docs/MODEL_INTEGRATION_INTERFACES.md).
 
 ## Research implementation and verification
 

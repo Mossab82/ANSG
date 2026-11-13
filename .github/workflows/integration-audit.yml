@@ -15,14 +15,17 @@ permissions:
 
 jobs:
   governance-checks:
-    name: Topology guard + its tests (stdlib only)
+    name: Topology guard + integration tooling tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: python -m pip install --upgrade pip pytest
+      - name: Install this tree (data/knowledge layer, no torch)
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[test]"
       - name: Package topology of this tree
         run: python tools/check_package_topology.py
       - name: Unit tests for the integration tooling
@@ -61,12 +64,14 @@ jobs:
           set -euo pipefail
           python tools/check_package_topology.py --root ../core
           python tools/check_package_topology.py --root ../data
-      - name: Trial merge in a throwaway worktree (never pushed)
+      - name: Trial merge of the model branch into this tree (throwaway worktree, never pushed)
         run: |
           set -euo pipefail
-          git worktree add --detach ../trial origin/master
+          # Start from the tree under test (it already contains the data/knowledge layer since
+          # Issue #6) and merge only the model branch. Re-merging the old data branch into
+          # master stopped being conflict-free once master's README was rewritten (a83a3e9).
+          git worktree add --detach ../trial HEAD
           cd ../trial
-          git -c user.name=audit -c user.email=audit@invalid merge -q --no-edit origin/claude/relaxed-knuth-q63k61
           git -c user.name=audit -c user.email=audit@invalid merge --no-edit origin/implementation/ansg-core-2026 \
             > ../trial_merge.txt 2>&1 || true
           cat ../trial_merge.txt | tee -a "$GITHUB_WORKSPACE/audit-evidence/trial_merge.txt"

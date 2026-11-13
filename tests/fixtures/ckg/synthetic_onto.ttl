@@ -1,0 +1,6 @@
+# SYNTHETIC TEST FIXTURE — not CST-Onto.
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix t: <urn:test:onto#> .
+t:CulturalSchema a owl:Class ; rdfs:label "Schema"@en , "مخطط"@ar .
+t:Motif a owl:Class ; rdfs:subClassOf t:CulturalSchema ; rdfs:label "Motif"@en .

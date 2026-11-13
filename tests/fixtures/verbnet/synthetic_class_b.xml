@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SYNTHETIC TEST FIXTURE (legacy-shaped: no IDs, no THEMROLES). -->
+<VNCLASS>
+  <MEMBERS>
+    <MEMBER transname="ذهب"><Root name="ذ ه ب"/><Participle name="ذاهب"/></MEMBER>
+  </MEMBERS>
+  <FRAMES>
+    <FRAME><DESCRIPTION primary="NP V PP"/><SYNTAX><NP value="Theme"/><VERB/><PREP value="إلى"/><NP value="Destination"/></SYNTAX></FRAME>
+  </FRAMES>
+</VNCLASS>
