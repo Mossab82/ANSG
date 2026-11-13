@@ -1,0 +1,21 @@
+# Cultural Knowledge Graph (CKG) and CST-Onto.
+#
+# "declared" = structure stated in the dissertation, transcribed by hand with a
+# section reference. It is used ONLY to check supplied data; it never creates
+# nodes. All values are null until transcribed and verified.
+
+data:
+  graph_json: data/private/ckg/ckg.json          # supplied CKG export (format: src/ansg/knowledge/ckg.py)
+  cst_onto: data/private/ckg/cst_onto.ttl        # supplied CST-Onto ontology (OWL/Turtle), optional
+  cst_onto_format: turtle
+
+declared:
+  source_reference: null        # e.g. "Dissertation §3.x / Table 3.y" — UNVERIFIED
+  ontology_class_count: null    # number of CST-Onto classes stated in the thesis — UNVERIFIED
+  node_kinds: null              # e.g. [motif, schema, ...] — UNVERIFIED
+  relation_types: null          # schema relationship types — UNVERIFIED
+  node_counts_by_kind: {}       # e.g. {schema: N, motif: M} — UNVERIFIED
+
+activation:
+  # The thesis schema-activation function is not yet transcribed.
+  method: null

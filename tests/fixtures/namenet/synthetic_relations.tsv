@@ -1,0 +1,4 @@
+source	rel	target
+e1	sibling_of	e3
+e3	ruler_of	e4
+e1	spouse_of	e9
