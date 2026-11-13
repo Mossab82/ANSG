@@ -24,7 +24,7 @@ from .anhc import import_annotations, write_jsonl
 from .nights import NightsConfig, ingest_file
 from .normalization import NormalizationConfig
 from .records import AnnotationStatus, LabelInventory, SourceProvenance, validate_record
-from .splits import SplitConfig, assign_splits
+from .splits import SplitConfig, assign_splits, cluster_records_dbscan
 
 
 class MissingSourceError(FileNotFoundError):
@@ -36,6 +36,7 @@ def run_pipeline(config: Mapping[str, Any], base_dir: Path) -> dict[str, Any]:
     nights_cfg = NightsConfig.from_mapping(config.get("nights"))
     split_section = dict(config.get("splits") or {})
     predefined_file = split_section.pop("predefined_file", None)
+    dbscan_cfg = split_section.pop("cluster_dbscan", None)
     if predefined_file:
         with open(resolve_path(predefined_file, base_dir), encoding="utf-8") as fh:
             split_section["predefined"] = json.load(fh)
@@ -79,6 +80,11 @@ def run_pipeline(config: Mapping[str, Any], base_dir: Path) -> dict[str, Any]:
         msg = "\n".join(f"{i.record_id}: {i.message}" for i in errors[:20])
         raise ValueError(f"{len(errors)} validation error(s):\n{msg}")
 
+    if dbscan_cfg is not None:
+        if split_cfg.group_by != "split_cluster":
+            raise ValueError("splits.cluster_dbscan requires splits.group_by: split_cluster")
+        clusters = cluster_records_dbscan(records, **dict(dbscan_cfg))
+        manifest.stats["n_split_clusters"] = len(set(clusters.values()))
     assignment = assign_splits(records, split_cfg)
     out_dir.mkdir(parents=True, exist_ok=True)
     split_counts: dict[str, int] = {}

@@ -20,7 +20,16 @@ from typing import Any, Mapping
 import yaml
 
 _ENV_REF = re.compile(r"^\$\{env:([A-Z_][A-Z0-9_]*)\}$")
-_SECRET_KEY = re.compile(r"(password|passwd|secret|token|api[_-]?key|credential)", re.I)
+# Key components (split on "_", "-", ".") that denote credentials. Matching whole
+# components avoids false positives such as "tokenizer" or "max_new_tokens".
+_SECRET_PARTS = {"password", "passwd", "pwd", "secret", "token", "apikey", "credential",
+                 "credentials", "auth"}
+_SECRET_JOINED = re.compile(r"api[_-]?key|access[_-]?key|private[_-]?key", re.I)
+
+
+def _looks_secret(key: str) -> bool:
+    parts = {p for p in re.split(r"[_\-.]", key.lower()) if p}
+    return bool(parts & _SECRET_PARTS) or bool(_SECRET_JOINED.search(key))
 
 
 class ConfigError(ValueError):
@@ -32,7 +41,7 @@ def _resolve(node: Any, path: str) -> Any:
         out: dict[str, Any] = {}
         for k, v in node.items():
             key_path = f"{path}.{k}" if path else str(k)
-            if _SECRET_KEY.search(str(k)) and isinstance(v, str) and v and not _ENV_REF.match(v):
+            if _looks_secret(str(k)) and isinstance(v, str) and v and not _ENV_REF.match(v):
                 raise ConfigError(
                     f"Config key '{key_path}' looks like a credential; use '${{env:NAME}}' "
                     "instead of a literal value."

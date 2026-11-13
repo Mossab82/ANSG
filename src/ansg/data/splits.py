@@ -23,6 +23,7 @@ been verified in this repository (see ``docs/EXPERIMENTAL_SPECIFICATIONS.md``).
 from __future__ import annotations
 
 import hashlib
+from collections import Counter
 from dataclasses import dataclass, field
 from typing import Any, Callable, Literal, Mapping, Sequence
 
@@ -38,7 +39,7 @@ class SplitConfig:
         default_factory=lambda: {"train": 0.8, "validation": 0.1, "test": 0.1}
     )
     seed: int = 0
-    group_by: Literal["record_id", "parent_story_id", "title"] = "record_id"
+    group_by: Literal["record_id", "parent_story_id", "title", "split_cluster"] = "record_id"
     predefined: Mapping[str, str] | None = None  # key -> split name
     predefined_key: Literal["record_id", "group"] = "record_id"
 
@@ -66,6 +67,11 @@ def _group_key(rec: NarrativeRecord, by: str) -> str:
         return rec.narrative.parent_story_id or rec.record_id
     if by == "title":
         return rec.narrative.title or rec.record_id
+    if by == "split_cluster":
+        cid = rec.narrative.extra.get("split_cluster")
+        if cid is None:
+            raise KeyError(f"{rec.record_id}: no split_cluster; run cluster_records_dbscan first")
+        return str(cid)
     raise ValueError(f"unknown group_by {by!r}")
 
 
@@ -148,3 +154,57 @@ def check_no_leakage(
     for r in records:
         seen.setdefault(group_fn(r), set()).add(r.split)
     return sorted(g for g, s in seen.items() if len(s) > 1)
+
+
+def cluster_records_dbscan(
+    records: Sequence[NarrativeRecord],
+    eps: float = 0.3,
+    min_samples: int = 2,
+    metric: str = "cosine",
+    tfidf_kwargs: Mapping[str, Any] | None = None,
+) -> dict[str, str]:
+    """Narrative-level clustering for leakage control — dissertation Ch. 5 §5.4.4.
+
+    "Compute TF-IDF representations for all narratives; cluster using DBSCAN
+    (ε = 0.3, min_samples = 2); assign entire clusters to a single split."
+    Motivated by multi-witness texts (Bulaq / Calcutta II / Mahdi, §3.2.4).
+
+    Not specified by the thesis and therefore explicit arguments here:
+    the distance ``metric`` (cosine is assumed because ε = 0.3 is only
+    meaningful on a bounded distance), and the TF-IDF settings (tokeniser,
+    n-grams, weighting) — scikit-learn defaults unless ``tfidf_kwargs`` is given.
+    DBSCAN noise points (label −1) each form their own singleton group.
+
+    Writes ``narrative.extra["split_cluster"]`` and returns ``record_id -> cluster``.
+    Requires scikit-learn (``pip install '.[splits]'``).
+    """
+    try:
+        from sklearn.cluster import DBSCAN  # type: ignore[import-not-found]
+        from sklearn.feature_extraction.text import TfidfVectorizer  # type: ignore[import-not-found]
+    except ImportError as exc:  # pragma: no cover - environment dependent
+        raise ImportError("cluster_records_dbscan requires scikit-learn: pip install '.[splits]'") from exc
+    if not records:
+        return {}
+    texts = [r.text for r in records]
+    x = TfidfVectorizer(**dict(tfidf_kwargs or {})).fit_transform(texts)
+    labels = DBSCAN(eps=eps, min_samples=min_samples, metric=metric).fit(x).labels_
+    out: dict[str, str] = {}
+    for rec, lab in zip(records, labels):
+        cid = f"noise:{rec.record_id}" if lab == -1 else f"dbscan:{int(lab)}"
+        rec.narrative.extra["split_cluster"] = cid
+        out[rec.record_id] = cid
+    return out
+
+
+def split_distribution(
+    records: Sequence[NarrativeRecord], key_fn: Callable[[NarrativeRecord], str | None]
+) -> dict[str, dict[str, float]]:
+    """Per-split proportion of each value of ``key_fn`` (e.g. dialect, period).
+
+    Ch. 5 §5.4.4 states stratification *targets* (dialect 35/25/20/15/5; cultural
+    density 30/50/20; period 35/30/35) but not how they are combined with cluster
+    assignment, so stratification is reported for comparison, not enforced."""
+    by_split: dict[str, Counter[str]] = {}
+    for r in records:
+        by_split.setdefault(r.split or "<none>", Counter())[str(key_fn(r))] += 1
+    return {sp: {k: v / sum(c.values()) for k, v in sorted(c.items())} for sp, c in sorted(by_split.items())}

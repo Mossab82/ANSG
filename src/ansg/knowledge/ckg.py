@@ -78,7 +78,10 @@ class DeclaredStructure:
     ontology_class_count: int | None = None
     relation_types: tuple[str, ...] | None = None
     node_kinds: tuple[str, ...] | None = None
-    source_reference: str | None = None  # e.g. "Dissertation §3.x, Table y" once verified
+    source_reference: str | None = None  # e.g. "Dissertation §3.1.4, Table A.16"
+    # Counts stated in the thesis that the in-memory graph cannot check directly
+    # (e.g. SWRL rules, datatype properties); carried into reports verbatim.
+    other_counts: Mapping[str, int | None] = field(default_factory=dict)
 
     @classmethod
     def from_mapping(cls, d: Mapping[str, Any] | None) -> "DeclaredStructure":
@@ -87,6 +90,7 @@ class DeclaredStructure:
             if d.get(k) is not None:
                 d[k] = tuple(d[k])
         d["node_counts_by_kind"] = dict(d.get("node_counts_by_kind") or {})
+        d["other_counts"] = dict(d.get("other_counts") or {})
         return cls(**d)
 
 
@@ -199,6 +203,7 @@ class CulturalKnowledgeGraph:
         onto_decl = declared.ontology_class_count
         return {
             "source_reference": declared.source_reference,
+            "other_declared_counts": dict(declared.other_counts),
             "nodes_by_kind": rows,
             "ontology_classes": {
                 "declared": onto_decl, "supplied": len(self.ontology),
@@ -270,6 +275,83 @@ class LexicalTriggerEvidence:
                         evidence.setdefault(node.node_id, []).append((s, e, text[s:e]))
                         scores[node.node_id] = scores.get(node.node_id, 0.0) + 1.0
         return ActivationScores(scores=scores, method=self.method, evidence=evidence)
+
+
+class CosineThresholdActivator:
+    """Schema activation by cosine similarity — dissertation Eq. (4.20) / App. A.4.
+
+    ``w_s = cos(e_context, c_s)``; schema ``s`` is active if ``w_s`` passes the
+    threshold. Two thesis variants exist (SPECIFICATION_CONFLICTS C-CSAM-5):
+
+    * Ch. 4 Eq. (4.20) / Table 4.2: ``w_s > τ`` with τ = 0.5, 768-d embeddings
+      (Eq. 4.8), "3–5 typical" active schemas;
+    * App. A.4 Table A.5: ``cos ≥ 0.75`` on 256-d embeddings, at most 50 active.
+
+    Embeddings are **inputs**: the thesis derives schema embeddings from
+    OWL2Vec* over CST-Onto (Eq. 4.8) and does not specify how the context
+    embedding is computed ("derived from the narrative segment"), so both the
+    schema vectors and ``context_encoder`` must be supplied.
+    """
+
+    def __init__(
+        self,
+        schema_embeddings: Mapping[str, Sequence[float]],
+        context_encoder: Any,
+        threshold: float,
+        inclusive: bool,
+        max_active: int | None = None,
+        method: str = "cosine_threshold",
+    ) -> None:
+        dims = {len(v) for v in schema_embeddings.values()}
+        if len(dims) > 1:
+            raise ValueError(f"schema embeddings have mixed dimensions {sorted(dims)}")
+        self.schema_embeddings = {k: list(v) for k, v in schema_embeddings.items()}
+        self.context_encoder = context_encoder
+        self.threshold = threshold
+        self.inclusive = inclusive
+        self.max_active = max_active
+        self.method = method
+
+    @staticmethod
+    def _cos(a: Sequence[float], b: Sequence[float]) -> float:
+        na = sum(x * x for x in a) ** 0.5
+        nb = sum(x * x for x in b) ** 0.5
+        if na == 0 or nb == 0:
+            return 0.0
+        return sum(x * y for x, y in zip(a, b)) / (na * nb)
+
+    def activate(self, text: str, graph: "CulturalKnowledgeGraph") -> ActivationScores:
+        ctx = list(self.context_encoder(text))
+        scores: dict[str, float] = {}
+        for nid in graph.nodes:
+            vec = self.schema_embeddings.get(nid)
+            if vec is None:
+                continue
+            if len(vec) != len(ctx):
+                raise ValueError(f"context dim {len(ctx)} != schema dim {len(vec)}")
+            sim = self._cos(ctx, vec)
+            if sim > self.threshold or (self.inclusive and sim == self.threshold):
+                scores[nid] = sim
+        if self.max_active is not None and len(scores) > self.max_active:
+            keep = sorted(scores, key=lambda k: (-scores[k], k))[: self.max_active]
+            scores = {k: scores[k] for k in keep}
+        return ActivationScores(scores=scores, method=self.method)
+
+
+def load_declared_variants(items: Iterable[Mapping[str, Any]] | None) -> dict[str, DeclaredStructure]:
+    """Parse ``declared_variants`` from ``configs/knowledge/ckg.yaml``.
+
+    The dissertation states incompatible counts in different places; each
+    statement is kept as its own declaration keyed by ``id``."""
+    out: dict[str, DeclaredStructure] = {}
+    for item in items or []:
+        d = dict(item)
+        vid = d.pop("id")
+        d.pop("notes", None)
+        if vid in out:
+            raise ValueError(f"duplicate declared variant {vid!r}")
+        out[vid] = DeclaredStructure.from_mapping(d)
+    return out
 
 
 def load_ontology_rdf(path: str | os.PathLike[str], fmt: str | None = None) -> list[OntologyClass]:

@@ -7,10 +7,18 @@ from ansg.evaluation.craft import (
 from ansg.utils.config import load_yaml_config
 
 
-def test_shipped_config_declares_no_metrics(tmp_path):
+def test_shipped_registry_is_transcribed_but_never_computes():
     cfg = load_yaml_config("configs/evaluation/craft.yaml")
-    assert cfg["metrics"] == []
     assert {CraftDimension(d) for d in cfg["dimensions"]} == set(CraftDimension)
+    reg = CraftRegistry.from_config(cfg)
+    report = reg.status_report()
+    assert {"CMPI", "CulturalScore", "ALDA", "MFA", "PCI"} <= set(report)
+    # Nothing in the thesis is complete enough to implement: every metric is incomplete
+    # and carries a thesis reference.
+    assert all(v["status"] == "incomplete" and v["thesis_reference"] for v in report.values())
+    with pytest.raises(MetricNotSpecifiedError):
+        reg.get("CMPI")([EvaluationSample("s", "نص")])
+    assert cfg["aggregation"]["weights"] is None
 
 
 def test_unimplemented_metric_refuses_to_score():

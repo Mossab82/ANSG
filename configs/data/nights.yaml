@@ -13,7 +13,10 @@ sources:
     provenance:
       source_id: alf_layla_ed1                     # short stable id used in record ids
       title: "ألف ليلة وليلة"
-      edition: null          # e.g. Bulaq 1835 / Calcutta II / Mahdi — UNVERIFIED which edition the thesis used
+      # Thesis Ch.3 §3.2.2: Mahdi critical edition (1984), 8.2M tokens; §3.2.4: parallel
+      # witnesses from Bulaq (1835) and Calcutta II (1839-42) are also included.
+      # Add one `sources` entry per witness file and enable splits.cluster_dbscan below.
+      edition: null          # e.g. "Mahdi 1984" / "Bulaq 1835" / "Calcutta II 1839-42"
       editor: null
       publisher: null
       year: null
@@ -24,6 +27,8 @@ sources:
       notes: null
 
 normalization:            # non-destructive defaults; see src/ansg/data/normalization.py
+  # profile: thesis_appendix_a8   # App. A.8: NFKC + alef normalisation + keep tashkeel
+  #                               # (conflicts with Ch.5 §5.4.1 dual stream, C-NORM-1)
   unicode_form: NFC
   fold_presentation_forms: true
   remove_invisible_controls: true
@@ -46,21 +51,37 @@ nights:
   # story_title_pattern: '...'
   keep_preamble: true
   keep_headings_in_text: true
+  # Ch.5 Table 5.4 formulae (reconstructed from the thesis transliterations; the
+  # Arabic script is corrupted in the supplied export — verify against the PDF).
+  include_thesis_table_5_4_formulae: false
+  formula_match_folded: true
 
 splits:
-  # UNVERIFIED: the dissertation's split ratios / partition are not yet transcribed.
-  # When the original partition is available, set strategy: predefined and
-  # predefined_file: path/to/record_or_group_to_split.json
+  # Ch.5 §5.4.4: 80/10/10 (4,197 / 525 / 525 narratives), clusters of related
+  # narratives (TF-IDF + DBSCAN, eps 0.3, min_samples 2) kept in one split.
+  # The thesis seed for all reported results is 42 (§5.2.1). Stratification targets
+  # (dialect 35/25/20/15/5, density 30/50/20, period 35/30/35) are stated but their
+  # combination with clustering is not; they are reported, not enforced.
+  # When the original partition is available, prefer strategy: predefined.
   strategy: hash_exact
   ratios: {train: 0.8, validation: 0.1, test: 0.1}
-  seed: 0
+  seed: 42
   group_by: record_id
+  # To follow §5.4.4 (requires scikit-learn):
+  # group_by: split_cluster
+  # cluster_dbscan: {eps: 0.3, min_samples: 2, metric: cosine}   # metric not stated in thesis
 
 # Label inventories for DIA / MOTIF / MORAL. null = not supplied (labels not validated).
 label_inventories:
-  dia: null
+  # Ch.3 §3.5.1 / Table 3.3: five-way, segment-level. (DAL uses codes MSA/EGY/LEV/GULF/MAG
+  # in §4.4.1 and MSA/EGY/LEV/GLF/MAG in §5.4.1; App. A.20 adds "Mixed/Code-switching" 4.8% — C-ANHC-5.)
+  dia: [MSA, Egyptian, Levantine, Gulf, Maghrebi]
+  # Ch.3 §3.5.2: 87 archetypes from CST-Onto — the codebook (App. A.7 is cited for it)
+  # is NOT in the dissertation, so the identifiers are unknown (C-ANHC-3).
   motif: null
-  moral: null
+  # Ch.3 §3.5.3: eight-class taxonomy. Table 3.8 also uses Generosity, Honor and
+  # Truthfulness, which are outside this set (C-ANHC-4); such labels will fail validation.
+  moral: [Justice, Wisdom, Courage, Temperance, Faith, Charity, Patience, Gratitude]
 
 # Supplied annotation files to merge (none until gold annotations are provided).
 annotation_imports: []

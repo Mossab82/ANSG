@@ -14,7 +14,7 @@ from pathlib import Path
 
 from ansg.knowledge.arabic_namenet import ArabicNameNet, TableMapping
 from ansg.knowledge.arabic_verbnet import ArabicVerbNet
-from ansg.knowledge.ckg import CulturalKnowledgeGraph, DeclaredStructure, load_ontology_rdf
+from ansg.knowledge.ckg import CulturalKnowledgeGraph, load_declared_variants, load_ontology_rdf
 from ansg.utils.config import load_yaml_config
 
 
@@ -46,8 +46,12 @@ def main() -> int:
         g = CulturalKnowledgeGraph.from_json(data["graph_json"])
         if data.get("cst_onto") and Path(data["cst_onto"]).is_file():
             g.attach_ontology(load_ontology_rdf(data["cst_onto"], data.get("cst_onto_format")))
-        declared = DeclaredStructure.from_mapping(ckg_cfg.get("declared"))
-        report["ckg"] = {"problems": g.validate(declared), "counts": g.count_report(declared)}
+        variants = load_declared_variants(ckg_cfg.get("declared_variants"))
+        report["ckg"] = {
+            "problems": g.validate(),
+            # One report per thesis statement; they disagree with each other (C-CKG-1/2).
+            "counts_vs_declared": {vid: g.count_report(d) for vid, d in variants.items()},
+        }
     else:
         report["ckg"] = f"NOT SUPPLIED: {data['graph_json']}"
 

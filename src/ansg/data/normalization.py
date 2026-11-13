@@ -24,7 +24,7 @@ from __future__ import annotations
 
 import re
 import unicodedata
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass, field, replace
 from typing import Any, Literal, Mapping
 
 TATWEEL = "ـ"
@@ -69,11 +69,32 @@ class NormalizationConfig:
 
     @classmethod
     def from_mapping(cls, data: Mapping[str, Any] | None) -> "NormalizationConfig":
+        """Build from YAML. ``profile`` selects a named starting point
+        (``default`` | ``legacy`` | ``thesis_appendix_a8``); other keys override it."""
         data = dict(data or {})
+        profile = data.pop("profile", "default")
         unknown = set(data) - set(cls.__dataclass_fields__)
         if unknown:
             raise ValueError(f"Unknown normalization options: {sorted(unknown)}")
-        return cls(**data)
+        base = {"default": cls, "legacy": cls.legacy,
+                "thesis_appendix_a8": cls.thesis_appendix_a8}.get(profile)
+        if base is None:
+            raise ValueError(f"Unknown normalization profile {profile!r}")
+        return replace(base(), **data)
+
+    @classmethod
+    def thesis_appendix_a8(cls) -> "NormalizationConfig":
+        """Dissertation Appendix A.8 (Table A.8) / Listing A.3 protocol.
+
+        NFKC; alef normalisation; tashkeel PRESERVED; tatweel removed; Arabic
+        punctuation preserved. Not representable from the thesis text: tatweel
+        is removed "except calligraphic" (no operational rule given) and the
+        dialect-specific exceptions (Table A.8 lower half) are illegible in the
+        supplied export. Conflicts: Ch. 5 §5.4.1 instead feeds an *undiacritised*
+        primary stream plus an auxiliary diacritic stream (see SPECIFICATION_CONFLICTS C-NORM-1).
+        """
+        return cls(unicode_form="NFKC", normalize_alef=True, strip_diacritics=False,
+                   remove_tatweel=True)
 
     @classmethod
     def legacy(cls) -> "NormalizationConfig":

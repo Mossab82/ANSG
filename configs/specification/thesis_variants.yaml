@@ -1,0 +1,201 @@
+# Machine-readable transcription of the dissertation's model, training and reward
+# specifications. Each variant is quoted from ONE location in the thesis; nothing is
+# merged or resolved. Phase 2 must select a variant explicitly (decision required
+# from the author — docs/IMPLEMENTATION_GAPS.md §C). Conflict ids: docs/SPECIFICATION_CONFLICTS.md.
+#
+# Transcribed 2026-11-13 from the author-supplied Markdown export of the dissertation.
+# "public_fact" fields are facts about public models, not thesis claims.
+
+backbone:                                   # C-MODEL-1
+  ch4_4_1_6:
+    model: gpt2-medium
+    parameters: 355_000_000
+    init: "English GPT-2 Medium, continued causal-LM pretraining on ANHC 70.4M tokens, 100k steps"
+  ch4_4_4_1_and_4_6_1:
+    implied_hidden_size: 768                # 2*r*d with d=768; 12 layers; 'O(5*768)'
+    implied_layers: 12
+    public_fact: "gpt2-medium has hidden 1024, 24 layers, 16 heads; 768/12 match gpt2 (124M)"
+  ch5_table_5_1:
+    parameters_total: 847_000_000
+    base_transformer: 774_000_000           # public_fact: gpt2-large = 774M
+    cultural_modules: 73_000_000
+    trainable: "847M (full) / 2.5M (LoRA-only)"
+    tokenizer: "SentencePiece, vocab 32,000, root-aware (CAMeL Tools), trained on 50M tokens"
+  appendix_a3_listing_a2:
+    model: aubmindlab/aragpt2-large
+    parameters_total: 847_000_000
+    hidden_size: 1280
+    num_attention_heads: 20
+    public_fact: "aragpt2-large: hidden 1280, 20 heads, 36 layers, ~792M params"
+  table_6_1:
+    ansg_parameters: 847_000_000
+
+trainable_parameters:                       # C-MODEL-2
+  ch4_4_1_6: {csam_bias: 16_000_000, dal_lora: 1_200_000, cultural_weight_predictors: 800_000, total: 18_000_000, base_frozen: true}
+  ch4_4_4_1: {dal_lora: 737_280, formula: "2*r*d*layers*dialects = 2*8*768*12*5", share_of_355M: "0.21%"}
+  ch4_table_4_12: {dal_lora: 738_000}
+  ch3_and_ch4_text: {dal_overhead: "0.3%"}
+  ch4_4_6_1: {schema_embeddings: 689_664, formula: "898*768"}
+  ch5_table_5_1: {cultural_modules: 73_000_000, lora_only: 2_500_000}
+  ch4_table_4_10: {params_at_12_heads_M: 847}
+
+csam:
+  name_variants: ["Cultural Semantic Alignment Module (Ch.4)", "Cultural Schema Attention Mechanism (Ch.3, glossary, A.3, A.25)"]  # C-CSAM-1
+  attention_equation: "Head_i = softmax(Q_i K_i^T / sqrt(d_k) + beta*H_i + gamma*R_i) V_i  (Eq.4.9; B_culture = beta*H + gamma*R, Eq.4.11)"
+  beta: 0.347                               # heritage (Eq.4.9, Tables 4.2, 5.8, A.3)
+  gamma: 0.283                              # rhetorical
+  coefficient_search: "TPE, 200 trials, maximise CMPI s.t. BLEU >= 0.30 (Eq.4.15); converged trial 156"
+  heritage_bias_variants:                   # C-CSAM-2
+    eq_4_12_4_13: "H_i[j,k] = sum_{s in S_active} w_s * sigmoid(v_{s,i}^T [pos_j; pos_k; c_s])"
+    sec_4_3_6: "H_i(q,k) = sum_{p in P_i} w_p * cos(q, b_p) * cos(k, b_p), b_p in R^{d_k}, d_k = 64"
+    table_4_2: "H_i, R_i in R^{n x n}, learned"
+    worked_example_4_3_7: "uses negative relevance (-0.254), impossible under the sigmoid of Eq.4.13; bias applied without beta"
+  rhetorical_bias: "described (saj', jinas, tibaq) but no computation formula"
+  head_partitions:                          # C-CSAM-3
+    sec_4_3_6_patterns: {virtue: [1,2,3], narrative_structure: [4,5], archetypes: [6,7], rhetorical: [8,9], dialectal: [10,11], cross_schema: [12], pattern_counts: [214,178,165,147,97,46]}
+    sec_4_3_6_functional: {heritage: [1,2,3,4], rhetorical: [5,6,7,8], dialectal: [9,10,11,12]}
+    appendix_a25_code: {heritage: [0,1,2,3], rhetorical: [4,5,6,7], dialectal: [8,9,10,11], rhetorical_devices: ["saj'", "tawriya", "iltifat"]}
+    num_cultural_heads: 12
+    public_fact: "Ch.4 says 'each of 12 attention heads'; gpt2-medium has 16 heads/layer, aragpt2-large 20"
+  appendix_a25_code_semantics: "cross-attention from hidden states to schema embeddings (1847 x 256); output = 0.370*h + beta*mean(heritage heads) + gamma*mean(rhetorical heads); dialectal heads unused"  # C-CSAM-4
+  training_objective: "L_CSAM = L_LM + lambda_align*L_cultural + lambda_schema*L_schema (Eq.4.16-4.19); lambda_align 0.1, lambda_schema 0.05"
+  schema_inventory_size: 898
+  schema_embedding_dim_variants: {ch4: 768, appendix_a: 256}
+
+morphological_pipeline:                     # Ch.4 §4.2
+  feature_vector: {total: 64, root: 16, pattern: 12, voice_aspect: 8, dialect: 12, cultural: 16}   # Eq.4.6
+  cultural_weight_alpha: 0.6                # Eq.4.2 (implemented: ansg.knowledge.cultural_weight)
+  productive_patterns: 47
+  analysers_variants:                       # C-MORPH-1
+    ch4_4_2_2: "Stanford Arabic Parser + AraMorph 2.0 (94.2% agreement on MADAR)"
+    ch5_5_4_1: "CAMeL Tools 1.5.2, calima-msa-s31 / calima-egy-s31; MADAMIRA for grammaticality"
+    appendix_a: "CAMeL Tools 1.4.0"
+  dialect_classifier: "CNN, kernels 3/4/5 + max-pool, char trigrams + lexical features; 94.3% on MADAR"
+  knowledge_sources_stage4: {arabic_wordnet_synsets: 23481, cultural_motif_database_patterns: 698, historical_lexicon_mappings: 3247}
+
+dal:
+  rank: 8
+  lora_alpha: 16                            # Table 5.8, A.3
+  lora_dropout: 0.05
+  target_modules: [q_proj, v_proj]          # public_fact: HF GPT-2 uses fused c_attn; q_proj/v_proj do not exist there
+  dialects_codes_variants: {ch4: [MSA, EGY, LEV, GULF, MAG], ch5: [MSA, EGY, LEV, GLF, MAG]}
+  gate: "g_d = sigmoid(v_d^T [h; s_ctx]) * 1[S_active compatible with d]  (Eq.4.25); compatibility rules informal (§4.4.2)"
+  algorithm_1_line_18: "P_d(y_t) = P(y_t) + g_d * DeltaW_d h_t — mixes a vocabulary distribution with a hidden-size vector; P_final = sum_d g_d P_d unnormalised"  # C-DAL-2
+
+training_protocol_variants:                 # C-TRAIN-1
+  ch3_3_1_2:
+    phases: [masked_lm_pretraining_70.4M, supervised_finetuning_23M]
+    compute: "~150 GPU-hours (phase 1) on 4x A100"
+  ch4_table_4_1:
+    phases:
+      - {name: pretrain, objective: "L_LM (MLM)", data: "70.4M", lr: 3.0e-4, epochs: 3, batch: 32}
+      - {name: finetune, objective: "L_CSAM (Eq.4.16)", data: "23M annotated", lr: 5.0e-5, lambda_align: 0.1, epochs: 5}
+      - {name: rl, objective: "multi-objective reward", data: "50K generated samples", lr: 1.0e-5, ppo_clip: 0.2, steps: 10000}
+    transitions: {p1_to_p2: "val perplexity change < 5% over 1000 steps", p2_to_p3: "cultural F1 > 0.75"}
+    hardware: "4x A100 40GB"
+  ch4_4_1_6:
+    phases:
+      - {name: arabic_pretraining, objective: causal_lm, steps: 100000}
+      - {name: cultural_sft, steps: 50000, frozen: base_355M}
+      - {name: ppo, steps: 20000}
+    total: "170,000 steps, ~90 GPU-hours on 4x A100 80GB"
+  ch5_5_1_3:
+    phases:
+      - {name: supervised, epochs: "1-30", hours: 24, objective: "L_LM + lambda_align L_cultural"}
+      - {name: adversarial_gan, epochs: "31-65", hours: 28, discriminator: "3-layer CNN, feature matching, replay buffer 10,000"}
+      - {name: rl_ppo, epochs: "66-100", hours: 20}
+    transitions: {p1_to_p2: "val perplexity change < 5% over 1000 steps", p2_to_p3: "discriminator accuracy < 70%", stop: "val CMPI gain < 0.01 for 10 epochs"}
+    total: "72 h on 4x A100 40GB = 288 GPU-hours; early stop at epoch 87 +/- 3; final epoch 89 (seed 42)"
+  appendix_a26_listing_a9:
+    phases:
+      - {name: supervised, hours: 24}
+      - {name: gan, hours: 12}
+      - {name: rlca, hours: 24}
+      - {name: multi_agent_refinement, hours: 12}
+  appendix_a3_listing_a2:
+    phase1_supervised: {epochs: 10, lr: 5.0e-5, effective_batch: 128}
+    phase3_rl: {lr: 1.0e-6, ppo_epochs: 4}
+
+optimisation_ch5_tables_5_8_5_9:
+  optimizer: {name: AdamW, lr: 5.0e-5, betas: [0.9, 0.999], eps: 1.0e-8, weight_decay: 0.01, warmup_steps: 1000, schedule: cosine}
+  batch: {per_gpu: 8, gpus: 4, grad_accum: 4, effective: 128}
+  grad_clip: {supervised: 1.0, rl: 0.5}
+  dropout: {attention: 0.15, hidden: 0.10, embedding: 0.05}
+  ppo: {clip: 0.20, value_coef: 0.5, entropy_coef: 0.01, gae_lambda: 0.95, ppo_epochs: 4, minibatch: 32, rollout_batch: 128, kl_coef: 0.01, lr: 1.0e-5}
+  mixed_precision: "AMP FP16 with FP32 master weights; cultural embeddings and GAN discriminator in FP32"
+  seeds: {primary: 42, validation: [123, 456, 789, 1011], appendix_a14: "42 (master), 43-45 (phases)"}
+  hpo: "Stage 1 grid 36 configs (10 epochs, 20% data, select 0.6*CMPI + 0.4*BLEU-4); Stage 2 TPE 50 iters (Optuna)"
+  table_5_7_optima: {lr: 4.7e-5, alpha_cultural: 0.42, beta_motif: 0.28, gamma_temporal: 0.18, attn_dropout: 0.15, ppo_clip: 0.20, entropy: 0.01}  # symbol clash with CSAM beta/gamma (C-TRAIN-4)
+
+reward_variants:                            # C-REWARD-1
+  ch4_eq_4_26_4_29:
+    total: {cultural: 0.45, linguistic: 0.35, coherence: 0.20}
+    cultural: {CMPI: 0.35, virtue_coherence: 0.30, rhetorical_devices: 0.25, register: 0.10}
+    linguistic: {inverse_perplexity: 0.40, BLEU: 0.35, BERTScore: 0.25}
+    coherence: {coreference: 0.50, temporal: 0.30, causal: 0.20}
+  ch4_table_4_1_and_4_1_1:
+    total: {CMPI: 0.45, BLEU: 0.35, PCI: 0.20}
+  ch5_5_5_3_and_5_9:
+    cultural_subweights: {rhetorical_devices: 0.35, virtue_coherence: 0.30, narrative_structure: 0.25, register: 0.10}
+    total: {cultural: 0.45, linguistic: 0.35, coherence: 0.20}
+  ch5_5_6_3:
+    R_cult: "CMPI score"
+    R_ling: "normalised BLEU-4 + (1 - normalised perplexity)"
+    R_coh: "sentence-embedding cosine coherence"
+    penalties: {coherence_penalty: 0.15, proverb_repetition: 0.10, proverb_limit_per_500_tokens: 4, kl: 0.01}
+  ch5_5_1:
+    CMPI_internal: {rhetorical: 0.35, dialectal: 0.25, narrative_structure: 0.25, moral: 0.15}
+  appendix_a3_a11:
+    total: {cultural: 0.35, linguistic: 0.30, coherence: 0.25, diversity: 0.10}
+    ahp_panel: 5
+  appendix_a21: {cultural_vs_fluency: [0.63, 0.37], panel: 12}
+
+hardware_software_variants:                 # C-ENV-1
+  ch5_5_2:
+    gpus: "4x A100 40GB"
+    cpu: "AMD EPYC 7742 (64 cores)"
+    ram: 512GB
+    interconnect: "InfiniBand HDR 200 Gbps"
+    python: 3.10.12
+    torch: 2.0.1+cu118
+    transformers: 4.30.2
+    camel_tools: 1.5.2
+    optuna: 3.2.0
+    sentencepiece: 0.1.99
+    cuda: "11.8"
+    cudnn: 8.6.0
+    nccl: 2.14.3
+  appendix_a2:
+    gpus: "4x A100 80GB SXM4"
+    cpu: "2x AMD EPYC 7742"
+    ram: 1TB
+    interconnect: "NVLink 3.0"
+    python: 3.9.7
+    torch: 1.12.0+cu116
+    transformers: 4.24.0
+    camel_tools: 1.4.0
+    trl: 0.4.7
+    peft: 0.2.0
+    cuda: "11.6"
+    os: "Ubuntu 20.04"
+    scipy: 1.9.0
+    statsmodels: 0.13.2
+  ch4_4_1_6: {gpus: "4x A100 80GB"}
+  ch4_table_4_1: {gpus: "4x A100 40GB"}
+
+inference_variants:                         # C-ENV-2
+  ch4_4_6_1: {latency: "147 ms/token (baseline GPT-2 Medium 132 ms/token)"}
+  ch4_4_1_5: {latency: "42 ms/token"}
+  ch5_table_5_1: {latency: "147 ms per 512 tokens", min_vram: 16GB, memory_footprint: 482MB, throughput: "3.5 narratives/s"}
+  appendix_a2: {gpu: "RTX 3090 24GB", vram: 18.7GB, latency: "147 ms per 512-token generation"}
+
+external_artifacts:                         # C-REPRO-1 (stated in thesis; unverified here)
+  code_repository: https://github.com/mossab-ansg/ansg-framework
+  commit_stated: a7b3c9d2e5f8g1h4j6k8m0n2p4q6r8s0      # contains non-hex characters g-s: not a valid git object id
+  zenodo_doi_stated: 10.5281/zenodo.8847291            # Ch.3 §3.7.1 says 'DOI [to be assigned]'
+  config_sha256_stated: e4f7a2b9c3d1f8e6a0b4c8d2e6f0a4b8  # 32 hex chars = 128 bits, not a SHA-256
+  checkpoint_sha256_stated:
+    phase1: a7b3c9d2e5f8g1h4j6k8m0n2p4q6r8s0t2u4v6w8x0y2z4   # non-hex characters
+    final: b8d2a6c4e9f3h5j7l9n1p3r5t7v9x1z3a5c7e9g1i3k5      # non-hex characters
+  sahda_repository: github.com/mossab-ansg/sahda
+  anhc_test_set: https://github.com/mossab-ansg/anhc-test-set

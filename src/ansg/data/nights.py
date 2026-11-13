@@ -46,6 +46,27 @@ DEFAULT_FORMULAE: dict[str, str] = {
     "night_closing": r"(?:و)?أدرك\s+شهرزاد\s+الصباح\s+فسكتت\s+عن\s+الكلام\s+المباح",
 }
 
+# Dissertation Ch. 5 §5.4.2, Table 5.4 ("Extracted Formulaic Expressions with Narrative
+# Functions"). The Arabic column is corrupted in the supplied Markdown export; these
+# patterns are RECONSTRUCTED from the thesis transliterations and must be checked
+# against the PDF. The thesis' full database has 437 patterns (not supplied).
+THESIS_TABLE_5_4_FORMULAE: dict[str, str] = {
+    "t5.4:opening": r"كان\s+يا\s+ما\s+كان",                       # kāna yā mā kāna
+    "t5.4:temporal_anchor": r"في\s+قديم\s+الزمان",                 # fī qadīm al-zamān
+    "t5.4:narrative_authority": r"يحكى\s+أن",                       # yuḥkā anna
+    "t5.4:epistemic_closure": r"والله\s+أعلم",                      # wa-llāh aʿlam
+    "t5.4:proverbial_wisdom": r"من\s+طلب\s+العلا\s+سهر\s+الليالي",  # man ṭalaba al-ʿulā sahira al-layālī
+    "t5.4:closing": r"وهكذا\s+انتهت\s+القصة",                      # wa-hākadhā intahat al-qiṣṣa
+}
+
+# Folding used only for *matching* formulae ("exact string matching with morphological
+# normalization", Table 5.4 caption). The record text itself is never altered.
+FORMULA_MATCH_FOLDING = NormalizationConfig(
+    strip_diacritics=True, strip_dagger_alef=True, normalize_alef=True,
+    normalize_alef_maqsura=True, normalize_teh_marbuta=True, remove_tatweel=True,
+    collapse_whitespace=False, max_consecutive_newlines=None,
+)
+
 
 @dataclass(frozen=True)
 class NightsConfig:
@@ -53,6 +74,8 @@ class NightsConfig:
     night_heading_pattern: str = DEFAULT_NIGHT_HEADING
     story_title_pattern: str = DEFAULT_STORY_TITLE
     formulae: Mapping[str, str] = field(default_factory=lambda: dict(DEFAULT_FORMULAE))
+    include_thesis_table_5_4_formulae: bool = False
+    formula_match_folded: bool = True  # diacritic/hamza-insensitive matching, offsets mapped back
     keep_preamble: bool = True
     keep_headings_in_text: bool = True  # night headings are part of the narrative text
     min_story_chars: int = 1
@@ -113,12 +136,25 @@ def find_story_titles(text: str, cfg: NightsConfig) -> list[tuple[int, int, str]
     return [(m.start(), m.end(), (m.groupdict().get("title") or m.group(0)).strip()) for m in rx.finditer(text)]
 
 
+def active_formulae(cfg: NightsConfig) -> dict[str, str]:
+    forms = dict(cfg.formulae)
+    if cfg.include_thesis_table_5_4_formulae:
+        forms.update(THESIS_TABLE_5_4_FORMULAE)
+    return forms
+
+
 def find_formulae(text: str, cfg: NightsConfig, start: int = 0, end: int | None = None) -> list[dict[str, Any]]:
+    """Find configured formulae in ``text[start:end]``; offsets are relative to that slice."""
     end = len(text) if end is None else end
+    segment = text[start:end]
+    folded = normalize(segment, FORMULA_MATCH_FOLDING) if cfg.formula_match_folded else None
+    haystack = folded.text if folded else segment
     found: list[dict[str, Any]] = []
-    for name, pattern in cfg.formulae.items():
-        for m in re.finditer(pattern, text[start:end]):
-            found.append({"type": name, "start": m.start(), "end": m.end(), "text": m.group(0)})
+    for name, pattern in active_formulae(cfg).items():
+        pat = normalize(pattern, FORMULA_MATCH_FOLDING).text if folded else pattern
+        for m in re.finditer(pat, haystack):
+            s, e = folded.to_raw_span(m.start(), m.end()) if folded else (m.start(), m.end())
+            found.append({"type": name, "start": s, "end": e, "text": segment[s:e]})
     found.sort(key=lambda f: (f["start"], f["type"]))
     return found
 

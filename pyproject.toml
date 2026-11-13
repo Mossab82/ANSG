@@ -20,6 +20,7 @@ test = ["pytest>=7.4"]
 # reported software versions are reconciled (see docs/IMPLEMENTATION_GAPS.md).
 model = ["torch>=2.1", "transformers>=4.40"]
 ontology = ["rdflib>=7.0"]
+splits = ["scikit-learn>=1.2"]
 # Historical scripts at the repository root (not used by src/ansg). Listed for provenance only.
 legacy = [
     "mysql-connector-python", "nltk", "pyarabic", "tashaphyne", "polyglot",

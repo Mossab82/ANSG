@@ -1,21 +1,73 @@
 # Cultural Knowledge Graph (CKG) and CST-Onto.
 #
-# "declared" = structure stated in the dissertation, transcribed by hand with a
-# section reference. It is used ONLY to check supplied data; it never creates
-# nodes. All values are null until transcribed and verified.
+# "declared_variants" = structure STATED in the dissertation, transcribed with a
+# section reference. They are only compared against supplied data
+# (CulturalKnowledgeGraph.count_report); they never create nodes. The thesis
+# states incompatible counts in different places, so each statement is kept as
+# its own variant (see docs/SPECIFICATION_CONFLICTS.md, C-CKG-*).
+#
+# Node "kind" names below are labels chosen by this reimplementation to carry the
+# thesis counts; a supplied CKG export must use the same kind names for the counts
+# to be compared.
 
 data:
   graph_json: data/private/ckg/ckg.json          # supplied CKG export (format: src/ansg/knowledge/ckg.py)
   cst_onto: data/private/ckg/cst_onto.ttl        # supplied CST-Onto ontology (OWL/Turtle), optional
   cst_onto_format: turtle
 
-declared:
-  source_reference: null        # e.g. "Dissertation §3.x / Table 3.y" — UNVERIFIED
-  ontology_class_count: null    # number of CST-Onto classes stated in the thesis — UNVERIFIED
-  node_kinds: null              # e.g. [motif, schema, ...] — UNVERIFIED
-  relation_types: null          # schema relationship types — UNVERIFIED
-  node_counts_by_kind: {}       # e.g. {schema: N, motif: M} — UNVERIFIED
+declared_variants:
+  - id: cst_onto_ch3
+    source_reference: "Ch.3 §3.1.4 (CST-Onto Entity Hierarchy box); §3.5.2"
+    node_counts_by_kind: {archetype: 87, specialized_concept: 847}
+    ontology_class_count: 934            # "classes (87 + 847)" — §3.1.4
+    other_counts: {total_owl_entities: 1847, swrl_rules: 234}
+    notes: "§3.5.2 says MOTIF annotation uses the 87 archetypes; §3.1.4 says the 847 concepts are the annotation vocabulary (C-ANHC-3)."
+
+  - id: cst_onto_table_a16
+    source_reference: "App. A.19.1, Table A.16"
+    node_counts_by_kind: {archetype: 87, specialized_concept: 847}
+    other_counts:
+      object_properties: 143
+      datatype_properties: 89
+      swrl_rules: 234
+      annotation_instances: 647
+      total_entities_stated: 1847
+      total_entities_sum_of_rows: 2047   # recomputed: rows sum to 2,047, not 1,847 (C-CKG-2)
+
+  - id: ckg_ch4_table_4_8
+    source_reference: "Ch.4 §4.3.2, Table 4.8; Table 4.2 (S = 898 tags)"
+    node_counts_by_kind: {tag: 898}       # 847 specialized concepts + 51 cross-cutting relational patterns
+    other_counts:
+      grounding_segments: 12341
+      segments_alf_layla: 3467
+      segments_maqamat: 2156
+      segments_kalila_wa_dimna: 989
+      segments_regional_folk_tales: 2198
+      segments_sirat_antara: 1074
+      segments_contemporary_digital: 2457
+      owl2vec_rdf_triples: 5431
+    notes: "Text says 'eight canonical corpora'; Table 4.8 lists six sources."
+
+  - id: ckg_appendix_a
+    source_reference: "App. A.1 Table A.2; A.3 Listing A.2; Ch.5 Table 5.1; Ch.6 Table 6.10"
+    node_counts_by_kind: {motif: 1847}
+    other_counts: {fine_grained_categories: 437, grounding_segments: 12341}
+    notes: "'1,847 motifs' here vs '1,847 OWL entities' in Ch.3 vs '698 tagged narrative patterns' (Cultural Motif Database, §4.2.5) (C-CKG-1)."
+
+# Relationship types: the thesis names only examples — object properties
+# requires_virtue, contradicts_with (Table A.16); SWRL predicates hasArchetype,
+# exhibitsVirtue (Listing A.5); walk edges subClassOf, entails (§4.3.2).
+# The full inventory of 143 object properties is not given, so no closed list is enforced.
+relation_types: null
+
+schema_embedding:
+  # Two incompatible statements (C-CSAM-5). Embeddings are inputs; not computed here.
+  ch4_eq_4_8: {method: "OWL2Vec* (500,000 walks, length 10; skip-gram 300-d, window 5, 15 negatives, 25 epochs) projected to hidden size", source_dim: 300, model_dim: 768}
+  appendix_a4: {dim: 256}
 
 activation:
-  # The thesis schema-activation function is not yet transcribed.
-  method: null
+  # Eq. (4.20) vs App. A.4 Table A.5 (C-CSAM-5). Use with ansg.knowledge.ckg.CosineThresholdActivator.
+  ch4_eq_4_20: {threshold: 0.5, inclusive: false, max_active: null, typical_active: "3-5", source: "Ch.4 Eq.4.20, Table 4.2, §5.7.1"}
+  appendix_a4: {threshold: 0.75, inclusive: true, max_active: 50, source: "App. A.4 Table A.5; A.3 Listing A.2 (similarity_threshold: 0.75)"}
+  # Context-embedding construction is not specified ("derived from the narrative segment").
+  # Stage-3 contextual filters of A.4 (domain exact match, era, dialect) have no operational definition.
