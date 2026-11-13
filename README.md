@@ -51,11 +51,13 @@ ansg-ingest --config configs/data/nights.yaml   # needs your licensed corpus fil
 python scripts/inspect_resources.py             # reports which knowledge resources are supplied
 ```
 
-No corpus, lexicon, ontology, annotation or checkpoint is bundled; test fixtures are synthetic (see `tests/fixtures/README.md`). Start with `docs/REPOSITORY_AUDIT.md` and `docs/IMPLEMENTATION_GAPS.md`.
+No corpus, lexicon, ontology, annotation or checkpoint is bundled; test fixtures are synthetic (see `tests/fixtures/README.md`). Start with `docs/REPOSITORY_AUDIT.md`, `docs/SPECIFICATION_CONFLICTS.md` and `docs/IMPLEMENTATION_GAPS.md`.
+
+The dissertation's specifications have been transcribed with section references (`docs/EXPERIMENTAL_SPECIFICATIONS.md`, `configs/specification/thesis_variants.yaml`). Where chapters disagree, all versions are kept and numbered in `docs/SPECIFICATION_CONFLICTS.md`; none has been chosen.
 
 ## Specification status
 
-The dissertation contains differing experimental specifications that need verification before selecting the executable configuration:
+The dissertation contains differing experimental specifications that need verification before selecting the executable configuration (summary; the full register with ~60 entries is `docs/SPECIFICATION_CONFLICTS.md`):
 
 | Topic | Reported alternatives |
 | --- | --- |

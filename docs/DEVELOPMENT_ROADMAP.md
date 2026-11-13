@@ -14,11 +14,13 @@ happens before Phase 3, and none before the specification decisions in
 - [x] ArabicVerbNet parser; ArabicNameNet configurable adapter
 - [x] CKG data model + CST-Onto loader + CSAM-facing index/adjacency
 - [x] CRAFT interfaces and specification template
-- [ ] Transcribe thesis specifications (blocked: dissertation not available)
+- [x] Transcribe thesis specifications (Ch. 3–6, App. A) with references; conflict register (`SPECIFICATION_CONFLICTS.md`)
+- [x] Implement fully specified procedures: Eq. 3.1, 4.2, 4.20/A.4, 6.1, A.1, AHP, §5.4.4 clustering, A.8 profile, Table 5.4 formulae
 
-## Phase 1b — Specification transcription and real-data validation
-- Transcribe items A1–A10 into `EXPERIMENTAL_SPECIFICATIONS.md`, configs and `CRAFT_EVALUATION_SPECIFICATION.md`, each with references.
-- Run ingestion on the real Nights edition; tune patterns; report counts vs. thesis.
+## Phase 1c — Author decisions and real-data validation
+- Author resolves `IMPLEMENTATION_GAPS.md §C` (backbone, protocol, reward, CSAM form, normalisation).
+- Author supplies missing definitions (`§A`: CMPI, codebook, lexicons) where they exist.
+- Run ingestion on the real Nights witnesses with DBSCAN clustering; tune patterns; compare counts with Tables 3.2–3.3.
 - Load real ArabicVerbNet / ArabicNameNet / CKG / CST-Onto; fill `declared` counts; check `count_report`.
 - Import gold annotations; compute label distributions per split.
 - Exit criterion: dataset statistics either match the thesis or the differences are documented.

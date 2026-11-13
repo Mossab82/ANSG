@@ -1,104 +1,96 @@
 # CRAFT evaluation specification
 
-> **Status: template.** The dissertation (Chapter 6) was not available when
-> this file was written, so **no metric, equation, normalisation rule or weight
-> has been extracted yet**. The four dimensions below are those named in the
-> project brief; their exact names and number in Chapter 6 are unverified.
-> Nothing in this repository computes a CRAFT score.
+*Transcribed 2026-11-13 from the dissertation (Ch. 3 §3.6, Ch. 4 §4.5, Ch. 6, App. A.10–A.14, A.24).
+Registry: `configs/evaluation/craft.yaml`. Conflicts: `SPECIFICATION_CONFLICTS.md` (C-EVAL-*).*
 
-## 1. Dimensions (from the brief — verify against Ch. 6)
+## 1. Bottom line
 
-| Dimension id (code) | Brief wording | Thesis section | Metrics |
-| --- | --- | --- | --- |
-| `cultural_authenticity` | cultural authenticity | TO TRANSCRIBE | TO TRANSCRIBE |
-| `dialectal_fidelity` | dialectal fidelity | TO TRANSCRIBE | TO TRANSCRIBE |
-| `linguistic_quality` | linguistic quality | TO TRANSCRIBE | TO TRANSCRIBE |
-| `narrative_coherence` | narrative coherence | TO TRANSCRIBE | TO TRANSCRIBE |
+**No CRAFT metric can be implemented from the dissertation as written.** CRAFT
+("Cultural Reasoning and Authenticity Fidelity Test") is described three
+incompatible ways (C-EVAL-1) and none of its component metrics — CMPI,
+CulturalScore, ALDA, MFA, PCI — has an equation or algorithm. The central metric
+CMPI has two different expansions and no definition (C-EVAL-2). Therefore every
+registry entry has status `incomplete`, and `ansg.evaluation.craft` refuses to
+compute them. What *is* fully specified (statistical procedures, gap closure, CRD
+up to two stated ambiguities) is implemented and tested.
 
-## 2. Metric extraction table (fill one row per metric in Ch. 6)
+## 2. What the thesis says CRAFT is
 
-| Metric | Dimension | Thesis ref. (§, Eq.) | Equation (verbatim LaTeX) | Inputs required | Range | Normalisation | Higher is better | Completeness |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| | | | | | | | | `specified` / `incomplete` |
-
-Rules:
-1. Copy equations verbatim; do not "fix" them silently. Record suspected errors in a *Notes* column.
-2. If any symbol, normalisation constant, tokenisation, reference set or model used inside a metric is undefined, mark the metric `incomplete` and list what is missing. Incomplete metrics are not implemented.
-3. If a metric depends on an external model (e.g. a dialect classifier or an LM for perplexity), record the exact model and version stated in the thesis; if not stated, `incomplete`.
-
-## 3. Aggregation
-
-| Item | Value | Thesis ref. |
+| Version | Location | Content |
 | --- | --- | --- |
-| Is there a composite CRAFT score? | TO TRANSCRIBE | |
-| Aggregation form (weighted sum, mean, other) | TO TRANSCRIBE | |
-| Weights / coefficients | TO TRANSCRIBE | |
-| Per-dimension normalisation before aggregation | TO TRANSCRIBE | |
+| (a) | Ch. 6 intro ("Evaluation Metrics") | Ontology-driven evaluation over 847 CST-Onto concepts; dimensions: virtue concepts, character archetypes, formulaic expressions; purpose: diagnose under-represented traditions. |
+| (b) | §6.2.4 | "4 dimensions (CMPI, CulturalScore, ALDA, MFA)"; ontology + AHP + expert validation; κ ≈ 0.82. |
+| (c) | Table 6.4 | Rhetoric, Formulaic, Metaphor, Prosody, Moral Framework scores + overall CMPI. |
+| (d) | §4.1.1 RQ3; Table 4.15 | "multi-dimensional … derived through AHP with 12 experts"; "4-dimensional scoring (§6.3)". |
 
-`ansg.evaluation.craft.aggregate` refuses to run unless weights are marked
-verified and carry a thesis reference.
+The brief's four dimensions (cultural authenticity, dialectal fidelity, linguistic
+quality, narrative coherence) are used in code only as a grouping; they match the
+reward components and human-evaluation dimensions, not a CRAFT definition.
 
-## 4. Human evaluation protocol
+## 3. Metric extraction table
 
-| Item | Value | Thesis ref. |
+| Metric | Expansion (location) | Definition in thesis | Range / direction | Status | Missing for implementation |
+| --- | --- | --- | --- | --- | --- |
+| CMPI | Cultural *Motif* Preservation Index (Ch. 4, Ch. 6, glossary); Cultural *Meaning* Preservation Index (Ch. 5 §5.1, Table A.2) | Verbal only. Ch. 5 §5.1: weighted rhetorical 0.35, dialectal 0.25, narrative structure 0.25, moral 0.15. Ch. 6: "hierarchical schema activation scoring", extended from CULTURA with 847 concepts and cross-dialect weighting. | 0–1, ↑ | incomplete | equation; sub-scores; schema-activation procedure; normalisation |
+| CulturalScore | rhetorical sophistication (NarrativeMind) | sajʿ, jinās, ṭibāq presence/appropriateness; human ceiling 0.96. §3.6.1 uses the name for AHP-based expert ratings 0–100. | 0–1, ↑ | incomplete | detection method for each device; aggregation (C-EVAL-5) |
+| MFA | Moral Framework Alignment (glossary, §6.2.4) | none | — | incomplete | everything |
+| ALDA | Arabic Linguistic Dialectal Accuracy | Table 6.6 lists consistency %, authenticity (1–5 native rating), register accuracy %, code-switch quality (/5) | % or 0–1 (C-EVAL-6) | incomplete | formulas; dialect classifier; combination |
+| PCI | Plot Coherence Index | none (used as reward, Table 4.1) | — | incomplete | everything |
+| Table 6.4 dimensions | Rhetoric, Formulaic, Metaphor, Prosody, Moral Framework | none | 0–1 | incomplete | everything |
+| BLEU-4, ROUGE-L, BERTScore (AraBERT), perplexity | standard | references, tokenisation, model versions, PPL normalisation not stated | — | incomplete | C-REWARD-3, C-REWARD-5 |
+| AGAS, CCS, GER | glossary only | none | — | incomplete | never used in Ch. 3–6 |
+| CRD | Cultural Reference Density | **Eq. 3.1** | per 1,000 tokens, ↑ | implemented with mandatory `policy` | lexicon (2,847 entries); multi-word rule; tokenizer |
+
+## 4. Aggregation
+
+No formula for a composite CRAFT score (Table 4.16 mentions a "Combined CRAFT score").
+The AHP weight sets in the thesis belong to the **RL reward**, not to CRAFT, and
+themselves conflict (C-REWARD-1, -2, -4). `aggregate()` therefore refuses to run
+unless weights are supplied, flagged verified and given a thesis reference.
+
+## 5. Fully specified procedures (implemented)
+
+| Procedure | Thesis | Code |
 | --- | --- | --- |
-| Number and profile of raters | TO TRANSCRIBE | |
-| Dialect background of raters | TO TRANSCRIBE | |
-| Rating scale | TO TRANSCRIBE | |
-| Dimensions rated | TO TRANSCRIBE | |
-| Items per system / sampling | TO TRANSCRIBE | |
-| Systems compared (baselines) | TO TRANSCRIBE | |
-| Blinding / randomisation | TO TRANSCRIBE | |
-| Agreement statistic and threshold | TO TRANSCRIBE | |
-| Statistical tests | TO TRANSCRIBE | |
+| Gap closure = (S − B)/(H − B) | Eq. 6.1 | `statistics.gap_closure` |
+| Scale normalisation (Raw − min)/(max − min)·100 | Eq. A.1 | `statistics.normalize_scale` |
+| Bonferroni | §6.2.1 (9 comparisons) vs Table A.11 (6) | `statistics.bonferroni_alpha` (n explicit) |
+| Cohen's κ, Fleiss' κ | §3.5.4 | `statistics.cohens_kappa`, `fleiss_kappa` |
+| Percentile bootstrap | §3.6.2 (1,000) — A.12 says BCa 10,000 (C-EVAL-4) | `statistics.bootstrap_ci` (BCa not implemented) |
+| Cohen's d | §6.1.5 (variant unstated) | `statistics.cohens_d(variant=…)` required |
+| AHP eigenvector + CR | §4.5.2, A.11, A.23 | `evaluation.ahp.ahp_weights` |
+| CRD | Eq. 3.1 | `evaluation.corpus_metrics.cultural_reference_density` |
 
-## 5. Python interfaces (implemented as types only)
+## 6. Human-evaluation protocol (three variants, C-EVAL-8)
 
-Module `ansg.evaluation.craft`:
+Recorded in full in `configs/evaluation/craft.yaml: human_evaluation_variants`:
+§6.1.3 (5 raters, 4 dimensions, 200 items/system, Fleiss κ 0.82, ICC 0.87, SD > 1.0
+disagreement rule); A.13.1 (5 regional PhDs, 10% duplicates, κ > 0.7 target);
+A.24 (30 evaluators, 3 dimensions, rubric Table A.22, error thresholds A.24.3,
+mixed-effects + Tukey HSD). Likert anchors 1–5 (§6.1.3) and the rubric (Table A.22)
+are complete enough to build rating forms.
 
-```python
-class CraftDimension(str, Enum): CULTURAL_AUTHENTICITY | DIALECTAL_FIDELITY | LINGUISTIC_QUALITY | NARRATIVE_COHERENCE
-class SpecStatus(str, Enum): UNVERIFIED | INCOMPLETE | SPECIFIED | IMPLEMENTED
+## 7. Python interfaces
 
-@dataclass(frozen=True)
-class MetricSpec:            # one row of the extraction table
-    name; dimension; status; thesis_reference; equation; range; normalization; higher_is_better; requires; notes
+`ansg.evaluation.craft` (unchanged design): `CraftDimension`, `SpecStatus`,
+`MetricSpec`, `EvaluationSample`, `MetricResult`, `CraftMetric` protocol,
+`UnimplementedMetric`, `CraftRegistry.from_config`, `HumanEvaluationProtocol`,
+guarded `aggregate`. Plus implemented `ansg.evaluation.{statistics,ahp,corpus_metrics}`.
 
-@dataclass
-class EvaluationSample:      # generated_text, prompt, reference_texts, target_dialect, target_motifs, metadata
+## 8. Unit-test specifications for future metric implementations
 
-@dataclass
-class MetricResult:          # metric, value, per_sample, details
+A metric may move to `specified` only when the author supplies its definition
+(equation + every symbol + reference data/model versions). Then:
 
-class CraftMetric(Protocol):
-    spec: MetricSpec
-    def __call__(self, samples: Sequence[EvaluationSample]) -> MetricResult: ...
+1. **Reproduce a thesis number**: e.g. if CMPI is defined, recompute the §4.5.4 example inputs; where the thesis' own arithmetic is wrong (C-REWARD-6) test the recomputed value and document it.
+2. **Range** — outputs within the stated range on random and edge inputs.
+3. **Boundary cases** — empty text, single token, candidate = reference, unknown dialect, motif not in CKG.
+4. **Invariances stated in the thesis** — e.g. diacritic handling per C-NORM-1 once decided.
+5. **Monotonicity** where implied (adding a target motif must not lower a motif-coverage score).
+6. **Determinism** — fixed seeds; pinned external model versions.
+7. **Provenance** — `MetricSpec.thesis_reference` non-empty and `status == specified` before registration.
+8. **Aggregation** — hand-computed composite equals `aggregate()` with verified weights.
 
-class UnimplementedMetric:   # raises MetricNotSpecifiedError
-class CraftRegistry:         # from_config(configs/evaluation/craft.yaml), status_report()
-@dataclass(frozen=True)
-class HumanEvaluationProtocol
-def aggregate(scores, weights: AggregationWeights) -> float   # guarded
-```
-
-Expected inputs from other modules: generated text (Phase 3), CKG and
-`ActivationScores` (`ansg.knowledge.ckg`) for cultural metrics, DIA labels
-(`ansg.data.records`) for dialect metrics, ANHC test split as references.
-
-## 6. Unit-test specifications for future metric implementations
-
-For **every** metric moved to `specified`:
-
-1. **Worked example from the thesis.** If Ch. 6 gives a numeric example, reproduce it exactly (`pytest.approx`, tolerance stated).
-2. **Range test.** Random/edge inputs stay within the declared range.
-3. **Boundary cases.** Empty text, single token, identical candidate and reference, no shared vocabulary, unknown dialect label, motif not in CKG.
-4. **Invariance tests** stated in the thesis (e.g. diacritic-insensitivity if normalisation is specified; order-invariance over samples).
-5. **Monotonicity sanity check** where the definition implies it (e.g. adding a target motif occurrence must not decrease a motif-coverage metric).
-6. **Determinism.** Same inputs → identical outputs across two runs; any model-based metric pins model version and seed.
-7. **Normalisation test.** Normalised score of the defined min/max inputs equals the stated bounds.
-8. **Aggregation test.** With weights from the thesis, a hand-computed composite equals `aggregate()`.
-9. **Provenance test.** `MetricSpec.thesis_reference` is non-empty and `status == SPECIFIED` before the implementation is registered.
-
-Already implemented interface tests (`tests/unit/test_craft_interfaces.py`):
-shipped config declares no metrics; unimplemented metrics raise;
-aggregation refuses unverified weights.
+Existing tests: `tests/unit/test_craft_interfaces.py` (registry transcribed, all
+incomplete, refusal to compute), `test_thesis_computations.py` (Eq. 6.1, A.1, AHP,
+Eq. 4.2), `test_crd.py` (Eq. 3.1 policies).

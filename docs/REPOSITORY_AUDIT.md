@@ -5,9 +5,16 @@
 for undefined names, and inspection of git history for credential exposure
 (values were redacted during inspection and are not reproduced here).*
 
-## 0. Critical limitation of this audit
+## 0. Critical limitation of this audit (resolved later the same day)
 
-**The dissertation PDF was not available in the execution environment.** It was
+> **Update 2026-11-13:** the author supplied the dissertation as a Markdown export.
+> It has since been transcribed: see `EXPERIMENTAL_SPECIFICATIONS.md` and
+> `SPECIFICATION_CONFLICTS.md`. Two findings change §6 below: ArabicVerbNet and
+> ArabicNameNet are **not** ANSG components in the thesis (C-RES-1), and the thesis'
+> code repository is `mossab-ansg/ansg-framework`, not this repository (C-REPRO-1).
+> The original text of this section is kept for provenance.
+
+**At the time of the initial audit the dissertation PDF was not available in the execution environment.** It was
 not attached to the session, is not tracked in the repository and was not
 found on the file system. Consequently:
 
