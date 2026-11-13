@@ -20,6 +20,8 @@ PKG_DIR = Path(ansg.__file__).resolve().parent
 MODEL_LAYER = {
     "ansg.csam", "ansg.dal", "ansg.model", "ansg.training", "ansg.pretrained",
     "ansg.provenance", "ansg.data.training_dataset",
+    # Issue #15 generation runtime (cli, readiness, labels, artifacts, stub stay torch-free).
+    "ansg.generation.runtime", "ansg.generation.cultural",
 }
 
 PROBE = r"""

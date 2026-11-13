@@ -109,6 +109,7 @@ The project is being consolidated from earlier Arabic NLP utilities and independ
 | [`src/ansg/`](src/ansg/) | **Data and knowledge layer** (no PyTorch dependency): One Thousand and One Nights ingestion, Arabic normalisation, ANHC records (DIA/MOTIF/MORAL), training-example adapter, ArabicVerbNet/ArabicNameNet adapters, CKG/CST-Onto interfaces, CRAFT specification registry and supported statistics. **Model layer** (`model` extra): CSAM, DAL, the trainable ANSG model, supervised/adversarial/PPO training steps, generation and a pretrained-backbone bridge |
 | [`configs/`](configs/), [`scripts/`](scripts/), [`examples/`](examples/) | Data, knowledge, evaluation, model and dissertation-variant configurations; resource inspection, parameter-audit and synthetic end-to-end smoke scripts; synthetic demo inputs |
 | `train.py`, `train_pipeline.py`, `evaluate.py` | Training, three-stage pipeline and generation entry points (synthetic demo data by default, labelled as such) |
+| [`src/ansg/generation/`](src/ansg/generation/), `ansg-generate` | Arabic story generation from an explicitly supplied, hash-verified local pretrained checkpoint, optional trained CSAM/DAL modules, evidence-derived labels and JSON provenance; readiness gate in [`scripts/check_generation_readiness.py`](scripts/check_generation_readiness.py) ([`docs/GENERATION_READINESS.md`](docs/GENERATION_READINESS.md)) |
 | [`implementation/ansg-core-2026`](../../tree/implementation/ansg-core-2026) | History of the PyTorch research model, CSAM, DAL and training prototypes |
 | [`claude/relaxed-knuth-q63k61`](../../tree/claude/relaxed-knuth-q63k61) | History of the Arabic data ingestion, ANHC records, CKG adapters and evaluation interfaces |
 | [`chatgpt/fix-csam-schema-padding`](../../tree/chatgpt/fix-csam-schema-padding) | History of the CSAM masking and batching corrections (merged into the model branch as #9) |
@@ -128,6 +129,12 @@ python -m pip install -e ".[test,model]"
 python -m pytest
 python train.py --epochs 1 --output runs/smoke  # synthetic demo data, flagged as synthetic
 python scripts/e2e_smoke.py --output runs/e2e   # synthetic: record -> CKG activation -> CSAM/DAL -> generation
+
+# Arabic generation (pretrained-checkpoint extras; nothing is downloaded automatically)
+python -m pip install -e ".[model,pretrained]"
+python scripts/check_generation_readiness.py    # what the local artefacts support
+python scripts/generation_smoke.py --output runs/generation_smoke   # synthetic stub, meaningless text
+ansg-generate --backbone <local checkpoint dir> --prompt "كان يا ما كان" --output runs/story.json
 
 # Real data (licensed corpus under data/private/)
 ansg-ingest --config configs/data/nights.yaml
