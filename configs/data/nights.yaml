@@ -1,0 +1,67 @@
+# ANSG Phase 1 — One Thousand and One Nights ingestion.
+# Run from the repository root:  ansg-ingest --config configs/data/nights.yaml
+#
+# No corpus text ships with this repository. Place your licensed edition under
+# data/private/ (git-ignored) and complete the provenance block truthfully.
+# Fields marked UNVERIFIED must be checked against the dissertation (Ch. 3).
+
+output_dir: data/processed/nights
+allow_restricted_text: false   # if false, text of non-redistributable sources is withheld in outputs
+
+sources:
+  - path: data/private/alf_layla/edition.txt      # <-- your licensed file (UTF-8 plain text)
+    provenance:
+      source_id: alf_layla_ed1                     # short stable id used in record ids
+      title: "ألف ليلة وليلة"
+      edition: null          # e.g. Bulaq 1835 / Calcutta II / Mahdi — UNVERIFIED which edition the thesis used
+      editor: null
+      publisher: null
+      year: null
+      license: null
+      copyright_status: unknown   # public_domain | licensed | restricted | unknown
+      redistributable: false
+      url: null
+      notes: null
+
+normalization:            # non-destructive defaults; see src/ansg/data/normalization.py
+  unicode_form: NFC
+  fold_presentation_forms: true
+  remove_invisible_controls: true
+  collapse_whitespace: true
+  max_consecutive_newlines: 2
+  remove_tatweel: true
+  strip_diacritics: false
+  strip_dagger_alef: false
+  strip_quranic_marks: false
+  normalize_alef: false
+  normalize_alef_maqsura: false
+  normalize_teh_marbuta: false
+  digits: keep
+
+nights:
+  collection: alf_layla_wa_layla
+  # Defaults match headings on their own line ("الليلة الأولى", "وفي الليلة الثانية")
+  # and tale titles beginning with حكاية / قصة / حديث. Adjust per edition.
+  # night_heading_pattern: '...'
+  # story_title_pattern: '...'
+  keep_preamble: true
+  keep_headings_in_text: true
+
+splits:
+  # UNVERIFIED: the dissertation's split ratios / partition are not yet transcribed.
+  # When the original partition is available, set strategy: predefined and
+  # predefined_file: path/to/record_or_group_to_split.json
+  strategy: hash_exact
+  ratios: {train: 0.8, validation: 0.1, test: 0.1}
+  seed: 0
+  group_by: record_id
+
+# Label inventories for DIA / MOTIF / MORAL. null = not supplied (labels not validated).
+label_inventories:
+  dia: null
+  motif: null
+  moral: null
+
+# Supplied annotation files to merge (none until gold annotations are provided).
+annotation_imports: []
+#  - {path: data/private/anhc/dia_gold.jsonl, layer: dia, status: gold}
