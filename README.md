@@ -1,86 +1,177 @@
 # ANSG — Automated Arabic Narrative Story Generation
 
-Research development workspace for a thesis-grounded, reproducible implementation of **Automated Arabic Narrative Story Generation (ANSG)**.
+### A hybrid neuro-symbolic framework for culturally grounded Arabic storytelling
 
-> **Status:** implementation and verification in progress. Code currently in the root of this repository is preserved as legacy Arabic NLP research code and has **not** been established as the full ANSG architecture described in the dissertation.
+**ANSG** is a doctoral research framework for generating Arabic narratives that combine neural language generation with explicit cultural knowledge, dialect-aware adaptation, and culturally informed learning and evaluation.
 
-## Research architecture
+The research investigates a central question: **How can a story-generation system produce fluent Arabic narratives while preserving the cultural motifs, moral frameworks, rhetorical conventions, and dialectal characteristics that give Arabic storytelling its identity?**
 
-ANSG is described as a hybrid neural-symbolic framework integrating:
-- Arabic narrative preprocessing and morphological conditioning
-- Cultural Knowledge Graph (CKG) and schema activation
-- Cultural Schema Attention Mechanism (CSAM)
-- Dialectal Adaptation Layers (DAL / LoRA)
-- Cultural alignment and reinforcement learning
-- Reproducible evaluation of cultural authenticity and linguistic quality
+**Research area:** Arabic NLP · Computational Creativity · Neuro-Symbolic AI · Knowledge-Grounded Generation
 
-The source of architectural requirements is the dissertation *Automated Arabic Narrative Story Generation (ANSG): A Hybrid Neuro-Symbolic Architecture with Culturally-Grounded Reinforcement Learning*, especially Chapters 3–6 and Appendix A.
+**Dissertation:** *Automated Arabic Narrative Story Generation (ANSG): A Hybrid Neuro-Symbolic Architecture with Culturally-Grounded Reinforcement Learning*
 
-## Planned layout
+**Researcher:** Mossab Ibrahim  
+**Academic institution:** Universidad Complutense de Madrid (UCM)  
+**Supervisors:** Gonzalo Méndez and Pablo Gervás
+
+---
+
+## Research overview
+
+ANSG brings together three complementary levels of reasoning:
+
+1. **Neural narrative generation** to model Arabic language, context and story continuity.
+2. **Symbolic cultural grounding** to represent and activate relevant narrative schemas, motifs, relationships and moral knowledge.
+3. **Cultural and linguistic adaptation** to guide generation toward intended traditions, dialects and narrative qualities.
+
+Rather than treating cultural references as isolated keywords, the framework is designed to connect them to explicit knowledge structures and use those structures during narrative generation.
+
+## Architecture
 
 ```text
-src/ansg/data/
-src/ansg/knowledge/
-src/ansg/models/
-src/ansg/training/
-src/ansg/evaluation/
-configs/
-tests/
-docs/
-scripts/
+                     Arabic story prompt / narrative context
+                                      |
+                                      v
+                      Arabic preprocessing and analysis
+                                      |
+                  +-------------------+-------------------+
+                  |                                       |
+                  v                                       v
+       Cultural Knowledge Graph (CKG)          Dialect and narrative context
+                  |                                       |
+                  v                                       |
+        Cultural schema activation                         |
+                  |                                       |
+                  v                                       v
+       Cultural Schema Attention (CSAM)      Dialectal Adaptation Layers (DAL)
+                  |                                       |
+                  +-------------------+-------------------+
+                                      |
+                                      v
+                         Neural narrative generator
+                                      |
+                                      v
+                       Culturally grounded Arabic story
+                                      |
+                                      v
+                  Evaluation, cultural analysis and feedback
 ```
 
-As of Phase 1, `src/ansg/data/`, `src/ansg/knowledge/`, `src/ansg/evaluation/` (interfaces only), `configs/`, `tests/`, `docs/` and `scripts/` exist. `models/` and `training/` are still targets, **not** a claim that those modules exist.
+*Conceptual research architecture; the executable integrations and supported configurations are documented in the development branches.*
 
-## Phase 1: data and knowledge infrastructure
+### Core research components
 
-Implemented and tested on CPU (no model training):
+| Component | Role in ANSG |
+| --- | --- |
+| **Arabic narrative corpus (ANHC)** | Organizes Arabic storytelling material and annotations, including **DIA** (dialect), **MOTIF** (cultural/narrative motifs) and **MORAL** (moral frameworks). |
+| **Cultural Knowledge Graph (CKG)** | Represents cultural concepts, narrative relationships and the schemas used to ground generation. |
+| **Cultural Schema Attention Mechanism (CSAM)** | Conditions neural representations on activated cultural schemas and relevant rhetorical/cultural information. |
+| **Dialectal Adaptation Layers (DAL)** | Supports dialect-sensitive generation through parameter-efficient adaptation and dialect conditioning. |
+| **Culturally grounded learning** | Investigates supervised and reinforcement-learning objectives for narrative fluency, coherence and cultural alignment. |
+| **CRAFT and supporting evaluation** | Organizes the research's cultural-fidelity assessment alongside linguistic, narrative and statistical evaluation. |
 
-- Offset-preserving Arabic normalisation (lossless defaults) and segmentation
-- *One Thousand and One Nights* ingestion: tale identification, night-number parsing, frame-formula detection, provenance
-- ANHC record schema with DIA / MOTIF / MORAL layers, annotation status, copyright-aware export, annotation import
-- Deterministic group-level splits (hash-based or predefined partition)
-- ArabicVerbNet XML parser, ArabicNameNet configurable adapter (format unverified), CKG + CST-Onto interface for CSAM
-- CRAFT interfaces (no metrics implemented)
+## Cultural and linguistic resources
+
+The research is informed by Arabic narrative heritage and structured linguistic knowledge:
+
+- **One Thousand and One Nights (Alf Layla wa-Layla):** a major heritage narrative source used for studying traditional story structures, themes and storytelling conventions.
+- **Arabic narrative annotations (ANHC):** dialect, motif and moral information used to analyze and condition narratives.
+- **Cultural ontologies and knowledge graphs:** representations of cultural schemas and their relations.
+- **ArabicNameNet and ArabicVerbNet:** auxiliary named-entity and verb-semantic resources explored for linguistic and knowledge processing; their exact contribution to the ANSG implementation is separately documented.
+
+Dataset editions, licensing, annotation provenance and available exports matter for reproducibility. Source texts and private research datasets are **not automatically distributed** with this repository.
+
+## Intended capabilities
+
+ANSG is designed to support the following research workflows:
+
+**Arabic story generation.** Generate narratives from a prompt while preserving context, continuity and selected cultural constraints.
+
+**Cultural grounding and inspection.** Trace the cultural concepts and schemas activated for a narrative and inspect how they contribute to model conditioning.
+
+**Dialect-sensitive narrative generation.** Study Arabic dialect and register conditioning, including the interaction between narrative context and DAL.
+
+**Controlled comparisons.** Evaluate differences between model variants and component ablations, including cultural attention and dialect adaptation.
+
+**Reproducible evaluation.** Compare outputs using documented linguistic, cultural and statistical measurements while retaining experiment configurations and provenance.
+
+These describe the **research objectives and system architecture**; individual capabilities must be verified against the available model, trained checkpoints and data before being described as a completed demonstration.
+
+## Repository organization
+
+The project is being consolidated from earlier Arabic NLP utilities and independently developed ANSG research components.
+
+| Location | Contents |
+| --- | --- |
+| [`docs/`](docs/) | Research governance, technical audits, architecture decisions and integration plan |
+| [`tools/`](tools/) | Repository integrity, packaging and cross-branch verification tools |
+| [`tests/`](tests/) | Automated validation and synthetic integration checks |
+| [`src/ansg/`](src/ansg/) | Data and knowledge layer: One Thousand and One Nights ingestion, Arabic normalisation, ANHC records (DIA/MOTIF/MORAL), ArabicVerbNet/ArabicNameNet adapters, CKG/CST-Onto interfaces, CRAFT specification registry and supported statistics (no PyTorch dependency) |
+| [`configs/`](configs/), [`scripts/`](scripts/) | Data, knowledge, evaluation and dissertation-variant configurations; resource inspection and parameter-audit scripts |
+| [`implementation/ansg-core-2026`](../../tree/implementation/ansg-core-2026) | PyTorch research model, CSAM, DAL and training prototypes |
+| [`claude/relaxed-knuth-q63k61`](../../tree/claude/relaxed-knuth-q63k61) | Arabic data ingestion, ANHC records, CKG adapters and evaluation interfaces |
+| [`chatgpt/fix-csam-schema-padding`](../../tree/chatgpt/fix-csam-schema-padding) | Independent CSAM masking and batching corrections under review |
+
+**Development note:** The default branch currently retains the historical scripts and shared governance/integration tooling. Some newer components are in the linked development branches pending compatibility review and integration. The branches are not interchangeable runnable releases. The data and knowledge layer from `claude/relaxed-knuth-q63k61` is included in the default branch (Issue #6); the PyTorch model is not yet.
+
+### Data and knowledge layer: quick start
 
 ```bash
-python -m venv .venv && . .venv/bin/activate
-pip install -e ".[test]"          # add ,ontology for CST-Onto RDF loading
-pytest
-ansg-ingest --config configs/data/nights.yaml   # needs your licensed corpus file under data/private/
-python scripts/inspect_resources.py             # reports which knowledge resources are supplied
+python -m pip install -e ".[test]"         # no PyTorch required
+python -m pytest                           # synthetic fixtures only
+python tools/check_package_topology.py     # must report 0 findings
+ansg-ingest --config configs/data/nights.yaml   # requires your licensed corpus under data/private/
 ```
 
-No corpus, lexicon, ontology, annotation or checkpoint is bundled; test fixtures are synthetic (see `tests/fixtures/README.md`). Start with `docs/REPOSITORY_AUDIT.md`, `docs/SPECIFICATION_CONFLICTS.md` and `docs/IMPLEMENTATION_GAPS.md`.
+Dissertation specifications and their inter-chapter conflicts are transcribed in [`docs/EXPERIMENTAL_SPECIFICATIONS.md`](docs/EXPERIMENTAL_SPECIFICATIONS.md) and [`docs/SPECIFICATION_CONFLICTS.md`](docs/SPECIFICATION_CONFLICTS.md); interfaces to the model are in [`docs/MODEL_INTEGRATION_INTERFACES.md`](docs/MODEL_INTEGRATION_INTERFACES.md).
 
-The dissertation's specifications have been transcribed with section references (`docs/EXPERIMENTAL_SPECIFICATIONS.md`, `configs/specification/thesis_variants.yaml`). Where chapters disagree, all versions are kept and numbered in `docs/SPECIFICATION_CONFLICTS.md`; none has been chosen.
+## Research implementation and verification
 
-## Specification status
+This repository is maintained with an emphasis on traceability between **dissertation specifications, source code, test cases, and independently observed experimental results**.
 
-The dissertation contains differing experimental specifications that need verification before selecting the executable configuration (summary; the full register with ~60 entries is `docs/SPECIFICATION_CONFLICTS.md`):
+Key engineering practices include:
 
-| Topic | Reported alternatives |
-| --- | --- |
-| Backbone | GPT-2 Medium (Chapter 4); AraGPT2-large (Appendix A); 774M base parameters (Chapter 5) |
-| Model parameters | 18M trainable modules (Chapter 4); 847M total / 73M additions (Chapter 5) |
-| Training phases | Three phases in Chapters 4–5; four stages in Appendix A.26 |
-| GPU environment | A100 40GB (Chapter 5); A100 80GB (Appendix A) |
-| Reward weights | Three-term reward (Chapter 5); four-term reward (Appendix A.3) |
+- Explicit model and experimental configurations rather than silently choosing between alternative thesis specifications.
+- Unit tests for tensor dimensions, attention masking, data contracts and generation/training procedures.
+- Clear separation of **synthetic software checks** from real-corpus evaluation.
+- Experiment provenance through source revisions, configurations, seeds and data/checkpoint identifiers.
+- Documented limitations for metrics whose full computational definitions or required reference data are unavailable.
 
-The aim is to evaluate these assertions programmatically and publish **new** experimental results together with their real execution dates. Do not interpret reproduction as evidence of when historical experiments were conducted.
+For the detailed engineering record, see:
 
-## Existing code and security
+- [Project governance](docs/PROJECT_GOVERNANCE.md)
+- [Integration compatibility audit](docs/INTEGRATION_COMPATIBILITY_AUDIT.md)
+- [Integration execution plan](docs/INTEGRATION_EXECUTION_PLAN.md)
+- [Security migration notes](docs/legacy_security_migration.md)
 
-The historical root-level Python scripts predate this new workspace. They include legacy preprocessing, database and Arabic NLP utilities; they have not been audited for current runtime compatibility. **Security alert:** at least some public legacy scripts contain hard-coded credentials or API tokens. Treat them as compromised: rotate/revoke them with their providers, remove them from tracked content *and* relevant public Git history, and replace with environment-variable-based configuration before using them.
+### Experimental results
 
-## Next steps
+The dissertation reports evaluations of narrative quality, cultural alignment and dialectal behavior. A new repository run is treated as a **new experiment**, not as proof that historic thesis measurements have been reproduced.
 
-1. Audit and secure existing scripts.
-2. Establish thesis-to-code traceability.
-3. Implement CSAM shape and parameter-count tests.
-4. Add CKG, DAL and data pipelines.
-5. Evaluate reproducibility before GPU-intensive training.
+Published dissertation results and independently rerun measurements should be compared with their dataset, metric definition, configuration and uncertainty made explicit. We do **not** present synthetic smoke-test outputs or placeholder evaluation scores as verified research results.
 
-## License and data
+## Research and development roadmap
 
-No project license is selected yet. Do not redistribute copyrighted ANHC source texts, non-public annotations, private datasets, or model checkpoints without proper authorization.
+1. **Data foundation:** Arabic heritage ingestion, ANHC records, annotation provenance and CKG interfaces.
+2. **Model integration:** connect cultural schema activation to CSAM and dialect conditioning to DAL.
+3. **Training and generation:** move from small-scale functionality tests to appropriately configured Arabic language models and licensed training data.
+4. **Evaluation:** implement and validate supported metrics, controlled comparisons and ablation studies.
+5. **Research demonstration:** provide an auditable Arabic-language interface for story generation, cultural grounding and experimental inspection.
+
+Development progress and review are tracked through [GitHub Issues](../../issues) and [Pull Requests](../../pulls).
+
+## Citation and research use
+
+When referencing this project, please cite the doctoral dissertation:
+
+> Ibrahim, Mossab. *Automated Arabic Narrative Story Generation (ANSG): A Hybrid Neuro-Symbolic Architecture with Culturally-Grounded Reinforcement Learning*. Doctoral dissertation research, Universidad Complutense de Madrid.
+
+The repository contains ongoing research software and should not be construed as an independently verified reproduction of every experiment reported in the dissertation.
+
+## Licensing and responsible use
+
+No general open-source license has been finalized for this repository. Copyright remains with the respective authors and rightsholders. Third-party narrative editions, lexical resources, annotations and checkpoints require their own appropriate usage permissions.
+
+---
+
+**ANSG explores how neural language models and structured cultural knowledge can work together to support authentic, dialect-aware Arabic narrative generation.**
