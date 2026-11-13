@@ -33,6 +33,7 @@ legacy = [
 
 [project.scripts]
 ansg-ingest = "ansg.data.pipeline:main"
+ansg-build-examples = "ansg.data.training_examples:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
