@@ -18,6 +18,19 @@ from `PROJECT_GOVERNANCE.md`:
 * nothing invents annotations, CRAFT formulas, reward definitions or checkpoints;
   all test data are synthetic and labelled.
 
+## 0. Status (Issue #11)
+
+| Plan PR | Status |
+| --- | --- |
+| 0 Audit (Issue #3) | merged (#5) |
+| 1 Data branch into `master` (Issue #6) | merged (#10) |
+| 2 Namespace unification | **done in Issue #11**: `git mv` of `data.py → data/training_dataset.py`, `evaluation.py → evaluation/basic_metrics.py`, `knowledge.py → knowledge/lexical_baseline.py`; lazy PEP 562 re-exports; unified `pyproject.toml`; topology guard 0 findings |
+| 3 Schema-mask fix | done by ChatGPT (#9, merged into the model branch) and brought in by Issue #11 |
+| 4 ANHC → training adapter | **done in Issue #11**: `ansg.data.training_examples` (`SchemaVocabulary` PAD = 0, dialect table, `TrainingExample`, `ansg-build-examples`); dataset keeps missing dialect/schema unknown; DAL treats dialect id −1 as unknown (soft gate) |
+| 5 Activation weights in the model | open (decision D4) |
+| 6 Evaluation separation | partly: `weighted_cmpi` labelled surrogate (docstring + `is_dissertation_cmpi = False`); CRAFT registry still refuses CMPI; rename is decision D3 |
+| 7 CI consolidation | **done in Issue #11**: single `.github/workflows/ci.yml` |
+
 ## 1. Ordered PRs
 
 | # | PR (scope) | Content | Non-destructive because | Gate (must pass) |

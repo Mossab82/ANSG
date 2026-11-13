@@ -106,21 +106,32 @@ The project is being consolidated from earlier Arabic NLP utilities and independ
 | [`docs/`](docs/) | Research governance, technical audits, architecture decisions and integration plan |
 | [`tools/`](tools/) | Repository integrity, packaging and cross-branch verification tools |
 | [`tests/`](tests/) | Automated validation and synthetic integration checks |
-| [`src/ansg/`](src/ansg/) | Data and knowledge layer: One Thousand and One Nights ingestion, Arabic normalisation, ANHC records (DIA/MOTIF/MORAL), ArabicVerbNet/ArabicNameNet adapters, CKG/CST-Onto interfaces, CRAFT specification registry and supported statistics (no PyTorch dependency) |
-| [`configs/`](configs/), [`scripts/`](scripts/) | Data, knowledge, evaluation and dissertation-variant configurations; resource inspection and parameter-audit scripts |
-| [`implementation/ansg-core-2026`](../../tree/implementation/ansg-core-2026) | PyTorch research model, CSAM, DAL and training prototypes |
-| [`claude/relaxed-knuth-q63k61`](../../tree/claude/relaxed-knuth-q63k61) | Arabic data ingestion, ANHC records, CKG adapters and evaluation interfaces |
-| [`chatgpt/fix-csam-schema-padding`](../../tree/chatgpt/fix-csam-schema-padding) | Independent CSAM masking and batching corrections under review |
+| [`src/ansg/`](src/ansg/) | **Data and knowledge layer** (no PyTorch dependency): One Thousand and One Nights ingestion, Arabic normalisation, ANHC records (DIA/MOTIF/MORAL), training-example adapter, ArabicVerbNet/ArabicNameNet adapters, CKG/CST-Onto interfaces, CRAFT specification registry and supported statistics. **Model layer** (`model` extra): CSAM, DAL, the trainable ANSG model, supervised/adversarial/PPO training steps, generation and a pretrained-backbone bridge |
+| [`configs/`](configs/), [`scripts/`](scripts/), [`examples/`](examples/) | Data, knowledge, evaluation, model and dissertation-variant configurations; resource inspection, parameter-audit and synthetic end-to-end smoke scripts; synthetic demo inputs |
+| `train.py`, `train_pipeline.py`, `evaluate.py` | Training, three-stage pipeline and generation entry points (synthetic demo data by default, labelled as such) |
+| [`implementation/ansg-core-2026`](../../tree/implementation/ansg-core-2026) | History of the PyTorch research model, CSAM, DAL and training prototypes |
+| [`claude/relaxed-knuth-q63k61`](../../tree/claude/relaxed-knuth-q63k61) | History of the Arabic data ingestion, ANHC records, CKG adapters and evaluation interfaces |
+| [`chatgpt/fix-csam-schema-padding`](../../tree/chatgpt/fix-csam-schema-padding) | History of the CSAM masking and batching corrections (merged into the model branch as #9) |
 
-**Development note:** The default branch currently retains the historical scripts and shared governance/integration tooling. Some newer components are in the linked development branches pending compatibility review and integration. The branches are not interchangeable runnable releases. The data and knowledge layer from `claude/relaxed-knuth-q63k61` is included in the default branch (Issue #6); the PyTorch model is not yet.
+**Development note:** The default branch currently retains the historical scripts and shared governance/integration tooling. Some newer components are in the linked development branches pending compatibility review and integration. The branches are not interchangeable runnable releases. The data and knowledge layer (Issue #6) and the PyTorch model with CSAM masking corrections (Issue #11) form one package; no trained ANSG checkpoint is distributed.
 
-### Data and knowledge layer: quick start
+### Quick start
 
 ```bash
-python -m pip install -e ".[test]"         # no PyTorch required
-python -m pytest                           # synthetic fixtures only
-python tools/check_package_topology.py     # must report 0 findings
-ansg-ingest --config configs/data/nights.yaml   # requires your licensed corpus under data/private/
+# Data and knowledge layer only (no PyTorch)
+python -m pip install -e ".[test]"
+python -m pytest                                # model tests are skipped explicitly
+python tools/check_package_topology.py          # must report 0 findings
+
+# Full stack: model, training and generation
+python -m pip install -e ".[test,model]"
+python -m pytest
+python train.py --epochs 1 --output runs/smoke  # synthetic demo data, flagged as synthetic
+python scripts/e2e_smoke.py --output runs/e2e   # synthetic: record -> CKG activation -> CSAM/DAL -> generation
+
+# Real data (licensed corpus under data/private/)
+ansg-ingest --config configs/data/nights.yaml
+ansg-build-examples --records-dir data/processed/nights --ckg <your CKG JSON> --output data/processed/examples
 ```
 
 Dissertation specifications and their inter-chapter conflicts are transcribed in [`docs/EXPERIMENTAL_SPECIFICATIONS.md`](docs/EXPERIMENTAL_SPECIFICATIONS.md) and [`docs/SPECIFICATION_CONFLICTS.md`](docs/SPECIFICATION_CONFLICTS.md); interfaces to the model are in [`docs/MODEL_INTEGRATION_INTERFACES.md`](docs/MODEL_INTEGRATION_INTERFACES.md).
