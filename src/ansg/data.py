@@ -37,15 +37,17 @@ class NarrativeDataset(Dataset):
 def collate(batch):
     # Pad inputs and labels separately; masked target tokens ignored in CE.
     max_t=max(len(r['tokens']) for r in batch)
-    max_s=max(len(r['schema_ids']) for r in batch)
+    max_s=max(1, *(len(r['schema_ids']) for r in batch))
     ids=torch.zeros(len(batch),max_t,dtype=torch.long)
     labels=torch.full((len(batch),max_t),-100,dtype=torch.long)
     schemas=torch.zeros(len(batch),max_s,dtype=torch.long)
+    schema_mask=torch.zeros(len(batch),max_s,dtype=torch.bool)
     dialects=torch.zeros(len(batch),dtype=torch.long)
     for i,r in enumerate(batch):
         n=len(r['tokens'])
         ids[i,:n]=torch.tensor(r['tokens'])
         labels[i,:n]=torch.tensor(r['tokens'])
         schemas[i,:len(r['schema_ids'])]=torch.tensor(r['schema_ids'])
+        schema_mask[i,:len(r['schema_ids'])]=schemas[i,:len(r['schema_ids'])].ne(0)
         dialects[i]=r['dialect_id']
-    return {'input_ids':ids,'labels':labels,'schema_ids':schemas,'dialect_ids':dialects}
+    return {'input_ids':ids,'labels':labels,'schema_ids':schemas,'schema_mask':schema_mask,'dialect_ids':dialects}
