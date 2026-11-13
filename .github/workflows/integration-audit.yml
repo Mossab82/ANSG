@@ -15,14 +15,17 @@ permissions:
 
 jobs:
   governance-checks:
-    name: Topology guard + its tests (stdlib only)
+    name: Topology guard + integration tooling tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: python -m pip install --upgrade pip pytest
+      - name: Install this tree (data/knowledge layer, no torch)
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[test]"
       - name: Package topology of this tree
         run: python tools/check_package_topology.py
       - name: Unit tests for the integration tooling
