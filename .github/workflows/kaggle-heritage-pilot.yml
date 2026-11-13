@@ -1,0 +1,54 @@
+name: ANSG heritage LoRA pilot (experimental)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths:
+      - 'kaggle/heritage/**'
+      - '.github/workflows/kaggle-heritage-pilot.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ansg-heritage-gpu-pilot
+  cancel-in-progress: false
+
+jobs:
+  heritage-lora-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 145
+    env:
+      KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+    steps:
+      - name: Check out research code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Kaggle CLI and dependency
+        run: |
+          python -m pip install -q --upgrade kaggle six
+          python -c 'import kaggle, six'
+      - name: Validate Kaggle secret
+        run: |
+          if [ -z "$KAGGLE_API_TOKEN" ]; then
+            echo "::error::KAGGLE_API_TOKEN GitHub Actions secret missing"
+            exit 1
+          fi
+      - name: Check remote Kaggle authentication
+        run: kaggle kernels list --mine --page-size 5
+      - name: Launch private Kaggle heritage LoRA adaptation pilot
+        run: kaggle kernels push -p kaggle/heritage
+      - name: Wait for training, download reports and trained adapter
+        run: python kaggle/heritage/wait_and_download.py
+      - name: Preserve reports and available training artifacts, including on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ansg-heritage-training-evidence
+          path: kaggle-heritage-output/
+          if-no-files-found: warn
+          retention-days: 30
