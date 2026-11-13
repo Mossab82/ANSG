@@ -38,6 +38,8 @@ trainable_parameters:                       # C-MODEL-2
   ch4_4_6_1: {schema_embeddings: 689_664, formula: "898*768"}
   ch5_table_5_1: {cultural_modules: 73_000_000, lora_only: 2_500_000}
   ch4_table_4_10: {params_at_12_heads_M: 847}
+  ch8_8_7_1: {csam_alone: 73_000_000}                       # vs Table 5.1 'cultural modules' 73M
+  appendix_a25_visible_modules: {total: 2_770_432, note: "embedding 1847x256 + Q/K/V at hidden 1280; see docs/PARAMETER_AUDIT.md"}
 
 csam:
   name_variants: ["Cultural Semantic Alignment Module (Ch.4)", "Cultural Schema Attention Mechanism (Ch.3, glossary, A.3, A.25)"]  # C-CSAM-1
@@ -57,6 +59,7 @@ csam:
     appendix_a25_code: {heritage: [0,1,2,3], rhetorical: [4,5,6,7], dialectal: [8,9,10,11], rhetorical_devices: ["saj'", "tawriya", "iltifat"]}
     num_cultural_heads: 12
     public_fact: "Ch.4 says 'each of 12 attention heads'; gpt2-medium has 16 heads/layer, aragpt2-large 20"
+  appendix_a25_head_dim: "hidden_size // 12 -> 106 rem 8 at 1280; 85 rem 4 at 1024 (C-CSAM-7)"
   appendix_a25_code_semantics: "cross-attention from hidden states to schema embeddings (1847 x 256); output = 0.370*h + beta*mean(heritage heads) + gamma*mean(rhetorical heads); dialectal heads unused"  # C-CSAM-4
   training_objective: "L_CSAM = L_LM + lambda_align*L_cultural + lambda_schema*L_schema (Eq.4.16-4.19); lambda_align 0.1, lambda_schema 0.05"
   schema_inventory_size: 898
