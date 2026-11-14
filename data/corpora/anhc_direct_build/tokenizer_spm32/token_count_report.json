@@ -77,5 +77,15 @@
     "model": "anhc_direct_spm32.model",
     "vocab": "anhc_direct_spm32.vocab",
     "training_sample": "training_sample.txt"
+  },
+  "source_published_statistics": {
+    "provider": "Språkbanken Text",
+    "corpus_version_date": "2025-09-12",
+    "provider_reported_tokens": 76486597,
+    "provider_reported_sentences": 3629107,
+    "license": "CC BY 4.0",
+    "source_url": "https://spraakbanken.gu.se/resurser/arabic-ebooks",
+    "recomputed_by_this_script": false,
+    "comparability_note": "Provider-reported corpus tokens use the provider's own processing; do not equate or add them to this script's SentencePiece counts."
   }
 }
