@@ -32,3 +32,7 @@ The Jordanian Layla Witheeb collection is a useful supplementary contemporary di
 ## Evidence and completion status
 
 The current build demonstrates comparable corpus scale and usable classical/dialect resource plumbing, but does not yet reconstruct every thesis-named edition or its historical source manifest. The thesis reports 70,404,829 tokens and 23M triple-annotated tokens; this branch must derive corresponding totals from actual, attributed records using a pinned tokenizer and human-adjudicated spans. We keep the novelty claim grounded in the integration design while making every locally verified source and every remaining provenance gap explicit.
+
+## قيد استعادة النسخة التاريخية
+
+تنص الرسالة في §3.7.1 على أن corpus الكامل ووسومه متاحان بطلب وفق ترخيص بحثي غير تجاري، بينما تسمي عينة 10% (7 ملايين رمز) في هذا الموضع برقم DOI غير معيّن. ويورد الملحق A.20 رقم Zenodo مختلفاً للعينة. لم نعثر على ملفات ANHC أو عينة الوسوم في مستودعات GitHub أو Zenodo عبر المعرفات المشار إليها. لذلك لا يمكن استخراج 23 مليون وسم محكّم من النسخة التاريخية دون الوصول إلى ملفاتها الأصلية؛ ملفات مصادر بديلة أو وسوم آلية لا تثبت ذلك الادعاء.
