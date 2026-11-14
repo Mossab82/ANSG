@@ -50,7 +50,7 @@ def sha256_directory(path):
             if relative == "ansg_backbone.json":
                 continue
             inventory[relative] = sha256_file(file_path)
-    lines = "".join(f"{name}\\t{digest}\\n" for name, digest in sorted(inventory.items()))
+    lines = "".join(f"{name}\t{digest}\n" for name, digest in sorted(inventory.items()))
     return hashlib.sha256(lines.encode("utf-8")).hexdigest()
 
 
@@ -112,8 +112,11 @@ def check_plan(plan_path, profile_path):
         if kind not in {"file", "directory"}:
             blockers.append(f"Unsupported artifact kind for role {role}: {kind!r}.")
             continue
+        if not isinstance(path, str) or not path.strip():
+            blockers.append(f"Artifact path missing for role {role}.")
+            continue
         exists = os.path.isfile(path) if kind == "file" else os.path.isdir(path)
-        if not path or not exists:
+        if not exists:
             blockers.append(f"Artifact {kind} missing for role {role}: {path!r}.")
             continue
         if not isinstance(expected, str) or not re.fullmatch(r"[0-9a-fA-F]{64}", expected):
