@@ -70,7 +70,8 @@
   "thesis_comparison": {
     "claimed_tokens": 70400000,
     "exact_reproduction": false,
-    "reason": "The thesis's original root-aware SentencePiece model and preprocessing artifact are not available; this direct profile is reproducible but not the historical tokenizer."
+    "reason": "The thesis's original root-aware SentencePiece model and preprocessing artifact are not available; this direct profile is reproducible but not the historical tokenizer.",
+    "claimed_tokens_exact": 70404829
   },
   "artifacts": {
     "model": "anhc_direct_spm32.model",
