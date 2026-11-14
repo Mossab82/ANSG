@@ -16,9 +16,65 @@ verbatim. Synthetic examples (for example ``tests/fixtures``) must be declared
 ``synthetic``; such checkpoints are labelled ``ansg_trained_synthetic_only``.
 """
 import argparse
+import datetime as dt
+import hashlib
 import json
+import os
 import sys
 
+
+def _sha256(path):
+    digest = hashlib.sha256()
+    with open(path, "rb") as source:
+        for chunk in iter(lambda: source.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def validate_real_data_authorization(manifest_path, examples_path, vocabulary_path):
+    """Require explicit approval and exact hashes before a run can be labelled real."""
+    if not manifest_path:
+        raise ValueError("--authorization-manifest is required when --data-kind=real")
+    try:
+        with open(manifest_path, encoding="utf-8") as source:
+            manifest = json.load(source)
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ValueError(f"cannot read authorization manifest: {exc}") from exc
+
+    if manifest.get("schema") != "ansg.training_authorization/1":
+        raise ValueError("authorization manifest schema must be ansg.training_authorization/1")
+    if manifest.get("review_status") != "approved" or manifest.get("training_authorized") is not True:
+        raise ValueError("real-data training requires explicit approved status and training_authorized=true")
+    if not manifest.get("approver") or not manifest.get("approved_at"):
+        raise ValueError("authorization manifest must record approver and approved_at")
+    try:
+        dt.datetime.fromisoformat(manifest["approved_at"].replace("Z", "+00:00"))
+    except (TypeError, ValueError) as exc:
+        raise ValueError("approved_at must be an ISO-8601 timestamp") from exc
+
+    sources = manifest.get("sources")
+    if not isinstance(sources, list) or not sources:
+        raise ValueError("authorization manifest must list source works")
+    for source in sources:
+        if (source.get("training_allowed") is not True or not source.get("license")
+                or not source.get("sha256") or len(source["sha256"]) != 64):
+            raise ValueError("each source must record license, SHA-256, and training_allowed=true")
+
+    derived = manifest.get("derived_files")
+    if not isinstance(derived, list):
+        raise ValueError("authorization manifest must list derived_files")
+    by_role = {item.get("role"): item for item in derived if isinstance(item, dict)}
+    for role, path in (("examples", examples_path), ("schema_vocabulary", vocabulary_path)):
+        item = by_role.get(role)
+        if not item or not item.get("path") or not item.get("sha256"):
+            raise ValueError(f"authorization manifest is missing the {role} derived file")
+        expected = os.path.realpath(item["path"])
+        actual = os.path.realpath(path)
+        if expected != actual:
+            raise ValueError(f"authorization manifest {role} path does not match CLI input")
+        if _sha256(actual) != item["sha256"]:
+            raise ValueError(f"authorization manifest {role} SHA-256 does not match file")
+    return _sha256(manifest_path)
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
@@ -28,6 +84,7 @@ def main(argv=None):
     ap.add_argument("--examples", required=True, help="*.examples.jsonl from ansg-build-examples")
     ap.add_argument("--schema-vocabulary", required=True)
     ap.add_argument("--data-kind", required=True, choices=["synthetic", "real"])
+    ap.add_argument("--authorization-manifest", help="Required for real data; records explicit rights approval and hashes")
     ap.add_argument("--steps", type=int, required=True)
     ap.add_argument("--lr", type=float, default=1e-4)
     ap.add_argument("--batch-size", type=int, default=4)
@@ -36,6 +93,17 @@ def main(argv=None):
     ap.add_argument("--device", default="auto")
     ap.add_argument("--output", required=True)
     args = ap.parse_args(argv)
+    if args.steps <= 0 or args.batch_size <= 0 or args.max_length <= 1 or args.lr <= 0:
+        ap.error("--steps, --batch-size and --lr must be positive; --max-length must exceed 1")
+    authorization_hash = None
+    if args.data_kind == "real":
+        try:
+            authorization_hash = validate_real_data_authorization(
+                args.authorization_manifest, args.examples, args.schema_vocabulary
+            )
+        except ValueError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return 2
 
     from ansg.generation.cultural import load_example_rows, save_cultural_modules, train_cultural_modules
     from ansg.generation.runtime import GenerationError, build_cultural, load_backbone, resolve_device
@@ -50,6 +118,8 @@ def main(argv=None):
         record = train_cultural_modules(cultural, backbone, rows, steps=args.steps, lr=args.lr,
                                         batch_size=args.batch_size, max_length=args.max_length, seed=args.seed)
         record["backbone_hash_verified"] = backbone.hash_verified
+        if authorization_hash is not None:
+            record["authorization_manifest_sha256"] = authorization_hash
         manifest = save_cultural_modules(cultural, backbone, args.output, training=record, data_kind=args.data_kind,
                                          data_files={"examples": args.examples,
                                                      "schema_vocabulary": args.schema_vocabulary})
