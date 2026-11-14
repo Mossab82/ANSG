@@ -48,14 +48,13 @@ def sha(text):
 CORPUS_COMMIT = "da54c488c9e94d049b5ed38b28a3d8005aac88f7"
 CORPUS_URL = ("https://raw.githubusercontent.com/Mossab82/ANSG/"
               + CORPUS_COMMIT + "/data/corpora/classical_arabic/stories.jsonl")
-TRAIN_IDS = {"arabian_nights-001", "arabian_nights-002", "arabian_nights-003",
-             "arabian_nights-004", "kalila_dimna-006", "kalila_dimna-007",
-             "kalila_dimna-008", "kalila_dimna-009", "kalila_dimna-010",
-             "kalila_dimna-011", "kalila_dimna-012", "kalila_dimna-013",
-             "kalila_dimna-014", "kalila_dimna-017"}
-VALIDATION_IDS = {"kalila_dimna-015", "kalila_dimna-016", "kalila_dimna-018"}
-TEST_IDS = {"kalila_dimna-019", "kalila_dimna-020"}
-EXCLUDED_IDS = {"arabian_nights-005"}  # Sinbad likely overlaps the 4 anthology parts.
+TRAIN_IDS = {"arabian_nights-001", "arabian_nights-002", "arabian_nights-003", "arabian_nights-004",
+             "arabian_nights-005", "kalila_dimna-006", "kalila_dimna-007", "kalila_dimna-008",
+             "kalila_dimna-009", "kalila_dimna-011", "kalila_dimna-012", "kalila_dimna-013",
+             "kalila_dimna-014", "kalila_dimna-016", "kalila_dimna-019"}
+VALIDATION_IDS = {"kalila_dimna-010", "kalila_dimna-017", "kalila_dimna-018"}
+TEST_IDS = {"kalila_dimna-015", "kalila_dimna-020"}
+EXCLUDED_IDS: set = set()  # split v2 (scripts/reproduction/derive_pilot_split.py): Sinbad included; 019 joins 007 in train
 
 def _download_corpus():
     req=Request(CORPUS_URL,headers={

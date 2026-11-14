@@ -24,14 +24,16 @@ jobs:
     steps:
       - name: Check out research code
         uses: actions/checkout@v4
-      - name: Check immutable corpus integrity and source-group split BEFORE GPU
-        run: |
-          python -m py_compile kaggle/heritage/ansg_heritage_pilot.py
-          python scripts/validate_classical_corpus.py
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Check immutable corpus integrity and source-group split BEFORE GPU
+        run: |
+          python -m py_compile kaggle/heritage/ansg_heritage_pilot.py
+          python scripts/validate_classical_corpus.py
+      - name: CPU preflight of the pilot's real data path + rights gate (blocks GPU until rights are verified)
+        run: python scripts/preflight_heritage_pilot.py --require-rights
       - name: Install Kaggle CLI and dependency
         run: |
           python -m pip install -q --upgrade kaggle six
