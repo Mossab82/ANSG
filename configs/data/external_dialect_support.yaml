@@ -1,24 +1,32 @@
-schema: ansg.external_dialect_support/1
-purpose: >
-  Track external dialect resources for auxiliary evaluation and dialect-identifier
-  research. These are not narrative additions to ANHC and their records do not
-  contribute to the 72M story-corpus scope or the 23M triple-annotation target.
+schema: ansg.external_dialect_support/2
+purpose: >-
+  Record how dialect resources and tools relate to the thesis's ANHC novelty,
+  the DAL/DIA pipeline, and the direct build. A resource may contribute dialect
+  supervision or processing without being a narrative source or entering the
+  story-token total.
 sources:
   - source_id: madar_parallel_corpus
     title: MADAR Arabic Parallel Corpus
     official_url: https://camel.abudhabi.nyu.edu/madar-parallel-corpus/
-    role: external_dialect_evaluation_only
+    thesis_role:
+      - positioned_as_a_large_dialectal_resource_in_chapter_3_table_3_1
+      - cited_for_dialectal_adaptation_and_DIA_support
+      - relevant_to_the_multisource_dialect_design_of_ANHC
+    direct_build_role: dialectal_parallel_supervision_or_reference_after_access_and_terms_review
     coverage: 25 city dialects plus MSA; includes Amman and Salt
     source_domain: translated Basic Traveling Expression Corpus travel sentences
     releases:
       corpus_26: 2000 seed sentences translated across the 25 city dialects plus MSA
       corpus_6: 12000 sentences across five selected city dialects plus MSA
-    permitted_use: internal research and evaluation only
-    restrictions: [do_not_modify_dataset, do_not_redistribute, do_not_sublicense]
+    restrictions: [internal_research_and_evaluation_only, do_not_modify, do_not_redistribute, do_not_sublicense]
     acquisition: official download form; do not submit on behalf of user
     data_status: not_downloaded
-    story_corpus_admission: excluded_not_narrative
-    planned_use: evaluate DIA proxy/classifier; never count as long-form narrative
+    narrative_story_text: false
+    include_in_ANHC_narrative_token_total: false
+    traceability_note: >-
+      The thesis establishes MADAR's dialect-resource role, but its released
+      row-level ANHC source manifest is not present here. Keep it visible in the
+      novelty/provenance map; do not claim that its travel sentences are stories.
 
   - source_id: shami_corpus
     title: Shami: A Corpus of Levantine Arabic Dialects
@@ -27,11 +35,13 @@ sources:
     reported_paper_volume: 117805
     observed_huggingface_rows: 66251
     dialects: [Jordanian, Palestinian, Syrian, Lebanese]
-    domain: social_media
-    role: dialect_classifier_support_after_rights_review
+    domain: short social-media text
+    thesis_role: dialectal resource within the wider source landscape
+    direct_build_role: auxiliary_DIA_support_after_provenance_and_rights_review
     redistribution_status: unresolved_upstream_text_rights
-    data_status: not_in_current_release
-    story_corpus_admission: excluded_not_narrative
+    data_status: user_provided_local_text_counted; text_not_published
+    narrative_story_text: not_verified
+    include_in_ANHC_narrative_token_total: false
 
   - source_id: qadi
     title: QCRI Arabic Dialect Identification
@@ -39,20 +49,18 @@ sources:
     reported_volume: 540590
     dialects: 18_country_labels
     domain: tweets; repository provides tweet IDs requiring hydration
-    role: dialect_identification_only
-    access_and_redistribution: external_platform_terms_and_text_rights_review_required
+    role: dialect_identification_only_after_terms_review
     data_status: not_hydrated
-    story_corpus_admission: excluded_not_narrative
+    narrative_story_text: false
 
   - source_id: nadi_2023
     title: Nuanced Arabic Dialect Identification Shared Task
     official_url: https://nadi.dlnlp.ai/2023/
     reported_volume: 23400
     domain: tweets; shared-task data access is registered
-    role: dialect_identification_only
-    access_and_redistribution: registration_and_license_terms_required
+    role: dialect_identification_only_after_terms_review
     data_status: not_downloaded
-    story_corpus_admission: excluded_not_narrative
+    narrative_story_text: false
 
   - source_id: dart
     title: Dialectal Arabic Tweets
@@ -60,12 +68,12 @@ sources:
     reported_volume: about_25000_tweets
     dialects: [Egyptian, Maghrebi, Levantine, Gulf, Iraqi]
     domain: crowdsourced_twitter_text
-    role: dialect_classification_benchmark_only
-    redistribution_status: license_review_required
+    role: dialect_classification_support_after_license_review
     data_status: not_downloaded
-    story_corpus_admission: excluded_not_narrative
+    narrative_story_text: false
 
 counting_rule:
-  include_in_ANHC_story_token_total: false
-  include_in_DIA_MOTIF_MORAL_adjudicated_coverage: false
-  include_only_as_external_DIA_evaluation_if_access_and_license_allow: true
+  count_as_dialect_evidence_when_role_and_rights_are_documented: true
+  include_in_ANHC_story_token_total_only_if_verified_narrative_text: true
+  include_in_DIA_MOTIF_MORAL_adjudicated_coverage_only_after_layer_adjudication: true
+  never_count_parallel_travel_sentences_or_tweets_as_long_form_stories: true
