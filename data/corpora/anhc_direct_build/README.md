@@ -15,11 +15,11 @@ This branch is assembling a reproducible corpus release from openly licensed sou
 - `arabic_ebooks_all/`: full 1,745-book pool, source report, and reproducible materializer.
 - `tokenizer_spm32/`: token-count report, tokenizer profile, and SHA-256 provenance.
 - `story_units/`: 236 provisional Alf Layla spans plus 10 Kalila chapter containers, work-cycle locks, and unsegmented-prefix record.
-- `../../../../scripts/ingest_arabic_ebooks.py`: download and materialize source records.
-- `../../../../scripts/train_anhc_direct_tokenizer.py`: fit direct tokenizer and count every source text.
-- `../../../../scripts/build_story_unit_review_manifest.py`: regenerate source-linked provisional story units.
-- `../../../../scripts/audit_anhc_annotations.py`: count adjudicated single-layer and triple-covered token intervals.
-- `../../../../docs/ar/ANHC_RELEASE_PROTOCOL.md`: source rules, annotation codebook policy, thesis conflicts, and split protocol.
+- `../../../scripts/ingest_arabic_ebooks.py`: download and materialize source records.
+- `../../../scripts/train_anhc_direct_tokenizer.py`: fit direct tokenizer and count every source text.
+- `../../../scripts/build_story_unit_review_manifest.py`: regenerate source-linked provisional story units.
+- `../../../scripts/audit_anhc_annotations.py`: count adjudicated single-layer and triple-covered token intervals.
+- `../../../docs/ar/ANHC_RELEASE_PROTOCOL.md`: source rules, annotation codebook policy, thesis conflicts, and split protocol.
 
 The full Arabic E-Book Corpus text is not duplicated in this repository. Its official Version 1 record is available from Researchdata.se (DOI: 10.5878/7rbh-gy93, CC BY 4.0). Kalila source pages retain their edition, revision IDs, attribution, and CC BY-SA 4.0 metadata.
 
