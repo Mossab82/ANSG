@@ -1,0 +1,2498 @@
+{
+  "schema": "ansg.external_evidence/1",
+  "collected_utc": "2026-11-14T06:02:55.448199+00:00",
+  "collector": "scripts/reproduction/collect_external_evidence.py",
+  "github_run": {
+    "repository": "Mossab82/ANSG",
+    "run_id": "43564395466",
+    "sha": "e0dc1f3ff6227dd103ee3876e92db2e2ef83743f"
+  },
+  "thesis_artefacts": {
+    "zenodo": [
+      {
+        "url": "https://zenodo.org/api/records/8847291",
+        "status": 404,
+        "error": "HTTP Error 404: NOT FOUND",
+        "doi_resolution": {
+          "status": 404,
+          "final_url": null,
+          "error": "HTTP Error 404: Not Found"
+        }
+      },
+      {
+        "url": "https://zenodo.org/api/records/8847342",
+        "status": 404,
+        "error": "HTTP Error 404: NOT FOUND",
+        "doi_resolution": {
+          "status": 404,
+          "final_url": null,
+          "error": "HTTP Error 404: Not Found"
+        }
+      },
+      {
+        "url": "https://zenodo.org/api/records/8847356",
+        "status": 404,
+        "error": "HTTP Error 404: NOT FOUND",
+        "doi_resolution": {
+          "status": 404,
+          "final_url": null,
+          "error": "HTTP Error 404: Not Found"
+        }
+      },
+      {
+        "url": "https://zenodo.org/api/records/8847367",
+        "status": 404,
+        "error": "HTTP Error 404: NOT FOUND",
+        "doi_resolution": {
+          "status": 404,
+          "final_url": null,
+          "error": "HTTP Error 404: Not Found"
+        }
+      },
+      {
+        "url": "https://zenodo.org/api/records/8847378",
+        "status": 404,
+        "error": "HTTP Error 404: NOT FOUND",
+        "doi_resolution": {
+          "status": 404,
+          "final_url": null,
+          "error": "HTTP Error 404: Not Found"
+        }
+      }
+    ],
+    "github": {
+      "user": {
+        "url": "https://api.github.com/users/mossab-ansg",
+        "status": 404,
+        "error": "HTTP Error 404: Not Found"
+      },
+      "repos": [
+        {
+          "url": "https://api.github.com/repos/mossab-ansg/anhc-test-set",
+          "status": 404,
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "url": "https://api.github.com/repos/mossab-ansg/sahda",
+          "status": 404,
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "url": "https://api.github.com/repos/mossab-ansg/ansg-framework",
+          "status": 404,
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "url": "https://api.github.com/repos/mossab-ansg/ansg-weights",
+          "status": 404,
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "url": "https://api.github.com/repos/mossab-ansg/craft-eval",
+          "status": 404,
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "url": "https://api.github.com/repos/mossab-ansg/ansg-train",
+          "status": 404,
+          "error": "HTTP Error 404: Not Found"
+        },
+        {
+          "url": "https://api.github.com/repos/mossab-ansg/ckg-arabic",
+          "status": 404,
+          "error": "HTTP Error 404: Not Found"
+        }
+      ]
+    }
+  },
+  "madar": {
+    "pages": [
+      {
+        "url": "https://camel.abudhabi.nyu.edu/madar-parallel-corpus/",
+        "status": 200,
+        "final_url": "https://camel.abudhabi.nyu.edu/madar-parallel-corpus/",
+        "content_type": "text/html",
+        "sha256": "4aca5360b5f317eb120eb7ab68eb2c4b26f3bfa53dbf32795c1f132ce6de5a94",
+        "bytes": 6159,
+        "snippets": [
+          "MADAR Parallel Corpus Dataset Download Page MADAR Parallel Corpus Dataset Summary The MADAR corpus is a collection of parallel sentences covering the dialects of 25 cities from the Arab World, in addition to English, French, and MSA.",
+          "The corpus is created by translating selected sentences from the Basic Traveling Expression Corpus (BTEC) (Takezawa et al., 2007) to the different dialects.",
+          "The list of Arab cities covered in the MADAR corpus includes: Aleppo, Alexandria, Algiers, Amman, Aswan, Baghdad, Basra, Beirut, Benghazi, Cairo, Damascus, Doha, Fes, Jeddah, Jerusalem, Khartoum, Mosul, Muscat, Rabat, Riyadh, Salt, Sanaa, Sfax, Tripoli, and Tunis.",
+          "This release contains two datasets: Corpus-26: a set of 2,000 BTEC sentences and translated to all 25 city dialects (each of these sentences has 25 corresponding parallel translations), in addition to MSA.",
+          "Corpus-6: a set of 12,000 sentences translated to the dialects of five selected cities: Doha, Beirut, Cairo, Tunis, and Rabat, in addition to MSA.",
+          "Note: We do not provide the English or the French versions of the corpus because of copyright restrictions.",
+          "In order to get access to the English and French corpus, you will have to contact the U-Star Consortium (u-star-sec@ustarconsortium.com).",
+          "The MADAR Arabic Dialect Corpus and Lexicon.",
+          "In Proceedings of the International Conference on Language Resources and Evaluation (LREC 2018), Miyazaki, Japan, 2018.",
+          "[ PDF ] Download By downloading the MADAR Parallel Corpus Dataset files from HERE you agree to the terms of the license below.",
+          "////////////////////////////////////////////////////////////////////// // License for MADAR Corpus/Lexicon Dataset ////////////////////////////////////////////////////////////////////// Copyright 2019 Carnegie Mellon University and New York University Abu Dhabi.",
+          "A license to use and copy this dataset and its documentation solely for your internal research and evaluation purposes, without fee and without a signed licensing agreement, is hereby granted upon your download of the dataset, through which you agree to the following: 1) the above copyright notice, this paragraph and the following three paragraphs will prominently appear in all internal copies and",
+          "Please Contact the Carnegie Mellon University \"CMU\" Center for Technology Transfer and Enterprise Creation, 4615 Forbes Avenue, Suite 302, Pittsburgh, PA 15213 - phone 412.268.7393, for commercial licensing opportunities, or for further distribution, modification or license rights.",
+          "REGENTS HAS NO OBLIGATION TO PROVIDE FURTHER DOCUMENTATION, MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.",
+          "The MADAR Arabic Dialect Corpus and Lexicon.",
+          "In Proceedings of the International Conference on Language Resources and Evaluation (LREC 2018), Miyazaki, Japan, 2018."
+        ]
+      },
+      {
+        "url": "https://sites.google.com/nyu.edu/madar/",
+        "status": 200,
+        "final_url": "https://sites.google.com/nyu.edu/madar/",
+        "content_type": "text/html; charset=utf-8",
+        "sha256": "49a2a0251ea2fc3633955b88d266a96e2ab69ccf690aec0ac7d36efa066ec5cb",
+        "bytes": 246408,
+        "snippets": [
+          "The project aimed at improving dialectal Arabic processing by: Developing resources for Arabic Dialect modeling, including the creation of a 25-city multi-dialect lexicon and a 25-city multi-dialect parallel corpus; Developing machine translation systems among dialects, dialects and English, dialects and Standard Arabic; and Developing dialect identification systems that can work on a variety of g",
+          "Members Nizar Habash Lead Principal Investigator NYUAD Kemal Oflazer Co-lead Principal Investigator CMU-Q Houda Bouamor Principal Investigator CMU-Q Owen Rambow Principal Investigator Columbia Mohammed Salameh Postdoctoral Researcher CMU-Q Wajdi Zaghouani Postdoctoral Researcher CMU-Q Ossama Obeid Research Associate CMU-Q/NYUAD Dana Abdulrahim Linguist University of Bahrain Salam Khalifa Research ",
+          "Proceedings of The 12th Language Resources and Evaluation Conference, 2020.",
+          "Proceedings of the 16th Workshop on Computational Research in Phonetics, Phonology, and Morphology, Florence, Italy, 2019.",
+          "The International Conference on Language Resources and Evaluation (LREC 2018), Miyazaki, Japan, 2018.",
+          "The International Conference on Language Resources and Evaluation (LREC 2018), Miyazaki, Japan, 2018.",
+          "PDF BibTex The MADAR Arabic Dialect Corpus and Lexicon.",
+          "The International Conference on Language Resources and Evaluation (LREC 2018), Miyazaki, Japan, 2018.",
+          "PDF BibTex Resources MADAR Corpus The MADAR Corpus is a collection of parallel sentences covering the dialects of 25 cities from the Arab World, in addition to English, French, and Modern Standard Arabic (MSA).",
+          "This corpus is created by translating selected sentences from the Basic Traveling Expression Corpus (BTEC) in French and English to the different dialects.",
+          "The MADAR Corpus will be made available soon to the research community under a non-commercial license.",
+          "While we only provide the Arabic portions of the corpus, the English parallel text can be acquired directly from the USTAR consortium .",
+          "We provide three downloadable versions of the corpus (see Downloads ): a parallel corpus version, a version based on the 2019 MADAR Dialect ID Shared Task , and a version with CODA spelling ( conventional orthography for dialectal Arabic ).",
+          "MADAR Lexicon The MADAR lexicon is a collection of 1,045 concepts extracted from the MADAR Corpus defined in terms of triplets of words and phrases from English, French and MSA, along with multiple equivalent dialectal forms covering 25 cities from the Arab World.",
+          "The MADAR Lexicon will be made available soon to the research community under a non-commercial license.",
+          "It is based on the MADAR Corpus Data.",
+          "Downloads MADAR Parallel Corpus Dataset MADA R Lexicon MADAR SHARED TASK 2019: Arabic Fine-Grained Dialect Identification Dataset MADAR CODA Corpus Report abuse Page details Page updated Report abuse"
+        ]
+      }
+    ],
+    "paper": {
+      "url": "https://aclanthology.org/L18-1535.pdf",
+      "status": 200,
+      "final_url": "https://aclanthology.org/L18-1535.pdf",
+      "content_type": "application/pdf",
+      "sha256": "80d1e21e44315795eccc42839e7c426563b032ac42503cd6c80777a6e888f9f5",
+      "bytes": 487602,
+      "snippets": [
+        "The ﬁrst is a large parallel corpus of 25 Arabic city dialects in the travel domain.",
+        "The second is a lexicon of 1,045 concepts with an average of 45 words from 25 cities per concept.",
+        "Keywords: Arabic Dialects, Parallel Corpus, Lexicon 1.",
+        "The ﬁrst resource is a large parallel corpus of 25 Arabic city dialects, in addition to the pre-existing parallel set for English, French and Modern Standard Arabic (MSA).",
+        "The second resource is a 25-way lexicon of 1,045 entries in each city’s dialect along with MSA, French, and English.",
+        "DA varies phonologically, lexically, and morphologically from MSA, from region to region and to a lesser extent, from city to city in each region (Watson, 2007).",
+        "3387 Region Maghreb Nile Basin Levant Gulf Yemen Sub-region Morocco Algeria Tunisia Libya Egypt/SudanSouth LevantNorth Levant Iraq Gulf Yemen Cities Rabat (RAB) Fes (FES) Algiers (ALG) Tunis (TUN) Sfax (SFX) Tripoli (TRI) Benghazi (BEN) Cairo (CAI) Alexandria (ALX) Aswan (ASW) Khartoum (KHA) Jerusalem (JER) Amman (AMM) Salt (SAL) Beirut (BEI) Damascus (DAM) Aleppo (ALE) Mosul (MOS) Baghdad (BAG) B",
+        "The MADAR Corpus We built the MADAR Corpus, the ﬁrst collection of par- allel sentences covering the dialects of 25 cities from the Arab World, in addition to English, French, and MSA.3 Ta- ble 1 shows the break up we follow in choosing these cities.",
+        "3The MADAR corpus will be made available to the research community.",
+        "This table relates the typical ﬁve-way regional break up of Arabic dialects (Habash, 2010) to a more reﬁned ten-way sub-region division, and even further into 25 cities.",
+        "The corpus is created by translating selected sentences from the Basic Traveling Expression Corpus (BTEC) (Takezawa et al., 2007) in French and English to the different dialects.4 BTEC is a multilingual spoken language corpus containing tourism-related sentences similar to those that are usually found in phrasebooks for tourists going abroad.",
+        "This corpus is an attractive resource to use for different reasons: (i) it is conversational in nature (including questions and answers by tourists/guides) and this makes it closer to the genre di- alects are used for primarily; (ii) it has short sentences (on the average 6.5 words), which makes it easy enough for the translators to translate; and (iii) the BTEC corpus has trans- lations in severa",
+        "We selected 2,000 BTEC sentences and translated them to all 25 city dialects (each of these sentences has 25 corre- sponding parallel translations).",
+        "Henceforth, we refer to this part of the corpus as C ORPUS -25.",
+        "Furthermore, we se- lected 10,000 additional sentences and translated them to the dialects of ﬁve selected cities: Doha, Beirut, Cairo, Tu- nis, and Rabat.",
+        "We call this corpus CORPUS -5.",
+        "Effectively, each of the ﬁve selected cities has 12,000 sentences that are ﬁve-way parallel translations, and that could be used to build several Dialectal Arabic NLP applications such as machine translation.",
+        "An example of a 28-way parallel sen- tences extracted from CORPUS -25 is given in Figure 1.5 Translators, identiﬁed from each of the 25 cities speciﬁ- cally, were asked to read a set of sentences provided in En- glish or French, and translate them into their dialects.",
+        "5The MADAR Corpus is available for browsing online at http://nlp.qatar.cmu.edu/madar/.",
+        "Figure 1: A sample of a 28-way parallel sentence extracted from C ORPUS -25 including 5 sentences from C ORPUS -5.",
+        "The MSA and dialectal sentences are given along with their transliterations in the Habash-Soudi-Buckwalter scheme (Habash et al., 2007).",
+        "ËA£ TAlb (masculine form in Arabic) not \u0010éJ.ËA£ TAlb¯h(feminine word in Arabic), unless the sentence contains a femi- nine form.7 When the number (singular vs.",
+        "Corpus Analysis The example in Figure 1 highlights the many lexical and morphological differences among the dialects of different cities.",
+        "In order to get an overall estimation of the similarity be- tween the dialects of the cities covered in C ORPUS -25 (in addition to MSA), we compute the Overlap Coefﬁcient, representing the percentage of lexical overlap between the vocabularies for each dialect pair.",
+        "The most similar pair of dialects are those spoken in the cities of Amman and Jerusalem with an over- lap of 54.4%.",
+        "The closest city dialect to MSA is Muscat dialect with an overlap score of 37.5%, and the most dissimilar one is the dialect of Sfax (lexical difference of 88.12%).",
+        "Each word is deﬁned in terms of three aspects: its CODA orthography, its CAMEL Arabic Phonetic Inven- tory (CAPHI) phonology (Habash et al., 2018) and the var- ious cities in which it is used.",
+        "They presented a common set of guidelines with enough speciﬁcity to help in creating dialect speciﬁc conventions as needed and applied them to the dialects of 25 Arab cities.",
+        "In Figure 3, we show an example of an aligned English, French and MSA parallel sentence.",
+        "For example, the English term ‘really’ in Figure 3 is incorrectly aligned to the Arabic term Éª ¯ ﬁςl ‘act’, while the correct align- 3391 the_DTactor_NNbe_VBreally_RBmarvelous_JJ ce_PRO:DEMacteur_NOMêtre_VERvraiment_ADVmerveilleux_ADJ kAn_VBﻛﺎن Al+_DT+ال mumaθ~il_NNﻞﱢﺜَﻤُﻣ rAŷiς_JJﻊِﺋرا bi+_INِب+ Al+_DT+ال fiςl_NNﻞْﻌِﻓ Figure 3: Alignment between French, English and MSA parallel sentences respect",
+        "The code of each city is given in Table 1."
+      ]
+    }
+  },
+  "wikisource": {
+    "site_rights": {
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/deed.ar",
+      "text": "Creative Commons Attribution-Share Alike 4.0"
+    },
+    "site": {
+      "sitename": "ويكي مصدر",
+      "base": "https://ar.wikisource.org/wiki/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A9_%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9",
+      "generator": "MediaWiki 1.48.0-wmf.4"
+    },
+    "pages": [
+      {
+        "id": "arabian_nights-001",
+        "title": "ألف ليلة وليلة/الجزء الأول",
+        "pinned_revision_id": 529885,
+        "frozen_sha256": "b02cc304885f0af6e745e903e5279b7b3191f3c7aa3b82be2ec9463cff50a29e",
+        "pageid": 1607,
+        "page_title": "ألف ليلة وليلة/الجزء الأول",
+        "revision_timestamp": "2025-05-06T23:28:50Z",
+        "revision_size": 251744,
+        "latest_revision_id": 529885,
+        "categories": [
+          "تصنيف:ألف ليلة وليلة"
+        ],
+        "templates": [
+          "قالب:ص"
+        ],
+        "licence_like_templates": [],
+        "builder_reextraction_sha256": "b02cc304885f0af6e745e903e5279b7b3191f3c7aa3b82be2ec9463cff50a29e",
+        "frozen_text_reproducible_from_pinned_revision": true,
+        "blocks": 321,
+        "headings": [
+          {
+            "level": 2,
+            "text": "حكايات الملك شهريار وأخيه الملك شاه زمان"
+          },
+          {
+            "level": 2,
+            "text": "حكاية الحمار والثور مع صاحب الزرع"
+          },
+          {
+            "level": 2,
+            "text": "حكاية التاجر مع العفريت"
+          },
+          {
+            "level": 2,
+            "text": "حكاية الصياد مع العفريت"
+          },
+          {
+            "level": 2,
+            "text": "حكاية الملك يونان والحكيم رويان"
+          },
+          {
+            "level": 2,
+            "text": "حكاية الحمال مع البنات"
+          }
+        ],
+        "mediawiki_sections": [
+          {
+            "level": "2",
+            "line": "حكايات الملك شهريار وأخيه الملك شاه زمان"
+          },
+          {
+            "level": "2",
+            "line": "حكاية الحمار والثور مع صاحب الزرع"
+          },
+          {
+            "level": "2",
+            "line": "حكاية التاجر مع العفريت"
+          },
+          {
+            "level": "2",
+            "line": "حكاية الصياد مع العفريت"
+          },
+          {
+            "level": "2",
+            "line": "حكاية الملك يونان والحكيم رويان"
+          },
+          {
+            "level": "2",
+            "line": "حكاية الحمال مع البنات"
+          }
+        ],
+        "tales_found": 5,
+        "night_markers": 0,
+        "ambiguities": [
+          "tale-0002 'حكاية التاجر مع العفريت': framing cue 'أحدثك' in the preceding block suggests it is told inside tale-0001 'حكاية الحمار والثور مع صاحب الزرع' (candidate only; not accepted)",
+          "tale-0003 'حكاية الصياد مع العفريت': framing cue 'وما حكاية' in the preceding block suggests it is told inside tale-0002 'حكاية التاجر مع العفريت' (candidate only; not accepted)",
+          "tale-0004 'حكاية الملك يونان والحكيم رويان': no markup or cue decides whether it is embedded in tale-0003 or a sibling; recorded as top-level",
+          "tale-0005 'حكاية الحمال مع البنات': no markup or cue decides whether it is embedded in tale-0004 or a sibling; recorded as top-level"
+        ]
+      },
+      {
+        "id": "arabian_nights-002",
+        "title": "ألف ليلة وليلة/الجزء الثاني",
+        "pinned_revision_id": 424291,
+        "frozen_sha256": "9668975399ecfbbd11bce548079df94efba6cfd7568f500e424d377aa8035af5",
+        "pageid": 1609,
+        "page_title": "ألف ليلة وليلة/الجزء الثاني",
+        "revision_timestamp": "2023-03-28T00:25:59Z",
+        "revision_size": 220385,
+        "latest_revision_id": 424291,
+        "categories": [
+          "تصنيف:ألف ليلة وليلة"
+        ],
+        "templates": [],
+        "licence_like_templates": [],
+        "builder_reextraction_sha256": "9668975399ecfbbd11bce548079df94efba6cfd7568f500e424d377aa8035af5",
+        "frozen_text_reproducible_from_pinned_revision": true,
+        "blocks": 99,
+        "headings": [
+          {
+            "level": 2,
+            "text": "في الليلة العشرون"
+          },
+          {
+            "level": 2,
+            "text": "حكاية الوزير نور الدين مع شمس الدين أخيه"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثانية والعشرون"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثالثة والعشرون"
+          },
+          {
+            "level": 2,
+            "text": "في الليلة الرابعة والعشرون"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الخامسة والعشرين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السادسة والعشرون"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السابعة والعشرون"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الثامنة والعشرون"
+          },
+          {
+            "level": 2,
+            "text": "الليلة التاسعة والعشرون"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثلاثين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الواحدة والثلاثين"
+          },
+          {
+            "level": 2,
+            "text": "في الليلة الثانية والثلاثين"
+          },
+          {
+            "level": 2,
+            "text": "حكاية مزين بغداد"
+          },
+          {
+            "level": 2,
+            "text": "و فى الليلة الثالثه والثلاثين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الرابعة والثلاثين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الخامسة والثلاثين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السادسة والثلاثين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السابعة والثلاثين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثامنة والثلاثين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة التاسعة والثلاثون"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الأربعين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الحادية والأربعين"
+          }
+        ],
+        "mediawiki_sections": [
+          {
+            "level": "2",
+            "line": "في الليلة العشرون"
+          },
+          {
+            "level": "2",
+            "line": "حكاية الوزير نور الدين مع شمس الدين أخيه"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثانية والعشرون"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثالثة والعشرون"
+          },
+          {
+            "level": "2",
+            "line": "في الليلة الرابعة والعشرون"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الخامسة والعشرين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السادسة والعشرون"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السابعة والعشرون"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الثامنة والعشرون"
+          },
+          {
+            "level": "2",
+            "line": "الليلة التاسعة والعشرون"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثلاثين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الواحدة والثلاثين"
+          },
+          {
+            "level": "2",
+            "line": "في الليلة الثانية والثلاثين"
+          },
+          {
+            "level": "2",
+            "line": "حكاية مزين بغداد"
+          },
+          {
+            "level": "2",
+            "line": "و فى الليلة الثالثه والثلاثين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الرابعة والثلاثين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الخامسة والثلاثين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السادسة والثلاثين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السابعة والثلاثين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثامنة والثلاثين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة التاسعة والثلاثون"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الأربعين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الحادية والأربعين"
+          }
+        ],
+        "tales_found": 3,
+        "night_markers": 21,
+        "ambiguities": [
+          "tale-0002 'حكاية الخياط والأحدب واليهودي والمباشر والنصراني فيما وقع بينهم': no markup or cue decides whether it is embedded in tale-0001 or a sibling; recorded as top-level",
+          "tale-0003 'حكاية مزين بغداد': framing cue 'حكايتي' in the preceding block suggests it is told inside tale-0002 'حكاية الخياط والأحدب واليهودي والمباشر والنصراني فيما وقع بينهم' (candidate only; not accepted)"
+        ]
+      },
+      {
+        "id": "arabian_nights-003",
+        "title": "ألف ليلة وليلة/الجزء الثالث",
+        "pinned_revision_id": 424982,
+        "frozen_sha256": "734f2274037c353efcac167e27cb38496facf8fdbc595369b2956ddfc30e6ecd",
+        "pageid": 1610,
+        "page_title": "ألف ليلة وليلة/الجزء الثالث",
+        "revision_timestamp": "2023-04-12T13:47:59Z",
+        "revision_size": 637221,
+        "latest_revision_id": 424982,
+        "categories": [
+          "تصنيف:ألف ليلة وليلة"
+        ],
+        "templates": [
+          "قالب:ص"
+        ],
+        "licence_like_templates": [],
+        "builder_reextraction_sha256": "734f2274037c353efcac167e27cb38496facf8fdbc595369b2956ddfc30e6ecd",
+        "frozen_text_reproducible_from_pinned_revision": true,
+        "blocks": 320,
+        "headings": [
+          {
+            "level": 2,
+            "text": "وفي الليلة الثانية والأربعين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثالثة والأربعين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الرابعة والأربعين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الخامسة والأربعين"
+          },
+          {
+            "level": 2,
+            "text": "حكاية الوزيرين التي فيها ذكر أنيس الجليس"
+          },
+          {
+            "level": 2,
+            "text": "في الليلة السادسة والأربعين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السابعة والأربعين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثامنة والأربعين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة التاسعة والأربعين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الخمسين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الحادية والخمسين"
+          },
+          {
+            "level": 2,
+            "text": "حكاية التاجر أيوب وابنه غانم وبنته فتنة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثانية والخمسين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثالثة والخمسون"
+          },
+          {
+            "level": 2,
+            "text": "في الليلة الرابعة والخمسين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الخامسة والخمسون"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السادسة والخمسين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السابعة والخمسين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثامنة والخمسين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة التاسعة والخمسين"
+          },
+          {
+            "level": 2,
+            "text": "في الليلة الستين"
+          },
+          {
+            "level": 2,
+            "text": "حكاية الملك عمر النعمان وولديه شركان وضوء المكان"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الواحدة والستين"
+          },
+          {
+            "level": 2,
+            "text": "في الليلة الثانية والستين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثالثة والستين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الرابعة والستون"
+          },
+          {
+            "level": 2,
+            "text": "في الليلة الخامسة والستين"
+          },
+          {
+            "level": 2,
+            "text": "الليلة السادسة والستين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السابعة والستين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثامنة والستين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة التاسعة والستين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السبعين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الحادية والسبعين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثانية والسبعون"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثالثة والسبعين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الرابعة والسبعين"
+          },
+          {
+            "level": 2,
+            "text": "في الليلة الخامسة والسبعين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السادسة والسبعين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثامنة والسبعين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة التاسعة والسبعين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثمانين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الحادية والثمانين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الرابعة والثمانين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الخامسة والثمانين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثامنة والثمانين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السابعة والثمانين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة التاسعة والثمانين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة التسعين"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الواحدة والتسعين"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الثانية والتسعين"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الثالثة والتسعين"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الرابعة والتسعين"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الخامسة والتسعين"
+          },
+          {
+            "level": 2,
+            "text": "الليلة السادسة والتسعين"
+          },
+          {
+            "level": 2,
+            "text": "الليلة السابعة والتسعين"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الثامنة والتسعين"
+          },
+          {
+            "level": 2,
+            "text": "الليلة التاسعة والتسعين"
+          },
+          {
+            "level": 2,
+            "text": "الليلة المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الواحدة بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الثانية بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الثالثة بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الرابعة بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الخامسة بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة السادسة بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة السابعة بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الثامنة بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة التاسعة بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة العاشرة بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الحادية عشرة بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الثانية عشرة بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الثالثة عشرة بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الرابعة عشرة بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الخامسة عشرة بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة السادسة عشرة بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة السابعة عشرة بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الثامنة عشرة بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة التاسعة عشرة بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة العشرين بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الحادية والعشرين بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الثانية والعشرين بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الثالثة والعشرين بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الرابعة والعشرين بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الخامسة والعشرين بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة السادسة والعشرين بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة السابعة والعشرين بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الثامنة والعشرين بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة التاسعة والعشرين بعد المئة"
+          },
+          {
+            "level": 2,
+            "text": "الليلة الثلاثين بعد المئة"
+          }
+        ],
+        "mediawiki_sections": [
+          {
+            "level": "2",
+            "line": "وفي الليلة الثانية والأربعين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثالثة والأربعين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الرابعة والأربعين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الخامسة والأربعين"
+          },
+          {
+            "level": "2",
+            "line": "حكاية الوزيرين التي فيها ذكر أنيس الجليس"
+          },
+          {
+            "level": "2",
+            "line": "في الليلة السادسة والأربعين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السابعة والأربعين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثامنة والأربعين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة التاسعة والأربعين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الخمسين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الحادية والخمسين"
+          },
+          {
+            "level": "2",
+            "line": "حكاية التاجر أيوب وابنه غانم وبنته فتنة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثانية والخمسين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثالثة والخمسون"
+          },
+          {
+            "level": "2",
+            "line": "في الليلة الرابعة والخمسين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الخامسة والخمسون"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السادسة والخمسين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السابعة والخمسين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثامنة والخمسين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة التاسعة والخمسين"
+          },
+          {
+            "level": "2",
+            "line": "في الليلة الستين"
+          },
+          {
+            "level": "2",
+            "line": "حكاية الملك عمر النعمان وولديه شركان وضوء المكان"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الواحدة والستين"
+          },
+          {
+            "level": "2",
+            "line": "في الليلة الثانية والستين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثالثة والستين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الرابعة والستون"
+          },
+          {
+            "level": "2",
+            "line": "في الليلة الخامسة والستين"
+          },
+          {
+            "level": "2",
+            "line": "الليلة السادسة والستين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السابعة والستين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثامنة والستين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة التاسعة والستين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السبعين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الحادية والسبعين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثانية والسبعون"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثالثة والسبعين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الرابعة والسبعين"
+          },
+          {
+            "level": "2",
+            "line": "في الليلة الخامسة والسبعين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السادسة والسبعين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثامنة والسبعين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة التاسعة والسبعين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثمانين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الحادية والثمانين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الرابعة والثمانين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الخامسة والثمانين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثامنة والثمانين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السابعة والثمانين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة التاسعة والثمانين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة التسعين"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الواحدة والتسعين"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الثانية والتسعين"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الثالثة والتسعين"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الرابعة والتسعين"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الخامسة والتسعين"
+          },
+          {
+            "level": "2",
+            "line": "الليلة السادسة والتسعين"
+          },
+          {
+            "level": "2",
+            "line": "الليلة السابعة والتسعين"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الثامنة والتسعين"
+          },
+          {
+            "level": "2",
+            "line": "الليلة التاسعة والتسعين"
+          },
+          {
+            "level": "2",
+            "line": "الليلة المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الواحدة بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الثانية بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الثالثة بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الرابعة بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الخامسة بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة السادسة بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة السابعة بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الثامنة بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة التاسعة بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة العاشرة بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الحادية عشرة بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الثانية عشرة بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الثالثة عشرة بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الرابعة عشرة بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الخامسة عشرة بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة السادسة عشرة بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة السابعة عشرة بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الثامنة عشرة بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة التاسعة عشرة بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة العشرين بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الحادية والعشرين بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الثانية والعشرين بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الثالثة والعشرين بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الرابعة والعشرين بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الخامسة والعشرين بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة السادسة والعشرين بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة السابعة والعشرين بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الثامنة والعشرين بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة التاسعة والعشرين بعد المئة"
+          },
+          {
+            "level": "2",
+            "line": "الليلة الثلاثين بعد المئة"
+          }
+        ],
+        "tales_found": 3,
+        "night_markers": 85,
+        "ambiguities": [
+          "tale-0002 'حكاية التاجر أيوب وابنه غانم وبنته فتنة': no markup or cue decides whether it is embedded in tale-0001 or a sibling; recorded as top-level",
+          "tale-0003 'حكاية الملك عمر النعمان وولديه شركان وضوء المكان': no markup or cue decides whether it is embedded in tale-0002 or a sibling; recorded as top-level"
+        ]
+      },
+      {
+        "id": "arabian_nights-004",
+        "title": "ألف ليلة وليلة/الجزء الرابع",
+        "pinned_revision_id": 424983,
+        "frozen_sha256": "15b53f317ff71efeb11abd471cff659534be1e86802e00ce008fd8ffc39170b1",
+        "pageid": 1611,
+        "page_title": "ألف ليلة وليلة/الجزء الرابع",
+        "revision_timestamp": "2023-04-12T13:48:02Z",
+        "revision_size": 114164,
+        "latest_revision_id": 424983,
+        "categories": [
+          "تصنيف:ألف ليلة وليلة"
+        ],
+        "templates": [],
+        "licence_like_templates": [],
+        "builder_reextraction_sha256": "15b53f317ff71efeb11abd471cff659534be1e86802e00ce008fd8ffc39170b1",
+        "frozen_text_reproducible_from_pinned_revision": true,
+        "blocks": 39,
+        "headings": [
+          {
+            "level": 2,
+            "text": "حكاية معروف ألإسكافي"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثالثة والثمانين بعد التسعمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الخامسة والثمانين بعد التسعمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السادسة والثمانين بعد التسعمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السابعة والثمانين بعد التسعمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثامنة والثمانين بعد التسعمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة التسعين بعد التسعمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الواحدة والتسعين بعد التسعمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثانية والتسعين بعد التسعمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثالثة والتسعين بعد التسعمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الرابعة والتسعين بعد التسعمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الخامسة والتسعين بعد التسعمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السادسة والتسعين بعد التسعمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السابعة والتسعين بعد التسعمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثامنة والتسعين بعد التسعمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة التاسعة والتسعين بعد التسعمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الألف:"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الواحدة بعد الألف"
+          }
+        ],
+        "mediawiki_sections": [
+          {
+            "level": "2",
+            "line": "حكاية معروف ألإسكافي"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثالثة والثمانين بعد التسعمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الخامسة والثمانين بعد التسعمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السادسة والثمانين بعد التسعمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السابعة والثمانين بعد التسعمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثامنة والثمانين بعد التسعمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة التسعين بعد التسعمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الواحدة والتسعين بعد التسعمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثانية والتسعين بعد التسعمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثالثة والتسعين بعد التسعمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الرابعة والتسعين بعد التسعمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الخامسة والتسعين بعد التسعمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السادسة والتسعين بعد التسعمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السابعة والتسعين بعد التسعمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثامنة والتسعين بعد التسعمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة التاسعة والتسعين بعد التسعمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الألف:"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الواحدة بعد الألف"
+          }
+        ],
+        "tales_found": 1,
+        "night_markers": 16,
+        "ambiguities": []
+      },
+      {
+        "id": "arabian_nights-005",
+        "title": "ألف ليلة وليلة/السندباد البحري",
+        "pinned_revision_id": 302476,
+        "frozen_sha256": "5c87c1a96ac6620f749effe349cc03be00be9e069a436cce17dcdf91af71eb11",
+        "pageid": 1876,
+        "page_title": "ألف ليلة وليلة/السندباد البحري",
+        "revision_timestamp": "2020-11-10T23:02:22Z",
+        "revision_size": 344237,
+        "latest_revision_id": 302476,
+        "categories": [
+          "تصنيف:ألف ليلة وليلة"
+        ],
+        "templates": [],
+        "licence_like_templates": [],
+        "builder_reextraction_sha256": "5c87c1a96ac6620f749effe349cc03be00be9e069a436cce17dcdf91af71eb11",
+        "frozen_text_reproducible_from_pinned_revision": true,
+        "blocks": 162,
+        "headings": [
+          {
+            "level": 2,
+            "text": "حكاية السندباد"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الواحدة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السابعة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثامنة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة التاسعة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الأربعين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الواحدة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثانية والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثالثة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الرابعة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الخامسة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السادسة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السابعة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثامنة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة التاسعة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الخمسين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الواحدة والخمسين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثانية والخمسين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثالثة والخمسين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الواحدة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثانية والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثالثة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الرابعة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الخامسة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "الحكاية الثانية من حكايات السندباد البحري وهي السفرة الثانية"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السادسة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السابعة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثامنة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الأربعون بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الرابعة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الخامسة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السادسة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السابعة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثامنة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة التاسعة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الخمسين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الواحدة والخمسين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثانية والخمسين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الرابعة والخمسين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة السادسة والخمسين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الثامنة والخمسين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة التاسعة والخمسين بعد الخمسمائة"
+          },
+          {
+            "level": 2,
+            "text": "وفي الليلة الستين بعد الخمسمائة"
+          }
+        ],
+        "mediawiki_sections": [
+          {
+            "level": "2",
+            "line": "حكاية السندباد"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الواحدة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السابعة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثامنة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة التاسعة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الأربعين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الواحدة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثانية والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثالثة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الرابعة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الخامسة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السادسة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السابعة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثامنة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة التاسعة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الخمسين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الواحدة والخمسين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثانية والخمسين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثالثة والخمسين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الواحدة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثانية والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثالثة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الرابعة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الخامسة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "الحكاية الثانية من حكايات السندباد البحري وهي السفرة الثانية"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السادسة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السابعة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثامنة والثلاثين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الأربعون بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الرابعة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الخامسة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السادسة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السابعة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثامنة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة التاسعة والأربعين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الخمسين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الواحدة والخمسين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثانية والخمسين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الرابعة والخمسين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة السادسة والخمسين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الثامنة والخمسين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة التاسعة والخمسين بعد الخمسمائة"
+          },
+          {
+            "level": "2",
+            "line": "وفي الليلة الستين بعد الخمسمائة"
+          }
+        ],
+        "tales_found": 1,
+        "night_markers": 41,
+        "ambiguities": []
+      },
+      {
+        "id": "kalila_dimna-006",
+        "title": "كليلة ودمنة/الناسك وابن عرس",
+        "pinned_revision_id": 251292,
+        "frozen_sha256": "8981dfdbf2a918ade05b1653427b93bdc2b6a29edf79fb7b8836e4b2f7ffc545",
+        "pageid": 6394,
+        "page_title": "كليلة ودمنة/الناسك وابن عرس",
+        "revision_timestamp": "2018-02-23T10:10:14Z",
+        "revision_size": 5586,
+        "latest_revision_id": 251292,
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "templates": [
+          "قالب:ترويسة",
+          "قالب:ترويسة/styles.css",
+          "وحدة:Edition",
+          "وحدة:Header",
+          "وحدة:I18n",
+          "وحدة:WikidataIB",
+          "وحدة:WikidataIB/i18n",
+          "وحدة:WikidataIB/nolinks",
+          "وحدة:WikidataIB/titleformats"
+        ],
+        "licence_like_templates": [],
+        "builder_reextraction_sha256": "8981dfdbf2a918ade05b1653427b93bdc2b6a29edf79fb7b8836e4b2f7ffc545",
+        "frozen_text_reproducible_from_pinned_revision": true,
+        "blocks": 2,
+        "headings": [
+          {
+            "level": 2,
+            "text": "الناسك وابن عرس"
+          }
+        ],
+        "mediawiki_sections": [
+          {
+            "level": "2",
+            "line": "الناسك وابن عرس"
+          }
+        ],
+        "tales_found": 0,
+        "night_markers": 0,
+        "ambiguities": [
+          "no tale titles recognised; check title_pattern for this edition"
+        ]
+      },
+      {
+        "id": "kalila_dimna-007",
+        "title": "كليلة ودمنة/باب إيلاذ وبلاذ وايراخت",
+        "pinned_revision_id": 231372,
+        "frozen_sha256": "d6cb6d63cee4581bb25869b2fdf40049322c7209d4dc5406b1084945d9a2c045",
+        "pageid": 6398,
+        "page_title": "كليلة ودمنة/باب إيلاذ وبلاذ وايراخت",
+        "revision_timestamp": "2016-04-19T13:42:33Z",
+        "revision_size": 34486,
+        "latest_revision_id": 231372,
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "templates": [
+          "قالب:ترويسة",
+          "قالب:ترويسة/styles.css",
+          "وحدة:Edition",
+          "وحدة:Header",
+          "وحدة:I18n",
+          "وحدة:WikidataIB",
+          "وحدة:WikidataIB/i18n",
+          "وحدة:WikidataIB/nolinks",
+          "وحدة:WikidataIB/titleformats"
+        ],
+        "licence_like_templates": [],
+        "builder_reextraction_sha256": "d6cb6d63cee4581bb25869b2fdf40049322c7209d4dc5406b1084945d9a2c045",
+        "frozen_text_reproducible_from_pinned_revision": true,
+        "blocks": 9,
+        "headings": [
+          {
+            "level": 2,
+            "text": "باب إيلاذ وبلاذ وايراخت"
+          }
+        ],
+        "mediawiki_sections": [
+          {
+            "level": "2",
+            "line": "باب إيلاذ وبلاذ وايراخت"
+          }
+        ],
+        "tales_found": 0,
+        "night_markers": 0,
+        "ambiguities": [
+          "no tale titles recognised; check title_pattern for this edition"
+        ]
+      },
+      {
+        "id": "kalila_dimna-008",
+        "title": "كليلة ودمنة/باب ابن الملك وأصحابه",
+        "pinned_revision_id": 231368,
+        "frozen_sha256": "45f7ac480c6c4adf9061248448a98d13c0e5a8d947c25eece6ce3703e1cd2943",
+        "pageid": 6401,
+        "page_title": "كليلة ودمنة/باب ابن الملك وأصحابه",
+        "revision_timestamp": "2016-04-19T13:37:28Z",
+        "revision_size": 12583,
+        "latest_revision_id": 231368,
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "templates": [
+          "قالب:ترويسة",
+          "قالب:ترويسة/styles.css",
+          "وحدة:Edition",
+          "وحدة:Header",
+          "وحدة:I18n",
+          "وحدة:WikidataIB",
+          "وحدة:WikidataIB/i18n",
+          "وحدة:WikidataIB/nolinks",
+          "وحدة:WikidataIB/titleformats"
+        ],
+        "licence_like_templates": [],
+        "builder_reextraction_sha256": "45f7ac480c6c4adf9061248448a98d13c0e5a8d947c25eece6ce3703e1cd2943",
+        "frozen_text_reproducible_from_pinned_revision": true,
+        "blocks": 3,
+        "headings": [
+          {
+            "level": 2,
+            "text": "باب ابن الملك وأصحابه"
+          }
+        ],
+        "mediawiki_sections": [
+          {
+            "level": "2",
+            "line": "باب ابن الملك وأصحابه"
+          }
+        ],
+        "tales_found": 0,
+        "night_markers": 0,
+        "ambiguities": [
+          "no tale titles recognised; check title_pattern for this edition"
+        ]
+      },
+      {
+        "id": "kalila_dimna-009",
+        "title": "كليلة ودمنة/باب ابن الملك والطائر فنزة",
+        "pinned_revision_id": 231363,
+        "frozen_sha256": "730210b74d66e86a56c65e8cca6f6233249caf301b5f44b6adb4c1839782be26",
+        "pageid": 6396,
+        "page_title": "كليلة ودمنة/باب ابن الملك والطائر فنزة",
+        "revision_timestamp": "2016-04-19T13:36:13Z",
+        "revision_size": 12495,
+        "latest_revision_id": 231363,
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "templates": [
+          "قالب:ترويسة",
+          "قالب:ترويسة/styles.css",
+          "وحدة:Edition",
+          "وحدة:Header",
+          "وحدة:I18n",
+          "وحدة:WikidataIB",
+          "وحدة:WikidataIB/i18n",
+          "وحدة:WikidataIB/nolinks",
+          "وحدة:WikidataIB/titleformats"
+        ],
+        "licence_like_templates": [],
+        "builder_reextraction_sha256": "730210b74d66e86a56c65e8cca6f6233249caf301b5f44b6adb4c1839782be26",
+        "frozen_text_reproducible_from_pinned_revision": true,
+        "blocks": 5,
+        "headings": [
+          {
+            "level": 2,
+            "text": "باب ابن الملك والطائر فنزة"
+          }
+        ],
+        "mediawiki_sections": [
+          {
+            "level": "2",
+            "line": "باب ابن الملك والطائر فنزة"
+          }
+        ],
+        "tales_found": 0,
+        "night_markers": 0,
+        "ambiguities": [
+          "no tale titles recognised; check title_pattern for this edition"
+        ]
+      },
+      {
+        "id": "kalila_dimna-010",
+        "title": "كليلة ودمنة/باب الأسد والثور وهو أول الكتاب",
+        "pinned_revision_id": 272368,
+        "frozen_sha256": "8feb37663cfeb79d281414638b2c2d8fd03d1035579ca281f1684243decb9be6",
+        "pageid": 6389,
+        "page_title": "كليلة ودمنة/باب الأسد والثور وهو أول الكتاب",
+        "revision_timestamp": "2018-11-20T15:09:45Z",
+        "revision_size": 83683,
+        "latest_revision_id": 272368,
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "templates": [
+          "قالب:ترويسة",
+          "قالب:ترويسة/styles.css",
+          "وحدة:Edition",
+          "وحدة:Header",
+          "وحدة:I18n",
+          "وحدة:WikidataIB",
+          "وحدة:WikidataIB/i18n",
+          "وحدة:WikidataIB/nolinks",
+          "وحدة:WikidataIB/titleformats"
+        ],
+        "licence_like_templates": [],
+        "builder_reextraction_sha256": "8feb37663cfeb79d281414638b2c2d8fd03d1035579ca281f1684243decb9be6",
+        "frozen_text_reproducible_from_pinned_revision": true,
+        "blocks": 19,
+        "headings": [],
+        "mediawiki_sections": [],
+        "tales_found": 0,
+        "night_markers": 0,
+        "ambiguities": [
+          "no tale titles recognised; check title_pattern for this edition"
+        ]
+      },
+      {
+        "id": "kalila_dimna-011",
+        "title": "كليلة ودمنة/باب الأسد والشغبر الناسك وهو ابن آوى",
+        "pinned_revision_id": 302554,
+        "frozen_sha256": "35c1b888c4717184961fa6cb8f11672fbea31892a64e1e1f3fbfb043010ee4ed",
+        "pageid": 6397,
+        "page_title": "كليلة ودمنة/باب الأسد والشغبر الناسك وهو ابن آوى",
+        "revision_timestamp": "2020-11-14T10:58:28Z",
+        "revision_size": 16584,
+        "latest_revision_id": 302554,
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "templates": [
+          "قالب:ترويسة",
+          "قالب:ترويسة/styles.css",
+          "وحدة:Edition",
+          "وحدة:Header",
+          "وحدة:I18n",
+          "وحدة:WikidataIB",
+          "وحدة:WikidataIB/i18n",
+          "وحدة:WikidataIB/nolinks",
+          "وحدة:WikidataIB/titleformats"
+        ],
+        "licence_like_templates": [],
+        "builder_reextraction_sha256": "35c1b888c4717184961fa6cb8f11672fbea31892a64e1e1f3fbfb043010ee4ed",
+        "frozen_text_reproducible_from_pinned_revision": true,
+        "blocks": 4,
+        "headings": [
+          {
+            "level": 2,
+            "text": "باب الأسد والشغبر الناسك وهو ابن آوى من كتاب كليلة و دمنة"
+          }
+        ],
+        "mediawiki_sections": [
+          {
+            "level": "2",
+            "line": "باب الأسد والشغبر الناسك وهو ابن آوى من كتاب كليلة و دمنة"
+          }
+        ],
+        "tales_found": 0,
+        "night_markers": 0,
+        "ambiguities": [
+          "no tale titles recognised; check title_pattern for this edition"
+        ]
+      },
+      {
+        "id": "kalila_dimna-012",
+        "title": "كليلة ودمنة/باب البوم والغربان",
+        "pinned_revision_id": 285510,
+        "frozen_sha256": "435a58e57cff7b2a9beaf34a2a6d8915e777ad3247526d717a9565b8fad39111",
+        "pageid": 6392,
+        "page_title": "كليلة ودمنة/باب البوم والغربان",
+        "revision_timestamp": "2019-07-08T11:38:53Z",
+        "revision_size": 42235,
+        "latest_revision_id": 285510,
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "templates": [
+          "قالب:ترويسة",
+          "قالب:ترويسة/styles.css",
+          "وحدة:Edition",
+          "وحدة:Header",
+          "وحدة:I18n",
+          "وحدة:WikidataIB",
+          "وحدة:WikidataIB/i18n",
+          "وحدة:WikidataIB/nolinks",
+          "وحدة:WikidataIB/titleformats"
+        ],
+        "licence_like_templates": [],
+        "builder_reextraction_sha256": "435a58e57cff7b2a9beaf34a2a6d8915e777ad3247526d717a9565b8fad39111",
+        "frozen_text_reproducible_from_pinned_revision": true,
+        "blocks": 11,
+        "headings": [
+          {
+            "level": 2,
+            "text": "باب البوم والغربان"
+          }
+        ],
+        "mediawiki_sections": [
+          {
+            "level": "2",
+            "line": "باب البوم والغربان"
+          }
+        ],
+        "tales_found": 0,
+        "night_markers": 0,
+        "ambiguities": [
+          "no tale titles recognised; check title_pattern for this edition"
+        ]
+      },
+      {
+        "id": "kalila_dimna-013",
+        "title": "كليلة ودمنة/باب الجرذ والسنور",
+        "pinned_revision_id": 231362,
+        "frozen_sha256": "8fd5e9a041351d0ecee4a733b71f276d6bd82772def97bb50f35ae8e03ce8b52",
+        "pageid": 6395,
+        "page_title": "كليلة ودمنة/باب الجرذ والسنور",
+        "revision_timestamp": "2016-04-19T13:36:00Z",
+        "revision_size": 11527,
+        "latest_revision_id": 231362,
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "templates": [
+          "قالب:ترويسة",
+          "قالب:ترويسة/styles.css",
+          "وحدة:Edition",
+          "وحدة:Header",
+          "وحدة:I18n",
+          "وحدة:WikidataIB",
+          "وحدة:WikidataIB/i18n",
+          "وحدة:WikidataIB/nolinks",
+          "وحدة:WikidataIB/titleformats"
+        ],
+        "licence_like_templates": [],
+        "builder_reextraction_sha256": "8fd5e9a041351d0ecee4a733b71f276d6bd82772def97bb50f35ae8e03ce8b52",
+        "frozen_text_reproducible_from_pinned_revision": true,
+        "blocks": 3,
+        "headings": [
+          {
+            "level": 2,
+            "text": "باب الجرذ والسنور"
+          }
+        ],
+        "mediawiki_sections": [
+          {
+            "level": "2",
+            "line": "باب الجرذ والسنور"
+          }
+        ],
+        "tales_found": 0,
+        "night_markers": 0,
+        "ambiguities": [
+          "no tale titles recognised; check title_pattern for this edition"
+        ]
+      },
+      {
+        "id": "kalila_dimna-014",
+        "title": "كليلة ودمنة/باب الحمامة المطوقة",
+        "pinned_revision_id": 245541,
+        "frozen_sha256": "32358bbd692d60bb1c6b928f188645aeccf49dc516cc933b3ec04a9922f2a1f8",
+        "pageid": 6391,
+        "page_title": "كليلة ودمنة/باب الحمامة المطوقة",
+        "revision_timestamp": "2017-11-29T16:55:57Z",
+        "revision_size": 31115,
+        "latest_revision_id": 245541,
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "templates": [
+          "قالب:ترويسة",
+          "قالب:ترويسة/styles.css",
+          "وحدة:Edition",
+          "وحدة:Header",
+          "وحدة:I18n",
+          "وحدة:WikidataIB",
+          "وحدة:WikidataIB/i18n",
+          "وحدة:WikidataIB/nolinks",
+          "وحدة:WikidataIB/titleformats"
+        ],
+        "licence_like_templates": [],
+        "builder_reextraction_sha256": "32358bbd692d60bb1c6b928f188645aeccf49dc516cc933b3ec04a9922f2a1f8",
+        "frozen_text_reproducible_from_pinned_revision": true,
+        "blocks": 6,
+        "headings": [
+          {
+            "level": 2,
+            "text": "باب الحمامة المطوقة"
+          }
+        ],
+        "mediawiki_sections": [
+          {
+            "level": "2",
+            "line": "باب الحمامة المطوقة"
+          }
+        ],
+        "tales_found": 0,
+        "night_markers": 0,
+        "ambiguities": [
+          "no tale titles recognised; check title_pattern for this edition"
+        ]
+      },
+      {
+        "id": "kalila_dimna-015",
+        "title": "كليلة ودمنة/باب الحمامة والثعلب ومالك الحزين",
+        "pinned_revision_id": 231369,
+        "frozen_sha256": "a86cbe4136a55b431f6b084dc1c243943547856974e15e9eda829c6eb3a6504b",
+        "pageid": 6402,
+        "page_title": "كليلة ودمنة/باب الحمامة والثعلب ومالك الحزين",
+        "revision_timestamp": "2016-04-19T13:37:38Z",
+        "revision_size": 5625,
+        "latest_revision_id": 231369,
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "templates": [
+          "قالب:ترويسة",
+          "قالب:ترويسة/styles.css",
+          "وحدة:Edition",
+          "وحدة:Header",
+          "وحدة:I18n",
+          "وحدة:WikidataIB",
+          "وحدة:WikidataIB/i18n",
+          "وحدة:WikidataIB/nolinks",
+          "وحدة:WikidataIB/titleformats"
+        ],
+        "licence_like_templates": [],
+        "builder_reextraction_sha256": "a86cbe4136a55b431f6b084dc1c243943547856974e15e9eda829c6eb3a6504b",
+        "frozen_text_reproducible_from_pinned_revision": true,
+        "blocks": 2,
+        "headings": [
+          {
+            "level": 2,
+            "text": "باب الحمامة والثعلب ومالك الحزين"
+          }
+        ],
+        "mediawiki_sections": [
+          {
+            "level": "2",
+            "line": "باب الحمامة والثعلب ومالك الحزين"
+          }
+        ],
+        "tales_found": 0,
+        "night_markers": 0,
+        "ambiguities": [
+          "no tale titles recognised; check title_pattern for this edition"
+        ]
+      },
+      {
+        "id": "kalila_dimna-016",
+        "title": "كليلة ودمنة/باب السائح والصائغ",
+        "pinned_revision_id": 381514,
+        "frozen_sha256": "30d64a8379458a137ade89fe06d37c7479d2582af7eacb35ca111d6d0f79004f",
+        "pageid": 6400,
+        "page_title": "كليلة ودمنة/باب السائح والصائغ",
+        "revision_timestamp": "2021-11-15T17:41:21Z",
+        "revision_size": 10063,
+        "latest_revision_id": 381514,
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "templates": [
+          "قالب:ترويسة",
+          "قالب:ترويسة/styles.css",
+          "وحدة:Edition",
+          "وحدة:Header",
+          "وحدة:I18n",
+          "وحدة:WikidataIB",
+          "وحدة:WikidataIB/i18n",
+          "وحدة:WikidataIB/nolinks",
+          "وحدة:WikidataIB/titleformats"
+        ],
+        "licence_like_templates": [],
+        "builder_reextraction_sha256": "30d64a8379458a137ade89fe06d37c7479d2582af7eacb35ca111d6d0f79004f",
+        "frozen_text_reproducible_from_pinned_revision": true,
+        "blocks": 2,
+        "headings": [
+          {
+            "level": 2,
+            "text": "باب السائح والصائغ"
+          }
+        ],
+        "mediawiki_sections": [
+          {
+            "level": "2",
+            "line": "باب السائح والصائغ"
+          }
+        ],
+        "tales_found": 0,
+        "night_markers": 0,
+        "ambiguities": [
+          "no tale titles recognised; check title_pattern for this edition"
+        ]
+      },
+      {
+        "id": "kalila_dimna-017",
+        "title": "كليلة ودمنة/باب الفحص عن أمر دمنة",
+        "pinned_revision_id": 290965,
+        "frozen_sha256": "b4162081e2e55f1ba5fddd7f9a84f52a3bd273b21f1e09c102c3b9e28f9723f5",
+        "pageid": 6390,
+        "page_title": "كليلة ودمنة/باب الفحص عن أمر دمنة",
+        "revision_timestamp": "2020-02-12T04:02:23Z",
+        "revision_size": 33171,
+        "latest_revision_id": 290965,
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "templates": [
+          "قالب:ترويسة",
+          "قالب:ترويسة/styles.css",
+          "وحدة:Edition",
+          "وحدة:Header",
+          "وحدة:I18n",
+          "وحدة:WikidataIB",
+          "وحدة:WikidataIB/i18n",
+          "وحدة:WikidataIB/nolinks",
+          "وحدة:WikidataIB/titleformats"
+        ],
+        "licence_like_templates": [],
+        "builder_reextraction_sha256": "b4162081e2e55f1ba5fddd7f9a84f52a3bd273b21f1e09c102c3b9e28f9723f5",
+        "frozen_text_reproducible_from_pinned_revision": true,
+        "blocks": 7,
+        "headings": [
+          {
+            "level": 2,
+            "text": "باب الفحص عن أمر دمنة"
+          }
+        ],
+        "mediawiki_sections": [
+          {
+            "level": "2",
+            "line": "باب الفحص عن أمر دمنة"
+          }
+        ],
+        "tales_found": 0,
+        "night_markers": 0,
+        "ambiguities": [
+          "no tale titles recognised; check title_pattern for this edition"
+        ]
+      },
+      {
+        "id": "kalila_dimna-018",
+        "title": "كليلة ودمنة/باب القرد والغيلم",
+        "pinned_revision_id": 231360,
+        "frozen_sha256": "1c782e217046df748204f22ab60d55df0b984ff3e2c539d3db78af59c4062808",
+        "pageid": 6393,
+        "page_title": "كليلة ودمنة/باب القرد والغيلم",
+        "revision_timestamp": "2016-04-19T13:35:40Z",
+        "revision_size": 10979,
+        "latest_revision_id": 231360,
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "templates": [
+          "قالب:ترويسة",
+          "قالب:ترويسة/styles.css",
+          "وحدة:Edition",
+          "وحدة:Header",
+          "وحدة:I18n",
+          "وحدة:WikidataIB",
+          "وحدة:WikidataIB/i18n",
+          "وحدة:WikidataIB/nolinks",
+          "وحدة:WikidataIB/titleformats"
+        ],
+        "licence_like_templates": [],
+        "builder_reextraction_sha256": "1c782e217046df748204f22ab60d55df0b984ff3e2c539d3db78af59c4062808",
+        "frozen_text_reproducible_from_pinned_revision": true,
+        "blocks": 2,
+        "headings": [
+          {
+            "level": 2,
+            "text": "باب القرد والغيلم"
+          }
+        ],
+        "mediawiki_sections": [
+          {
+            "level": "2",
+            "line": "باب القرد والغيلم"
+          }
+        ],
+        "tales_found": 0,
+        "night_markers": 0,
+        "ambiguities": [
+          "no tale titles recognised; check title_pattern for this edition"
+        ]
+      },
+      {
+        "id": "kalila_dimna-019",
+        "title": "كليلة ودمنة/باب اللبوة والإسوار والشغبر",
+        "pinned_revision_id": 374244,
+        "frozen_sha256": "d37d09f7d073d7f5d14363fb69882ddce9a7720e7a7bb5b0cbee968ce6cb4a51",
+        "pageid": 132666,
+        "page_title": "كليلة ودمنة/باب اللبوة والإسوار والشغبر",
+        "revision_timestamp": "2021-08-25T22:18:34Z",
+        "revision_size": 6109,
+        "latest_revision_id": 374244,
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "templates": [
+          "قالب:ترويسة",
+          "قالب:ترويسة/styles.css",
+          "وحدة:Edition",
+          "وحدة:Header",
+          "وحدة:I18n",
+          "وحدة:WikidataIB",
+          "وحدة:WikidataIB/i18n",
+          "وحدة:WikidataIB/nolinks",
+          "وحدة:WikidataIB/titleformats"
+        ],
+        "licence_like_templates": [],
+        "builder_reextraction_sha256": "d37d09f7d073d7f5d14363fb69882ddce9a7720e7a7bb5b0cbee968ce6cb4a51",
+        "frozen_text_reproducible_from_pinned_revision": true,
+        "blocks": 2,
+        "headings": [
+          {
+            "level": 2,
+            "text": "باب اللبوة والإسوار والشغبر"
+          }
+        ],
+        "mediawiki_sections": [
+          {
+            "level": "2",
+            "line": "باب اللبوة والإسوار والشغبر"
+          }
+        ],
+        "tales_found": 0,
+        "night_markers": 0,
+        "ambiguities": [
+          "no tale titles recognised; check title_pattern for this edition"
+        ]
+      },
+      {
+        "id": "kalila_dimna-020",
+        "title": "كليلة ودمنة/باب الناسك والضيف",
+        "pinned_revision_id": 231371,
+        "frozen_sha256": "766486f9bfa6995dc58be5b473e6c1b506dce7b16ad0006e1134995309a0f364",
+        "pageid": 6399,
+        "page_title": "كليلة ودمنة/باب الناسك والضيف",
+        "revision_timestamp": "2016-04-19T13:41:40Z",
+        "revision_size": 3194,
+        "latest_revision_id": 231371,
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "templates": [
+          "قالب:ترويسة",
+          "قالب:ترويسة/styles.css",
+          "وحدة:Edition",
+          "وحدة:Header",
+          "وحدة:I18n",
+          "وحدة:WikidataIB",
+          "وحدة:WikidataIB/i18n",
+          "وحدة:WikidataIB/nolinks",
+          "وحدة:WikidataIB/titleformats"
+        ],
+        "licence_like_templates": [],
+        "builder_reextraction_sha256": "766486f9bfa6995dc58be5b473e6c1b506dce7b16ad0006e1134995309a0f364",
+        "frozen_text_reproducible_from_pinned_revision": true,
+        "blocks": 2,
+        "headings": [
+          {
+            "level": 2,
+            "text": "باب الناسك والضيف"
+          }
+        ],
+        "mediawiki_sections": [
+          {
+            "level": "2",
+            "line": "باب الناسك والضيف"
+          }
+        ],
+        "tales_found": 0,
+        "night_markers": 0,
+        "ambiguities": [
+          "no tale titles recognised; check title_pattern for this edition"
+        ]
+      }
+    ]
+  }
+}
