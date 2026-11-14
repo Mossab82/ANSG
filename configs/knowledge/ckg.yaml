@@ -10,6 +10,18 @@
 # thesis counts; a supplied CKG export must use the same kind names for the counts
 # to be compared.
 
+# Where the dissertation says the resources can be obtained. Status is taken from
+# evidence/ckg/ckg_source_evidence.json (CI collector
+# scripts/ckg/collect_ckg_source_metadata.py); re-run it to refresh.
+cited_sources:
+  ckg_artifact:
+    reference: "Table 9.6 p.254: 'OWL ontology with 1,847 cultural patterns'"
+    urls: ["https://github.com/mossab-ansg/ckg-arabic", "https://doi.org/10.5281/zenodo.8847378"]
+  cst_onto_paper:
+    reference: "Bibliography (Ibrahim, Gervás, Méndez 2025a); App. B.3.3"
+    doi: "10.1145/3731443.3771364"
+    note: "A published paper; whether it distributes the OWL/SWRL file is not established."
+
 data:
   graph_json: data/private/ckg/ckg.json          # supplied CKG export (format: src/ansg/knowledge/ckg.py)
   cst_onto: data/private/ckg/cst_onto.ttl        # supplied CST-Onto ontology (OWL/Turtle), optional
@@ -17,14 +29,14 @@ data:
 
 declared_variants:
   - id: cst_onto_ch3
-    source_reference: "Ch.3 §3.1.4 (CST-Onto Entity Hierarchy box); §3.5.2"
+    source_reference: "Ch.3 §3.1.4 (CST-Onto Entity Hierarchy box) p.54; §3.5.2"
     node_counts_by_kind: {archetype: 87, specialized_concept: 847}
     ontology_class_count: 934            # "classes (87 + 847)" — §3.1.4
     other_counts: {total_owl_entities: 1847, swrl_rules: 234}
     notes: "§3.5.2 says MOTIF annotation uses the 87 archetypes; §3.1.4 says the 847 concepts are the annotation vocabulary (C-ANHC-3)."
 
   - id: cst_onto_table_a16
-    source_reference: "App. A.19.1, Table A.16"
+    source_reference: "App. A.19.1, Table A.16 p.287"
     node_counts_by_kind: {archetype: 87, specialized_concept: 847}
     other_counts:
       object_properties: 143
@@ -35,7 +47,7 @@ declared_variants:
       total_entities_sum_of_rows: 2047   # recomputed: rows sum to 2,047, not 1,847 (C-CKG-2)
 
   - id: ckg_ch4_table_4_8
-    source_reference: "Ch.4 §4.3.2, Table 4.8; Table 4.2 (S = 898 tags)"
+    source_reference: "Ch.4 §4.3.2, Table 4.8 p.98; Table 4.2 p.85 (S = 898 tags); §4.3.2 step 1 p.100 (5,431 triples)"
     node_counts_by_kind: {tag: 898}       # 847 specialized concepts + 51 cross-cutting relational patterns
     other_counts:
       grounding_segments: 12341
@@ -46,10 +58,12 @@ declared_variants:
       segments_sirat_antara: 1074
       segments_contemporary_digital: 2457
       owl2vec_rdf_triples: 5431
+      tags_specialized_concepts: 847           # Table 4.2 note p.85: 898 = 847 + 51
+      tags_cross_cutting_relational_patterns: 51
     notes: "Text says 'eight canonical corpora'; Table 4.8 lists six sources."
 
   - id: ckg_appendix_a
-    source_reference: "App. A.1 Table A.2; A.3 Listing A.2; Ch.5 Table 5.1; Ch.6 Table 6.10"
+    source_reference: "App. A.1 Table A.2; A.3 Listing A.2; Ch.5 Table 5.1 p.134; Ch.6 Table 6.10"
     node_counts_by_kind: {motif: 1847}
     other_counts: {fine_grained_categories: 437, grounding_segments: 12341}
     notes: "'1,847 motifs' here vs '1,847 OWL entities' in Ch.3 vs '698 tagged narrative patterns' (Cultural Motif Database, §4.2.5) (C-CKG-1)."

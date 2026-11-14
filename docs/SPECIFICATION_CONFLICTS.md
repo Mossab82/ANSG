@@ -60,6 +60,8 @@ spot-checked; further conflicts may exist there.
 | C-REWARD-4 | AHP verification **[recomputed]** | Table A.10 matrix → eigenvector 0.350/0.300/0.249/0.100 ✓, but CR ≈ 0.0001 (stated 0.023). Table A.20 matrix → **0.37/0.31/0.22/0.10**, not the stated 0.35/0.30/0.25/0.10; CR ≈ 0.004 (stated 0.078). Panel: 12 experts with 3 Delphi rounds and CR 0.02 (§4.5.2), 5 experts (A.11), 12 experts (A.23). |
 | C-REWARD-5 | Normalisation | Perplexity⁻¹ = 0.065 "normalized to [0,1]: 0.82" (§4.5.4) — rule not given. Virtue, rhetorical, register, coreference, temporal, causal sub-metrics have no definitions. |
 | C-REWARD-6 | Worked example **[recomputed]** | §4.5.4: 0.35·0.91 + 0.30·0.88 + 0.25·0.73 + 0.10·0.95 = **0.860**, printed 0.867; R_total with recomputed parts = 0.852 (printed 0.854). |
+| C-REWARD-7 | Ch.5 reward terms and penalties | Eq. 5.1 (p.151): R_ling = normalised BLEU-4 + (1 − normalised perplexity), printed **without weights**, so its range is [0, 2]; R_cult = CMPI and R_coh = sentence-embedding cosine coherence, each a single term, whereas Ch.4 Eq. 4.26–4.28 define both as weighted composites, and both chapters cite §4.5 as the source. Eq. 5.2 (p.152) subtracts 0.15·CoherencePenalty from **R_total**; Eq. 5.3 (p.153) subtracts 0.1·ProverbRepetition from **R_cult**. The KL coefficient 0.01 (p.151) has no stated placement (reward-side or loss-side). Machine-readable: `configs/specification/reward_rl_variants.yaml`. |
+| C-REWARD-8 | A.21 ratio | A.21.3 (p.291): cultural fidelity 0.63 : fluency 0.37, then in the same section cultural components 'collectively receive 65% weight versus linguistic quality ... at 35%'; neither matches the top-level cultural weight 0.45 (Eq. 4.29, Eq. 5.1). |
 
 ## Corpus (ANHC) and annotation
 

@@ -49,11 +49,19 @@ def generator_adversarial_step(model,discriminator,prompt_ids,schema_ids,optimiz
     optimizer.step()
     return float(loss.detach())
 
-def ppo_update(model,old_logprobs,ids,schema_ids,actions,advantages,returns,optimizer,dialect_ids=None,clip_eps=0.2,value_coef=0.5,action_mask=None):
+def ppo_update(model,old_logprobs,ids,schema_ids,actions,advantages,returns,optimizer,dialect_ids=None,clip_eps=0.2,value_coef=0.5,action_mask=None,max_grad_norm=1.0,entropy_coef=0.0):
     """Clipped PPO on a fixed rollout; caller must supply same states/actions as rollout.
 
     ids: [B,T] states; actions: [B,T] actual next tokens; mask per-token
     training should be applied by the caller to exclude prompt/padding positions.
+
+    Defaults keep this function's original behaviour (grad-norm clip 1.0, no
+    entropy bonus). The dissertation's §5.6.3 / Table 5.9 values (clip 0.2, value
+    coefficient 0.5, entropy coefficient 0.01, grad-norm 0.5) are one documented
+    variant among several; obtain them explicitly with
+    ``ansg.reward_spec.load_reward_spec().ppo_update_kwargs(<variant id>)``.
+    The KL penalty (coefficient 0.01) is not implemented: the thesis does not
+    state whether it is applied in the reward or in the loss.
     """
     model.train()
     out=model(ids,schema_ids,dialect_ids)
@@ -73,11 +81,18 @@ def ppo_update(model,old_logprobs,ids,schema_ids,actions,advantages,returns,opti
         policy_loss=-(surrogate*mask).sum()/mask.sum()
         value_loss=(((out['values']-returns)**2)*mask).sum()/mask.sum()
     loss=policy_loss+value_coef*value_loss
+    result={}
+    if entropy_coef:
+        logp=F.log_softmax(logits,dim=-1)
+        token_entropy=-(logp.exp()*logp).sum(-1)
+        entropy=token_entropy.mean() if action_mask is None else (token_entropy*action_mask.to(token_entropy.dtype)).sum()/action_mask.sum()
+        loss=loss-entropy_coef*entropy
+        result['entropy']=float(entropy.detach())
     optimizer.zero_grad(set_to_none=True)
     loss.backward()
-    nn.utils.clip_grad_norm_(model.parameters(),1.0)
+    nn.utils.clip_grad_norm_(model.parameters(),max_grad_norm)
     optimizer.step()
-    return {'loss':float(loss.detach()),'policy_loss':float(policy_loss.detach()),'value_loss':float(value_loss.detach())}
+    return {'loss':float(loss.detach()),'policy_loss':float(policy_loss.detach()),'value_loss':float(value_loss.detach()),**result}
 
 def cultural_reward(cultural,linguistic,coherence,weights=(0.45,0.35,0.20)):
     if len(weights)!=3 or abs(sum(weights)-1.0)>1e-6:
