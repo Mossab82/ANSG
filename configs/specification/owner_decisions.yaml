@@ -1,0 +1,60 @@
+# Decisions register for PR #33 (reward/RL, CMPI, CKG/CST-Onto, training).
+#
+# `decided` entries are the repository owner's directives of 2026-11-14 and are
+# not re-opened in later reports. `awaiting_previous_decision` items were already
+# put to the owner and are not raised again until a new decision arrives.
+# `needs_decision` items still require an explicit owner decision (or explicit
+# support in the dissertation). `awaiting_inputs` items are blocked on files,
+# licences, data or scores, not on a decision.
+
+schema: ansg.owner_decisions/1
+recorded: "2026-11-14"
+
+decided:
+  - id: D1-ansg-cmpi
+    directive: "Adopt the dissertation's CMPI definition and weights for ANSG: 0.35 rhetorical devices, 0.25 dialectal appropriateness, 0.25 narrative structure, 0.15 moral framing. Compute it from caller-supplied dimension scores with documented provenance; do not invent automatic extraction of the scores from text."
+    implemented_in: [src/ansg/evaluation/cmpi.py, configs/evaluation/cmpi_variants.yaml]
+    weights: {rhetorical_devices: 0.35, dialectal_appropriateness: 0.25, narrative_structure: 0.25, moral_framing: 0.15}
+    note: "The definition and weights are in the dissertation (§5.1 p.131; §8.7.4 p.223); a procedure for extracting each dimension score from text is not."
+  - id: D2-separate-metrics
+    directive: "Keep the CULTURA, CST-Onto and MM-GTA metrics separate from ANSG's CMPI; no conversion or substitution."
+    implemented_in: [configs/evaluation/cmpi_variants.yaml, src/ansg/evaluation/cmpi.py]
+  - id: D3-cultura-conflict
+    directive: "Do not repair the CULTURA equation or change the published result; keep both as printed and record the conflict and the author's options in one record; do not raise it again until a new decision."
+    single_record: "configs/evaluation/cmpi_variants.yaml#cultura (printed_formula_conflicts, conflict_computation, author_decision_options)"
+  - id: D4-reward-ppo
+    directive: "Choose no reward or PPO variant; change no normalisation, KL placement or sub-metric without explicit dissertation support or an owner decision; keep unresolved options documented and marked blocked."
+    implemented_in: [configs/specification/reward_rl_variants.yaml]
+  - id: D5-resources-rights-training
+    directive: "Assume no CKG or CST-Onto files and no permission to use them; keep resources, rights, admission and training execution blocked until the files, licences and data are supplied."
+    implemented_in: [configs/knowledge/ckg.yaml, configs/training/ansg_direct_profile.yaml]
+
+awaiting_previous_decision:
+  - id: cultura-0.2-vs-0.82
+    record: "configs/evaluation/cmpi_variants.yaml#cultura.author_decision_options"
+    raised: "2026-11-14"
+    status: not_re_raised
+
+needs_decision:
+  - id: reward-variant
+    question: "Which reward variant (and PPO settings) applies"
+    record: "configs/specification/reward_rl_variants.yaml (selected_variant: null, selected_ppo_variant: null; C-REWARD-1..9)"
+  - id: reward-normalisation-kl
+    question: "Normalisation of perplexity/BLEU and placement of the KL penalty (reward-side or loss-side)"
+    record: "configs/specification/reward_rl_variants.yaml (components *_normalised; ch5 kl_penalty.placement: unspecified)"
+  - id: reward-sub-metrics
+    question: "Operational definitions of virtue coherence, register, coreference, temporal, causal, PCI, diversity and the Ch.5 penalty detectors"
+    record: "configs/specification/reward_rl_variants.yaml#components"
+  - id: training-data-staging
+    question: "Chapter 3 vs Chapter 5 use of the 70.4M and 23M data in stage 1 (and which stage schedule applies)"
+    record: "configs/training/ansg_direct_profile.yaml#data_use_conflict; docs/SPECIFICATION_CONFLICTS.md C-TRAIN-1"
+
+awaiting_inputs:
+  - id: cmpi-dimension-scores
+    needed: "dimension scores (with provenance) or a scoring protocol for each of the four CMPI dimensions"
+  - id: ckg-cst-onto-files
+    needed: "the CKG and CST-Onto files with version and licence"
+  - id: rights-and-admission
+    needed: "licences/permissions for CKG, CST-Onto and training data; admission decisions stay pending until then"
+  - id: training-inputs
+    needed: "ANHC data and rights, backbone checkpoint and tokenizer; training execution stays blocked"
