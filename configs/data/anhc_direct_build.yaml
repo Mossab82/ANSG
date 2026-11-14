@@ -61,6 +61,39 @@ sources:
     training_status: blocked_pending_per_page_edition_license_review
     redistribution_status: blocked_pending_per_page_edition_license_review
     acquisition: discover_index_pages_and_pin_revision_ids
+  - source_id: shami-levantine-corpus
+    title: "Shami: A Corpus of Levantine Arabic Dialects"
+    source_url: "https://huggingface.co/datasets/arbml/Shami"
+    paper_url: "https://aclanthology.org/L18-1576/"
+    upstream_repository: "https://github.com/GU-CLASP/shami-corpus"
+    reported_volume: 117805
+    observed_huggingface_snapshot_rows: 66251
+    dialects: [Jordanian, Palestinian, Syrian, Lebanese]
+    content_type: social_media_sentences; not narrative stories
+    role: dialect_reference_or_DIA_classifier_support_only
+    license_status: repository_is_apache_2_but_dataset_provenance_and_redistribution_terms_require_review
+    training_status: research_copy_requires_rights_review; exclude_from_story_count
+    redistribution_status: blocked_until_dataset_text_rights_confirmed
+  - source_id: madar-parallel-corpus
+    title: "MADAR Parallel Corpus"
+    source_url: "https://camel.abudhabi.nyu.edu/madar-parallel-corpus/"
+    reported_volume: "Corpus-26: 2,000 seed sentences across 25 city dialects plus MSA; Corpus-6: 12,000 sentences across six varieties"
+    dialects: 25_city_varieties
+    content_type: translated_travel_domain_parallel_sentences; not narrative stories
+    role: dialect_identifier_training_or_evaluation_if_available_under_terms
+    license_status: internal_research_and_evaluation_only; no modification_or_redistribution
+    access: official_registration_form_required
+    training_status: research_only_after_download_and_terms_acceptance
+    redistribution_status: prohibited
+  - source_id: arabic-stories-corpus-mawdoo3-qisasse
+    title: "Arabic Stories Corpus"
+    source_url: "https://github.com/motazsaad/Arabic-Stories-Corpus"
+    reported_volume: "listed in resource catalogs as 146 stories; verify current files before counting"
+    content_type: MSA_story_texts
+    repository_license: Apache-2.0
+    underlying_source_rights: mawdoo3_and_qisasse_source_text_terms_not_documented_in_repository
+    training_status: blocked_pending_rights_review
+    redistribution_status: blocked_pending_rights_review
   - source_id: modern-public-domain-literature
     title: "Arabic narrative works, 1800–2000"
     source_url: null
@@ -81,7 +114,7 @@ sources:
     role: narrative_candidate_ingestion; candidate categories require story-boundary review
     period: source_specific_from_original_publication_year
     dialect: mostly_edition_specific; not a dialect corpus
-    content_status: downloaded_and_materializer_running
+    content_status: downloaded_and_materialized_1388_candidates; 1388_records_not_yet_story_segmented_or_annotated
     training_status: eligible_under_CC_BY_4.0_after_record_level_attribution_and_validation
     redistribution_status: CC_BY_4.0_attribution_required; retain_original_book_metadata
     acquisition: scripts/ingest_arabic_ebooks.py
