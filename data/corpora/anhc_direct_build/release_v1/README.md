@@ -9,11 +9,12 @@ Install Python 3.10+ and `sentencepiece==0.2.0`. From the repository root, first
 ```bash
 python scripts/ingest_arabic_ebooks.py --scope narrative_candidates --output build/anhc/candidates
 python scripts/ingest_arabic_ebooks.py --scope all_books --output build/anhc/all_books
+python scripts/build_kalila_1816.py --output build/anhc
 python scripts/train_anhc_direct_tokenizer.py --records build/anhc/all_books/records --output build/anhc/tokenizer
-python scripts/build_anhc_direct.py --candidate-manifest build/anhc/candidates/manifest.jsonl --records-root build/anhc/candidates --story-units data/corpora/anhc_direct_build/story_units/story_units_provisional.jsonl --tokenizer-model build/anhc/tokenizer/anhc_direct_spm32.model --kalila-jsonl build/anhc/kalila_1816.jsonl --dialect-audit-report build/anhc/user_provided_dialect_count_report.json --output build/anhc/release_v1 --seed ANHC-direct-v1 --train-ratio 0.8 --validation-ratio 0.1
+python scripts/build_anhc_direct.py --candidate-manifest build/anhc/candidates/manifest.jsonl --records-root build/anhc/candidates --story-units data/corpora/anhc_direct_build/story_units/story_units_provisional.jsonl --tokenizer-model build/anhc/tokenizer/anhc_direct_spm32.model --kalila-jsonl build/anhc/kalila_1816.jsonl --output build/anhc/release_v1 --seed ANHC-direct-v1 --train-ratio 0.8 --validation-ratio 0.1
 ```
 
-The ingestion script downloads the cited source archive and metadata when they are absent. The pipeline verifies every candidate text against its SHA-256 before counting it. The tokenizer counts pieces without BOS/EOS/padding. Source text stays in its attributed input files; generated release outputs contain source metadata and record IDs, not copies of the books.
+The ingestion script downloads the cited source archive and metadata when they are absent. The pipeline verifies every candidate text against its SHA-256 before counting it. The tokenizer counts pieces without BOS/EOS/padding. Source text stays in its attributed input files; generated release outputs contain source metadata and record IDs, not copies of the books. To add the separate count-only user dialect summary, pass `--dialect-audit-report /path/to/privacy-safe-report.json`; the dialect text itself is excluded from story totals and splits.
 
 ## Current direct-build run
 
