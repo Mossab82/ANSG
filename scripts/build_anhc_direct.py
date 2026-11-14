@@ -66,6 +66,8 @@ def main():
     ap.add_argument("--records-root", type=Path, required=True, help="Directory containing the manifest's compressed text_file paths")
     ap.add_argument("--story-units", type=Path, required=True, help="Provisional Alf Layla/Kalila units JSONL")
     ap.add_argument("--tokenizer-model", type=Path, required=True, help="Pinned direct-build SentencePiece model")
+    ap.add_argument("--kalila-jsonl", type=Path, help="Optional extracted Kalila wa-Dimna chapter corpus (JSONL or JSONL.GZ)")
+    ap.add_argument("--dialect-audit-report", type=Path, help="Optional privacy-safe count report for user-provided dialect support text")
     ap.add_argument("--output", type=Path, required=True)
     ap.add_argument("--seed", default="ANHC-direct-v1")
     ap.add_argument("--train-ratio", type=float, default=0.80)
@@ -132,8 +134,39 @@ def main():
         count_by_scope[scope] += 1
         words_by_scope[scope] += words
         tokens_by_scope[scope] += tokens
+        source_metadata[rid]["whole_book_unit"] = True
         if index % 100 == 0:
             print(f"Verified and counted {index}/{len(source_rows)} source records", flush=True)
+
+    kalila_records = []
+    if args.kalila_jsonl:
+        if not args.kalila_jsonl.is_file():
+            raise SystemExit(f"Kalila source file not found: {args.kalila_jsonl}")
+        for chapter in read_jsonl(args.kalila_jsonl):
+            rid = chapter.get("record_id")
+            text = chapter.get("text")
+            if not rid or rid in records or not isinstance(text, str):
+                raise ValueError(f"Missing, duplicate, or invalid Kalila chapter: {rid}")
+            digest = digest_text(text)
+            if digest != chapter.get("source_text_sha256"):
+                raise ValueError(f"{rid}: Kalila text SHA-256 mismatch")
+            words = len(text.split())
+            tokens = len(sp.encode(text, out_type=int))
+            src = chapter.get("source", {})
+            records[rid] = {
+                "record_id": rid, "title": chapter.get("narrative", {}).get("chapter_title"),
+                "author": src.get("author"), "source_text_sha256": digest,
+                "candidate_scope": "classical_narrative", "observed_whitespace_words": words,
+                "sentencepiece_tokens": tokens, "work_group": "kalila_1816_frame_cycle",
+                "text_file": str(args.kalila_jsonl), "license": src.get("license"),
+                "attribution": src.get("attribution"), "source_family": "kalila_1816_chapter"
+            }
+            source_metadata[rid] = {"source": src, "narrative": chapter.get("narrative", {}), "whole_book_unit": False}
+            token_words_by_id[rid] = (words, tokens)
+            count_by_scope["classical_narrative"] += 1
+            words_by_scope["classical_narrative"] += words
+            tokens_by_scope["classical_narrative"] += tokens
+            kalila_records.append(rid)
 
     group_to_split = {}
     group_words, group_tokens = Counter(), Counter()
@@ -155,6 +188,8 @@ def main():
         if unit_id in known_units:
             continue
         source_row = source_metadata[rid]
+        if not source_row.get("whole_book_unit", False):
+            continue
         src = source_row.get("source", {})
         units.append({
             "schema": "ansg.story_unit_candidate/1",
@@ -214,6 +249,11 @@ def main():
                             "story_unit_rows": units_by_split[split],
                             "observed_whitespace_words": group_words[split],
                             "sentencepiece_tokens": group_tokens[split]} for split in SPLITS}
+    dialect_support = None
+    if args.dialect_audit_report:
+        if not args.dialect_audit_report.is_file():
+            raise SystemExit(f"Dialect audit report not found: {args.dialect_audit_report}")
+        dialect_support = json.loads(args.dialect_audit_report.read_text(encoding="utf-8"))
     report = {
         "schema": "ansg.direct_build_release_report/1",
         "built_utc": datetime.now(timezone.utc).isoformat(),
@@ -222,23 +262,44 @@ def main():
         "inputs": {"candidate_manifest": str(args.candidate_manifest), "candidate_manifest_sha256": hashlib.sha256(args.candidate_manifest.read_bytes()).hexdigest(),
                    "tokenizer_model": str(args.tokenizer_model), "tokenizer_model_sha256": hashlib.sha256(args.tokenizer_model.read_bytes()).hexdigest(),
                    "sentencepiece_version": spm.__version__, "vocabulary_size": sp.get_piece_size()},
-        "candidate_sources": len(records),
+        "source_text_records": len(records),
+        "candidate_sources": len(source_rows),
+        "supplemental_classical_chapters": len(kalila_records),
         "candidate_scope_counts": dict(count_by_scope),
         "candidate_scope_whitespace_words": dict(words_by_scope),
         "candidate_scope_sentencepiece_tokens": dict(tokens_by_scope),
         "grouped_splits": {"algorithm": "SHA-256(seed, work_group) threshold assignment; group rows cannot cross splits",
                            "seed": args.seed, "ratios": {"train": args.train_ratio, "validation": args.validation_ratio, "test": round(1-args.train_ratio-args.validation_ratio, 6)},
                            "realized": split_counts},
+        "auxiliary_dialect_support": ({"included_in_narrative_counts": False, "included_in_story_splits": False,
+                                        "redistribution_status": "unresolved; count report only", "summary": dialect_support.get("aggregate"),
+                                        "sources": [{k: src.get(k) for k in ("source_id", "dialect_label_from_file_name", "nonempty_rows", "whitespace_words", "sentencepiece_tokens", "redistribution_status")} for src in dialect_support.get("sources", [])]}
+                                       if dialect_support else None),
         "story_unit_rows": len(units),
         "story_units_by_split": dict(units_by_split),
         "annotation_layers": {layer: {"rows": 0, "adjudicated": False, "status": "empty_template_only"} for layer in LAYERS},
         "triple_covered_tokens": 0,
-        "thesis_comparison": {"reported_corpus_tokens": 70404829, "reported_triple_covered_tokens": 23000000,
-                              "reproduces_historical_counts": False,
-                              "reason": "Direct-build tokenizer, sources, boundaries, and original adjudicated annotation records differ or remain unavailable."},
+        "thesis_comparison": {
+            "reported_corpus_tokens": 70404829,
+            "reported_triple_covered_tokens": 23000000,
+            "reproduces_historical_counts": False,
+            "reported_narrative_count_variants": {"appendix_A17": 55600, "chapter_5_section_5_4_4": 5247},
+            "reported_split_in_chapter_5_section_5_4_4": {"train": 4197, "validation": 525, "test": 525},
+            "reported_split_method": "TF-IDF representations then DBSCAN (epsilon=0.3, min_samples=2); stratification by dialect, cultural density, and period",
+            "reported_tokenizer": "32K SentencePiece with CAMeL Tools morphological preprocessing and root preservation; trained on 50M representative tokens",
+            "internal_conflicts": [
+                "Appendix A.17 reports 55,600 narratives while Chapter 5 section 5.4.4 reports 5,247; unit relationship is unspecified.",
+                "Dialect distributions differ between Chapter 3 Table 3.3, Chapter 5 stratification targets, and Appendix A.17.",
+                "Chapter 3 temporal distribution differs from Chapter 5 temporal stratification targets.",
+                "Original source manifest, historical tokenizer and adjudicated annotation exports are unavailable to this build."
+            ],
+            "reason": "Direct-build tokenizer, sources, boundaries, split method, and original adjudicated annotation records differ or remain unavailable."
+        },
         "limitations": ["Publisher categories are candidate filters; whole books are not verified story units.",
                         "The 80/10/10 ratios and hash seed are direct-build operational choices, not historical thesis split values.",
                         "DIA/MOTIF/MORAL outputs are empty templates; no labels or human adjudication are fabricated.",
+                        "Alf Layla volumes are already among the Arabic E-Book Corpus candidates and are counted once; story-span rows add no duplicate text tokens.",
+                        "Optional user-provided dialect support counts are auxiliary and excluded from story-token and split totals.",
                         "The script emits source-record ID lists and metadata; source text remains in its attributed input files."]
     }
     (args.output / "release_report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
