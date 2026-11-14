@@ -1,0 +1,80 @@
+{
+  "schema": "ansg.token_count_report/1",
+  "built_utc": "2026-11-14T07:29:13.908194+00:00",
+  "profile_id": "ANHC-direct-SPM32-v1",
+  "sentencepiece_version": "0.2.0",
+  "model_type": "unigram",
+  "vocab_size_requested": 32000,
+  "vocab_size_actual": 32000,
+  "normalization": "SentencePiece NFKC; source text preserved separately",
+  "root_aware": false,
+  "training_corpus": "all 1,745 CC-BY Arabic E-Book Corpus books, source text only, deterministic booknr order",
+  "tokenizer_training_sample": {
+    "algorithm": "reservoir sampling over non-empty source-text lines",
+    "seed": 20261114,
+    "sampled_lines": 200000,
+    "population_lines": 2299461,
+    "sample_text_sha256": "8d671965a637c5f7251b787617bc6122078cbe607d69f80e73614d9fc610d0e0"
+  },
+  "training_text_sha256": "1259e39a39ef6cee0ffa4ee53e5aa68df59475fcd7cb560434897af34fabf2ca",
+  "tokenizer_model_sha256": "651cb8ff3a9086f12959dc788ab5e43dfffdeb20a4c3faa644dc1879e5bedab1",
+  "counting": "SentencePiece pieces; excludes BOS/EOS/padding; JSON metadata and annotations excluded",
+  "all_books": {
+    "records": 1745,
+    "observed_whitespace_words": 66081654,
+    "sentencepiece_tokens": 107032144
+  },
+  "narrative_candidates_unique": {
+    "record_selection": "publisher category intersects core OR adjacent narrative categories",
+    "sentencepiece_tokens": 82707626,
+    "observed_whitespace_words": 51567623
+  },
+  "narrative_scope_sentencepiece_tokens_nonexclusive": {
+    "narrative_core": 42151903,
+    "non_narrative_general": 24324518,
+    "narrative_adjacent": 42510256
+  },
+  "narrative_scope_whitespace_words_nonexclusive": {
+    "narrative_core": 25875270,
+    "non_narrative_general": 14514031,
+    "narrative_adjacent": 26873329
+  },
+  "period_sentencepiece_tokens": {
+    "modern_1800_2000": 95417240,
+    "classical_pre_1800": 2836067,
+    "unknown": 7463732,
+    "contemporary_post_2000": 1315105
+  },
+  "period_whitespace_words": {
+    "modern_1800_2000": 59477208,
+    "classical_pre_1800": 1658732,
+    "unknown": 4157761,
+    "contemporary_post_2000": 787953
+  },
+  "translation_sentencepiece_tokens": {
+    "translated": 26171754,
+    "Arabic_original": 80860390
+  },
+  "translation_whitespace_words": {
+    "translated": 16275825,
+    "Arabic_original": 49805829
+  },
+  "alf_layla": {
+    "observed_whitespace_words": 707422,
+    "sentencepiece_tokens": 1134099
+  },
+  "kalila_1816": {
+    "observed_whitespace_words": 30115,
+    "sentencepiece_tokens": 51845
+  },
+  "thesis_comparison": {
+    "claimed_tokens": 70400000,
+    "exact_reproduction": false,
+    "reason": "The thesis's original root-aware SentencePiece model and preprocessing artifact are not available; this direct profile is reproducible but not the historical tokenizer."
+  },
+  "artifacts": {
+    "model": "anhc_direct_spm32.model",
+    "vocab": "anhc_direct_spm32.vocab",
+    "training_sample": "training_sample.txt"
+  }
+}
