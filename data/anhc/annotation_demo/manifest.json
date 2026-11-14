@@ -1,0 +1,147 @@
+{
+  "schema": "ansg.annotation_demo_manifest/1",
+  "status": "DEMONSTRATION_ONLY_NOT_HUMAN_ADJUDICATED",
+  "purpose": "Small illustrative sample showing the three-layer annotation file shape using real source text and explicitly provisional rule suggestions.",
+  "must_not_claim": [
+    "human annotation",
+    "thesis reproduction",
+    "23M triple-annotated tokens",
+    "gold train/validation/test labels"
+  ],
+  "tokenizer_profile": "ANHC-direct-SPM32-v1",
+  "tokenizer_model_sha256": "7744212cab83605e2726796fc87930a8f58b9c6a765529e541bce4bbea9792ba",
+  "generation_method": "keyword rules plus a source-register DIA proxy; no LLM-generated or human-adjudicated labels",
+  "counts": {
+    "DIA": 14,
+    "MOTIF": 75,
+    "MORAL": 152
+  },
+  "stories": [
+    {
+      "story_id": "hindawi-27482482-b001",
+      "source_record_id": "hindawi-27482482",
+      "source_cycle_id": "alf_layla_work_cycle",
+      "source_text_sha256": "008a5c1c85ec17c1874a6fe53edc424c1645562496bed5305195314396bd519d",
+      "source_license": "CC BY 4.0 (corpus record; verify edition attribution in source manifest)",
+      "unit_status": "provisional_heading_span",
+      "split": "unassigned"
+    },
+    {
+      "story_id": "hindawi-27482482-b002",
+      "source_record_id": "hindawi-27482482",
+      "source_cycle_id": "alf_layla_work_cycle",
+      "source_text_sha256": "008a5c1c85ec17c1874a6fe53edc424c1645562496bed5305195314396bd519d",
+      "source_license": "CC BY 4.0 (corpus record; verify edition attribution in source manifest)",
+      "unit_status": "provisional_heading_span",
+      "split": "unassigned"
+    },
+    {
+      "story_id": "hindawi-36973840-b001",
+      "source_record_id": "hindawi-36973840",
+      "source_cycle_id": "alf_layla_work_cycle",
+      "source_text_sha256": "4e64e3a22f4faccd735c63e98bdd5c8b82c207bc0d86bb4e506dd6ac0b802ea7",
+      "source_license": "CC BY 4.0 (corpus record; verify edition attribution in source manifest)",
+      "unit_status": "provisional_heading_span",
+      "split": "unassigned"
+    },
+    {
+      "story_id": "hindawi-36973840-b002",
+      "source_record_id": "hindawi-36973840",
+      "source_cycle_id": "alf_layla_work_cycle",
+      "source_text_sha256": "4e64e3a22f4faccd735c63e98bdd5c8b82c207bc0d86bb4e506dd6ac0b802ea7",
+      "source_license": "CC BY 4.0 (corpus record; verify edition attribution in source manifest)",
+      "unit_status": "provisional_heading_span",
+      "split": "unassigned"
+    },
+    {
+      "story_id": "hindawi-39419251-b001",
+      "source_record_id": "hindawi-39419251",
+      "source_cycle_id": "alf_layla_work_cycle",
+      "source_text_sha256": "185852e36b87c20f1452e8e13df72ac01e15a66b4ca9d9110023b9b2dac64d4a",
+      "source_license": "CC BY 4.0 (corpus record; verify edition attribution in source manifest)",
+      "unit_status": "provisional_heading_span",
+      "split": "unassigned"
+    },
+    {
+      "story_id": "hindawi-39419251-b002",
+      "source_record_id": "hindawi-39419251",
+      "source_cycle_id": "alf_layla_work_cycle",
+      "source_text_sha256": "185852e36b87c20f1452e8e13df72ac01e15a66b4ca9d9110023b9b2dac64d4a",
+      "source_license": "CC BY 4.0 (corpus record; verify edition attribution in source manifest)",
+      "unit_status": "provisional_heading_span",
+      "split": "unassigned"
+    },
+    {
+      "story_id": "hindawi-61961973-b001",
+      "source_record_id": "hindawi-61961973",
+      "source_cycle_id": "alf_layla_work_cycle",
+      "source_text_sha256": "ff31ee5ab6e491b998bc3de4438264d195bd9cf4a32819d03d160047d056f2b0",
+      "source_license": "CC BY 4.0 (corpus record; verify edition attribution in source manifest)",
+      "unit_status": "provisional_heading_span",
+      "split": "unassigned"
+    },
+    {
+      "story_id": "hindawi-61961973-b002",
+      "source_record_id": "hindawi-61961973",
+      "source_cycle_id": "alf_layla_work_cycle",
+      "source_text_sha256": "ff31ee5ab6e491b998bc3de4438264d195bd9cf4a32819d03d160047d056f2b0",
+      "source_license": "CC BY 4.0 (corpus record; verify edition attribution in source manifest)",
+      "unit_status": "provisional_heading_span",
+      "split": "unassigned"
+    },
+    {
+      "story_id": "hindawi-75264279-b001",
+      "source_record_id": "hindawi-75264279",
+      "source_cycle_id": "alf_layla_work_cycle",
+      "source_text_sha256": "3541af86f80e1aa4a0d981cfe53eff0ee99d54b6b995fb62d24ebba5331af660",
+      "source_license": "CC BY 4.0 (corpus record; verify edition attribution in source manifest)",
+      "unit_status": "provisional_heading_span",
+      "split": "unassigned"
+    },
+    {
+      "story_id": "hindawi-75264279-b002",
+      "source_record_id": "hindawi-75264279",
+      "source_cycle_id": "alf_layla_work_cycle",
+      "source_text_sha256": "3541af86f80e1aa4a0d981cfe53eff0ee99d54b6b995fb62d24ebba5331af660",
+      "source_license": "CC BY 4.0 (corpus record; verify edition attribution in source manifest)",
+      "unit_status": "provisional_heading_span",
+      "split": "unassigned"
+    },
+    {
+      "story_id": "hindawi-85931905-b001",
+      "source_record_id": "hindawi-85931905",
+      "source_cycle_id": "alf_layla_work_cycle",
+      "source_text_sha256": "c0e48fa7fba518da061c6df1bdb2aee2aaa85b83ae32e1e06da9b4c24890ca91",
+      "source_license": "CC BY 4.0 (corpus record; verify edition attribution in source manifest)",
+      "unit_status": "provisional_heading_span",
+      "split": "unassigned"
+    },
+    {
+      "story_id": "hindawi-85931905-b002",
+      "source_record_id": "hindawi-85931905",
+      "source_cycle_id": "alf_layla_work_cycle",
+      "source_text_sha256": "c0e48fa7fba518da061c6df1bdb2aee2aaa85b83ae32e1e06da9b4c24890ca91",
+      "source_license": "CC BY 4.0 (corpus record; verify edition attribution in source manifest)",
+      "unit_status": "provisional_heading_span",
+      "split": "unassigned"
+    },
+    {
+      "story_id": "kalila-1816-01",
+      "source_record_id": "kalila-1816-01",
+      "source_cycle_id": "kalila_1816_frame_cycle",
+      "source_text_sha256": "edde3d9595c8aef2efdff1b9699f2f34e9a02b665cb82088e7bf452ffc4e5dee",
+      "source_license": "CC BY-SA 4.0",
+      "unit_status": "source_chapter_container_not_gold_story_boundary",
+      "split": "unassigned"
+    },
+    {
+      "story_id": "kalila-1816-02",
+      "source_record_id": "kalila-1816-02",
+      "source_cycle_id": "kalila_1816_frame_cycle",
+      "source_text_sha256": "da69ce446b6ae6121fc472f50311dfc49fab7eb1fa3af1e804e44ca99e8825e9",
+      "source_license": "CC BY-SA 4.0",
+      "unit_status": "source_chapter_container_not_gold_story_boundary",
+      "split": "unassigned"
+    }
+  ]
+}
