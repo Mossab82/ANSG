@@ -259,9 +259,14 @@ def main():
         "built_utc": datetime.now(timezone.utc).isoformat(),
         "profile_id": "ANHC-direct-build-v1",
         "status": "reproducible_direct_build_not_historical_reproduction",
-        "inputs": {"candidate_manifest": str(args.candidate_manifest), "candidate_manifest_sha256": hashlib.sha256(args.candidate_manifest.read_bytes()).hexdigest(),
-                   "tokenizer_model": str(args.tokenizer_model), "tokenizer_model_sha256": hashlib.sha256(args.tokenizer_model.read_bytes()).hexdigest(),
-                   "sentencepiece_version": spm.__version__, "vocabulary_size": sp.get_piece_size()},
+        "inputs": {
+            "candidate_manifest": {"path": str(args.candidate_manifest), "sha256": hashlib.sha256(args.candidate_manifest.read_bytes()).hexdigest()},
+            "story_units": {"path": str(args.story_units), "sha256": hashlib.sha256(args.story_units.read_bytes()).hexdigest()},
+            "tokenizer_model": {"path": str(args.tokenizer_model), "sha256": hashlib.sha256(args.tokenizer_model.read_bytes()).hexdigest()},
+            "kalila_jsonl": ({"path": str(args.kalila_jsonl), "sha256": hashlib.sha256(args.kalila_jsonl.read_bytes()).hexdigest()} if args.kalila_jsonl else None),
+            "dialect_audit_report": ({"path": str(args.dialect_audit_report), "sha256": hashlib.sha256(args.dialect_audit_report.read_bytes()).hexdigest()} if args.dialect_audit_report else None),
+            "sentencepiece_version": spm.__version__, "vocabulary_size": sp.get_piece_size()
+        },
         "source_text_records": len(records),
         "candidate_sources": len(source_rows),
         "supplemental_classical_chapters": len(kalila_records),
