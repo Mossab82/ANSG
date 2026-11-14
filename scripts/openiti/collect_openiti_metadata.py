@@ -80,8 +80,25 @@ def _attempt(fn, *args, **kwargs):
 
 
 def zenodo_releases():
-    q = urllib.parse.urlencode({"q": f"conceptrecid:{ZENODO_CONCEPT_RECID}", "all_versions": "true", "sort": "-version", "size": 100})
-    data = _json(f"https://zenodo.org/api/records?{q}")
+    """All versions of the OpenITI concept record (tries the documented endpoints in turn)."""
+    attempts, data, used = [], None, None
+    latest = _attempt(_json, f"https://zenodo.org/api/records/{ZENODO_CONCEPT_RECID}")
+    attempts.append({"url": f"/api/records/{ZENODO_CONCEPT_RECID}", "ok": latest["ok"], "error": latest.get("error")})
+    candidates = []
+    if latest["ok"]:
+        candidates.append(f"https://zenodo.org/api/records/{latest['value'].get('id')}/versions?size=100&sort=version")
+    candidates += [
+        "https://zenodo.org/api/records?" + urllib.parse.urlencode({"q": f"conceptrecid:{ZENODO_CONCEPT_RECID}", "all_versions": "1", "size": 100}),
+        "https://zenodo.org/api/records?" + urllib.parse.urlencode({"q": f"parent.id:{ZENODO_CONCEPT_RECID}", "allversions": "true", "size": 100}),
+    ]
+    for url in candidates:
+        res = _attempt(_json, url)
+        attempts.append({"url": url.replace("https://zenodo.org", ""), "ok": res["ok"], "error": res.get("error")})
+        if res["ok"] and res["value"].get("hits", {}).get("hits"):
+            data, used = res["value"], url
+            break
+    if data is None:
+        raise RuntimeError(f"no Zenodo endpoint returned versions: {attempts}")
     out = []
     for hit in data.get("hits", {}).get("hits", []):
         md = hit.get("metadata", {})
@@ -98,7 +115,9 @@ def zenodo_releases():
             "files": [{"key": f.get("key"), "size": f.get("size"), "checksum": f.get("checksum")} for f in hit.get("files", [])],
             "description_excerpt": re.sub(r"<[^>]+>", " ", md.get("description") or "")[:3000],
         })
-    return {"query": f"conceptrecid:{ZENODO_CONCEPT_RECID}", "total": data.get("hits", {}).get("total"), "releases": out}
+    out.sort(key=lambda r: r.get("publication_date") or "", reverse=True)
+    return {"query": f"concept record {ZENODO_CONCEPT_RECID}", "endpoint": used.replace("https://zenodo.org", ""),
+            "attempts": attempts, "total": data.get("hits", {}).get("total"), "releases": out}
 
 
 def release_metadata(target_books, target_prefixes, token, max_tags=3):
@@ -113,7 +132,7 @@ def release_metadata(target_books, target_prefixes, token, max_tags=3):
             out["inspected"].append(entry)
             continue
         entry["metadata_files"] = [{"name": f["name"], "size": f["size"], "git_blob_sha": f["sha"]} for f in listing["value"]]
-        csvs = [f for f in listing["value"] if f["name"].endswith(".csv") and "merged" not in f["name"] and f["size"] <= MAX_METADATA_CSV_BYTES]
+        csvs = [f for f in listing["value"] if f["name"].endswith((".csv", ".tsv")) and "merged" not in f["name"] and f["size"] <= MAX_METADATA_CSV_BYTES]
         if csvs:
             f = csvs[0]
             res = _attempt(_request, f"{RAW}/OpenITI/RELEASE/{tag['commit']['sha']}/metadata/{urllib.parse.quote(f['name'])}", max_bytes=MAX_METADATA_CSV_BYTES)
