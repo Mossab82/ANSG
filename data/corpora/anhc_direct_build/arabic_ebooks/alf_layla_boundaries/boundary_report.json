@@ -1,0 +1,67 @@
+{
+  "schema": "ansg.boundary_candidate_report/1",
+  "source_work": "Alf Layla wa-Layla",
+  "method": "standalone line starts with حكاية/حكايات/قصة/قصّة",
+  "status": "provisional_review_required",
+  "records": {
+    "hindawi-27482482": {
+      "title": "ألف ليلة وليلة (الجزء السادس)",
+      "candidate_boundaries": 25,
+      "sha256": "008a5c1c85ec17c1874a6fe53edc424c1645562496bed5305195314396bd519d",
+      "files": [
+        "hindawi-27482482_boundaries_part01.jsonl",
+        "hindawi-27482482_boundaries_part02.jsonl"
+      ]
+    },
+    "hindawi-36973840": {
+      "title": "ألف ليلة وليلة (الجزء الثاني)",
+      "candidate_boundaries": 32,
+      "sha256": "4e64e3a22f4faccd735c63e98bdd5c8b82c207bc0d86bb4e506dd6ac0b802ea7",
+      "files": [
+        "hindawi-36973840_boundaries_part01.jsonl",
+        "hindawi-36973840_boundaries_part02.jsonl"
+      ]
+    },
+    "hindawi-39419251": {
+      "title": "ألف ليلة وليلة (الجزء الرابع)",
+      "candidate_boundaries": 44,
+      "sha256": "185852e36b87c20f1452e8e13df72ac01e15a66b4ca9d9110023b9b2dac64d4a",
+      "files": [
+        "hindawi-39419251_boundaries_part01.jsonl",
+        "hindawi-39419251_boundaries_part02.jsonl",
+        "hindawi-39419251_boundaries_part03.jsonl"
+      ]
+    },
+    "hindawi-61961973": {
+      "title": "ألف ليلة وليلة (الجزء الأول)",
+      "candidate_boundaries": 42,
+      "sha256": "ff31ee5ab6e491b998bc3de4438264d195bd9cf4a32819d03d160047d056f2b0",
+      "files": [
+        "hindawi-61961973_boundaries_part01.jsonl",
+        "hindawi-61961973_boundaries_part02.jsonl",
+        "hindawi-61961973_boundaries_part03.jsonl"
+      ]
+    },
+    "hindawi-75264279": {
+      "title": "ألف ليلة وليلة (الجزء الخامس)",
+      "candidate_boundaries": 4,
+      "sha256": "3541af86f80e1aa4a0d981cfe53eff0ee99d54b6b995fb62d24ebba5331af660",
+      "files": [
+        "hindawi-75264279_boundaries_part01.jsonl"
+      ]
+    },
+    "hindawi-85931905": {
+      "title": "ألف ليلة وليلة (الجزء الثالث)",
+      "candidate_boundaries": 89,
+      "sha256": "c0e48fa7fba518da061c6df1bdb2aee2aaa85b83ae32e1e06da9b4c24890ca91",
+      "files": [
+        "hindawi-85931905_boundaries_part01.jsonl",
+        "hindawi-85931905_boundaries_part02.jsonl",
+        "hindawi-85931905_boundaries_part03.jsonl",
+        "hindawi-85931905_boundaries_part04.jsonl",
+        "hindawi-85931905_boundaries_part05.jsonl"
+      ]
+    }
+  },
+  "total_candidate_boundaries": 236
+}
