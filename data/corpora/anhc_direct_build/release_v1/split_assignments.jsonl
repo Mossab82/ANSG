@@ -1386,3 +1386,13 @@
 {"record_id":"hindawi-97575964","work_group":"work_ae6c73d3f89df61e","split":"train","source_text_sha256":"2a740f1664a7ce6f5dfe10118e9706c0acdd24db35a8140411b37541f5d05f51"}
 {"record_id":"hindawi-97962586","work_group":"work_3063200f212a837b","split":"train","source_text_sha256":"d79ed3959fbe71b5f3f9616529f02c67c5ad5393620e3ed982fb2b96a0fe3d41"}
 {"record_id":"hindawi-97969752","work_group":"work_7468dabdfb0b1736","split":"train","source_text_sha256":"93c14132c8264b1c672c9f2d2dcf0c62f065b6844aae2896ffed2dc78506ad9a"}
+{"record_id":"kalila-1816-01","work_group":"kalila_1816_frame_cycle","split":"train","source_text_sha256":"edde3d9595c8aef2efdff1b9699f2f34e9a02b665cb82088e7bf452ffc4e5dee"}
+{"record_id":"kalila-1816-02","work_group":"kalila_1816_frame_cycle","split":"train","source_text_sha256":"da69ce446b6ae6121fc472f50311dfc49fab7eb1fa3af1e804e44ca99e8825e9"}
+{"record_id":"kalila-1816-03","work_group":"kalila_1816_frame_cycle","split":"train","source_text_sha256":"11e904ea8ed64c0464ecadda8e6045a3992dabfa58f417848a77a737b1d1f274"}
+{"record_id":"kalila-1816-04","work_group":"kalila_1816_frame_cycle","split":"train","source_text_sha256":"3f50aa6af390617ef68c0c400cb82020ce4bc6bfe717d3d5f28455a5333136f3"}
+{"record_id":"kalila-1816-05","work_group":"kalila_1816_frame_cycle","split":"train","source_text_sha256":"066496efd9dd8cb7cf2edfb56ba0c0637dd513d09dbedd7bfab3808dbcaafc61"}
+{"record_id":"kalila-1816-06","work_group":"kalila_1816_frame_cycle","split":"train","source_text_sha256":"43ad142042d04c5e9445ab34789fec4b137bbba6a9d6a38a214c013ad889d1fb"}
+{"record_id":"kalila-1816-07","work_group":"kalila_1816_frame_cycle","split":"train","source_text_sha256":"3da86aa22fb7526989d2ab49f3fff2b8b0c3aed37ef0007ae8493a617ab40f9a"}
+{"record_id":"kalila-1816-08","work_group":"kalila_1816_frame_cycle","split":"train","source_text_sha256":"1d29bf98e5b00c9967e7a7e94bd67268c2ee6400bca4665ded222416d8050e98"}
+{"record_id":"kalila-1816-09","work_group":"kalila_1816_frame_cycle","split":"train","source_text_sha256":"8337f007dc797af5c63b7a6519684c54d4cadd154878184904ca8993fdd278ff"}
+{"record_id":"kalila-1816-10","work_group":"kalila_1816_frame_cycle","split":"train","source_text_sha256":"6a8c8a768e981eb3a8da2753c6a7b732857a50c3afc66a62ff27cead6525f9c6"}
