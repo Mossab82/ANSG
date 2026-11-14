@@ -159,6 +159,16 @@ def main():
         "tokenizer_model_sha256": sha256(model_path),
         "counting": "SentencePiece pieces; excludes BOS/EOS/padding; JSON metadata and annotations excluded",
         "all_books": {"records": len(record_paths), "observed_whitespace_words": all_words, "sentencepiece_tokens": all_tokens},
+        "source_published_statistics": {
+            "provider": "Språkbanken Text",
+            "corpus_version_date": "2025-09-12",
+            "provider_reported_tokens": 76486597,
+            "provider_reported_sentences": 3629107,
+            "license": "CC BY 4.0",
+            "source_url": "https://spraakbanken.gu.se/resurser/arabic-ebooks",
+            "recomputed_by_this_script": False,
+            "comparability_note": "Provider-reported corpus tokens use the provider's own processing; do not equate or add them to this script's SentencePiece counts."
+        },
         "narrative_candidates_unique": {
             "record_selection": "publisher category intersects core OR adjacent narrative categories",
             "sentencepiece_tokens": narrative_candidate_tokens,
