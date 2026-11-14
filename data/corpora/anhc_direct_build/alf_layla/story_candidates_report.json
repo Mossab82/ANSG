@@ -1,0 +1,85 @@
+{
+  "schema": "ansg.alf_layla_story_text_candidate_report/1",
+  "status": "CC_BY_4.0_text_spans_for_review_not_verified_story_corpus",
+  "dataset": "The Arabic E-Book Corpus Version 1",
+  "dataset_doi": "10.5878/7rbh-gy93",
+  "source_records": 6,
+  "source_records_with_candidates": 6,
+  "explicit_story_heading_candidates": 236,
+  "whitespace_words": 657453,
+  "direct_sentencepiece_tokens": 1052699,
+  "token_counts_source": "existing direct-build heading-section output using the pinned tokenizer model",
+  "candidate_files": [
+    {
+      "path": "alf_layla_story_candidates_001.jsonl",
+      "records": 22,
+      "bytes": 579401
+    },
+    {
+      "path": "alf_layla_story_candidates_002.jsonl",
+      "records": 8,
+      "bytes": 688212
+    },
+    {
+      "path": "alf_layla_story_candidates_003.jsonl",
+      "records": 9,
+      "bytes": 581171
+    },
+    {
+      "path": "alf_layla_story_candidates_004.jsonl",
+      "records": 23,
+      "bytes": 697138
+    },
+    {
+      "path": "alf_layla_story_candidates_005.jsonl",
+      "records": 30,
+      "bytes": 692748
+    },
+    {
+      "path": "alf_layla_story_candidates_006.jsonl",
+      "records": 21,
+      "bytes": 695835
+    },
+    {
+      "path": "alf_layla_story_candidates_007.jsonl",
+      "records": 22,
+      "bytes": 697931
+    },
+    {
+      "path": "alf_layla_story_candidates_008.jsonl",
+      "records": 10,
+      "bytes": 648481
+    },
+    {
+      "path": "alf_layla_story_candidates_009.jsonl",
+      "records": 2,
+      "bytes": 696783
+    },
+    {
+      "path": "alf_layla_story_candidates_010.jsonl",
+      "records": 65,
+      "bytes": 688238
+    },
+    {
+      "path": "alf_layla_story_candidates_011.jsonl",
+      "records": 24,
+      "bytes": 566098
+    }
+  ],
+  "source_text_hashes_verified": true,
+  "span_offsets_matched_to_inventory": true,
+  "all_candidates_share_work_group": true,
+  "annotation_coverage": {
+    "DIA": 0,
+    "MOTIF": 0,
+    "MORAL": 0,
+    "triple_covered_tokens": 0
+  },
+  "limitations": [
+    "Explicit story-title headings improve retrieval but do not prove the complete story boundary.",
+    "The end offset is the next structural heading or source end; editorial headings may divide or combine narratives.",
+    "All source volumes remain grouped together; these splits are not the thesis stratified split.",
+    "The direct SentencePiece count is not the thesis root-aware tokenizer count.",
+    "This is not the historical ANHC and does not reproduce the thesis's 13.3M, 23M or 70.4M figures."
+  ]
+}
