@@ -9,7 +9,8 @@ training-data hashes, the declared data kind and the measured loss per step.
     python scripts/train_cultural_modules.py --backbone DIR --backbone-sha256 DIGEST \\
         --examples data/processed/examples/train.examples.jsonl \\
         --schema-vocabulary data/processed/examples/schema_vocabulary.json \\
-        --data-kind real --steps 2000 --output checkpoints/cultural.pt
+        --data-kind real --authorization-manifest data/private/training_authorization.json \\
+        --steps 2000 --output checkpoints/cultural.pt
 
 ``--data-kind`` is a declaration by the person running the training and is recorded
 verbatim. Synthetic examples (for example ``tests/fixtures``) must be declared
