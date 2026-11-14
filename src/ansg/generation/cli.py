@@ -29,6 +29,11 @@ def build_parser() -> argparse.ArgumentParser:
     g = src.add_mutually_exclusive_group(required=True)
     g.add_argument("--prompt", help="Arabic prompt text")
     g.add_argument("--prompt-file", help="UTF-8 file containing the prompt")
+    g.add_argument("--plan", help="story plan JSON (ansg.story_plan/1); validated, then turned into the prompt")
+    src.add_argument("--settings", help="cultural settings YAML for --plan (default configs/generation/settings.yaml)")
+    src.add_argument("--chat-template", action="store_true",
+                     help="wrap the prompt with the tokenizer's chat template (instruction-tuned models)")
+    src.add_argument("--system-prompt", help="system message (requires --chat-template)")
     m = ap.add_argument_group("model (local files only; nothing is downloaded)")
     m.add_argument("--backbone", required=True, help="local Hugging Face-format causal-LM directory")
     m.add_argument("--backbone-sha256", help="expected directory digest (see check_generation_readiness.py)")
@@ -58,6 +63,21 @@ def build_parser() -> argparse.ArgumentParser:
     return ap
 
 
+def _prompt_from_plan(path: str, settings_path: str | None) -> tuple[str, dict]:
+    """Validate a story plan (torch-free) and build its Arabic instruction prompt."""
+    from ..narrative.plan import DEFAULT_SETTINGS, StoryPlan, build_prompt, load_settings, validate_plan
+    from ..utils.provenance import sha256_file
+    settings = load_settings(settings_path or DEFAULT_SETTINGS)
+    plan = StoryPlan.read(path)
+    report = validate_plan(plan, settings)
+    prompt = build_prompt(plan, settings)          # raises ValueError on validation errors
+    setting = settings[plan.setting]
+    return prompt, {"path": str(path), "sha256": sha256_file(path), "setting": plan.setting,
+                    "setting_review_status": setting.review_status, "register": plan.register,
+                    "validation": {"errors": 0, "warnings": sorted(i.code for i in report.warnings)},
+                    "conditioning": "plan rendered into the prompt (no trained planner)"}
+
+
 def _utf8_streams() -> None:
     for stream in (sys.stdout, sys.stderr):
         if hasattr(stream, "reconfigure"):
@@ -72,7 +92,14 @@ def main(argv: list[str] | None = None) -> int:
     if args.output and Path(args.output).exists():
         print(f"error: {args.output} exists; generation records are never overwritten", file=sys.stderr)
         return 2
-    if args.prompt_file:
+    plan_block = None
+    if args.plan:
+        try:
+            prompt, plan_block = _prompt_from_plan(args.plan, args.settings)
+        except (OSError, ValueError, KeyError) as exc:
+            print(f"error: plan rejected: {exc}", file=sys.stderr)
+            return 2
+    elif args.prompt_file:
         try:
             prompt = Path(args.prompt_file).read_text(encoding="utf-8")
         except (OSError, UnicodeDecodeError) as exc:
@@ -94,7 +121,8 @@ def main(argv: list[str] | None = None) -> int:
             allow_unverified_backbone=args.allow_unverified_backbone, device=args.device, dtype=args.dtype,
             deterministic=args.deterministic, sampling=sampling, cultural_checkpoint=args.cultural_checkpoint,
             untrained_cultural_modules=args.untrained_cultural_modules, schema_vocabulary=args.schema_vocabulary,
-            schema_nodes=tuple(args.schema_node), dialect=args.dialect))
+            schema_nodes=tuple(args.schema_node), dialect=args.dialect, chat_template=args.chat_template,
+            system_prompt=args.system_prompt, plan=plan_block))
     except ImportError as exc:
         print(f"error: {exc}. Install the model extras: pip install -e '.[model,pretrained]'", file=sys.stderr)
         return 3
