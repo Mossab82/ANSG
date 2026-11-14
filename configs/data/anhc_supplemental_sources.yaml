@@ -1,0 +1,105 @@
+schema: ansg.anhc_supplemental_sources/1
+purpose: >-
+  Consolidate the complete-book scale corpus, story-bearing sources, dialect
+  support, and access boundaries for the direct ANHC build. Only rights-cleared,
+  story-verified text enters the narrative training pool.
+sources:
+  - source_id: arabic_ebook_corpus_v1
+    role: full_scale_source_and_narrative_candidates
+    source_url: https://doi.org/10.5878/7rbh-gy93
+    license: CC-BY-4.0
+    source_size: 1745_books
+    provider_native_statistics:
+      tokens: 76486597
+      sentences: 3629107
+      snapshot: 2025-09-12
+      provider: Sprakbanken_Text
+    local_direct_profile:
+      all_books_sentencepiece_tokens: 107029217
+      unique_narrative_candidate_sentencepiece_tokens: 82705621
+      whitespace_words_all_books: 66081654
+      tokenizer_model_sha256: 7744212cab83605e2726796fc87930a8f58b9c6a765529e541bce4bbea9792ba
+    limitations:
+      - provider-native tokens and local SentencePiece pieces are different counters
+      - candidate pool includes adjacent categories such as history and biography
+      - not a dialect corpus; story boundaries and annotation remain incomplete
+    story_count_admission: candidate_only_until_story_boundary_review
+
+  - source_id: alf_layla_walayla_arabic_editions
+    role: classical_nested_story_source
+    edition_scope: six Arabic-original volumes from the Arabic E-Book Corpus
+    local_direct_profile:
+      sentencepiece_tokens: 1133994
+      provisional_heading_delimited_spans: 236
+    split_group: alf_layla_work_cycle
+    limitations:
+      - heading spans are provisional, not gold story boundaries
+      - preserve nested stories and hold the complete cycle in one split
+
+  - source_id: kalila_dimna_1816
+    role: classical_fable_source
+    source_url: https://ar.wikisource.org/wiki/كليلة_ودمنة
+    edition: Paris_1816
+    license: CC-BY-SA-4.0
+    local_direct_profile:
+      sentencepiece_tokens: 51884
+      chapter_containers: 10
+    split_group: kalila_1816_frame_cycle
+    limitations:
+      - chapter containers are not verified individual fable boundaries
+      - honor attribution and share-alike for source-derived adaptations
+
+  - source_id: layla_witheeb_jordanian_storytelling
+    role: consented_dialectal_story_reading_and_retelling
+    source_url: https://data.mendeley.com/datasets/v9n7g7ns49/1
+    dataset_doi: 10.17632/v9n7g7ns49.1
+    license: CC-BY-4.0
+    published_speakers: 109
+    content: Arabic orthographic transcriptions of read and recalled retellings of one adapted Little Red Riding Hood story, with audio and phonetic annotations
+    dialects: Jordanian Arabic from multiple governorates
+    available_archive_size: 1.55_GB
+    ingestion_policy:
+      include: Arabic orthographic reading and retelling text only
+      exclude: audio, phonetic files, and speaker metadata unless separately approved as necessary
+      story_cycle_split: keep all renditions of Layla Witheeb in a single split group
+    data_status: identified_and_license_verified_not_yet_ingested
+    count_status: do_not_estimate_tokens_until_text_files_are_ingested
+    limitation: many speakers retell the same adapted plot; not 109 independent plots
+
+  - source_id: user_provided_levantine_dialect_texts
+    role: auxiliary_DIA_classifier_support_only
+    report: data/corpora/anhc_direct_build/user_provided_dialect_count_report.json
+    dialect_labels: [Jordanian, Palestinian, Syrian, Lebanese]
+    observed_nonempty_rows: 66247
+    observed_sentencepiece_tokens: 1668817
+    tokenizer_profile: ANHC-direct-SPM32-v1
+    data_status: counted_locally_text_not_committed
+    redistribution_status: unresolved
+    narrative_admission: excluded_unless_story_provenance_and_story_boundaries_are_established
+
+  - source_id: madar_parallel_corpus
+    role: external_DIA_evaluation_only
+    source_url: https://camel.abudhabi.nyu.edu/madar-parallel-corpus/
+    dialects: 25_city_varieties_including_Amman_and_Salt
+    domain: translated_travel_sentences
+    reported_sizes:
+      corpus_26: 2000_seed_sentences
+      corpus_6: 12000_sentences
+    access: official_registration_required
+    license: internal_research_and_evaluation_only
+    restrictions: [no_modification, no_redistribution, no_sublicensing]
+    data_status: not_downloaded
+    narrative_admission: excluded_not_stories
+
+  - source_id: qadi_nadi_dart_and_shami_public_copies
+    role: external_dialect_identification_support_only_after_rights_review
+    data_status: not_in_story_pool
+    narrative_admission: excluded_not_stories
+    note: tweet/social-media or short-line resources; never add their counts to story tokens or tri-annotation coverage
+
+release_rules:
+  - do_not_merge_provider_token_counts_with_local_tokenizer_counts
+  - do_not_treat_dialect_lines_or_parallel_travel_sentences_as_stories
+  - do_not_count_machine_suggested_labels_as_human_adjudicated_coverage
+  - preserve source_cycle_grouping_before_any_train_validation_test_split
+  - do_not_claim_23m_triple_annotated_tokens_until_adjudicated_span_coverage_is_audited
