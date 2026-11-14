@@ -52,6 +52,9 @@ def check_plan(plan_path, profile_path):
         return {"status": "invalid", "blockers": [f"Cannot read run plan: {exc}"],
                 "historical_reproduction": False}
 
+    if not isinstance(profile, dict):
+        return {"status": "invalid", "blockers": ["Profile root must be a YAML object."],
+                "historical_reproduction": False}
     if not isinstance(plan, dict):
         return {"status": "invalid", "blockers": ["Run plan root must be a JSON object."],
                 "historical_reproduction": False}
@@ -90,8 +93,14 @@ def check_plan(plan_path, profile_path):
             continue
         if not isinstance(expected, str) or not re.fullmatch(r"[0-9a-fA-F]{64}", expected):
             blockers.append(f"Artifact SHA-256 missing or malformed for role {role}.")
-        elif sha256_file(path) != expected.lower():
-            blockers.append(f"Artifact SHA-256 mismatch for role {role}: {path}.")
+        else:
+            try:
+                actual_hash = sha256_file(path)
+            except OSError as exc:
+                blockers.append(f"Cannot read artifact for role {role}: {exc}.")
+            else:
+                if actual_hash != expected.lower():
+                    blockers.append(f"Artifact SHA-256 mismatch for role {role}: {path}.")
         if not item.get("license"):
             blockers.append(f"License is not recorded for role {role}.")
         if item.get("training_allowed") is not True:
