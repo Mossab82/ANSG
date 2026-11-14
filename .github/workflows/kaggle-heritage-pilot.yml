@@ -2,11 +2,6 @@ name: ANSG heritage LoRA pilot (experimental)
 
 on:
   workflow_dispatch:
-  push:
-    branches: [master]
-    paths:
-      - 'kaggle/heritage/**'
-      - '.github/workflows/kaggle-heritage-pilot.yml'
 
 permissions:
   contents: read
