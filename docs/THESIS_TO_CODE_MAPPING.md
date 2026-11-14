@@ -26,7 +26,7 @@ Updated 2026-11-13 with references from the supplied dissertation. **Status:**
 | Cultural weight w_c | Eq. 4.2 | `knowledge/cultural_weight.py` | `test_thesis_computations.py` | implemented (choice) | Likert→[0,1] mapping unstated |
 | Morphological pipeline (Eq. 4.3–4.7) | §4.2 | — | — | absent | C-MORPH-1 |
 | CSAM (Eq. 4.9–4.19) | §4.3 | — | — | absent | C-CSAM-1…6 |
-| DAL (Eq. 4.24–4.25) | §4.4 | — | — | absent | C-DAL-1/2 |
+| DAL (Eq. 4.24–4.25) | §4.4 | src/ansg/dal.py, model.py, pretrained.py | — | prototype | Per-token sigmoid gate uses [hidden; schema_context] and an explicit compatibility mask; adapter still acts on post-CSAM hidden states, not the thesis's unresolved per-layer q/v/fused-QKV placement (C-DAL-1/2). No trained dialect adapters or data-derived compatibility masks. |
 | Backbone | §4.1.6, Table 5.1, A.3 | `configs/specification/thesis_variants.yaml` | `test_config.py` | interface | C-MODEL-1 |
 | Training phases | Ch. 3–5, A.26 | same | — | interface | C-TRAIN-1…5 |
 | Reward / AHP | §4.5, §5.6.3, A.3, A.11, A.23 | `evaluation/ahp.py`; variants in yaml | `test_thesis_computations.py` | implemented (AHP) / interface (reward) | C-REWARD-1…6 |

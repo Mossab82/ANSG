@@ -98,7 +98,7 @@ class PretrainedANSG(nn.Module):
         cultural=self.from_cultural(self.csam(z,schema_ids,schema_mask=schema_mask)-z)
         schemas=self.csam.schema_embeddings(schema_ids)
         summary=(schemas * schema_mask.unsqueeze(-1).to(schemas.dtype)).sum(dim=1) / schema_mask.sum(dim=1,keepdim=True).clamp_min(1)
-        states=self.dal(original+self.cultural_gate*cultural,summary,dialect_ids)
+        states=self.dal(original+self.cultural_gate*cultural,summary,dialect_ids,\n                        compatibility_mask=dialect_compatibility_mask)
         delta=states-original
         head=self.backbone.get_output_embeddings()
         if isinstance(head,nn.Linear):
