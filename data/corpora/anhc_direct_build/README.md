@@ -4,7 +4,7 @@ This branch is assembling a reproducible corpus release from openly licensed sou
 
 ## Current measured intake
 
-- Arabic E-Book Corpus Version 1: 1,745 materialized books; 66,081,654 observed whitespace words.
+- Arabic E-Book Corpus Version 1: all 1,745 books; Språkbanken reports 76,486,597 tokens and 3,629,107 sentences (2025-09-12); our extracted text has 66,081,654 whitespace words. The provider count is its own processing and remains distinct from our tokenizer count.
 - Narrative candidate subset: 1,388 whole-book candidates; 51,567,623 observed whitespace words. Publisher categories contain 25 books that overlap core and adjacent narrative classes.
 - Direct SentencePiece profile: 107,029,217 pieces across all books and 82,705,621 pieces in the unique narrative candidate subset. This is a non-root-aware profile and does not reproduce the thesis's 70,404,829-token count.
 - Classical source records: Alf Layla wa-Layla includes six Arabic originals and one Arabic translation; Kalila wa-Dimna includes ten chapters from the 1816 edition.
