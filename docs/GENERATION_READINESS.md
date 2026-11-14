@@ -140,7 +140,7 @@ Records are written create-only and are never overwritten.
 
 **Cultural-module checkpoint**: `<file>` holds the tensors (every `PretrainedANSG` parameter
 except `backbone.*`) and is loaded with `torch.load(weights_only=True)`. `<file>.manifest.json`
-(`ansg-cultural-modules`, version 1) records:
+(`ansg-cultural-modules`, version 2 = bridge v2; version-1 files are refused) records:
 
 - checkpoint SHA-256 and architecture;
 - backbone directory digest, tokenizer digest, and schema-vocabulary SHA-256 and source SHA-256;
@@ -167,9 +167,12 @@ Original checkpoints must never be relabelled or approximated by newly trained w
 
 - **Integration point.** `PretrainedANSG` applies CSAM and DAL to the backbone's final hidden
   states. This is not the in-layer pre-softmax modification of Eq. 4.9 (Ch. 4 §4.3), and DAL does
-  not adapt `q_proj`/`v_proj` (C-DAL-1, Table 5.8). It also adds its own final LayerNorm. Even
-  untrained modules therefore change the backbone's output, which is why they are labelled
-  `ansg_untrained`.
+  not adapt `q_proj`/`v_proj` (C-DAL-1, Table 5.8). Since bridge v2 (scientific review 2026-11)
+  the bridge adds only a gated increment to the input of the backbone's output head (gate
+  initialised to 0, DAL up-projection zero), so untrained modules reproduce the backbone's logits
+  exactly (tested). The first bridge added an extra LayerNorm and changed the backbone's output
+  even when untrained. Untrained modules are still labelled `ansg_untrained`, and their output is
+  the backbone's.
 - **Width.** For a hidden size of 1280 with 12 cultural heads, the bridge projects to 1284
   (I-CSAM-4, C-CSAM-7).
 - **Tokenizer.** The dissertation's SentencePiece 32k vocabulary (Ch. 5 §5.4.1) is not used. The
