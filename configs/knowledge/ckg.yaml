@@ -22,6 +22,21 @@ cited_sources:
     doi: "10.1145/3731443.3771364"
     note: "A published paper; whether it distributes the OWL/SWRL file is not established."
 
+# Rights and admission. Nothing here is decided; every field stays `pending` until
+# the owner supplies the files and their terms. The thesis states CC BY-NC-SA 4.0
+# for ANHC (A.20.2 p.290) but gives no licence for the CKG or CST-Onto.
+rights:
+  ckg:
+    licence: pending
+    permitted_use: pending          # training, CSAM schema embeddings, evaluation
+    redistribution: pending
+    admission: pending              # use as the thesis CKG in any run
+  cst_onto:
+    licence: pending
+    permitted_use: pending
+    redistribution: pending
+    admission: pending
+
 data:
   graph_json: data/private/ckg/ckg.json          # supplied CKG export (format: src/ansg/knowledge/ckg.py)
   cst_onto: data/private/ckg/cst_onto.ttl        # supplied CST-Onto ontology (OWL/Turtle), optional

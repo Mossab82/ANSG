@@ -145,6 +145,7 @@ def audit(graph_path: Path, onto_path: Path, onto_fmt: str | None) -> dict:
                                     "ontology_class_count": d.ontology_class_count,
                                     "other_counts": dict(d.other_counts)} for vid, d in declared.items()},
         "declared_arithmetic": declared_arithmetic(declared),
+        "rights": cfg.get("rights") or {},
         "problems": [], "blocking": [],
     }
     graph = None
@@ -188,6 +189,9 @@ def audit(graph_path: Path, onto_path: Path, onto_fmt: str | None) -> dict:
             f"cited CKG locations unavailable: Zenodo 8847378 API {cs['ckg_zenodo_8847378']['api']} / DOI "
             f"{cs['ckg_zenodo_8847378']['doi']}; github.com/mossab-ansg/ckg-arabic {cs['ckg_github_repo']}")
     report["problems"] = list(dict.fromkeys(report["problems"]))
+    pending_rights = sorted(f"{res}.{k}" for res, fields in report["rights"].items() for k, v in fields.items() if v == "pending")
+    if pending_rights:
+        report["blocking"].append("rights/use/admission not decided (pending): " + ", ".join(pending_rights))
     report["status"] = "invalid" if report["problems"] else ("blocked" if report["blocking"] else "loaded_pending_identity_review")
     report["notice"] = ("Resource audit only. Counts stated in the thesis are declarations, not data; "
                         "no CKG or CST-Onto content was created or inferred.")
@@ -216,6 +220,9 @@ def render(r: dict) -> str:
         out.append(f"  CST-Onto paper: Crossref {p['crossref_status']} '{p['title']}' ({p['container']}, {p['published']}); "
                    f"licence {p['license_urls'] or 'none listed'}; links {p['links']}; landing page {p['landing_page_status']}")
         out.append(f"  searches: Zenodo {cs['zenodo_search_hits']}; GitHub {cs['github_search_hits']}")
+    out += ["", "Rights and admission (configs/knowledge/ckg.yaml):"]
+    for res, fields in (r.get("rights") or {}).items():
+        out.append(f"  {res}: " + ", ".join(f"{k}={v}" for k, v in fields.items()))
     out += ["", "Arithmetic of counts stated in the thesis:"]
     for c in r["declared_arithmetic"]:
         out.append(f"  [{'ok' if c['consistent'] else 'INCONSISTENT'}] {c['check']}: stated {c['stated']}, computed {c['computed']}")

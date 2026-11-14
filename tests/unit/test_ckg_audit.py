@@ -112,3 +112,12 @@ def test_audit_reports_invalid_ontology_structure():
     r = cli.audit(FIX / "synthetic_ckg.json", FIX / "synthetic_onto_inventory.ttl", "turtle")
     assert r["status"] == "invalid" and cli.exit_code(r) == 1
     assert sum(p.startswith("ontology subclass cycle") for p in r["problems"]) == 1
+
+
+def test_rights_use_and_admission_stay_pending_and_block():
+    cli = _cli()
+    r = cli.audit(ROOT / "missing.json", ROOT / "missing.ttl", "turtle")
+    assert set(r["rights"]) == {"ckg", "cst_onto"}
+    for fields in r["rights"].values():
+        assert fields == {"licence": "pending", "permitted_use": "pending", "redistribution": "pending", "admission": "pending"}
+    assert any(b.startswith("rights/use/admission not decided") for b in r["blocking"])
