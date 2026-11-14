@@ -20,6 +20,18 @@
 
 - وسم التدريب بأنه `real` يتطلب الآن ملف تفويض بحالة `approved`، وترخيص/سماح لكل مصدر، وبصمات SHA-256 للمصادر والملفات المشتقة. القالب في `configs/training/training_authorization.template.json` حالته `pending` ولا يفتح التدريب.
 
+## فحص الجاهزية قبل التشغيل
+
+أُضيف `scripts/check_training_readiness.py` لقراءة خطة JSON صريحة ومقارنتها بإعداد إعادة البناء وملفاتها:
+
+```bash
+python scripts/check_training_readiness.py \
+  --plan configs/training/training_run_plan.json \
+  --json
+```
+
+يفحص الاختيارات المتعارضة، وجود الملفات وبصمات SHA-256، الترخيص وسماح التدريب. لا يبدأ التدريب ولا يرفع أي تشغيل إلى صفة إعادة إنتاج تاريخية. الخطة المثال في `configs/training/training_run_plan.template.json` معلّقة عمداً؛ ومع الإعداد الحالي ستظل النتيجة `blocked`. وحتى اجتياز الفحص، النطاق الوحيد الذي يغطيه مدرّب موجود هو fine-tuning للوحدات الثقافية، وليس مراحل الرسالة الثلاث.
+
 ## مسار الإكمال القابل للتدقيق
 
 1. تثبيت backbone وtokenizer بإصدارات وبصمات وترخيص واضح، وتسوية تعارض اختيار النموذج في C-MODEL-1.
