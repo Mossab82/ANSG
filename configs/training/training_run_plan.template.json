@@ -27,7 +27,8 @@
     },
     {
       "role": "backbone_checkpoint",
-      "path": "models/local-backbone/pytorch_model.bin",
+      "kind": "directory",
+      "path": "models/local-backbone",
       "sha256": "",
       "license": "",
       "training_allowed": false
