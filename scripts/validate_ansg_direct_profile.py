@@ -195,23 +195,30 @@ def check_conflict_gate(profile, audit, blocking):
 
 
 def find_runners(profile_path):
-    """Python files outside tests that reference the profile (candidate runners)."""
+    """Python files outside tests, including repository-root entry points, that reference the profile."""
     name = profile_path.name
     me = Path(__file__).resolve()
+    candidates = set(ROOT.glob("*.py"))
+    for directory in RUNNER_SEARCH_DIRS:
+        base = ROOT / directory
+        if base.is_dir():
+            candidates.update(base.rglob("*.py"))
     hits = []
-    for d in RUNNER_SEARCH_DIRS:
-        base = ROOT / d
-        if not base.is_dir():
+    for py in sorted(candidates):
+        if py.resolve() == me or "__pycache__" in py.parts:
             continue
-        for py in sorted(base.rglob("*.py")):
-            if py.resolve() == me or "__pycache__" in py.parts:
-                continue
-            try:
-                if name in py.read_text(encoding="utf-8", errors="ignore"):
-                    hits.append(str(py.relative_to(ROOT)))
-            except OSError:
-                continue
+        try:
+            if name in py.read_text(encoding="utf-8", errors="ignore"):
+                hits.append(str(py.relative_to(ROOT)))
+        except OSError:
+            continue
     return hits
+
+
+def existing_training_entry_points():
+    """Known training entry points, whether or not they consume this profile."""
+    candidates = ("train.py", "train_pipeline.py", "scripts/train_cultural_modules.py")
+    return [path for path in candidates if (ROOT / path).is_file()]
 
 
 def audit_profile(profile_path):
@@ -227,10 +234,14 @@ def audit_profile(profile_path):
     check_conflict_gate(profile, audit, blocking)
 
     runners = find_runners(profile_path)
+    entry_points = existing_training_entry_points()
     if not runners:
-        blocking.append(
-            f"no training runner consumes this profile: no Python file under {', '.join(d + '/' for d in RUNNER_SEARCH_DIRS)} "
-            f"references {profile_path.name}")
+        locations = "repository root and " + ", ".join(d + "/" for d in RUNNER_SEARCH_DIRS)
+        reason = (f"no training runner consumes this profile: no Python file in {locations} "
+                  f"references {profile_path.name}")
+        if entry_points:
+            reason += "; existing entry points that do not consume this profile: " + ", ".join(entry_points)
+        blocking.append(reason)
     for path, reason in MISSING_ARTIFACT_FLAGS:
         if _get(profile, path) is not True:
             blocking.append(f"{reason} ({path} = {_get(profile, path)!r})")
@@ -245,6 +256,7 @@ def audit_profile(profile_path):
         "training": "blocked" if blocking else "not_blocked_by_profile",
         "blocking_reasons": blocking,
         "training_runners_found": runners,
+        "existing_training_entry_points_not_using_profile": entry_points,
         "notice": ("Configuration audit only. No training was run and no thesis result was reproduced; "
                    "this profile is inferred from the thesis text, not a recovered historical configuration."),
     }
