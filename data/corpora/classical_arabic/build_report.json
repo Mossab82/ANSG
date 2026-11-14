@@ -1,0 +1,14 @@
+{
+  "schema": "ansg.heritage_corpus_build/1",
+  "timestamp_utc": "2026-11-14T05:26:46.532059+00:00",
+  "source_api": "https://ar.wikisource.org/w/api.php",
+  "requested": 20,
+  "accepted": 20,
+  "failures": [],
+  "arabian_nights_pages": 5,
+  "kalila_dimna_pages": 15,
+  "words": 195197,
+  "verified_rights_for_model_training": false,
+  "story_independent_train_validation_test_split": false,
+  "scientific_note": "Source-page/cycle records; NOT nested-story annotations, ANHC or thesis experiments."
+}
