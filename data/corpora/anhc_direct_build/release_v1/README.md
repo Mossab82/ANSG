@@ -36,3 +36,7 @@ The ingestion script downloads the cited source archive and metadata when they a
 - `annotations/{DIA,MOTIF,MORAL}.jsonl`: empty files for future annotation ingestion.
 
 The thesis reports 70,404,829 corpus tokens and 23M triple-covered tokens. This run does not reproduce those figures: it uses a different tokenizer profile and available sources, and contains no adjudicated triple-layer labels. The thesis itself also reports 55,600 narratives in Appendix A.17 versus 5,247 in §5.4.4, and gives different dialect distributions across its tables; see the repository's [thesis alignment report](../../../../docs/ar/ANHC_THESIS_ALIGNMENT.md), [The Arabic E-Book Corpus](https://doi.org/10.5878/7rbh-gy93), and [OpenITI documentation](https://openiti.org/documentation/).
+
+## Provisional heading-bounded sections
+
+A separate inventory extracts 8,838 provisional heading-bounded sections from 478 of 951 narrative-source records (27,639,186 direct SentencePiece pieces). These are section candidates that require content and boundary review; they are not confirmed stories or human annotations. Rebuild them with `scripts/segment_story_boundary_candidates.py`; see [`ANHC_HEADING_SECTION_CANDIDATES.md`](../../../../docs/ar/ANHC_HEADING_SECTION_CANDIDATES.md). Source text remains local and is not committed.
