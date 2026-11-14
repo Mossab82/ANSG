@@ -10,15 +10,16 @@ Install Python 3.10+ and `sentencepiece==0.2.0`. From the repository root, first
 python scripts/ingest_arabic_ebooks.py --scope narrative_candidates --output build/anhc/candidates
 python scripts/ingest_arabic_ebooks.py --scope all_books --output build/anhc/all_books
 python scripts/train_anhc_direct_tokenizer.py --records build/anhc/all_books/records --output build/anhc/tokenizer
-python scripts/build_anhc_direct.py --candidate-manifest build/anhc/candidates/manifest.jsonl --records-root build/anhc/candidates --story-units data/corpora/anhc_direct_build/story_units/story_units_provisional.jsonl --tokenizer-model build/anhc/tokenizer/anhc_direct_spm32.model --output build/anhc/release_v1 --seed ANHC-direct-v1 --train-ratio 0.8 --validation-ratio 0.1
+python scripts/build_anhc_direct.py --candidate-manifest build/anhc/candidates/manifest.jsonl --records-root build/anhc/candidates --story-units data/corpora/anhc_direct_build/story_units/story_units_provisional.jsonl --tokenizer-model build/anhc/tokenizer/anhc_direct_spm32.model --kalila-jsonl build/anhc/kalila_1816.jsonl --dialect-audit-report build/anhc/user_provided_dialect_count_report.json --output build/anhc/release_v1 --seed ANHC-direct-v1 --train-ratio 0.8 --validation-ratio 0.1
 ```
 
 The ingestion script downloads the cited source archive and metadata when they are absent. The pipeline verifies every candidate text against its SHA-256 before counting it. The tokenizer counts pieces without BOS/EOS/padding. Source text stays in its attributed input files; generated release outputs contain source metadata and record IDs, not copies of the books.
 
 ## Current direct-build run
 
-- 1,388 source books: 941 narrative-core candidates and 447 narrative-adjacent candidates.
-- 51,567,623 whitespace words and 82,705,621 direct-build SentencePiece tokens. Of those, core candidates account for 25,875,270 words / 42,150,781 pieces; adjacent candidates account for 25,692,353 words / 40,554,840 pieces.
+- 1,398 source text records: 1,388 source books (941 narrative-core candidates and 447 narrative-adjacent candidates) plus 10 Kalila chapter records. Alf Layla volumes are already among the source books and are counted once.
+- 51,597,738 whitespace words and 82,757,505 direct-build SentencePiece tokens. Of those, core candidates account for 25,875,270 words / 42,150,781 pieces; adjacent candidates account for 25,692,353 words / 40,554,840 pieces; Kalila accounts for 30,115 words / 51,884 pieces.
+- Four auxiliary dialect files add 1,668,817 pieces in a separate audit report; their redistribution terms are unresolved, so the texts are excluded from the story corpus and splits.
 - 1,634 provisional inventory rows: 1,388 whole-book containers, 236 Alf Layla heading spans, and 10 Kalila chapter containers.
 - Direct-build split choice: group-hash 80/10/10 with seed `ANHC-direct-v1`; no matching work group crosses splits. This is an operational choice for this build, not the thesis's historical split.
 - DIA, MOTIF, and MORAL annotation templates are empty. Triple-covered tokens: 0.
@@ -31,4 +32,4 @@ The ingestion script downloads the cited source archive and metadata when they a
 - `split_assignments.jsonl` and `*_record_ids.txt`: deterministic split map and record lists.
 - `annotations/{DIA,MOTIF,MORAL}.jsonl`: empty files for future annotation ingestion.
 
-The thesis reports 70,404,829 corpus tokens and 23M triple-covered tokens. This run does not reproduce those figures: it uses a different tokenizer profile and available sources, and contains no adjudicated triple-layer labels. See [The Arabic E-Book Corpus](https://doi.org/10.5878/7rbh-gy93) and the repository's [ANHC source-scope reconciliation](../../../../docs/ar/ANHC_SOURCE_SCOPE_PROGRESS.md).
+The thesis reports 70,404,829 corpus tokens and 23M triple-covered tokens. This run does not reproduce those figures: it uses a different tokenizer profile and available sources, and contains no adjudicated triple-layer labels. The thesis itself also reports 55,600 narratives in Appendix A.17 versus 5,247 in §5.4.4, and gives different dialect distributions across its tables; see the repository's [thesis alignment report](../../../../docs/ar/ANHC_THESIS_ALIGNMENT.md), [The Arabic E-Book Corpus](https://doi.org/10.5878/7rbh-gy93), and [OpenITI documentation](https://openiti.org/documentation/).
