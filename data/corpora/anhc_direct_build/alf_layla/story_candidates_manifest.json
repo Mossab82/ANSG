@@ -1,0 +1,87 @@
+{
+  "schema": "ansg.alf_layla_story_candidate_integrity_manifest/1",
+  "dataset": "The Arabic E-Book Corpus Version 1",
+  "dataset_doi": "10.5878/7rbh-gy93",
+  "status": "CC_BY_4.0_text_spans_for_review_not_verified_story_corpus",
+  "record_count": 236,
+  "source_records": 6,
+  "counts": {
+    "whitespace_words": 657453,
+    "direct_sentencepiece_tokens": 1052699
+  },
+  "annotation_coverage": {
+    "DIA": 0,
+    "MOTIF": 0,
+    "MORAL": 0,
+    "triple_covered_tokens": 0
+  },
+  "files": [
+    {
+      "path": "data/corpora/anhc_direct_build/alf_layla/story_candidates/alf_layla_story_candidates_001.jsonl",
+      "records": 22,
+      "bytes": 579401,
+      "git_blob_sha1": "7e5be28d27031cb58de495954a75bc56e643e45c"
+    },
+    {
+      "path": "data/corpora/anhc_direct_build/alf_layla/story_candidates/alf_layla_story_candidates_002.jsonl",
+      "records": 8,
+      "bytes": 688212,
+      "git_blob_sha1": "af6b32d503b893fb7a4dd39c6fd47b4fd38ceb1e"
+    },
+    {
+      "path": "data/corpora/anhc_direct_build/alf_layla/story_candidates/alf_layla_story_candidates_003.jsonl",
+      "records": 9,
+      "bytes": 581171,
+      "git_blob_sha1": "7f81ecec98f1fc4331bb91332538c392d2afbae7"
+    },
+    {
+      "path": "data/corpora/anhc_direct_build/alf_layla/story_candidates/alf_layla_story_candidates_004.jsonl",
+      "records": 23,
+      "bytes": 697138,
+      "git_blob_sha1": "de4746360176478512575b664b13128dc5c54294"
+    },
+    {
+      "path": "data/corpora/anhc_direct_build/alf_layla/story_candidates/alf_layla_story_candidates_005.jsonl",
+      "records": 30,
+      "bytes": 692748,
+      "git_blob_sha1": "37fa7c0d23b6a3bdbc38da90ca19101b4234f5c3"
+    },
+    {
+      "path": "data/corpora/anhc_direct_build/alf_layla/story_candidates/alf_layla_story_candidates_006.jsonl",
+      "records": 21,
+      "bytes": 695835,
+      "git_blob_sha1": "1a4268bb92601983b1a2fde85b4389531c4b592e"
+    },
+    {
+      "path": "data/corpora/anhc_direct_build/alf_layla/story_candidates/alf_layla_story_candidates_007.jsonl",
+      "records": 22,
+      "bytes": 697931,
+      "git_blob_sha1": "357b3767cc323e99cac6b2a546650eb4986acad9"
+    },
+    {
+      "path": "data/corpora/anhc_direct_build/alf_layla/story_candidates/alf_layla_story_candidates_008.jsonl",
+      "records": 10,
+      "bytes": 648481,
+      "git_blob_sha1": "1006a3dbc2b8eb538685d6f01d81c43022097615"
+    },
+    {
+      "path": "data/corpora/anhc_direct_build/alf_layla/story_candidates/alf_layla_story_candidates_009.jsonl",
+      "records": 2,
+      "bytes": 696783,
+      "git_blob_sha1": "75f00ed12869cb68c8aa832f4e5731fe32403456"
+    },
+    {
+      "path": "data/corpora/anhc_direct_build/alf_layla/story_candidates/alf_layla_story_candidates_010.jsonl",
+      "records": 65,
+      "bytes": 688238,
+      "git_blob_sha1": "3d0e9745fc8000e86dace4220a1def8b88565537"
+    },
+    {
+      "path": "data/corpora/anhc_direct_build/alf_layla/story_candidates/alf_layla_story_candidates_011.jsonl",
+      "records": 24,
+      "bytes": 566098,
+      "git_blob_sha1": "2eb692c8796a481d7f665101972d4889700ae548"
+    }
+  ],
+  "sha_note": "git_blob_sha1 values identify exact file contents in this Git tree; they are not SHA-256 checksums."
+}

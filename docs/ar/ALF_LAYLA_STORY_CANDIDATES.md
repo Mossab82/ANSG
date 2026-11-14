@@ -29,6 +29,10 @@ python scripts/build_alf_layla_story_text_candidates.py \
 
 يتحقق المستخرج من SHA-256 للنص الكامل لكل مصدر ومن تطابق إزاحات الجرد والعداد. لا تُحفظ الكتب الكاملة في المستودع؛ المحفوظ فقط هذه المقاطع المحددة مع بيانات نسبتها وترخيصها.
 
+## سلامة ملفات الإصدار
+
+يربط `data/corpora/anhc_direct_build/alf_layla/story_candidates_manifest.json` كل جزء بحجمه ومعرّف Git blob SHA-1 الخاص به، ويعرض العدد الكلي للسجلات والكلمات والقطع. هذه المعرّفات تثبت هوية الملفات داخل Git؛ وتظل بصمات مصادر الكتب الكاملة محفوظة في كل سجل.
+
 ## المصدر والترخيص
 
 - Hallberg, A. (2024). *The Arabic E-Book Corpus (Version 1)*. University of Gothenburg. [DOI: 10.5878/7rbh-gy93](https://doi.org/10.5878/7rbh-gy93).
