@@ -27,8 +27,8 @@ Updated 2026-11-13 with references from the supplied dissertation. **Status:**
 | Morphological pipeline (Eq. 4.3–4.7) | §4.2 | — | — | absent | C-MORPH-1 |
 | CSAM (Eq. 4.9–4.19) | §4.3 | — | — | absent | C-CSAM-1…6 |
 | DAL (Eq. 4.24–4.25) | §4.4 | src/ansg/dal.py, model.py, pretrained.py | — | prototype | Per-token sigmoid gate uses [hidden; schema_context] and an explicit compatibility mask; adapter still acts on post-CSAM hidden states, not the thesis's unresolved per-layer q/v/fused-QKV placement (C-DAL-1/2). No trained dialect adapters or data-derived compatibility masks. |
-| Backbone | §4.1.6, Table 5.1, A.3 | `configs/specification/thesis_variants.yaml` | `test_config.py` | interface | C-MODEL-1 |
-| Training phases | Ch. 3–5, A.26 | same | — | interface | C-TRAIN-1…5 |
+| Backbone / LM | §4.1.6, Table 5.1, A.3 | `src/ansg/model.py`; `src/ansg/pretrained.py`; `configs/specification/thesis_variants.yaml` | `test_config.py` | prototype / interface | The local decoder is independent and untrained; the optional HF bridge modifies output-head states after the backbone, not internal attention. No thesis checkpoint; C-MODEL-1/3. |
+| Training phases | Ch. 3–5, A.26 | `src/ansg/training.py`; `scripts/train_cultural_modules.py`; `configs/training/ansg_direct_profile.yaml` | `GENERATION_READINESS.md` | primitives / gated | CE fine-tuning of cultural modules and isolated adversarial/PPO steps exist; no full 3-stage runner, thesis artifacts absent, training gate remains false. C-TRAIN-1…5. |
 | Reward / AHP | §4.5, §5.6.3, A.3, A.11, A.23 | `evaluation/ahp.py`; variants in yaml | `test_thesis_computations.py` | implemented (AHP) / interface (reward) | C-REWARD-1…6 |
 | CRAFT metrics | Ch. 6 | `evaluation/craft.py`, `configs/evaluation/craft.yaml` | `test_craft_interfaces.py` | interface | none definable (C-EVAL-1/2) |
 | Gap closure, Eq. A.1 | Eq. 6.1, A.10.2 | `evaluation/statistics.py` | `test_thesis_computations.py` | implemented | |
