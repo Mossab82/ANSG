@@ -1,0 +1,2199 @@
+{
+  "schema": "ansg.story_records/1",
+  "status": "automatic segmentation at pinned revisions; NOT ANHC; human review required",
+  "segments_source": {
+    "file": "data/corpora/classical_arabic/story_segments.json",
+    "github_run_id": "43564658606"
+  },
+  "split_version": 2,
+  "records": [
+    {
+      "story_id": "arabian_nights-001/tale-0001",
+      "title": "حكايات الملك شهريار وأخيه الملك شاه زمان",
+      "work": "Alf Layla wa-Layla",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "ألف ليلة وليلة/الجزء الأول",
+        "page_url": "https://ar.wikisource.org/wiki/%D8%A3%D9%84%D9%81_%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D9%84%D9%8A%D9%84%D8%A9/%D8%A7%D9%84%D8%AC%D8%B2%D8%A1_%D8%A7%D9%84%D8%A3%D9%88%D9%84",
+        "revision_id": 529885,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=529885",
+        "page_text_sha256": "b02cc304885f0af6e745e903e5279b7b3191f3c7aa3b82be2ec9463cff50a29e",
+        "categories": [
+          "تصنيف:ألف ليلة وليلة"
+        ],
+        "edition": "unidentified Wikisource transcription"
+      },
+      "boundaries": {
+        "block_span": [
+          0,
+          17
+        ],
+        "evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
+        "text_sha256": "80df3b53b8f99662f22db4d4af805fbf2801e429a8257637e853434085995fbb",
+        "words": 1325,
+        "nights": []
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": []
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "alf_layla:frame-cycle",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "arabian_nights-001/tale-0002",
+      "title": "حكاية الحمار والثور مع صاحب الزرع",
+      "work": "Alf Layla wa-Layla",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "ألف ليلة وليلة/الجزء الأول",
+        "page_url": "https://ar.wikisource.org/wiki/%D8%A3%D9%84%D9%81_%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D9%84%D9%8A%D9%84%D8%A9/%D8%A7%D9%84%D8%AC%D8%B2%D8%A1_%D8%A7%D9%84%D8%A3%D9%88%D9%84",
+        "revision_id": 529885,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=529885",
+        "page_text_sha256": "b02cc304885f0af6e745e903e5279b7b3191f3c7aa3b82be2ec9463cff50a29e",
+        "categories": [
+          "تصنيف:ألف ليلة وليلة"
+        ],
+        "edition": "unidentified Wikisource transcription"
+      },
+      "boundaries": {
+        "block_span": [
+          17,
+          19
+        ],
+        "evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
+        "text_sha256": "d8bb5a6b62ea282d771db24b77157de1a9f5a0cca40bb3c47bac88a170feaa5b",
+        "words": 773,
+        "nights": []
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "tale-0002 'حكاية الحمار والثور مع صاحب الزرع': no markup or cue decides whether it is embedded in tale-0001 or a sibling; recorded as top-level"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "alf_layla:frame-cycle",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "arabian_nights-001/tale-0003",
+      "title": "حكاية التاجر مع العفريت",
+      "work": "Alf Layla wa-Layla",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "ألف ليلة وليلة/الجزء الأول",
+        "page_url": "https://ar.wikisource.org/wiki/%D8%A3%D9%84%D9%81_%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D9%84%D9%8A%D9%84%D8%A9/%D8%A7%D9%84%D8%AC%D8%B2%D8%A1_%D8%A7%D9%84%D8%A3%D9%88%D9%84",
+        "revision_id": 529885,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=529885",
+        "page_text_sha256": "b02cc304885f0af6e745e903e5279b7b3191f3c7aa3b82be2ec9463cff50a29e",
+        "categories": [
+          "تصنيف:ألف ليلة وليلة"
+        ],
+        "edition": "unidentified Wikisource transcription"
+      },
+      "boundaries": {
+        "block_span": [
+          19,
+          24
+        ],
+        "evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
+        "text_sha256": "cf4269d0801ae758c0a393a0d75519b94a048fe01da7f0c1ee0d4e34aa17018b",
+        "words": 2038,
+        "nights": []
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": "arabian_nights-001/tale-0002",
+        "ambiguities": [
+          "tale-0003 'حكاية التاجر مع العفريت': framing cue 'أحدثك' in the preceding block suggests it is told inside tale-0002 'حكاية الحمار والثور مع صاحب الزرع' (candidate only; not accepted)"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "alf_layla:frame-cycle",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "arabian_nights-001/tale-0004",
+      "title": "حكاية الصياد مع العفريت",
+      "work": "Alf Layla wa-Layla",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "ألف ليلة وليلة/الجزء الأول",
+        "page_url": "https://ar.wikisource.org/wiki/%D8%A3%D9%84%D9%81_%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D9%84%D9%8A%D9%84%D8%A9/%D8%A7%D9%84%D8%AC%D8%B2%D8%A1_%D8%A7%D9%84%D8%A3%D9%88%D9%84",
+        "revision_id": 529885,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=529885",
+        "page_text_sha256": "b02cc304885f0af6e745e903e5279b7b3191f3c7aa3b82be2ec9463cff50a29e",
+        "categories": [
+          "تصنيف:ألف ليلة وليلة"
+        ],
+        "edition": "unidentified Wikisource transcription"
+      },
+      "boundaries": {
+        "block_span": [
+          24,
+          42
+        ],
+        "evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
+        "text_sha256": "a387fb5cfe59dd5c4732f3194b75eae2c52598c0ea03c0e2efdf73171c16d544",
+        "words": 1174,
+        "nights": []
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": "arabian_nights-001/tale-0003",
+        "ambiguities": [
+          "tale-0004 'حكاية الصياد مع العفريت': framing cue 'وما حكاية' in the preceding block suggests it is told inside tale-0003 'حكاية التاجر مع العفريت' (candidate only; not accepted)"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "alf_layla:frame-cycle",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "arabian_nights-001/tale-0005",
+      "title": "حكاية الملك يونان والحكيم رويان",
+      "work": "Alf Layla wa-Layla",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "ألف ليلة وليلة/الجزء الأول",
+        "page_url": "https://ar.wikisource.org/wiki/%D8%A3%D9%84%D9%81_%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D9%84%D9%8A%D9%84%D8%A9/%D8%A7%D9%84%D8%AC%D8%B2%D8%A1_%D8%A7%D9%84%D8%A3%D9%88%D9%84",
+        "revision_id": 529885,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=529885",
+        "page_text_sha256": "b02cc304885f0af6e745e903e5279b7b3191f3c7aa3b82be2ec9463cff50a29e",
+        "categories": [
+          "تصنيف:ألف ليلة وليلة"
+        ],
+        "edition": "unidentified Wikisource transcription"
+      },
+      "boundaries": {
+        "block_span": [
+          42,
+          147
+        ],
+        "evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
+        "text_sha256": "bbf6cfe38df904b7cbefca42ee6a4cbe62b81f5b345a6f750e1cd7332b590000",
+        "words": 6385,
+        "nights": []
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "tale-0005 'حكاية الملك يونان والحكيم رويان': no markup or cue decides whether it is embedded in tale-0004 or a sibling; recorded as top-level"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "alf_layla:frame-cycle",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "arabian_nights-001/tale-0006",
+      "title": "حكاية الحمال مع البنات",
+      "work": "Alf Layla wa-Layla",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "ألف ليلة وليلة/الجزء الأول",
+        "page_url": "https://ar.wikisource.org/wiki/%D8%A3%D9%84%D9%81_%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D9%84%D9%8A%D9%84%D8%A9/%D8%A7%D9%84%D8%AC%D8%B2%D8%A1_%D8%A7%D9%84%D8%A3%D9%88%D9%84",
+        "revision_id": 529885,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=529885",
+        "page_text_sha256": "b02cc304885f0af6e745e903e5279b7b3191f3c7aa3b82be2ec9463cff50a29e",
+        "categories": [
+          "تصنيف:ألف ليلة وليلة"
+        ],
+        "edition": "unidentified Wikisource transcription"
+      },
+      "boundaries": {
+        "block_span": [
+          147,
+          321
+        ],
+        "evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
+        "text_sha256": "142b43432712953cd5106b370d6850e097fb6b94566cf6552d73834760772b01",
+        "words": 14177,
+        "nights": []
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "tale-0006 'حكاية الحمال مع البنات': no markup or cue decides whether it is embedded in tale-0005 or a sibling; recorded as top-level"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "alf_layla:frame-cycle",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "arabian_nights-002/tale-0001",
+      "title": "حكاية الوزير نور الدين مع شمس الدين أخيه",
+      "work": "Alf Layla wa-Layla",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "ألف ليلة وليلة/الجزء الثاني",
+        "page_url": "https://ar.wikisource.org/wiki/%D8%A3%D9%84%D9%81_%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D9%84%D9%8A%D9%84%D8%A9/%D8%A7%D9%84%D8%AC%D8%B2%D8%A1_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A",
+        "revision_id": 424291,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=424291",
+        "page_text_sha256": "9668975399ecfbbd11bce548079df94efba6cfd7568f500e424d377aa8035af5",
+        "categories": [
+          "تصنيف:ألف ليلة وليلة"
+        ],
+        "edition": "unidentified Wikisource transcription"
+      },
+      "boundaries": {
+        "block_span": [
+          5,
+          43
+        ],
+        "evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
+        "text_sha256": "26f53f5cb509e83c4c847cf1eda91fb1c7009c30d19a8c735becf147bd15d45c",
+        "words": 9465,
+        "nights": [
+          20,
+          22,
+          23,
+          24,
+          25
+        ]
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": []
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "alf_layla:frame-cycle",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "arabian_nights-002/tale-0002",
+      "title": "حكاية الخياط والأحدب واليهودي والمباشر والنصراني فيما وقع بينهم",
+      "work": "Alf Layla wa-Layla",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "ألف ليلة وليلة/الجزء الثاني",
+        "page_url": "https://ar.wikisource.org/wiki/%D8%A3%D9%84%D9%81_%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D9%84%D9%8A%D9%84%D8%A9/%D8%A7%D9%84%D8%AC%D8%B2%D8%A1_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A",
+        "revision_id": 424291,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=424291",
+        "page_text_sha256": "9668975399ecfbbd11bce548079df94efba6cfd7568f500e424d377aa8035af5",
+        "categories": [
+          "تصنيف:ألف ليلة وليلة"
+        ],
+        "edition": "unidentified Wikisource transcription"
+      },
+      "boundaries": {
+        "block_span": [
+          43,
+          71
+        ],
+        "evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
+        "text_sha256": "b8a3e7239f96408d0d84c4686d003f99e28a4ee15b3e970418844b6aaebc6f30",
+        "words": 7634,
+        "nights": [
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32
+        ]
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "tale-0002 'حكاية الخياط والأحدب واليهودي والمباشر والنصراني فيما وقع بينهم': no markup or cue decides whether it is embedded in tale-0001 or a sibling; recorded as top-level"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "alf_layla:frame-cycle",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "arabian_nights-002/tale-0003",
+      "title": "حكاية مزين بغداد",
+      "work": "Alf Layla wa-Layla",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "ألف ليلة وليلة/الجزء الثاني",
+        "page_url": "https://ar.wikisource.org/wiki/%D8%A3%D9%84%D9%81_%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D9%84%D9%8A%D9%84%D8%A9/%D8%A7%D9%84%D8%AC%D8%B2%D8%A1_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A",
+        "revision_id": 424291,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=424291",
+        "page_text_sha256": "9668975399ecfbbd11bce548079df94efba6cfd7568f500e424d377aa8035af5",
+        "categories": [
+          "تصنيف:ألف ليلة وليلة"
+        ],
+        "edition": "unidentified Wikisource transcription"
+      },
+      "boundaries": {
+        "block_span": [
+          71,
+          99
+        ],
+        "evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
+        "text_sha256": "eab8fabcfba1d749b738729aadc18d3fd19adb1a5e29275f1a75149705f446bb",
+        "words": 5977,
+        "nights": [
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41
+        ]
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": "arabian_nights-002/tale-0002",
+        "ambiguities": [
+          "tale-0003 'حكاية مزين بغداد': framing cue 'حكايتي' in the preceding block suggests it is told inside tale-0002 'حكاية الخياط والأحدب واليهودي والمباشر والنصراني فيما وقع بينهم' (candidate only; not accepted)"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "alf_layla:frame-cycle",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "arabian_nights-003/tale-0001",
+      "title": "حكاية الوزيرين التي فيها ذكر أنيس الجليس",
+      "work": "Alf Layla wa-Layla",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "ألف ليلة وليلة/الجزء الثالث",
+        "page_url": "https://ar.wikisource.org/wiki/%D8%A3%D9%84%D9%81_%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D9%84%D9%8A%D9%84%D8%A9/%D8%A7%D9%84%D8%AC%D8%B2%D8%A1_%D8%A7%D9%84%D8%AB%D8%A7%D9%84%D8%AB",
+        "revision_id": 424982,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=424982",
+        "page_text_sha256": "734f2274037c353efcac167e27cb38496facf8fdbc595369b2956ddfc30e6ecd",
+        "categories": [
+          "تصنيف:ألف ليلة وليلة"
+        ],
+        "edition": "unidentified Wikisource transcription"
+      },
+      "boundaries": {
+        "block_span": [
+          14,
+          45
+        ],
+        "evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
+        "text_sha256": "de077d3af3f566b301cd63763c9d95fbd5cbcbce6366799f46c1650651228440",
+        "words": 9362,
+        "nights": [
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51
+        ]
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": []
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "alf_layla:frame-cycle",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "arabian_nights-003/tale-0002",
+      "title": "حكاية التاجر أيوب وابنه غانم وبنته فتنة",
+      "work": "Alf Layla wa-Layla",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "ألف ليلة وليلة/الجزء الثالث",
+        "page_url": "https://ar.wikisource.org/wiki/%D8%A3%D9%84%D9%81_%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D9%84%D9%8A%D9%84%D8%A9/%D8%A7%D9%84%D8%AC%D8%B2%D8%A1_%D8%A7%D9%84%D8%AB%D8%A7%D9%84%D8%AB",
+        "revision_id": 424982,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=424982",
+        "page_text_sha256": "734f2274037c353efcac167e27cb38496facf8fdbc595369b2956ddfc30e6ecd",
+        "categories": [
+          "تصنيف:ألف ليلة وليلة"
+        ],
+        "edition": "unidentified Wikisource transcription"
+      },
+      "boundaries": {
+        "block_span": [
+          45,
+          72
+        ],
+        "evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
+        "text_sha256": "0cb49e536ecb4102b66b8662842f99c9f3f9c65220736e83c9f36aa3cd30adb3",
+        "words": 7232,
+        "nights": [
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60
+        ]
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "tale-0002 'حكاية التاجر أيوب وابنه غانم وبنته فتنة': no markup or cue decides whether it is embedded in tale-0001 or a sibling; recorded as top-level"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "alf_layla:frame-cycle",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "arabian_nights-003/tale-0003",
+      "title": "حكاية الملك عمر النعمان وولديه شركان وضوء المكان",
+      "work": "Alf Layla wa-Layla",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "ألف ليلة وليلة/الجزء الثالث",
+        "page_url": "https://ar.wikisource.org/wiki/%D8%A3%D9%84%D9%81_%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D9%84%D9%8A%D9%84%D8%A9/%D8%A7%D9%84%D8%AC%D8%B2%D8%A1_%D8%A7%D9%84%D8%AB%D8%A7%D9%84%D8%AB",
+        "revision_id": 424982,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=424982",
+        "page_text_sha256": "734f2274037c353efcac167e27cb38496facf8fdbc595369b2956ddfc30e6ecd",
+        "categories": [
+          "تصنيف:ألف ليلة وليلة"
+        ],
+        "edition": "unidentified Wikisource transcription"
+      },
+      "boundaries": {
+        "block_span": [
+          72,
+          320
+        ],
+        "evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
+        "text_sha256": "d931bb9c4e9a064a8778012ae0e8970d9fec22fb2b3133b73437af74c468a617",
+        "words": 47112,
+        "nights": [
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          78,
+          79,
+          80,
+          81,
+          84,
+          85,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99,
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109,
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130
+        ]
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "tale-0003 'حكاية الملك عمر النعمان وولديه شركان وضوء المكان': no markup or cue decides whether it is embedded in tale-0002 or a sibling; recorded as top-level"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "alf_layla:frame-cycle",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "arabian_nights-004/tale-0001",
+      "title": "حكاية معروف ألإسكافي",
+      "work": "Alf Layla wa-Layla",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "ألف ليلة وليلة/الجزء الرابع",
+        "page_url": "https://ar.wikisource.org/wiki/%D8%A3%D9%84%D9%81_%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D9%84%D9%8A%D9%84%D8%A9/%D8%A7%D9%84%D8%AC%D8%B2%D8%A1_%D8%A7%D9%84%D8%B1%D8%A7%D8%A8%D8%B9",
+        "revision_id": 424983,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=424983",
+        "page_text_sha256": "15b53f317ff71efeb11abd471cff659534be1e86802e00ce008fd8ffc39170b1",
+        "categories": [
+          "تصنيف:ألف ليلة وليلة"
+        ],
+        "edition": "unidentified Wikisource transcription"
+      },
+      "boundaries": {
+        "block_span": [
+          1,
+          39
+        ],
+        "evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
+        "text_sha256": "2f877deb443e0fa2aaeddc2a389503222f442146e8de6fb88201b08d933ed75b",
+        "words": 12093,
+        "nights": [
+          983,
+          985,
+          986,
+          987,
+          988,
+          990,
+          991,
+          992,
+          993,
+          994,
+          995,
+          996,
+          997,
+          998,
+          999,
+          1001
+        ]
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": []
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "alf_layla:frame-cycle",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "arabian_nights-005/tale-0001",
+      "title": "حكاية السندباد",
+      "work": "Alf Layla wa-Layla",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "ألف ليلة وليلة/السندباد البحري",
+        "page_url": "https://ar.wikisource.org/wiki/%D8%A3%D9%84%D9%81_%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D9%84%D9%8A%D9%84%D8%A9/%D8%A7%D9%84%D8%B3%D9%86%D8%AF%D8%A8%D8%A7%D8%AF_%D8%A7%D9%84%D8%A8%D8%AD%D8%B1%D9%8A",
+        "revision_id": 302476,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=302476",
+        "page_text_sha256": "5c87c1a96ac6620f749effe349cc03be00be9e069a436cce17dcdf91af71eb11",
+        "categories": [
+          "تصنيف:ألف ليلة وليلة"
+        ],
+        "edition": "unidentified Wikisource transcription"
+      },
+      "boundaries": {
+        "block_span": [
+          1,
+          62
+        ],
+        "evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
+        "text_sha256": "24301858e7b136ff461de37501f2483f1e25663c2a082dec9dc9d464f1ce0445",
+        "words": 21093,
+        "nights": [
+          531,
+          532,
+          533,
+          534,
+          535,
+          537,
+          538,
+          539,
+          540,
+          541,
+          542,
+          543,
+          544,
+          545,
+          546,
+          547,
+          548,
+          549,
+          550,
+          551,
+          552,
+          553
+        ]
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": []
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "alf_layla:frame-cycle",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "arabian_nights-005/tale-0002",
+      "title": "الحكاية الثانية من حكايات السندباد البحري وهي السفرة الثانية",
+      "work": "Alf Layla wa-Layla",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "ألف ليلة وليلة/السندباد البحري",
+        "page_url": "https://ar.wikisource.org/wiki/%D8%A3%D9%84%D9%81_%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D9%84%D9%8A%D9%84%D8%A9/%D8%A7%D9%84%D8%B3%D9%86%D8%AF%D8%A8%D8%A7%D8%AF_%D8%A7%D9%84%D8%A8%D8%AD%D8%B1%D9%8A",
+        "revision_id": 302476,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=302476",
+        "page_text_sha256": "5c87c1a96ac6620f749effe349cc03be00be9e069a436cce17dcdf91af71eb11",
+        "categories": [
+          "تصنيف:ألف ليلة وليلة"
+        ],
+        "edition": "unidentified Wikisource transcription"
+      },
+      "boundaries": {
+        "block_span": [
+          62,
+          105
+        ],
+        "evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
+        "text_sha256": "f579f674a0b0897779abb9feee1dedeb3a203bfb1c189f06dc28bc1555124053",
+        "words": 7988,
+        "nights": [
+          535,
+          536,
+          537,
+          538,
+          540,
+          544,
+          545,
+          546,
+          547,
+          548,
+          549
+        ]
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "tale-0002 'الحكاية الثانية من حكايات السندباد البحري وهي السفرة الثانية': no markup or cue decides whether it is embedded in tale-0001 or a sibling; recorded as top-level"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "alf_layla:frame-cycle",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "arabian_nights-005/tale-0003",
+      "title": "الحكاية الخامسة من حكايات السندباد البحري وهي السفرة الخامسة",
+      "work": "Alf Layla wa-Layla",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "ألف ليلة وليلة/السندباد البحري",
+        "page_url": "https://ar.wikisource.org/wiki/%D8%A3%D9%84%D9%81_%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D9%84%D9%8A%D9%84%D8%A9/%D8%A7%D9%84%D8%B3%D9%86%D8%AF%D8%A8%D8%A7%D8%AF_%D8%A7%D9%84%D8%A8%D8%AD%D8%B1%D9%8A",
+        "revision_id": 302476,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=302476",
+        "page_text_sha256": "5c87c1a96ac6620f749effe349cc03be00be9e069a436cce17dcdf91af71eb11",
+        "categories": [
+          "تصنيف:ألف ليلة وليلة"
+        ],
+        "edition": "unidentified Wikisource transcription"
+      },
+      "boundaries": {
+        "block_span": [
+          105,
+          162
+        ],
+        "evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
+        "text_sha256": "e420770ddac4561d90977585b9b42fb2949dc8d80a0a38550f61155ee1425b3f",
+        "words": 6899,
+        "nights": [
+          549,
+          550,
+          551,
+          552,
+          554,
+          556,
+          558,
+          559,
+          560
+        ]
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "tale-0003 'الحكاية الخامسة من حكايات السندباد البحري وهي السفرة الخامسة': no markup or cue decides whether it is embedded in tale-0002 or a sibling; recorded as top-level"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "alf_layla:frame-cycle",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "kalila_dimna-006/chapter",
+      "title": "الناسك وابن عرس",
+      "work": "Kalīla wa-Dimna",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "كليلة ودمنة/الناسك وابن عرس",
+        "page_url": "https://ar.wikisource.org/wiki/%D9%83%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D8%AF%D9%85%D9%86%D8%A9/%D8%A7%D9%84%D9%86%D8%A7%D8%B3%D9%83_%D9%88%D8%A7%D8%A8%D9%86_%D8%B9%D8%B1%D8%B3",
+        "revision_id": 251292,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=251292",
+        "page_text_sha256": "8981dfdbf2a918ade05b1653427b93bdc2b6a29edf79fb7b8836e4b2f7ffc545",
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "edition": "unidentified Wikisource transcription (page category 'نصوص مجهولة المصدر' = texts of unknown source)"
+      },
+      "boundaries": {
+        "block_span": [
+          0,
+          2
+        ],
+        "evidence": "source page = one chapter",
+        "text_sha256": "98bf8b7201dc864e78ee60e586f3638b7d8aa4e0da105696180d70d4ba399cac",
+        "words": 561,
+        "nights": []
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "embedded fables within the chapter are not marked in the source and are not extracted"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "kalila:kalila_dimna-006",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "kalila_dimna-007/chapter",
+      "title": "باب إيلاذ وبلاذ وايراخت",
+      "work": "Kalīla wa-Dimna",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "كليلة ودمنة/باب إيلاذ وبلاذ وايراخت",
+        "page_url": "https://ar.wikisource.org/wiki/%D9%83%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D8%AF%D9%85%D9%86%D8%A9/%D8%A8%D8%A7%D8%A8_%D8%A5%D9%8A%D9%84%D8%A7%D8%B0_%D9%88%D8%A8%D9%84%D8%A7%D8%B0_%D9%88%D8%A7%D9%8A%D8%B1%D8%A7%D8%AE%D8%AA",
+        "revision_id": 231372,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=231372",
+        "page_text_sha256": "d6cb6d63cee4581bb25869b2fdf40049322c7209d4dc5406b1084945d9a2c045",
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "edition": "unidentified Wikisource transcription (page category 'نصوص مجهولة المصدر' = texts of unknown source)"
+      },
+      "boundaries": {
+        "block_span": [
+          0,
+          9
+        ],
+        "evidence": "source page = one chapter",
+        "text_sha256": "7c6887d5e69bf5b51a187c191be66d86fe767b88927159bfbbe4432f416fa776",
+        "words": 3578,
+        "nights": []
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "embedded fables within the chapter are not marked in the source and are not extracted"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "kalila:kalila_dimna-007",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "kalila_dimna-008/chapter",
+      "title": "باب ابن الملك وأصحابه",
+      "work": "Kalīla wa-Dimna",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "كليلة ودمنة/باب ابن الملك وأصحابه",
+        "page_url": "https://ar.wikisource.org/wiki/%D9%83%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D8%AF%D9%85%D9%86%D8%A9/%D8%A8%D8%A7%D8%A8_%D8%A7%D8%A8%D9%86_%D8%A7%D9%84%D9%85%D9%84%D9%83_%D9%88%D8%A3%D8%B5%D8%AD%D8%A7%D8%A8%D9%87",
+        "revision_id": 231368,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=231368",
+        "page_text_sha256": "45f7ac480c6c4adf9061248448a98d13c0e5a8d947c25eece6ce3703e1cd2943",
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "edition": "unidentified Wikisource transcription (page category 'نصوص مجهولة المصدر' = texts of unknown source)"
+      },
+      "boundaries": {
+        "block_span": [
+          0,
+          3
+        ],
+        "evidence": "source page = one chapter",
+        "text_sha256": "3eb47a84258b50baa2639cdb13c46cc0a59fe0c0681c2a7bdf4fb4d84e25c1d9",
+        "words": 1245,
+        "nights": []
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "embedded fables within the chapter are not marked in the source and are not extracted"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "kalila:kalila_dimna-008",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "kalila_dimna-009/chapter",
+      "title": "باب ابن الملك والطائر فنزة",
+      "work": "Kalīla wa-Dimna",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "كليلة ودمنة/باب ابن الملك والطائر فنزة",
+        "page_url": "https://ar.wikisource.org/wiki/%D9%83%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D8%AF%D9%85%D9%86%D8%A9/%D8%A8%D8%A7%D8%A8_%D8%A7%D8%A8%D9%86_%D8%A7%D9%84%D9%85%D9%84%D9%83_%D9%88%D8%A7%D9%84%D8%B7%D8%A7%D8%A6%D8%B1_%D9%81%D9%86%D8%B2%D8%A9",
+        "revision_id": 231363,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=231363",
+        "page_text_sha256": "730210b74d66e86a56c65e8cca6f6233249caf301b5f44b6adb4c1839782be26",
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "edition": "unidentified Wikisource transcription (page category 'نصوص مجهولة المصدر' = texts of unknown source)"
+      },
+      "boundaries": {
+        "block_span": [
+          0,
+          5
+        ],
+        "evidence": "source page = one chapter",
+        "text_sha256": "314af276b0173a62fa9f6209855836fb74a813e463becead57f4143b5ba16cb4",
+        "words": 1282,
+        "nights": []
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "embedded fables within the chapter are not marked in the source and are not extracted"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "kalila:kalila_dimna-009",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "kalila_dimna-010/chapter",
+      "title": "باب الأسد والثور وهو أول الكتاب",
+      "work": "Kalīla wa-Dimna",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "كليلة ودمنة/باب الأسد والثور وهو أول الكتاب",
+        "page_url": "https://ar.wikisource.org/wiki/%D9%83%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D8%AF%D9%85%D9%86%D8%A9/%D8%A8%D8%A7%D8%A8_%D8%A7%D9%84%D8%A3%D8%B3%D8%AF_%D9%88%D8%A7%D9%84%D8%AB%D9%88%D8%B1_%D9%88%D9%87%D9%88_%D8%A3%D9%88%D9%84_%D8%A7%D9%84%D9%83%D8%AA%D8%A7%D8%A8",
+        "revision_id": 272368,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=272368",
+        "page_text_sha256": "8feb37663cfeb79d281414638b2c2d8fd03d1035579ca281f1684243decb9be6",
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "edition": "unidentified Wikisource transcription (page category 'نصوص مجهولة المصدر' = texts of unknown source)"
+      },
+      "boundaries": {
+        "block_span": [
+          0,
+          19
+        ],
+        "evidence": "source page = one chapter",
+        "text_sha256": "8feb37663cfeb79d281414638b2c2d8fd03d1035579ca281f1684243decb9be6",
+        "words": 8807,
+        "nights": []
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "embedded fables within the chapter are not marked in the source and are not extracted"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "kalila:kalila_dimna-010",
+      "pilot_split_v2": "validation",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "kalila_dimna-011/chapter",
+      "title": "باب الأسد والشغبر الناسك وهو ابن آوى من كتاب كليلة و دمنة",
+      "work": "Kalīla wa-Dimna",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "كليلة ودمنة/باب الأسد والشغبر الناسك وهو ابن آوى",
+        "page_url": "https://ar.wikisource.org/wiki/%D9%83%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D8%AF%D9%85%D9%86%D8%A9/%D8%A8%D8%A7%D8%A8_%D8%A7%D9%84%D8%A3%D8%B3%D8%AF_%D9%88%D8%A7%D9%84%D8%B4%D8%BA%D8%A8%D8%B1_%D8%A7%D9%84%D9%86%D8%A7%D8%B3%D9%83_%D9%88%D9%87%D9%88_%D8%A7%D8%A8%D9%86_%D8%A2%D9%88%D9%89",
+        "revision_id": 302554,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=302554",
+        "page_text_sha256": "35c1b888c4717184961fa6cb8f11672fbea31892a64e1e1f3fbfb043010ee4ed",
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "edition": "unidentified Wikisource transcription (page category 'نصوص مجهولة المصدر' = texts of unknown source)"
+      },
+      "boundaries": {
+        "block_span": [
+          0,
+          4
+        ],
+        "evidence": "source page = one chapter",
+        "text_sha256": "35c1b888c4717184961fa6cb8f11672fbea31892a64e1e1f3fbfb043010ee4ed",
+        "words": 1718,
+        "nights": []
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "embedded fables within the chapter are not marked in the source and are not extracted"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "kalila:kalila_dimna-011",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "kalila_dimna-012/chapter",
+      "title": "باب البوم والغربان",
+      "work": "Kalīla wa-Dimna",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "كليلة ودمنة/باب البوم والغربان",
+        "page_url": "https://ar.wikisource.org/wiki/%D9%83%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D8%AF%D9%85%D9%86%D8%A9/%D8%A8%D8%A7%D8%A8_%D8%A7%D9%84%D8%A8%D9%88%D9%85_%D9%88%D8%A7%D9%84%D8%BA%D8%B1%D8%A8%D8%A7%D9%86",
+        "revision_id": 285510,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=285510",
+        "page_text_sha256": "435a58e57cff7b2a9beaf34a2a6d8915e777ad3247526d717a9565b8fad39111",
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "edition": "unidentified Wikisource transcription (page category 'نصوص مجهولة المصدر' = texts of unknown source)"
+      },
+      "boundaries": {
+        "block_span": [
+          0,
+          11
+        ],
+        "evidence": "source page = one chapter",
+        "text_sha256": "2b742a83d22a99221e2c5d8f07a4eaf9852438fa71fa67578f04178daea6d75a",
+        "words": 4508,
+        "nights": []
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "embedded fables within the chapter are not marked in the source and are not extracted"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "kalila:kalila_dimna-012",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "kalila_dimna-013/chapter",
+      "title": "باب الجرذ والسنور",
+      "work": "Kalīla wa-Dimna",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "كليلة ودمنة/باب الجرذ والسنور",
+        "page_url": "https://ar.wikisource.org/wiki/%D9%83%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D8%AF%D9%85%D9%86%D8%A9/%D8%A8%D8%A7%D8%A8_%D8%A7%D9%84%D8%AC%D8%B1%D8%B0_%D9%88%D8%A7%D9%84%D8%B3%D9%86%D9%88%D8%B1",
+        "revision_id": 231362,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=231362",
+        "page_text_sha256": "8fd5e9a041351d0ecee4a733b71f276d6bd82772def97bb50f35ae8e03ce8b52",
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "edition": "unidentified Wikisource transcription (page category 'نصوص مجهولة المصدر' = texts of unknown source)"
+      },
+      "boundaries": {
+        "block_span": [
+          0,
+          3
+        ],
+        "evidence": "source page = one chapter",
+        "text_sha256": "2c7f862fef13a88576a0985a3f1d70f5cd88ec8cebe66e4f5f587d5476028a76",
+        "words": 1188,
+        "nights": []
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "embedded fables within the chapter are not marked in the source and are not extracted"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "kalila:kalila_dimna-013",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "kalila_dimna-014/chapter",
+      "title": "باب الحمامة المطوقة",
+      "work": "Kalīla wa-Dimna",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "كليلة ودمنة/باب الحمامة المطوقة",
+        "page_url": "https://ar.wikisource.org/wiki/%D9%83%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D8%AF%D9%85%D9%86%D8%A9/%D8%A8%D8%A7%D8%A8_%D8%A7%D9%84%D8%AD%D9%85%D8%A7%D9%85%D8%A9_%D8%A7%D9%84%D9%85%D8%B7%D9%88%D9%82%D8%A9",
+        "revision_id": 245541,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=245541",
+        "page_text_sha256": "32358bbd692d60bb1c6b928f188645aeccf49dc516cc933b3ec04a9922f2a1f8",
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "edition": "unidentified Wikisource transcription (page category 'نصوص مجهولة المصدر' = texts of unknown source)"
+      },
+      "boundaries": {
+        "block_span": [
+          0,
+          6
+        ],
+        "evidence": "source page = one chapter",
+        "text_sha256": "b41c0ffff4deb4d831c58c96c6014757960e49815886611b33b42f72e7af2e13",
+        "words": 3283,
+        "nights": []
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "embedded fables within the chapter are not marked in the source and are not extracted"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "kalila:kalila_dimna-014",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "kalila_dimna-015/chapter",
+      "title": "باب الحمامة والثعلب ومالك الحزين",
+      "work": "Kalīla wa-Dimna",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "كليلة ودمنة/باب الحمامة والثعلب ومالك الحزين",
+        "page_url": "https://ar.wikisource.org/wiki/%D9%83%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D8%AF%D9%85%D9%86%D8%A9/%D8%A8%D8%A7%D8%A8_%D8%A7%D9%84%D8%AD%D9%85%D8%A7%D9%85%D8%A9_%D9%88%D8%A7%D9%84%D8%AB%D8%B9%D9%84%D8%A8_%D9%88%D9%85%D8%A7%D9%84%D9%83_%D8%A7%D9%84%D8%AD%D8%B2%D9%8A%D9%86",
+        "revision_id": 231369,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=231369",
+        "page_text_sha256": "a86cbe4136a55b431f6b084dc1c243943547856974e15e9eda829c6eb3a6504b",
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "edition": "unidentified Wikisource transcription (page category 'نصوص مجهولة المصدر' = texts of unknown source)"
+      },
+      "boundaries": {
+        "block_span": [
+          0,
+          2
+        ],
+        "evidence": "source page = one chapter",
+        "text_sha256": "a86cbe4136a55b431f6b084dc1c243943547856974e15e9eda829c6eb3a6504b",
+        "words": 552,
+        "nights": []
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "embedded fables within the chapter are not marked in the source and are not extracted"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "kalila:kalila_dimna-015",
+      "pilot_split_v2": "test",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "kalila_dimna-016/chapter",
+      "title": "باب السائح والصائغ",
+      "work": "Kalīla wa-Dimna",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "كليلة ودمنة/باب السائح والصائغ",
+        "page_url": "https://ar.wikisource.org/wiki/%D9%83%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D8%AF%D9%85%D9%86%D8%A9/%D8%A8%D8%A7%D8%A8_%D8%A7%D9%84%D8%B3%D8%A7%D8%A6%D8%AD_%D9%88%D8%A7%D9%84%D8%B5%D8%A7%D8%A6%D8%BA",
+        "revision_id": 381514,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=381514",
+        "page_text_sha256": "30d64a8379458a137ade89fe06d37c7479d2582af7eacb35ca111d6d0f79004f",
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "edition": "unidentified Wikisource transcription (page category 'نصوص مجهولة المصدر' = texts of unknown source)"
+      },
+      "boundaries": {
+        "block_span": [
+          0,
+          2
+        ],
+        "evidence": "source page = one chapter",
+        "text_sha256": "0c1ff1c5bc992d01a6712781b53fed45027975a28e801b6810006139c92688d6",
+        "words": 1001,
+        "nights": []
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "embedded fables within the chapter are not marked in the source and are not extracted"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "kalila:kalila_dimna-016",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "kalila_dimna-017/chapter",
+      "title": "باب الفحص عن أمر دمنة",
+      "work": "Kalīla wa-Dimna",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "كليلة ودمنة/باب الفحص عن أمر دمنة",
+        "page_url": "https://ar.wikisource.org/wiki/%D9%83%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D8%AF%D9%85%D9%86%D8%A9/%D8%A8%D8%A7%D8%A8_%D8%A7%D9%84%D9%81%D8%AD%D8%B5_%D8%B9%D9%86_%D8%A3%D9%85%D8%B1_%D8%AF%D9%85%D9%86%D8%A9",
+        "revision_id": 290965,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=290965",
+        "page_text_sha256": "b4162081e2e55f1ba5fddd7f9a84f52a3bd273b21f1e09c102c3b9e28f9723f5",
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "edition": "unidentified Wikisource transcription (page category 'نصوص مجهولة المصدر' = texts of unknown source)"
+      },
+      "boundaries": {
+        "block_span": [
+          0,
+          7
+        ],
+        "evidence": "source page = one chapter",
+        "text_sha256": "0ba07ba6ea37c62d02615b050b336cb9dfdf5fd1367e9087899eae06a10f5b35",
+        "words": 3434,
+        "nights": []
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "embedded fables within the chapter are not marked in the source and are not extracted"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "kalila:kalila_dimna-010",
+      "pilot_split_v2": "validation",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "kalila_dimna-018/chapter",
+      "title": "باب القرد والغيلم",
+      "work": "Kalīla wa-Dimna",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "كليلة ودمنة/باب القرد والغيلم",
+        "page_url": "https://ar.wikisource.org/wiki/%D9%83%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D8%AF%D9%85%D9%86%D8%A9/%D8%A8%D8%A7%D8%A8_%D8%A7%D9%84%D9%82%D8%B1%D8%AF_%D9%88%D8%A7%D9%84%D8%BA%D9%8A%D9%84%D9%85",
+        "revision_id": 231360,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=231360",
+        "page_text_sha256": "1c782e217046df748204f22ab60d55df0b984ff3e2c539d3db78af59c4062808",
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "edition": "unidentified Wikisource transcription (page category 'نصوص مجهولة المصدر' = texts of unknown source)"
+      },
+      "boundaries": {
+        "block_span": [
+          0,
+          2
+        ],
+        "evidence": "source page = one chapter",
+        "text_sha256": "4c42e7d2627839a11876a0ec183687999d2aeddd25c6468ffd3afef665a56b72",
+        "words": 1168,
+        "nights": []
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "embedded fables within the chapter are not marked in the source and are not extracted"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "kalila:kalila_dimna-018",
+      "pilot_split_v2": "validation",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "kalila_dimna-019/chapter",
+      "title": "باب اللبوة والإسوار والشغبر",
+      "work": "Kalīla wa-Dimna",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "كليلة ودمنة/باب اللبوة والإسوار والشغبر",
+        "page_url": "https://ar.wikisource.org/wiki/%D9%83%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D8%AF%D9%85%D9%86%D8%A9/%D8%A8%D8%A7%D8%A8_%D8%A7%D9%84%D9%84%D8%A8%D9%88%D8%A9_%D9%88%D8%A7%D9%84%D8%A5%D8%B3%D9%88%D8%A7%D8%B1_%D9%88%D8%A7%D9%84%D8%B4%D8%BA%D8%A8%D8%B1",
+        "revision_id": 374244,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=374244",
+        "page_text_sha256": "d37d09f7d073d7f5d14363fb69882ddce9a7720e7a7bb5b0cbee968ce6cb4a51",
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "edition": "unidentified Wikisource transcription (page category 'نصوص مجهولة المصدر' = texts of unknown source)"
+      },
+      "boundaries": {
+        "block_span": [
+          0,
+          2
+        ],
+        "evidence": "source page = one chapter",
+        "text_sha256": "82881f1fb825bd775bb234cd409f83cf4de2da7864c916154e159b94fff83f0d",
+        "words": 603,
+        "nights": []
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "embedded fables within the chapter are not marked in the source and are not extracted"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "kalila:kalila_dimna-007",
+      "pilot_split_v2": "train",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    },
+    {
+      "story_id": "kalila_dimna-020/chapter",
+      "title": "باب الناسك والضيف",
+      "work": "Kalīla wa-Dimna",
+      "source": {
+        "site": "ar.wikisource.org",
+        "page_title": "كليلة ودمنة/باب الناسك والضيف",
+        "page_url": "https://ar.wikisource.org/wiki/%D9%83%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D8%AF%D9%85%D9%86%D8%A9/%D8%A8%D8%A7%D8%A8_%D8%A7%D9%84%D9%86%D8%A7%D8%B3%D9%83_%D9%88%D8%A7%D9%84%D8%B6%D9%8A%D9%81",
+        "revision_id": 231371,
+        "permalink": "https://ar.wikisource.org/w/index.php?oldid=231371",
+        "page_text_sha256": "766486f9bfa6995dc58be5b473e6c1b506dce7b16ad0006e1134995309a0f364",
+        "categories": [
+          "تصنيف:صفحات تحوي قالب ترويسة",
+          "تصنيف:كليلة ودمنة",
+          "تصنيف:نصوص مجهولة المصدر"
+        ],
+        "edition": "unidentified Wikisource transcription (page category 'نصوص مجهولة المصدر' = texts of unknown source)"
+      },
+      "boundaries": {
+        "block_span": [
+          0,
+          2
+        ],
+        "evidence": "source page = one chapter",
+        "text_sha256": "7e78e02cca944c16ad840a064534689e7904c267cf832ca99e2a02432edfdecd",
+        "words": 290,
+        "nights": []
+      },
+      "nesting": {
+        "parent_story_id": null,
+        "evidence": null,
+        "candidate_parent": null,
+        "ambiguities": [
+          "embedded fables within the chapter are not marked in the source and are not extracted"
+        ]
+      },
+      "dialect": null,
+      "dialect_status": "unannotated",
+      "register": "classical narrative prose (description of the source, not an annotation)",
+      "split_group": "kalila:kalila_dimna-020",
+      "pilot_split_v2": "test",
+      "rights": {
+        "registry_id": "wikisource_classical_arabic_pages",
+        "permission_status": "pending_owner_review",
+        "allowed_uses": [
+          "metadata_only",
+          "human_reference"
+        ],
+        "site_licence": "CC BY-SA 4.0 (Wikisource site, evidence/external/external_evidence.json)",
+        "underlying_text": "pre-modern; edition unknown"
+      },
+      "is_anhc": false
+    }
+  ],
+  "pages": [
+    {
+      "source_record_id": "arabian_nights-001",
+      "revision_id": 529885,
+      "words": 24624,
+      "segments": 6,
+      "unassigned_prefix": {
+        "blocks": 0,
+        "words": 0
+      },
+      "night_sequence": {
+        "first": null,
+        "last": null,
+        "count": 0,
+        "regressions": [],
+        "gaps": []
+      }
+    },
+    {
+      "source_record_id": "arabian_nights-002",
+      "revision_id": 424291,
+      "words": 23343,
+      "segments": 3,
+      "unassigned_prefix": {
+        "blocks": 5,
+        "words": 381
+      },
+      "night_sequence": {
+        "first": 20,
+        "last": 41,
+        "count": 21,
+        "regressions": [],
+        "gaps": [
+          [
+            20,
+            22
+          ]
+        ]
+      }
+    },
+    {
+      "source_record_id": "arabian_nights-003",
+      "revision_id": 424982,
+      "words": 67004,
+      "segments": 3,
+      "unassigned_prefix": {
+        "blocks": 14,
+        "words": 3711
+      },
+      "night_sequence": {
+        "first": 42,
+        "last": 130,
+        "count": 85,
+        "regressions": [
+          [
+            88,
+            87
+          ]
+        ],
+        "gaps": [
+          [
+            76,
+            78
+          ],
+          [
+            81,
+            84
+          ],
+          [
+            85,
+            88
+          ],
+          [
+            87,
+            89
+          ]
+        ]
+      }
+    },
+    {
+      "source_record_id": "arabian_nights-004",
+      "revision_id": 424983,
+      "words": 12082,
+      "segments": 1,
+      "unassigned_prefix": {
+        "blocks": 1,
+        "words": 3
+      },
+      "night_sequence": {
+        "first": 983,
+        "last": 1001,
+        "count": 16,
+        "regressions": [],
+        "gaps": [
+          [
+            983,
+            985
+          ],
+          [
+            988,
+            990
+          ],
+          [
+            999,
+            1001
+          ]
+        ]
+      }
+    },
+    {
+      "source_record_id": "arabian_nights-005",
+      "revision_id": 302476,
+      "words": 34976,
+      "segments": 3,
+      "unassigned_prefix": {
+        "blocks": 1,
+        "words": 3
+      },
+      "night_sequence": {
+        "first": 531,
+        "last": 560,
+        "count": 41,
+        "regressions": [
+          [
+            553,
+            531
+          ]
+        ],
+        "gaps": [
+          [
+            531,
+            537
+          ],
+          [
+            538,
+            540
+          ],
+          [
+            540,
+            544
+          ],
+          [
+            552,
+            554
+          ],
+          [
+            554,
+            556
+          ],
+          [
+            556,
+            558
+          ]
+        ]
+      }
+    },
+    {
+      "source_record_id": "kalila_dimna-006",
+      "revision_id": 251292,
+      "words": 558,
+      "segments": 1,
+      "unassigned_prefix": {
+        "blocks": 0,
+        "words": 0
+      },
+      "night_sequence": {
+        "first": null,
+        "last": null,
+        "count": 0,
+        "regressions": [],
+        "gaps": []
+      }
+    },
+    {
+      "source_record_id": "kalila_dimna-007",
+      "revision_id": 231372,
+      "words": 3574,
+      "segments": 1,
+      "unassigned_prefix": {
+        "blocks": 0,
+        "words": 0
+      },
+      "night_sequence": {
+        "first": null,
+        "last": null,
+        "count": 0,
+        "regressions": [],
+        "gaps": []
+      }
+    },
+    {
+      "source_record_id": "kalila_dimna-008",
+      "revision_id": 231368,
+      "words": 1241,
+      "segments": 1,
+      "unassigned_prefix": {
+        "blocks": 0,
+        "words": 0
+      },
+      "night_sequence": {
+        "first": null,
+        "last": null,
+        "count": 0,
+        "regressions": [],
+        "gaps": []
+      }
+    },
+    {
+      "source_record_id": "kalila_dimna-009",
+      "revision_id": 231363,
+      "words": 1277,
+      "segments": 1,
+      "unassigned_prefix": {
+        "blocks": 0,
+        "words": 0
+      },
+      "night_sequence": {
+        "first": null,
+        "last": null,
+        "count": 0,
+        "regressions": [],
+        "gaps": []
+      }
+    },
+    {
+      "source_record_id": "kalila_dimna-010",
+      "revision_id": 272368,
+      "words": 8807,
+      "segments": 1,
+      "unassigned_prefix": {
+        "blocks": 0,
+        "words": 0
+      },
+      "night_sequence": {
+        "first": null,
+        "last": null,
+        "count": 0,
+        "regressions": [],
+        "gaps": []
+      }
+    },
+    {
+      "source_record_id": "kalila_dimna-011",
+      "revision_id": 302554,
+      "words": 1718,
+      "segments": 1,
+      "unassigned_prefix": {
+        "blocks": 0,
+        "words": 0
+      },
+      "night_sequence": {
+        "first": null,
+        "last": null,
+        "count": 0,
+        "regressions": [],
+        "gaps": []
+      }
+    },
+    {
+      "source_record_id": "kalila_dimna-012",
+      "revision_id": 285510,
+      "words": 4498,
+      "segments": 1,
+      "unassigned_prefix": {
+        "blocks": 0,
+        "words": 0
+      },
+      "night_sequence": {
+        "first": null,
+        "last": null,
+        "count": 0,
+        "regressions": [],
+        "gaps": []
+      }
+    },
+    {
+      "source_record_id": "kalila_dimna-013",
+      "revision_id": 231362,
+      "words": 1185,
+      "segments": 1,
+      "unassigned_prefix": {
+        "blocks": 0,
+        "words": 0
+      },
+      "night_sequence": {
+        "first": null,
+        "last": null,
+        "count": 0,
+        "regressions": [],
+        "gaps": []
+      }
+    },
+    {
+      "source_record_id": "kalila_dimna-014",
+      "revision_id": 245541,
+      "words": 3280,
+      "segments": 1,
+      "unassigned_prefix": {
+        "blocks": 0,
+        "words": 0
+      },
+      "night_sequence": {
+        "first": null,
+        "last": null,
+        "count": 0,
+        "regressions": [],
+        "gaps": []
+      }
+    },
+    {
+      "source_record_id": "kalila_dimna-015",
+      "revision_id": 231369,
+      "words": 552,
+      "segments": 1,
+      "unassigned_prefix": {
+        "blocks": 0,
+        "words": 0
+      },
+      "night_sequence": {
+        "first": null,
+        "last": null,
+        "count": 0,
+        "regressions": [],
+        "gaps": []
+      }
+    },
+    {
+      "source_record_id": "kalila_dimna-016",
+      "revision_id": 381514,
+      "words": 998,
+      "segments": 1,
+      "unassigned_prefix": {
+        "blocks": 0,
+        "words": 0
+      },
+      "night_sequence": {
+        "first": null,
+        "last": null,
+        "count": 0,
+        "regressions": [],
+        "gaps": []
+      }
+    },
+    {
+      "source_record_id": "kalila_dimna-017",
+      "revision_id": 290965,
+      "words": 3429,
+      "segments": 1,
+      "unassigned_prefix": {
+        "blocks": 0,
+        "words": 0
+      },
+      "night_sequence": {
+        "first": null,
+        "last": null,
+        "count": 0,
+        "regressions": [],
+        "gaps": []
+      }
+    },
+    {
+      "source_record_id": "kalila_dimna-018",
+      "revision_id": 231360,
+      "words": 1165,
+      "segments": 1,
+      "unassigned_prefix": {
+        "blocks": 0,
+        "words": 0
+      },
+      "night_sequence": {
+        "first": null,
+        "last": null,
+        "count": 0,
+        "regressions": [],
+        "gaps": []
+      }
+    },
+    {
+      "source_record_id": "kalila_dimna-019",
+      "revision_id": 374244,
+      "words": 599,
+      "segments": 1,
+      "unassigned_prefix": {
+        "blocks": 0,
+        "words": 0
+      },
+      "night_sequence": {
+        "first": null,
+        "last": null,
+        "count": 0,
+        "regressions": [],
+        "gaps": []
+      }
+    },
+    {
+      "source_record_id": "kalila_dimna-020",
+      "revision_id": 231371,
+      "words": 287,
+      "segments": 1,
+      "unassigned_prefix": {
+        "blocks": 0,
+        "words": 0
+      },
+      "night_sequence": {
+        "first": null,
+        "last": null,
+        "count": 0,
+        "regressions": [],
+        "gaps": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,243 @@
+{
+  "schema": "ansg.classical_corpus_audit/1",
+  "corpus": "data/corpora/classical_arabic (20 Wikisource pages, pinned revisions)",
+  "thesis_claims": {
+    "anhc_total_tokens": {
+      "value": 70404829,
+      "ref": "App. A.20 Table A.17, p. 289 (70.4M in §3, Table 3.2 p. 56)"
+    },
+    "anhc_narratives": {
+      "value": [
+        55600,
+        5247
+      ],
+      "ref": "A.20 Table A.17 p. 289 (55,600) vs §5.4.4 p. 143 (5,247)"
+    },
+    "alf_layla_mahdi_tokens": {
+      "value": 8200000,
+      "ref": "§3.2.2, p. 57 ('Mahdi critical edition provides 8.2M tokens')"
+    },
+    "kalila_tokens": {
+      "value": 3100000,
+      "ref": "§3.2.2, p. 57"
+    },
+    "classical_tokens": {
+      "value": 24600000,
+      "ref": "Table 3.2, p. 56"
+    },
+    "nights_witnesses": {
+      "value": [
+        "Bulaq 1835",
+        "Calcutta II 1839-42",
+        "Mahdi 1984"
+      ],
+      "ref": "§3.2.4, p. 58"
+    }
+  },
+  "measured": {
+    "records": 20,
+    "words_total": 195197,
+    "words_alf_layla_pages": 162029,
+    "words_kalila_pages": 33168,
+    "unit_note": "whitespace words; the thesis reports tokens after preprocessing with an unspecified tokenizer, so ratios below are indicative only"
+  },
+  "ratios": {
+    "corpus_words_over_anhc_tokens_pct": 0.2772,
+    "alf_layla_words_over_claimed_mahdi_tokens_pct": 1.976,
+    "kalila_words_over_claimed_kalila_tokens_pct": 1.07
+  },
+  "nights_covered_by_segments": {
+    "count": 147,
+    "ranges": [
+      [
+        20,
+        20
+      ],
+      [
+        22,
+        41
+      ],
+      [
+        45,
+        76
+      ],
+      [
+        78,
+        81
+      ],
+      [
+        84,
+        85
+      ],
+      [
+        87,
+        130
+      ],
+      [
+        531,
+        554
+      ],
+      [
+        556,
+        556
+      ],
+      [
+        558,
+        560
+      ],
+      [
+        983,
+        983
+      ],
+      [
+        985,
+        988
+      ],
+      [
+        990,
+        999
+      ],
+      [
+        1001,
+        1001
+      ]
+    ]
+  },
+  "night_sequence_anomalies": {
+    "arabian_nights-002": {
+      "regressions": [],
+      "gaps": [
+        [
+          20,
+          22
+        ]
+      ]
+    },
+    "arabian_nights-003": {
+      "regressions": [
+        [
+          88,
+          87
+        ]
+      ],
+      "gaps": [
+        [
+          76,
+          78
+        ],
+        [
+          81,
+          84
+        ],
+        [
+          85,
+          88
+        ],
+        [
+          87,
+          89
+        ]
+      ]
+    },
+    "arabian_nights-004": {
+      "regressions": [],
+      "gaps": [
+        [
+          983,
+          985
+        ],
+        [
+          988,
+          990
+        ],
+        [
+          999,
+          1001
+        ]
+      ]
+    },
+    "arabian_nights-005": {
+      "regressions": [
+        [
+          553,
+          531
+        ]
+      ],
+      "gaps": [
+        [
+          531,
+          537
+        ],
+        [
+          538,
+          540
+        ],
+        [
+          540,
+          544
+        ],
+        [
+          552,
+          554
+        ],
+        [
+          554,
+          556
+        ],
+        [
+          556,
+          558
+        ]
+      ]
+    }
+  },
+  "duplicate_text_pairs_8gram_gt_2pct": [
+    {
+      "contained": "kalila_dimna-007",
+      "in": "kalila_dimna-019",
+      "containment_8gram": 0.163723
+    },
+    {
+      "contained": "kalila_dimna-019",
+      "in": "kalila_dimna-007",
+      "containment_8gram": 0.984797
+    }
+  ],
+  "pilot_split_v1_contamination_8gram": {
+    "validation": {
+      "kalila_dimna-015": 0.00367,
+      "kalila_dimna-016": 0.009082,
+      "kalila_dimna-018": 0.001729
+    },
+    "test": {
+      "kalila_dimna-019": 0.984797,
+      "kalila_dimna-020": 0.017857
+    }
+  },
+  "pilot_split_v1_leaked_pages": [
+    "kalila_dimna-019"
+  ],
+  "pilot_split_contamination_8gram": {
+    "validation": {
+      "kalila_dimna-010": 0.0,
+      "kalila_dimna-017": 0.0,
+      "kalila_dimna-018": 0.001729
+    },
+    "test": {
+      "kalila_dimna-015": 0.005505,
+      "kalila_dimna-020": 0.017857
+    }
+  },
+  "pilot_split_leaked_pages": [],
+  "sinbad_page_containment_in_other_nights_pages": 0.004894,
+  "ali_baba_mentions": 0,
+  "verdict": {
+    "equivalent_to_anhc": false,
+    "reasons": [
+      "size: about 0.28% of the claimed ANHC token count",
+      "sources: an unnamed Wikisource edition of selected Alf Layla parts and Kalila chapters (Wikisource category 'texts of unknown source' on the Kalila pages); none of the three witnesses named in §3.2.4, no Maqamat/Aghani/Jahiz, no modern or contemporary material",
+      "no dialectal text and no DIA/MOTIF/MORAL annotations",
+      "page records are not narratives: tales cross page boundaries (part 1 ends mid-tale)"
+    ]
+  }
+}
