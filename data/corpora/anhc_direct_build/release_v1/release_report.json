@@ -1,6 +1,6 @@
 {
   "schema": "ansg.direct_build_release_report/1",
-  "built_utc": "2026-11-14T09:16:12.806074+00:00",
+  "built_utc": "2026-11-14T09:30:13.536161+00:00",
   "profile_id": "ANHC-direct-build-v1",
   "status": "reproducible_direct_build_not_historical_reproduction",
   "inputs": {
@@ -11,18 +11,23 @@
     "sentencepiece_version": "0.2.0",
     "vocabulary_size": 32000
   },
+  "source_text_records": 1398,
   "candidate_sources": 1388,
+  "supplemental_classical_chapters": 10,
   "candidate_scope_counts": {
     "narrative_core": 941,
-    "narrative_adjacent": 447
+    "narrative_adjacent": 447,
+    "classical_narrative": 10
   },
   "candidate_scope_whitespace_words": {
     "narrative_core": 25875270,
-    "narrative_adjacent": 25692353
+    "narrative_adjacent": 25692353,
+    "classical_narrative": 30115
   },
   "candidate_scope_sentencepiece_tokens": {
     "narrative_core": 42150781,
-    "narrative_adjacent": 40554840
+    "narrative_adjacent": 40554840,
+    "classical_narrative": 51884
   },
   "grouped_splits": {
     "algorithm": "SHA-256(seed, work_group) threshold assignment; group rows cannot cross splits",
@@ -34,11 +39,11 @@
     },
     "realized": {
       "train": {
-        "records": 1148,
-        "groups": 1142,
+        "records": 1158,
+        "groups": 1143,
         "story_unit_rows": 1394,
-        "observed_whitespace_words": 42470295,
-        "sentencepiece_tokens": 68247176
+        "observed_whitespace_words": 42500410,
+        "sentencepiece_tokens": 68299060
       },
       "validation": {
         "records": 115,
@@ -55,6 +60,52 @@
         "sentencepiece_tokens": 7506234
       }
     }
+  },
+  "auxiliary_dialect_support": {
+    "included_in_narrative_counts": false,
+    "included_in_story_splits": false,
+    "redistribution_status": "unresolved; count report only",
+    "summary": {
+      "nonempty_rows": 66247,
+      "unique_rows_within_file_only": 66066,
+      "whitespace_words": 924493,
+      "sentencepiece_tokens": 1668817,
+      "duplicate_rows_within_file": 181
+    },
+    "sources": [
+      {
+        "source_id": "user-provided-shami-jordanian",
+        "dialect_label_from_file_name": "Jordanian",
+        "nonempty_rows": 7017,
+        "whitespace_words": 122346,
+        "sentencepiece_tokens": 223661,
+        "redistribution_status": "unresolved"
+      },
+      {
+        "source_id": "user-provided-shami-palestinian",
+        "dialect_label_from_file_name": "Palestinian",
+        "nonempty_rows": 10642,
+        "whitespace_words": 174967,
+        "sentencepiece_tokens": 325367,
+        "redistribution_status": "unresolved"
+      },
+      {
+        "source_id": "user-provided-shami-syrian",
+        "dialect_label_from_file_name": "Syrian",
+        "nonempty_rows": 37759,
+        "whitespace_words": 523591,
+        "sentencepiece_tokens": 937545,
+        "redistribution_status": "unresolved"
+      },
+      {
+        "source_id": "user-provided-shami-lebanese",
+        "dialect_label_from_file_name": "Lebanese",
+        "nonempty_rows": 10829,
+        "whitespace_words": 103589,
+        "sentencepiece_tokens": 182244,
+        "redistribution_status": "unresolved"
+      }
+    ]
   },
   "story_unit_rows": 1634,
   "story_units_by_split": {
@@ -84,12 +135,31 @@
     "reported_corpus_tokens": 70404829,
     "reported_triple_covered_tokens": 23000000,
     "reproduces_historical_counts": false,
-    "reason": "Direct-build tokenizer, sources, boundaries, and original adjudicated annotation records differ or remain unavailable."
+    "reported_narrative_count_variants": {
+      "appendix_A17": 55600,
+      "chapter_5_section_5_4_4": 5247
+    },
+    "reported_split_in_chapter_5_section_5_4_4": {
+      "train": 4197,
+      "validation": 525,
+      "test": 525
+    },
+    "reported_split_method": "TF-IDF representations then DBSCAN (epsilon=0.3, min_samples=2); stratification by dialect, cultural density, and period",
+    "reported_tokenizer": "32K SentencePiece with CAMeL Tools morphological preprocessing and root preservation; trained on 50M representative tokens",
+    "internal_conflicts": [
+      "Appendix A.17 reports 55,600 narratives while Chapter 5 section 5.4.4 reports 5,247; unit relationship is unspecified.",
+      "Dialect distributions differ between Chapter 3 Table 3.3, Chapter 5 stratification targets, and Appendix A.17.",
+      "Chapter 3 temporal distribution differs from Chapter 5 temporal stratification targets.",
+      "Original source manifest, historical tokenizer and adjudicated annotation exports are unavailable to this build."
+    ],
+    "reason": "Direct-build tokenizer, sources, boundaries, split method, and original adjudicated annotation records differ or remain unavailable."
   },
   "limitations": [
     "Publisher categories are candidate filters; whole books are not verified story units.",
     "The 80/10/10 ratios and hash seed are direct-build operational choices, not historical thesis split values.",
     "DIA/MOTIF/MORAL outputs are empty templates; no labels or human adjudication are fabricated.",
+    "Alf Layla volumes are already among the Arabic E-Book Corpus candidates and are counted once; story-span rows add no duplicate text tokens.",
+    "Optional user-provided dialect support counts are auxiliary and excluded from story-token and split totals.",
     "The script emits source-record ID lists and metadata; source text remains in its attributed input files."
   ]
 }
