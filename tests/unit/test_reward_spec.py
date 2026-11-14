@@ -31,21 +31,36 @@ def test_spec_is_valid_and_selects_nothing(spec):
     assert spec.data["selected_ppo_variant"] is None
 
 
-def test_every_variant_is_blocked_and_cmpi_is_undefined(spec):
-    assert spec.components["CMPI"]["status"] == "undefined"
+def test_cmpi_is_thesis_defined_and_blocks_only_through_its_dimensions(spec):
+    cmpi = spec.components["CMPI"]
+    assert cmpi["status"] == "thesis_defined_composite"
+    assert cmpi["definition_variant"] == "cmpi_definition_s5_1_s8_7_4"
+    nodes = {t.name: t.weight for t in spec.nodes("cmpi_definition_s5_1_s8_7_4")["CMPI"]}
+    assert nodes == {"rhetorical_devices": 0.35, "dialectal_appropriateness": 0.25,
+                     "narrative_structure": 0.25, "moral_framing": 0.15}
     for vid in spec.variants:
         assert spec.blockers(vid), f"{vid} unexpectedly computable"
     for vid in ("ch4_eq_4_26_to_4_29", "ch4_table_4_1_and_s4_1_1", "ch5_eq_5_1_s5_6_3"):
-        assert "CMPI" in {b["component"] for b in spec.blockers(vid)}
+        comps = {b["component"] for b in spec.blockers(vid)}
+        assert "CMPI" not in comps
+        assert {"CMPI->rhetorical_devices", "CMPI->dialectal_appropriateness",
+                "CMPI->narrative_structure", "CMPI->moral_framing"} <= comps
 
 
-def test_evaluate_refuses_undefined_components_by_default(spec):
+def test_evaluate_refuses_undefined_inputs_by_default(spec):
     values = {c: 0.5 for c in spec.leaf_components("ch4_table_4_1_and_s4_1_1")}
-    with pytest.raises(UndefinedComponentError, match="CMPI"):
+    with pytest.raises(UndefinedComponentError, match="CMPI->rhetorical_devices"):
         spec.evaluate("ch4_table_4_1_and_s4_1_1", values)
     res = spec.evaluate("ch4_table_4_1_and_s4_1_1", values, allow_undefined=True)
     assert res["reproduces_thesis_result"] is False
-    assert set(res["caller_supplied_undefined"]) == {"CMPI", "PCI"}
+    assert "PCI" in res["caller_supplied_undefined"]
+
+
+def test_cmpi_leaf_can_be_computed_from_its_dimensions(spec):
+    dims = {"rhetorical_devices": 0.9, "dialectal_appropriateness": 0.8, "narrative_structure": 0.7, "moral_framing": 0.6}
+    res = spec.evaluate("ch4_table_4_1_and_s4_1_1", {**dims, "BLEU": 0.5, "PCI": 0.5}, allow_undefined=True)
+    cmpi = 0.35 * 0.9 + 0.25 * 0.8 + 0.25 * 0.7 + 0.15 * 0.6
+    assert res["value"] == pytest.approx(0.45 * cmpi + 0.35 * 0.5 + 0.20 * 0.5)
 
 
 def test_worked_examples_recomputed_from_printed_inputs(spec):
@@ -92,7 +107,7 @@ def test_consistent_with_thesis_variants_transcription(spec):
     assert sorted(ch4["R_coh"].values()) == sorted(old["ch4_eq_4_26_4_29"]["coherence"].values())
     assert list(nodes("ch4_table_4_1_and_s4_1_1")["R_total"].values()) == list(old["ch4_table_4_1_and_4_1_1"]["total"].values())
     assert nodes("appendix_a3_a11")["R_total"] == old["appendix_a3_a11"]["total"]
-    assert nodes("ch5_s5_1_cmpi_composition")["CMPI_ch5_composition"] == {
+    assert nodes("cmpi_definition_s5_1_s8_7_4")["CMPI"] == {
         "rhetorical_devices": 0.35, "dialectal_appropriateness": 0.25, "narrative_structure": 0.25, "moral_framing": 0.15}
     assert sorted(old["ch5_5_1"]["CMPI_internal"].values()) == [0.15, 0.25, 0.25, 0.35]
     pen = old["ch5_5_6_3"]["penalties"]
@@ -128,6 +143,8 @@ def test_ppo_kwargs_require_an_explicit_variant(spec):
     (lambda d: d["variants"]["ch4_eq_4_26_to_4_29"]["formula"]["R_cult"]["sum"].update({"R_total": 0.0}), "cycle"),
     (lambda d: d.__setitem__("selected_variant", "invented"), "not a variant"),
     (lambda d: d["components"]["CMPI"].__setitem__("status", "defined"), "status"),
+    (lambda d: d["variants"]["cmpi_definition_s5_1_s8_7_4"]["formula"]["CMPI"]["sum"].update(
+        {"rhetorical_devices": 0.30, "moral_framing": 0.20}), "differ from ansg.evaluation.cmpi"),
 ])
 def test_validation_catches_broken_specs(spec, mutate, message):
     data = copy.deepcopy(spec.data)
@@ -141,6 +158,7 @@ def test_cli_exit_codes(tmp_path, capsys):
     assert cli.main(["--variant", "ch5_eq_5_1_s5_6_3"]) == 2
     out = capsys.readouterr().out
     assert "BLOCKED" in out and "no thesis result is reproduced" in out
+    assert "CMPI = 0.35*rhetorical_devices" in out and "formula pending" in out
     broken = yaml.safe_load(DEFAULT_SPEC.read_text(encoding="utf-8"))
     broken["variants"]["appendix_a21"]["formula"]["cultural_vs_fluency"]["sum"]["fluency"] = 0.5
     p = tmp_path / "spec.yaml"

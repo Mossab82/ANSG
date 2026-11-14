@@ -5,11 +5,12 @@ Registry: `configs/evaluation/craft.yaml`. Conflicts: `SPECIFICATION_CONFLICTS.m
 
 ## 1. Bottom line
 
-**No CRAFT metric can be implemented from the dissertation as written.** CRAFT
-("Cultural Reasoning and Authenticity Fidelity Test") is described three
-incompatible ways (C-EVAL-1) and none of its component metrics — CMPI,
-CulturalScore, ALDA, MFA, PCI — has an equation or algorithm. The central metric
-CMPI has two different expansions and no definition (C-EVAL-2). Therefore every
+**No CRAFT metric can be computed from text with what the dissertation specifies.**
+CRAFT ("Cultural Reasoning and Authenticity Fidelity Test") is described three
+incompatible ways (C-EVAL-1). CulturalScore, ALDA, MFA and PCI have no equation or
+algorithm. The central metric CMPI has two different expansions; its equation is defined as an AHP-weighted
+composite (Ch. 5 §5.1 p.131; §8.7.4 p.223; implemented in `ansg.evaluation.cmpi`), but the
+scorers of its four dimensions are not (C-EVAL-2). Therefore every
 registry entry has status `incomplete`, and `ansg.evaluation.craft` refuses to
 compute them. What *is* fully specified (statistical procedures, gap closure, CRD
 up to two stated ambiguities) is implemented and tested.
@@ -31,7 +32,7 @@ reward components and human-evaluation dimensions, not a CRAFT definition.
 
 | Metric | Expansion (location) | Definition in thesis | Range / direction | Status | Missing for implementation |
 | --- | --- | --- | --- | --- | --- |
-| CMPI | Cultural *Motif* Preservation Index (Ch. 4, Ch. 6, glossary); Cultural *Meaning* Preservation Index (Ch. 5 §5.1, Table A.2) | Verbal only. Ch. 5 §5.1: weighted rhetorical 0.35, dialectal 0.25, narrative structure 0.25, moral 0.15. Ch. 6: "hierarchical schema activation scoring", extended from CULTURA with 847 concepts and cross-dialect weighting. | 0–1, ↑ | incomplete | equation; sub-scores; schema-activation procedure; normalisation |
+| CMPI | Cultural *Motif* Preservation Index (Ch. 4, Ch. 6, glossary); Cultural *Meaning* Preservation Index (Ch. 5 §5.1, Table A.2) | **Equation defined** (prose, AHP weights): CMPI = 0.35·rhetorical devices + 0.25·dialectal appropriateness + 0.25·narrative structure + 0.15·moral framing (§5.1 p.131; §8.7.4 p.223; Table A.2 p.268 'composite metric (0–1 scale)'); ANSG reference `ansg.evaluation.cmpi.ansg_cmpi`. Ch. 6 (p.160): originally CULTURA's metric ('hierarchical schema activation scoring'), extended with 847 concepts and cross-dialect weighting. CULTURA/CST-Onto/MM-GTA metrics of the same name are separate (`configs/evaluation/cmpi_variants.yaml`). | 0–1, ↑ | incomplete (dimension scorers) | dimension scorers; relation of Table 6.4 dimensions and 'Overall CMPI' to the definition |
 | CulturalScore | rhetorical sophistication (NarrativeMind) | sajʿ, jinās, ṭibāq presence/appropriateness; human ceiling 0.96. §3.6.1 uses the name for AHP-based expert ratings 0–100. | 0–1, ↑ | incomplete | detection method for each device; aggregation (C-EVAL-5) |
 | MFA | Moral Framework Alignment (glossary, §6.2.4) | none | — | incomplete | everything |
 | ALDA | Arabic Linguistic Dialectal Accuracy | Table 6.6 lists consistency %, authenticity (1–5 native rating), register accuracy %, code-switch quality (/5) | % or 0–1 (C-EVAL-6) | incomplete | formulas; dialect classifier; combination |

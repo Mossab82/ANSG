@@ -1,0 +1,91 @@
+# CMPI definitions: the dissertation's ANSG definition, kept apart from the
+# metrics of the same name in the author's earlier systems.
+#
+# * `ansg_thesis` is the implementation reference for ANSG
+#   (src/ansg/evaluation/cmpi.py). Its equation is printed in prose in the
+#   dissertation; the scorers of its four dimensions are not specified.
+# * `cultura`, `cst_onto`, `mm_gta` are DIFFERENT metrics (other papers, other
+#   test sets, other protocols). Their formulas and results are never mixed with
+#   ANSG's: no conversion, no comparison, no substitution. The papers are not in
+#   this repository; everything not stated in the dissertation is `pending`.
+#
+# Pages = PDF footers of the supplied Markdown export of the dissertation.
+
+schema: ansg.cmpi_variants/1
+
+ansg_thesis:
+  name: "Cultural Motif Preservation Index"
+  name_variants:
+    - {name: "Cultural Motif Preservation Index", where: "§4.5.1 p.115; Ch.6 intro p.160; glossary p.20"}
+    - {name: "Cultural Meaning Preservation Index", where: "§5.1 p.131; App. A.1 Table A.2 p.268"}
+  equation: "CMPI = 0.35*rhetorical_devices + 0.25*dialectal_appropriateness + 0.25*narrative_structure + 0.15*moral_framing"
+  weights:
+    rhetorical_devices: 0.35
+    dialectal_appropriateness: 0.25
+    narrative_structure: 0.25
+    moral_framing: 0.15
+  range: [0.0, 1.0]
+  weight_derivation: "AHP consensus among 12 Arabic literature experts (§5.1 p.131; §8.7.4 p.223)"
+  sources:
+    - {ref: "§5.1", page: 131, text: "weighted assessment of rhetorical devices (0.35), dialectal appropriateness (0.25), narrative structure (0.25), and moral framing (0.15). These weights derive from Analytic Hierarchy Process (AHP) consensus among 12 Arabic literature experts"}
+    - {ref: "§8.7.4", page: 223, text: "CMPI's component weights (0.35 rhetorical devices, 0.25 dialectal, 0.25 structure, 0.15 moral) derive from AHP expert consensus"}
+    - {ref: "App. A.1 Table A.2", page: 268, text: "Composite metric (0-1 scale) measuring authentic cultural preservation; defined in Chapter 4"}
+    - {ref: "Ch.6 intro", page: 160, text: "Originally introduced in our CULTURA system ... The thesis extends CMPI with enhanced granularity for dialectal variation and integration within the unified CRAFT evaluation framework"}
+  thesis_extensions_of_cultura_metric:   # p.160; stated, not specified numerically
+    - "Extended schema coverage from 3-agent specialization to unified architecture with 847 CST-Onto concepts"
+    - "Added cross-dialectal consistency weighting"
+    - "Integrated with human judgment validation protocol"
+  dimension_scorers:                      # how each dimension is scored from text
+    rhetorical_devices: {status: unspecified, note: "Table 6.4 caption: 'Rhetoric measures classical device deployment' (description only)"}
+    dialectal_appropriateness: {status: unspecified}
+    narrative_structure: {status: unspecified}
+    moral_framing: {status: unspecified, note: "Table 6.4 'Moral Framework measures ethical integration' (description only)"}
+  open_issues:
+    - "Table A.2 (p.268) says CMPI is 'defined in Chapter 4' and §4.5.1 (p.115) points to §3.6.1, which defines CRD (Eq. 3.1); the weighted definition appears in §5.1 (p.131) and §8.7.4 (p.223)."
+    - "Table 6.4 (p.170) reports five dimensions (Rhetoric, Formulaic, Metaphor, Prosody, Moral Framework) plus 'Overall CMPI'; three of them are not CMPI dimensions, and dialectal appropriateness and narrative structure are not reported. The overall value cannot be recomputed from the table with the definition's weights."
+    - "How 'cross-dialectal consistency weighting' (p.160) relates to the dialectal_appropriateness term is not stated."
+    - "Eq. 4.26 (p.115) uses CMPI (0.35) and rhetorical devices (0.25) as separate R_cult terms although CMPI already contains rhetorical devices (0.35): rhetorical devices are counted twice in R_cult."
+
+cultura:
+  status: different_metric
+  system: "CULTURA: A Multi-agent Neural-Symbolic System for Culturally-Aware Arabic Story Generation"
+  publication: "Ibrahim, Gervás, Méndez (2026b), PRIMA 2025, LNCS 16366, DOI 10.1007/978-3-032-13562-9_24"
+  paper_available_in_repository: false
+  description_in_thesis: "quantifies the preservation of culturally significant patterns through hierarchical schema activation scoring (p.160)"
+  formula: pending        # not printed in the dissertation; requires the paper
+  dimensions: pending
+  results_reported_in_thesis:            # CULTURA's own test set and protocol; not comparable to ANSG's CMPI
+    - {value: 0.82, baseline: "AraT5 0.49", relative: "+67%", where: "§4.1.5 p.87; Ch.6 intro p.160; §2.7.3 p.39"}
+    - {value: "31% CMPI degradation without schema constraints (ablation)", where: "§4.1.5 p.87"}
+  thesis_reevaluation: "p.163: 're-evaluated on the unified thesis test set ... yields comparable performance'; no value printed"
+  printed_equation_in_thesis:
+    id: "Eq. 4.1"
+    page: 87
+    text: "p_gated(w_t|c,s) = alpha * p_LM(w_t|c) + (1 - alpha) * p_schema(w_t|s), alpha = 0.7 (fixed)"
+    is_cmpi: false       # this is CULTURA's schema gating, not a CMPI formula
+    apparent_conflicts:  # recorded, not resolved
+      - "p_schema is described as 'encodes schema constraint satisfaction' (p.87), not as a probability distribution over the vocabulary; unless it sums to 1, p_gated is not a normalised distribution. Normalisation is not stated."
+      - "The same agent is described as 'AraT5 fine-tuned with PPLM ... integrating schema guidance through attention modulation' (p.86), whereas Eq. 4.1 interpolates output probabilities; PPLM steers hidden activations by gradients. Three mechanisms are named for one component."
+      - "A fixed weight of 0.7 is attributed to CULTURA's gate alpha (Eq. 4.1, p.87-88) and to NarrativeMind's constraint weighting lambda (p.78; Table 4.3 p.86; Table 6.1 lambda_c = 0.7), while Table A.6 gives NarrativeMind lambda = 0.4 (C-EVAL-9)."
+    paper_equation_check: pending   # compare with the CULTURA paper's printed equation once the paper is supplied
+
+cst_onto:
+  status: different_metric
+  system: "CST-Onto: An Ontological Framework for Culturally-Grounded Narrative Generation in Arabic"
+  publication: "Ibrahim, Gervás, Méndez (2025a), K-CAP '25, DOI 10.1145/3731443.3771364"
+  paper_available_in_repository: false
+  formula: pending
+  results_reported_in_thesis:
+    - {metric: "CulturalScore", value: 0.89, where: "Table 6.1 note p.162; §8 p.193", note: "CulturalScore, not CMPI"}
+    - {metric: "appropriateness vs rule compliance", value: "50-53% vs 89%", where: "§4.1.1 p.78"}
+  thesis_reevaluation: "p.163: 'CST-Onto evaluation focuses on symbolic reasoning capability rather than fluent generation'; Table 6.4 has no CST-Onto row"
+
+mm_gta:
+  status: different_metric
+  system: "MM-GTA: Morphological Modeling via Graph-Based Text Adaptation"
+  publication: "K-CAP '25, DOI 10.1145/3731443.3771368"
+  paper_available_in_repository: false
+  formula: pending
+  results_reported_in_thesis:
+    - {metric: "CMPI (thesis re-evaluation under the unified CRAFT protocol)", value: 0.78, where: "Table 6.4 p.170; p.166", note: "the thesis's measurement, not the MM-GTA paper's metric"}
+  thesis_reevaluation: "p.163: prior systems re-evaluated on the unified thesis test set; 'Original papers report metrics under different evaluation protocols'"

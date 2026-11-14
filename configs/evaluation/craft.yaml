@@ -1,8 +1,10 @@
 # CRAFT evaluation specification registry — transcribed from the dissertation.
 # Full analysis: docs/CRAFT_EVALUATION_SPECIFICATION.md. Conflicts: docs/SPECIFICATION_CONFLICTS.md.
 #
-# No CRAFT metric has a computable definition in the thesis, so every entry is
-# "incomplete" and ansg.evaluation.craft refuses to compute it.
+# No CRAFT metric can be computed from text with what the thesis specifies, so every
+# entry is "incomplete" and ansg.evaluation.craft refuses to score samples. CMPI's
+# aggregation equation IS defined (Ch.5 §5.1) and implemented in ansg.evaluation.cmpi;
+# its dimension scorers are not.
 #
 # The four "dimensions" are the grouping requested in the Phase 1 brief. The thesis
 # itself describes CRAFT in three incompatible ways (C-EVAL-1):
@@ -20,19 +22,24 @@ dimensions:
 metrics:
   - name: CMPI
     dimension: cultural_authenticity
+    # The EQUATION is defined (below); the metric stays "incomplete" because the
+    # dissertation gives no procedure for scoring the four dimensions from text.
     status: incomplete
-    thesis_reference: "Ch.4 §4.5.1 (Eq.4.26 term); Ch.5 §5.1; Ch.6 intro; App. A.1 Table A.2"
-    equation: null
+    thesis_reference: "Ch.5 §5.1 p.131 (definition); §8.7.4 p.223; App. A.1 Table A.2 p.268; Ch.6 intro p.160; Ch.4 §4.5.1 (Eq.4.26 term)"
+    equation: "CMPI = 0.35*rhetorical_devices + 0.25*dialectal_appropriateness + 0.25*narrative_structure + 0.15*moral_framing"
+    implementation: "ansg.evaluation.cmpi.ansg_cmpi (ANSG reference; dimension scores supplied by the caller)"
+    variants_file: configs/evaluation/cmpi_variants.yaml
     range: [0.0, 1.0]
     higher_is_better: true
-    requires: [ckg, cst_onto]
+    requires: [dimension_scorers]
     notes: >-
-      No equation anywhere. Expanded as 'Cultural Motif Preservation Index' (Ch.4, Ch.6, glossary)
-      and 'Cultural Meaning Preservation Index' (Ch.5, Table A.2). Ch.5 §5.1 gives weights rhetorical
-      0.35 / dialectal 0.25 / narrative structure 0.25 / moral 0.15 without sub-metric definitions;
-      Ch.6 says 'hierarchical schema activation scoring' from CULTURA; Table A.2 says 'defined in
-      Chapter 4' but Ch.4 points to §3.6.1 (CRD). Table 6.4 'Overall CMPI' is not a function of the
-      listed dimension scores (ANSG: mean 0.852, overall 0.92). C-EVAL-2.
+      Defined as an AHP-weighted composite of four dimensions (§5.1 p.131; repeated §8.7.4 p.223;
+      'composite metric (0-1 scale)', Table A.2 p.268). Dimension scorers are not specified.
+      Name varies: 'Cultural Motif Preservation Index' (Ch.4, Ch.6, glossary) vs 'Cultural Meaning
+      Preservation Index' (Ch.5, Table A.2). Table A.2 says 'defined in Chapter 4' and Ch.4 points
+      to §3.6.1 (CRD). Table 6.4 reports other dimensions (Rhetoric, Formulaic, Metaphor, Prosody,
+      Moral Framework) and an 'Overall CMPI' not derivable from them (ANSG: mean 0.852, overall 0.92).
+      CULTURA / CST-Onto / MM-GTA metrics of the same name are different metrics (cmpi_variants.yaml). C-EVAL-2.
 
   - name: CulturalScore
     dimension: cultural_authenticity

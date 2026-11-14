@@ -7,8 +7,10 @@ for **caller-supplied** component values. It deliberately:
 
 * selects no variant (``selected_variant`` must be chosen explicitly by the
   author; :func:`load_reward_spec` exposes it, nothing defaults it);
-* computes no component. CMPI, virtue coherence, coreference, PCI and the other
-  sub-metrics have no operational definition in the thesis; their status is
+* scores no text. CMPI's equation is defined in the thesis (a weighted
+  composite, §5.1 p.131; implemented in :mod:`ansg.evaluation.cmpi`), but the
+  scorers of its four dimensions are not; virtue coherence, coreference, PCI and
+  other sub-metrics have no operational definition at all. Their status is
   recorded and :meth:`RewardSpec.evaluate` refuses them unless the caller opts
   in with ``allow_undefined=True`` (used to re-check the printed worked
   examples). Results are always marked ``reproduces_thesis_result: False``.
@@ -30,7 +32,8 @@ ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SPEC = ROOT / "configs" / "specification" / "reward_rl_variants.yaml"
 TRAINING_PY = Path(__file__).resolve().parent / "training.py"
 
-COMPONENT_STATUSES = ("undefined", "underspecified", "normalisation_unspecified", "standard_metric")
+COMPONENT_STATUSES = ("thesis_defined_composite", "undefined", "underspecified", "normalisation_unspecified",
+                      "standard_metric")
 VARIANT_KINDS = ("full", "fragment", "ratio")
 TRANSFORMS = {None: lambda x: x, "one_minus": lambda x: 1.0 - x}
 
@@ -102,8 +105,16 @@ class RewardSpec:
         out = []
         for name in self.leaf_components(variant_id):
             comp = self.components.get(name, {})
-            if comp.get("status") != "standard_metric":
-                out.append({"component": name, "status": comp.get("status", "unknown"),
+            status = comp.get("status")
+            if status == "thesis_defined_composite":
+                # the composite's equation is defined; what blocks is its inputs
+                for sub in self._composite_terms(name):
+                    sc = self.components.get(sub, {})
+                    if sc.get("status") != "standard_metric":
+                        out.append({"component": f"{name}->{sub}", "status": sc.get("status", "unknown"),
+                                    "reference": sc.get("reference")})
+            elif status != "standard_metric":
+                out.append({"component": name, "status": status or "unknown",
                             "reference": comp.get("reference")})
         v = self.variant(variant_id)
         if (v.get("kl_penalty") or {}).get("placement") == "unspecified":
@@ -115,6 +126,24 @@ class RewardSpec:
                             "reference": "printed as an unweighted sum; its range exceeds [0,1]"})
         return out
 
+    def _composite_terms(self, name: str) -> list[str]:
+        comp = self.components.get(name, {})
+        dv = comp.get("definition_variant")
+        if not dv or dv not in self.variants:
+            return []
+        return [t.name for t in _terms(self.variants[dv]["formula"].get(name) or {})]
+
+    def composite_value(self, name: str, values: Mapping[str, float]) -> float | None:
+        """Value of a thesis-defined composite (e.g. CMPI) from its dimension values, if all are given."""
+        comp = self.components.get(name, {})
+        dv = comp.get("definition_variant")
+        if comp.get("status") != "thesis_defined_composite" or not dv:
+            return None
+        terms = _terms(self.variants[dv]["formula"][name])
+        if not all(t.name in values for t in terms):
+            return None
+        return sum(t.weight * TRANSFORMS[t.transform](float(values[t.name])) for t in terms)
+
     # ------------------------------------------------------------ validation
     def validate(self) -> list[str]:
         problems: list[str] = []
@@ -124,6 +153,16 @@ class RewardSpec:
                 problems.append(f"component {name!r}: status {c.get('status')!r} not in {COMPONENT_STATUSES}")
             if not c.get("reference"):
                 problems.append(f"component {name!r}: missing reference")
+            if c.get("status") == "thesis_defined_composite":
+                dv = c.get("definition_variant")
+                if dv not in self.variants or name not in (self.variants[dv].get("formula") or {}):
+                    problems.append(f"component {name!r}: definition_variant {dv!r} must define node {name!r}")
+        if comps.get("CMPI", {}).get("status") == "thesis_defined_composite":
+            from .evaluation.cmpi import ANSG_CMPI_WEIGHTS
+            defined = {t.name: t.weight for t in _terms(self.variants.get(comps["CMPI"].get("definition_variant"), {})
+                                                      .get("formula", {}).get("CMPI") or {})}
+            if defined != ANSG_CMPI_WEIGHTS:
+                problems.append(f"CMPI definition weights {defined} differ from ansg.evaluation.cmpi {ANSG_CMPI_WEIGHTS}")
         sel = self.selected_variant
         if sel is not None and sel not in self.variants:
             problems.append(f"selected_variant {sel!r} is not a variant")
@@ -212,8 +251,14 @@ class RewardSpec:
         blockers = [b for b in self.blockers(variant_id) if b["status"] not in ("range_unnormalised",)]
         if blockers and not allow_undefined:
             raise UndefinedComponentError(
-                f"variant {variant_id!r} needs components without an operational definition: "
+                f"variant {variant_id!r} needs inputs the thesis does not define operationally: "
                 + ", ".join(f"{b['component']} ({b['status']})" for b in blockers))
+        values = dict(values)
+        for leaf in self.leaf_components(variant_id):
+            if leaf not in values:
+                cv = self.composite_value(leaf, values)
+                if cv is not None:
+                    values[leaf] = cv
         missing = [c for c in self.leaf_components(variant_id) if c not in values]
         if missing:
             raise KeyError(f"missing component values: {missing}")

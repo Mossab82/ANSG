@@ -3,9 +3,10 @@
 
 Specification audit only: it validates the transcription, recomputes the printed
 worked examples, lists weight sets reused for different terms, compares the
-defaults in ansg.training with the PPO variants, and reports which components
-block each variant. It computes no reward from text, defines no CMPI, selects no
-variant and trains nothing.
+defaults in ansg.training with the PPO variants, reports the dissertation's CMPI
+definition and the separate CULTURA / CST-Onto / MM-GTA metrics, and reports
+which inputs block each variant. It scores no text, selects no variant and
+trains nothing.
 
 Exit status:
   0  specification valid (without --variant)
@@ -24,24 +25,36 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+from ansg.evaluation.cmpi import (  # noqa: E402
+    ANSG_CMPI_REFERENCE, ANSG_CMPI_WEIGHTS, load_cmpi_variants, validate_cmpi_variants,
+)
 from ansg.reward_spec import DEFAULT_SPEC, load_reward_spec  # noqa: E402
 
 
 def build_report(spec_path, variant=None):
     spec = load_reward_spec(spec_path)
     problems = spec.validate()
+    cmpi_variants = load_cmpi_variants()
+    problems += [f"cmpi_variants: {p}" for p in validate_cmpi_variants(cmpi_variants)]
     report = {
         "spec": str(spec_path),
         "problems": problems,
         "selected_variant": spec.selected_variant,
         "selected_ppo_variant": spec.data.get("selected_ppo_variant"),
+        "cmpi_definition": {"weights": ANSG_CMPI_WEIGHTS, "reference": ANSG_CMPI_REFERENCE,
+                            "equation": cmpi_variants["ansg_thesis"]["equation"],
+                            "dimension_scorers": cmpi_variants["ansg_thesis"]["dimension_scorers"],
+                            "open_issues": cmpi_variants["ansg_thesis"]["open_issues"]},
+        "other_cmpi_metrics": {k: {"status": cmpi_variants[k]["status"], "publication": cmpi_variants[k]["publication"],
+                                   "formula": cmpi_variants[k]["formula"]} for k in ("cultura", "cst_onto", "mm_gta")},
+        "cultura_eq_4_1_apparent_conflicts": cmpi_variants["cultura"]["printed_equation_in_thesis"]["apparent_conflicts"],
         "variants": {vid: {"kind": v["kind"], "reference": v["reference"],
                            "blockers": spec.blockers(vid)} for vid, v in spec.variants.items()} if not problems else {},
         "worked_examples": spec.worked_examples() if not problems else [],
         "same_weights_different_terms": spec.same_weights_different_terms() if not problems else [],
         "code_alignment": spec.code_alignment() if not problems else {},
-        "notice": ("Specification audit only. No reward was computed from text, no CMPI is defined, "
-                   "no variant is selected and no thesis result is reproduced."),
+        "notice": ("Specification audit only. No reward or CMPI was computed from text (CMPI's dimension "
+                   "scorers are unspecified), no variant is selected and no thesis result is reproduced."),
     }
     if variant is not None and not problems:
         spec.variant(variant)
@@ -62,6 +75,14 @@ def render(r):
     if r["problems"]:
         out += ["", "Specification problems:"] + [f"  - {p}" for p in r["problems"]]
         return "\n".join(out)
+    c = r["cmpi_definition"]
+    out += ["", f"CMPI (dissertation definition, ANSG reference; {c['reference']}):", f"  {c['equation']}",
+            "  dimension scorers: " + ", ".join(f"{k}={v['status']}" for k, v in c["dimension_scorers"].items())]
+    out += ["  open issues:"] + [f"    - {i}" for i in c["open_issues"]]
+    out += ["", "Different metrics of the same name (never mixed with ANSG CMPI):"]
+    out += [f"  {k}: {v['publication']} — formula {v['formula']}" for k, v in r["other_cmpi_metrics"].items()]
+    out += ["  CULTURA Eq. 4.1 (p.87, schema gating, not CMPI) apparent conflicts:"]
+    out += [f"    - {x}" for x in r["cultura_eq_4_1_apparent_conflicts"]]
     out += ["", "Variants and blocking components:"]
     for vid, v in r["variants"].items():
         ref = v["reference"]
