@@ -1,0 +1,50 @@
+{
+  "schema": "ansg.anhc_direct_build_report/1",
+  "built_utc": "2026-11-14T06:26:00.460313+00:00",
+  "source_index": {
+    "title": "كليلة ودمنة (1816)",
+    "revision_id": 638949
+  },
+  "edition": "Paris, 1816; associated with editor Sylvestre de Sacy",
+  "source_license": "CC BY-SA 4.0 (Wikisource page footer; attribution and share-alike apply)",
+  "requested_chapters": 17,
+  "accepted_chapters": 10,
+  "excluded_paratext": [
+    {
+      "title": "كليلة ودمنة (1816)/باب عرض الكتاب",
+      "reason": "front matter, not a narrative chapter"
+    }
+  ],
+  "failures": [
+    {
+      "title": "كليلة ودمنة (1816)/باب الاسد والشعهر الناسك وهو ابن آوى",
+      "error": "RuntimeError: {'code': 'missingtitle', 'info': \"The page you specified doesn't exist.\", 'docref': 'See https://ar.wikisource.org/w/api.php for API usage. Subscribe to the mediawiki-api-announce mailing list at &lt;https://lists.wikimedia.org/postorius/lists/mediawiki-api-announce.lists.wikimedia.org/&gt; for notice of API deprecations and breaking changes.'}"
+    },
+    {
+      "title": "كليلة ودمنة (1816)/باب ايلاذ وبلاذ وايراخت",
+      "error": "RuntimeError: {'code': 'missingtitle', 'info': \"The page you specified doesn't exist.\", 'docref': 'See https://ar.wikisource.org/w/api.php for API usage. Subscribe to the mediawiki-api-announce mailing list at &lt;https://lists.wikimedia.org/postorius/lists/mediawiki-api-announce.lists.wikimedia.org/&gt; for notice of API deprecations and breaking changes.'}"
+    },
+    {
+      "title": "كليلة ودمنة (1816)/باب اللبؤة والاسوار والشعهر",
+      "error": "RuntimeError: {'code': 'missingtitle', 'info': \"The page you specified doesn't exist.\", 'docref': 'See https://ar.wikisource.org/w/api.php for API usage. Subscribe to the mediawiki-api-announce mailing list at &lt;https://lists.wikimedia.org/postorius/lists/mediawiki-api-announce.lists.wikimedia.org/&gt; for notice of API deprecations and breaking changes.'}"
+    },
+    {
+      "title": "كليلة ودمنة (1816)/باب الناسك والضيف",
+      "error": "RuntimeError: {'code': 'missingtitle', 'info': \"The page you specified doesn't exist.\", 'docref': 'See https://ar.wikisource.org/w/api.php for API usage. Subscribe to the mediawiki-api-announce mailing list at &lt;https://lists.wikimedia.org/postorius/lists/mediawiki-api-announce.lists.wikimedia.org/&gt; for notice of API deprecations and breaking changes.'}"
+    },
+    {
+      "title": "كليلة ودمنة (1816)/باب السائح والصائغ",
+      "error": "RuntimeError: {'code': 'missingtitle', 'info': \"The page you specified doesn't exist.\", 'docref': 'See https://ar.wikisource.org/w/api.php for API usage. Subscribe to the mediawiki-api-announce mailing list at &lt;https://lists.wikimedia.org/postorius/lists/mediawiki-api-announce.lists.wikimedia.org/&gt; for notice of API deprecations and breaking changes.'}"
+    },
+    {
+      "title": "كليلة ودمنة (1816)/باب ابن الملك واصحابه",
+      "error": "RuntimeError: {'code': 'missingtitle', 'info': \"The page you specified doesn't exist.\", 'docref': 'See https://ar.wikisource.org/w/api.php for API usage. Subscribe to the mediawiki-api-announce mailing list at &lt;https://lists.wikimedia.org/postorius/lists/mediawiki-api-announce.lists.wikimedia.org/&gt; for notice of API deprecations and breaking changes.'}"
+    }
+  ],
+  "whitespace_words": 30115,
+  "annotations_complete": false,
+  "story_level_segmentation_complete": false,
+  "split": "unassigned",
+  "tokenizer": "not selected; whitespace-word counts only",
+  "note": "Directly fetched source chapters; not the historical thesis ANHC and not a thesis-metric reproduction."
+}
