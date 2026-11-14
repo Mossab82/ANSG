@@ -48,12 +48,22 @@ def main(argv=None):
     if args.steps <= 0 or args.batch_size <= 0 or args.max_length <= 1 or args.lr <= 0:
         ap.error("--steps, --batch-size and --lr must be positive; --max-length must exceed 1")
     authorization_hash = None
+    run_plan_hash = None
+    profile_hash = None
+    preflight_status = None
     if args.data_kind == "real":
         if not args.run_plan:
             print("error: --run-plan is required for real-data training", file=sys.stderr)
             return 2
         from check_training_readiness import check_plan
+        try:
+            run_plan_hash = sha256_file(args.run_plan)
+            profile_hash = sha256_file(args.profile)
+        except OSError as exc:
+            print(f"error: cannot hash run plan or profile: {exc}", file=sys.stderr)
+            return 2
         report = check_plan(args.run_plan, args.profile)
+        preflight_status = report.get("status")
         if report.get("status") != "preflight_ready_for_cultural_modules_sft":
             print("error: real-data training preflight is blocked", file=sys.stderr)
             for blocker in report.get("blockers", []):
@@ -86,6 +96,8 @@ def main(argv=None):
             authorization_hash = validate_real_data_authorization(
                 args.authorization_manifest, args.examples, args.schema_vocabulary
             )
+            if sha256_file(args.run_plan) != run_plan_hash or sha256_file(args.profile) != profile_hash:
+                raise ValueError("run plan or operational profile changed during preflight")
         except (OSError, ValueError, KeyError, TypeError) as exc:
             print(f"error: {exc}", file=sys.stderr)
             return 2
@@ -105,15 +117,23 @@ def main(argv=None):
         record["backbone_hash_verified"] = backbone.hash_verified
         if authorization_hash is not None:
             record["authorization_manifest_sha256"] = authorization_hash
+            record["run_plan_sha256"] = run_plan_hash
+            record["operational_profile_sha256"] = profile_hash
+            record["preflight_status"] = preflight_status
+            record["training_plan_decisions"] = plan["decisions"]
         manifest = save_cultural_modules(cultural, backbone, args.output, training=record, data_kind=args.data_kind,
                                          data_files={"examples": args.examples,
                                                      "schema_vocabulary": args.schema_vocabulary})
     except GenerationError as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
-    print(json.dumps({"output": args.output, "data_kind": args.data_kind, "steps": args.steps,
-                      "first_loss": record["loss_per_step"][0], "last_loss": record["loss_per_step"][-1],
-                      "checkpoint_sha256": manifest["checkpoint_sha256"]}, indent=2))
+    summary = {"output": args.output, "data_kind": args.data_kind, "steps": args.steps,
+               "first_loss": record["loss_per_step"][0], "last_loss": record["loss_per_step"][-1],
+               "checkpoint_sha256": manifest["checkpoint_sha256"]}
+    if run_plan_hash is not None:
+        summary["run_plan_sha256"] = run_plan_hash
+        summary["authorization_manifest_sha256"] = authorization_hash
+    print(json.dumps(summary, indent=2))
     return 0
 
 
