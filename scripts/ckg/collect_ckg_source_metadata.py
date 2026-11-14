@@ -117,6 +117,31 @@ def github_search(q, token):
     return out
 
 
+ONTOLOGY_LIKE = re.compile(r"\.(owl|ttl|rdf|nt|n3|jsonld|owx|ofn|swrl|graphml|gexf)$|(^|/)[^/]*(ckg|cst[-_]?onto|ontolog)[^/]*$", re.I)
+
+
+def owner_repositories(owner, token, limit=60):
+    """Public repositories of `owner`: licence and ontology/graph-like file paths (no content)."""
+    res = fetch(f"https://api.github.com/users/{owner}/repos?per_page=100&type=owner&sort=pushed", token)
+    out = meta(res)
+    repos = as_json(res) or []
+    out["repositories"] = []
+    for r in repos[:limit]:
+        full = r.get("full_name")
+        entry = {"full_name": full, "html_url": r.get("html_url"), "default_branch": r.get("default_branch"),
+                 "license": (r.get("license") or {}).get("spdx_id"), "pushed_at": r.get("pushed_at"),
+                 "description": (r.get("description") or "")[:200]}
+        tree = fetch(f"https://api.github.com/repos/{full}/git/trees/{r.get('default_branch')}?recursive=1", token)
+        tj = as_json(tree) or {}
+        entry["tree_status"] = tree.get("status")
+        entry["tree_truncated"] = tj.get("truncated")
+        entry["ontology_like_files"] = [{"path": t.get("path"), "size": t.get("size"), "git_blob_sha": t.get("sha")}
+                                        for t in tj.get("tree") or []
+                                        if t.get("type") == "blob" and ONTOLOGY_LIKE.search(t.get("path") or "")][:200]
+        out["repositories"].append(entry)
+    return out
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--out", required=True)
@@ -140,6 +165,9 @@ def main(argv=None):
         "cst_onto_paper_landing_page": page_links(f"https://dl.acm.org/doi/{CST_ONTO_DOI}"),
         "zenodo_search": {q: zenodo_search(q) for q in ('"CST-Onto"', '"CSTOnto"', 'title:"Cultural Schema Theory" AND arabic')},
         "github_search": {q: github_search(q, token) for q in ("CST-Onto", "cst-onto ontology", "ckg-arabic")},
+        # The AI-Cinema paper (Complexity 2026, p.1) states "All resources are publicly available at
+        # https://github.com/Mossab82/AI-Cinema" and builds on CST-Onto; list the owner's public repositories.
+        "owner_repositories": owner_repositories("Mossab82", token),
     }
     os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
     with open(args.out, "w", encoding="utf-8") as fh:
