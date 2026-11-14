@@ -39,11 +39,39 @@ ansg_thesis:
     - "Extended schema coverage from 3-agent specialization to unified architecture with 847 CST-Onto concepts"
     - "Added cross-dialectal consistency weighting"
     - "Integrated with human judgment validation protocol"
-  dimension_scorers:                      # how each dimension is scored from text
-    rhetorical_devices: {status: unspecified, note: "Table 6.4 caption: 'Rhetoric measures classical device deployment' (description only)"}
-    dialectal_appropriateness: {status: unspecified}
-    narrative_structure: {status: unspecified}
-    moral_framing: {status: unspecified, note: "Table 6.4 'Moral Framework measures ethical integration' (description only)"}
+  # What the dissertation says about obtaining each dimension score from a text.
+  # `scorer_specified: false` = no procedure maps a text to a score in [0, 1]; the
+  # related mechanisms are cited for completeness and are NOT stated to be the scorer.
+  dimension_scorers:
+    rhetorical_devices:
+      scorer_specified: false
+      thesis_describes: "'Evaluates appropriate use of jinas, saj', tibaq, and other badi' devices' (§4.5.1 p.116, as an R_cult sub-metric); Table 6.4 caption 'Rhetoric measures classical device deployment' (p.170)"
+      related_mechanisms:
+        - "Formulaic-expression detection: 437 curated patterns, exact string matching with morphological normalisation, 94.2% precision (§5.4.2 p.141; Table 5.4). Detects formulas, not badi' devices; the pattern database is not supplied."
+        - "Four CSAM rhetorical heads mapped to al-Sakkaki's badi' categories (§4.3.6 p.106-107): attention heads, not a scoring rule."
+      missing: "device inventory and detector, appropriateness criterion, aggregation to [0, 1]"
+    dialectal_appropriateness:
+      scorer_specified: false
+      thesis_describes: "named as a CMPI dimension only (§5.1 p.131; §8.7.4 p.223)"
+      related_mechanisms:
+        - "DIA tagging: character-trigram CNN (kernels 3/4/5), 94.3% accuracy (§5.4.3 p.140); model not supplied; tags dialect, does not score appropriateness."
+        - "'Register appropriateness: checks dialectal/MSA register matches genre expectations' (§4.5.1 p.116) is a separate R_cult term (register), not this dimension."
+        - "ALDA per-dialect consistency (Table 6.6 p.173) is a separate CRAFT metric without a formula in the thesis."
+      missing: "genre/context-to-dialect expectation, scoring rule, aggregation to [0, 1]"
+    narrative_structure:
+      scorer_specified: false
+      thesis_describes: "named as a CMPI dimension (§5.1 p.131)"
+      related_mechanisms:
+        - "Seven-stage hikaya structure (istiftah, nasab, fitna, mashura, hall, 'ibra, khatima), derived from 847 analysed narratives (§2.4.2 p.30); stages are defined, a detector and a score are not."
+        - "Table 3.14 (p.74): 'Rhetorical F1 assesses narrative structure adherence' as a corpus-validation metric; reference annotations and the F1 procedure are not given."
+      missing: "stage detector or annotation protocol, scoring of order/coverage, aggregation to [0, 1]"
+    moral_framing:
+      scorer_specified: false
+      thesis_describes: "named as a CMPI dimension (§5.1 p.131); Table 6.4 'Moral Framework measures ethical integration' (p.170)"
+      related_mechanisms:
+        - "MORAL annotation layer: eight virtue classes with dependencies encoded in CST-Onto's 234 SWRL rules (§3.5.3 p.65); an annotation scheme, not a scorer; the SWRL rules are not available (configs/knowledge/ckg.yaml)."
+        - "'Virtue coherence' (§4.5.1 p.116) is a separate R_cult term, also without a procedure."
+      missing: "moral-frame classifier or rule check, scoring rule, aggregation to [0, 1]"
   open_issues:
     - "Table A.2 (p.268) says CMPI is 'defined in Chapter 4' and §4.5.1 (p.115) points to §3.6.1, which defines CRD (Eq. 3.1); the weighted definition appears in §5.1 (p.131) and §8.7.4 (p.223)."
     - "Table 6.4 (p.170) reports five dimensions (Rhetoric, Formulaic, Metaphor, Prosody, Moral Framework) plus 'Overall CMPI'; three of them are not CMPI dimensions, and dialectal appropriateness and narrative structure are not reported. The overall value cannot be recomputed from the table with the definition's weights."
@@ -71,6 +99,16 @@ cultura:
     - {value: "31% CMPI degradation without schema constraints (ablation)", where: "dissertation §4.1.5 p.87"}
   printed_formula_conflicts:       # recorded as printed; no correction is guessed
     - "With the 1/K factor and weights summing to 1, the maximum of the printed formula is (1/K) * sum_i w_i * 1 = 1/5 = 0.2 for K = 5, which contradicts the published CMPI of 0.82."
+  conflict_computation:
+    printed_maximum: "(1/5) * (0.25 + 0.25 + 0.25 + 0.15 + 0.10) * (10/10) = 0.2"
+    implied_by_0_82: "sum_i w_i * (s_i/10) = 5 * 0.82 = 4.1, impossible because sum_i w_i * (s_i/10) <= sum_i w_i = 1"
+    thesis_side_checked: "0.82 vs 0.49 and '+67%' appear in the dissertation (§2.7.3 p.39; §4.1.5 p.87; Ch.6 p.160); (0.82 - 0.49) / 0.49 = 0.673, consistent with '+67%'"
+    paper_side: "formula and 0.82 from the owner's extraction of the CULTURA paper (pp. 314-315); the paper PDF is not in this session"
+  author_decision_options:          # listed, not chosen
+    - {option: "printed 1/K is an erratum; intended CMPI = sum_i w_i * (s_i/10) (maximum 1)", consequence: "0.82 becomes attainable; the paper needs a corrected formula"}
+    - {option: "printed formula is intended; 0.82 was computed differently", consequence: "the reported 0.82 (and +67%, 31% ablation) need recomputation or an erratum"}
+    - {option: "weights were meant to sum to K (unnormalised), making (1/K) * sum a weighted mean", consequence: "the printed constraint sum w_i = 1 and the listed weights need correction"}
+    - {option: "judge scores use another scale than 0-10", consequence: "the s_i/10 normalisation needs correction"}
   conflicts_with_dissertation:
     - "The dissertation says CMPI was 'originally introduced in our CULTURA system' (p.160) and expands it as 'Cultural Motif Preservation Index'; the CULTURA paper's metric is the 'Cultural Matching Performance Index' with five judge-scored criteria and different weights (0.25/0.25/0.25/0.15/0.10), not the dissertation's four AHP-weighted dimensions (0.35/0.25/0.25/0.15)."
     - "The dissertation's description 'hierarchical schema activation scoring' (p.160) does not match the paper's judge-scored weighted criteria."
@@ -102,7 +140,7 @@ cst_onto:
   system: "CST-Onto: An Ontological Framework for Culturally-Grounded Narrative Generation in Arabic"
   publication: "Ibrahim, Gervás, Méndez (2025a), K-CAP '25, DOI 10.1145/3731443.3771364"
   paper_available_in_repository: false
-  formula_source: {kind: owner_extraction, pages: "Table 9 and its note", supplied: "2026-11-14"}
+  formula_source: {kind: paper_pdf, file: "3731443.3771364.pdf (sha256 32b05069...47bd8)", pages: "p.179 (PDF p.6), Table 9 and its note", supplied: "2026-11-14"}
   name_in_paper: "Cultural Moral Precision Index"
   formula: not_specified_in_paper        # the paper gives no explicit computation; none is invented here
   description_in_paper: "measures alignment with moral schemas (Table 9 note)"
@@ -113,13 +151,17 @@ cst_onto:
     - "The paper's Table 9 places 0.89 under CRAFT and 0.78 under CMPI for CST-Onto; the dissertation attributes 0.89 to CST-Onto's CulturalScore (Table 6.1 note p.162; p.193). Same number, different metric name."
     - "The paper reports a CMPI (Cultural Moral Precision Index) of 0.78 for CST-Onto; the dissertation's Table 6.4 has no CST-Onto row, and its 0.78 is MM-GTA's value under the dissertation's own CMPI. The equal values belong to different systems and metrics; no relation is asserted."
   thesis_reevaluation: "p.163: 'CST-Onto evaluation focuses on symbolic reasoning capability rather than fluent generation'"
+  other_paper_metrics:              # recorded so they are not confused with the dissertation's
+    craft_in_paper: "§4.2 p.179: CRAFT = Logical Coherence 0.35 (OWL-DL consistency over 34 axioms) + Moral-Causal Consistency 0.30 (SWRL consequence tracing) + Dialectal Appropriateness 0.20 (AraBERT-v2) + Temporal Alignment 0.15 (Eq. 4: S_temporal = 1 - sum_i I[time(e_i) <= time(e_{i-1})] / n); AHP with 8 + 4 + 3 experts. A paper-level CRAFT, different from the dissertation's CRAFT descriptions (C-EVAL-1)."
+    alda_in_paper: "'Arabic Localized Dialect Accuracy' (Table 9 note)"
+    table_8: "CMPI correlates with human ratings: precision 0.64, recall 0.60, F1 0.62, kappa 0.58 (p.179)"
 
 mm_gta:
   status: different_metric
   system: "MM-GTA: Morphological Modeling via Graph-Based Text Adaptation"
   publication: "K-CAP '25, DOI 10.1145/3731443.3771368"
   paper_available_in_repository: false
-  formula_source: {kind: owner_extraction, pages: "not stated in the supplied extraction", supplied: "2026-11-14"}
+  formula_source: {kind: paper_pdf, file: "3731443.3771368.pdf (sha256 a49d5fc1...1fefae)", pages: "p.203 (PDF p.6), §4.2, Eq. 10", supplied: "2026-11-14"}
   name_in_paper: "Cross-dialectal Morphological Preservation Index"
   formula: "CMPI = 2 * P_morph * R_morph / (P_morph + R_morph)"
   measures: "preservation of morphological features through root-and-pattern agreement (an F1-style harmonic mean of morphological precision and recall)"
@@ -128,3 +170,23 @@ mm_gta:
   conflicts_with_dissertation:
     - "The dissertation's Table 6.4 reports MM-GTA under 'CMPI' (0.78) with the dissertation's cultural metric; the MM-GTA paper's CMPI is a morphological F1. The two are independent metrics."
   thesis_reevaluation: "p.163: prior systems re-evaluated on the unified thesis test set; 'Original papers report metrics under different evaluation protocols'"
+  other_paper_metrics:
+    alda_in_paper: "'Arabic Lexical Dialect Accuracy', Eq. 8 p.203: weighted n-gram BLEU against dialect references; the dissertation's glossary expands ALDA as 'Arabic Linguistic Dialectal Accuracy'"
+    table_2: "MM-GTA SacreBLEU 41.2, ROUGE-L 0.718, BERTScore 0.782, ALDA 0.687, GER 17.4 (p.203); the paper's Table 2 reports no CMPI value"
+  coincidences_recorded_without_inference:
+    - "The dissertation's BLEU-4 41.2 for MM-GTA (p.169) equals the paper's SacreBLEU 41.2."
+    - "The dissertation's Table 6.4 CMPI 0.78 for MM-GTA equals the paper's BERTScore 0.782 to two decimals; no relation is asserted."
+
+ai_cinema_cpm:                       # not named CMPI; recorded because the dissertation compares CRAFT with it
+  status: different_metric
+  system: "AI-Cinema: A Hybrid Framework for Arabic Movie Scenario Generation With Traditional Storytelling Elements"
+  publication: "Ibrahim et al., Complexity (Wiley) 2026, DOI 10.1155/cplx/9978799"
+  paper_available_in_repository: false
+  formula_source: {kind: paper_pdf, file: "Complexity 2026 AI-Cinema (sha256 57ef51dc...61cba0)", pages: "p.8, §4.3, Eq. 7", supplied: "2026-11-14"}
+  name_in_paper: "Cultural Preservation Metric (CPM)"
+  formula: "CPM = 0.4*P_proverb + 0.3*P_archetype + 0.2*P_intertext + 0.1*P_structure"
+  component_scorers: "not defined in §4.3; weights from AHP with 15 experts, CR = 0.04 (Supporting Table S1, not supplied)"
+  results_reported:
+    - {metric: CPM, value: "82.3%", where: "abstract p.1"}
+  conflicts_with_dissertation:
+    - "The dissertation (§6.2.4 p.174) says CPM adapts CRAFT's dimensions for cinematic structure (scene transitions, character interaction, dialogue markers); the paper's Eq. 7 uses proverb, archetype, intertext and structure terms."

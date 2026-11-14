@@ -4,7 +4,8 @@ import pytest
 from ansg.evaluation import ansg_cmpi as lazy_ansg_cmpi
 from ansg.evaluation.cmpi import (
     ANSG_CMPI_WEIGHTS, DIMENSION_SCORERS_SPECIFIED, ansg_cmpi, ansg_cmpi_from_mapping, cultura_cmpi_as_printed,
-    cultura_printed_upper_bound, load_cmpi_variants, mm_gta_cmpi_as_printed, validate_cmpi_variants,
+    cultura_printed_upper_bound, dimension_scorer_report, load_cmpi_variants, mm_gta_cmpi_as_printed,
+    validate_cmpi_variants,
 )
 from ansg.utils.config import load_yaml_config
 
@@ -44,10 +45,10 @@ def test_variants_file_is_consistent_and_keeps_metrics_apart():
     assert {s["page"] for s in ansg["sources"]} >= {131, 223, 268}
     assert ansg["terminology_conflict"]
     names = {ansg["name"]}
-    for key in ("cultura", "cst_onto", "mm_gta"):
+    for key in ("cultura", "cst_onto", "mm_gta", "ai_cinema_cpm"):
         v = data[key]
         assert v["status"] == "different_metric" and v["formula"] != "pending"
-        assert v["formula_source"]["kind"] == "owner_extraction"
+        assert v["formula_source"]["kind"] in {"owner_extraction", "paper_pdf"}
         assert "weights" not in v and "equation" not in v
         assert v["name_in_paper"] not in names
         names.add(v["name_in_paper"])
@@ -115,3 +116,31 @@ def test_craft_registry_records_the_equation_but_still_refuses_text():
     cmpi = next(m for m in cfg["metrics"] if m["name"] == "CMPI")
     assert cmpi["equation"].startswith("CMPI = 0.35*rhetorical_devices")
     assert cmpi["status"] == "incomplete" and "p.131" in cmpi["thesis_reference"]
+
+
+def test_dimension_scorers_are_reported_as_unspecified_with_reasons():
+    rep = dimension_scorer_report(load_cmpi_variants())
+    assert set(rep["dimensions"]) == set(ANSG_CMPI_WEIGHTS)
+    assert rep["cmpi_computable_from_text"] is False
+    assert rep["cmpi_computable_from_supplied_dimension_scores"] is True
+    for name, d in rep["dimensions"].items():
+        assert d["scorer_specified"] is False and d["missing"] and d["related_mechanisms"], name
+    # related mechanisms are cited with pages, e.g. the 437-pattern detector (§5.4.2 p.141)
+    assert any("p.141" in m for m in rep["dimensions"]["rhetorical_devices"]["related_mechanisms"])
+    assert any("p.30" in m for m in rep["dimensions"]["narrative_structure"]["related_mechanisms"])
+    assert len(rep["blocking"]) == 4
+
+
+def test_cultura_conflict_options_are_listed_not_chosen():
+    cultura = load_cmpi_variants()["cultura"]
+    assert "4.1" in cultura["conflict_computation"]["implied_by_0_82"]
+    assert len(cultura["author_decision_options"]) == 4
+    assert cultura["formula"].startswith("CMPI(S) = (1/K)")       # printed formula kept, 1/K included
+
+
+def test_paper_sources_are_the_supplied_pdfs():
+    data = load_cmpi_variants()
+    assert data["cst_onto"]["formula_source"]["kind"] == "paper_pdf" and "Table 9" in data["cst_onto"]["formula_source"]["pages"]
+    assert "Eq. 10" in data["mm_gta"]["formula_source"]["pages"]
+    assert data["ai_cinema_cpm"]["formula"].startswith("CPM = 0.4*P_proverb")
+    assert data["cultura"]["formula_source"]["kind"] == "owner_extraction"   # CULTURA PDF not supplied

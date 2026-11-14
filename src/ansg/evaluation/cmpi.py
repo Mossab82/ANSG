@@ -105,7 +105,21 @@ def mm_gta_cmpi_as_printed(p_morph: float, r_morph: float) -> float:
     return 0.0 if p_morph + r_morph == 0 else 2 * p_morph * r_morph / (p_morph + r_morph)
 
 
-SEPARATE_METRICS = ("cultura", "cst_onto", "mm_gta")
+SEPARATE_METRICS = ("cultura", "cst_onto", "mm_gta", "ai_cinema_cpm")
+
+
+def dimension_scorer_report(data: Mapping[str, Any]) -> dict[str, Any]:
+    """Per ANSG CMPI dimension: whether the dissertation specifies a text scorer, and what is missing."""
+    dims = (data.get("ansg_thesis") or {}).get("dimension_scorers") or {}
+    rows = {name: {"scorer_specified": bool((dims.get(name) or {}).get("scorer_specified")),
+                   "thesis_describes": (dims.get(name) or {}).get("thesis_describes"),
+                   "related_mechanisms": list((dims.get(name) or {}).get("related_mechanisms") or []),
+                   "missing": (dims.get(name) or {}).get("missing")}
+            for name in ANSG_CMPI_WEIGHTS}
+    computable = all(r["scorer_specified"] for r in rows.values())
+    return {"dimensions": rows, "cmpi_computable_from_text": computable,
+            "cmpi_computable_from_supplied_dimension_scores": True,
+            "blocking": [f"{k}: {v['missing']}" for k, v in rows.items() if not v["scorer_specified"]]}
 
 
 def validate_cmpi_variants(data: Mapping[str, Any]) -> list[str]:
@@ -118,6 +132,16 @@ def validate_cmpi_variants(data: Mapping[str, Any]) -> list[str]:
         problems.append("ansg_thesis must cite §5.1 p.131")
     if not ansg.get("terminology_conflict"):
         problems.append("ansg_thesis: the CMPI naming conflict must be recorded")
+    dims = ansg.get("dimension_scorers") or {}
+    if set(dims) != set(ANSG_CMPI_WEIGHTS):
+        problems.append(f"ansg_thesis.dimension_scorers must cover exactly {list(ANSG_CMPI_WEIGHTS)}")
+    for name, d in dims.items():
+        if not isinstance((d or {}).get("scorer_specified"), bool):
+            problems.append(f"dimension {name}: scorer_specified must be true or false")
+        elif not d["scorer_specified"] and not d.get("missing"):
+            problems.append(f"dimension {name}: an unspecified scorer must state what is missing")
+    if dims and all((d or {}).get("scorer_specified") for d in dims.values()) != DIMENSION_SCORERS_SPECIFIED:
+        problems.append("DIMENSION_SCORERS_SPECIFIED disagrees with the variants file")
     names = {ansg.get("name")}
     for key in SEPARATE_METRICS:
         v = data.get(key) or {}
@@ -146,9 +170,12 @@ def validate_cmpi_variants(data: Mapping[str, Any]) -> list[str]:
             problems.append(f"cultura: {exc}")
         else:
             reported = [r["value"] for r in cultura.get("results_reported") or [] if isinstance(r.get("value"), (int, float))]
-            if any(r > bound for r in reported) and not cultura.get("printed_formula_conflicts"):
-                problems.append(f"cultura: printed formula bound {bound:g} is below a reported value {reported}; "
-                                "the conflict must be recorded")
+            if any(r > bound for r in reported):
+                if not cultura.get("printed_formula_conflicts"):
+                    problems.append(f"cultura: printed formula bound {bound:g} is below a reported value {reported}; "
+                                    "the conflict must be recorded")
+                if not cultura.get("author_decision_options"):
+                    problems.append("cultura: the options for the author's decision must be listed")
     eq = cultura.get("printed_equation_in_thesis") or {}
     if eq.get("is_cmpi") is not False or not eq.get("apparent_conflicts"):
         problems.append("cultura: printed Eq. 4.1 must be marked is_cmpi: false with its apparent conflicts recorded")

@@ -101,7 +101,25 @@ def cited_sources_status() -> dict:
                            "landing_page_status": (e.get("cst_onto_paper_landing_page") or {}).get("status")},
         "zenodo_search_hits": {q: len(r.get("hits") or []) for q, r in (e.get("zenodo_search") or {}).items()},
         "github_search_hits": {q: [i["full_name"] for i in r.get("items") or []] for q, r in (e.get("github_search") or {}).items()},
+        "owner_repositories": _owner_repo_summary(e.get("owner_repositories") or {}),
     }
+
+
+def _owner_repo_summary(o: dict) -> dict:
+    """Ontology-like files in the owner's public repositories, excluding this repository's own code/fixtures."""
+    repos = o.get("repositories") or []
+    found = []
+    for r in repos:
+        for f in r.get("ontology_like_files") or []:
+            path = f.get("path") or ""
+            if r.get("full_name", "").lower() == "mossab82/ansg":
+                continue
+            found.append({"repository": r["full_name"], "path": path, "size": f.get("size"),
+                          "is_rdf_owl": path.lower().endswith((".owl", ".ttl", ".rdf", ".nt", ".n3", ".jsonld", ".owx", ".ofn"))})
+    return {"status": o.get("status"), "repositories_scanned": len(repos),
+            "repositories": [{"name": r.get("full_name"), "license": r.get("license"), "tree_status": r.get("tree_status")} for r in repos],
+            "ontology_like_files_outside_ansg": found,
+            "rdf_owl_files_found": [f for f in found if f["is_rdf_owl"]]}
 
 
 def declared_arithmetic(declared: dict) -> list[dict]:
@@ -189,7 +207,8 @@ def audit(graph_path: Path, onto_path: Path, onto_fmt: str | None) -> dict:
             f"cited CKG locations unavailable: Zenodo 8847378 API {cs['ckg_zenodo_8847378']['api']} / DOI "
             f"{cs['ckg_zenodo_8847378']['doi']}; github.com/mossab-ansg/ckg-arabic {cs['ckg_github_repo']}")
     report["problems"] = list(dict.fromkeys(report["problems"]))
-    pending_rights = sorted(f"{res}.{k}" for res, fields in report["rights"].items() for k, v in fields.items() if v == "pending")
+    pending_rights = sorted(f"{res}.{k}" for res, fields in report["rights"].items() if isinstance(fields, dict)
+                            for k, v in fields.items() if v == "pending")
     if pending_rights:
         report["blocking"].append("rights/use/admission not decided (pending): " + ", ".join(pending_rights))
     report["status"] = "invalid" if report["problems"] else ("blocked" if report["blocking"] else "loaded_pending_identity_review")
@@ -220,8 +239,17 @@ def render(r: dict) -> str:
         out.append(f"  CST-Onto paper: Crossref {p['crossref_status']} '{p['title']}' ({p['container']}, {p['published']}); "
                    f"licence {p['license_urls'] or 'none listed'}; links {p['links']}; landing page {p['landing_page_status']}")
         out.append(f"  searches: Zenodo {cs['zenodo_search_hits']}; GitHub {cs['github_search_hits']}")
+        o = cs.get("owner_repositories") or {}
+        if o.get("repositories_scanned"):
+            listed = ", ".join("%s [%s]" % (r["name"], r["license"]) for r in o["repositories"])
+            out.append(f"  owner's public repositories scanned: {o['repositories_scanned']} ({listed})")
+            out.append(f"  RDF/OWL files found: {len(o['rdf_owl_files_found'])}; other ontology-like paths: "
+                       + (", ".join(f"{f['repository']}:{f['path']}" for f in o["ontology_like_files_outside_ansg"] if not f["is_rdf_owl"]) or "none"))
     out += ["", "Rights and admission (configs/knowledge/ckg.yaml):"]
     for res, fields in (r.get("rights") or {}).items():
+        if res == "stated_in_sources":
+            out += [f"  stated: {x['resource']}: {x['statement']} ({x['source']}; artifact found: {x['artifact_found']})" for x in fields]
+            continue
         out.append(f"  {res}: " + ", ".join(f"{k}={v}" for k, v in fields.items()))
     out += ["", "Arithmetic of counts stated in the thesis:"]
     for c in r["declared_arithmetic"]:

@@ -26,7 +26,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from ansg.evaluation.cmpi import (  # noqa: E402
-    ANSG_CMPI_REFERENCE, ANSG_CMPI_WEIGHTS, cultura_printed_upper_bound, load_cmpi_variants, validate_cmpi_variants,
+    ANSG_CMPI_REFERENCE, ANSG_CMPI_WEIGHTS, cultura_printed_upper_bound, dimension_scorer_report, load_cmpi_variants,
+    validate_cmpi_variants,
 )
 from ansg.reward_spec import DEFAULT_SPEC, load_reward_spec  # noqa: E402
 
@@ -52,7 +53,10 @@ def build_report(spec_path, variant=None):
                                    "results_reported": cmpi_variants[k].get("results_reported"),
                                    "conflicts": cmpi_variants[k].get("printed_formula_conflicts", [])
                                    + cmpi_variants[k]["conflicts_with_dissertation"]}
-                               for k in ("cultura", "cst_onto", "mm_gta")},
+                               for k in ("cultura", "cst_onto", "mm_gta", "ai_cinema_cpm")},
+        "cmpi_dimension_scorers": dimension_scorer_report(cmpi_variants),
+        "cultura_conflict_computation": cmpi_variants["cultura"].get("conflict_computation"),
+        "cultura_author_decision_options": cmpi_variants["cultura"].get("author_decision_options"),
         "cultura_printed_formula_upper_bound": cultura_printed_upper_bound(
             [c["weight"] for c in cmpi_variants["cultura"]["criteria"]]),
         "cultura_eq_4_1_apparent_conflicts": cmpi_variants["cultura"]["printed_equation_in_thesis"]["apparent_conflicts"],
@@ -84,8 +88,12 @@ def render(r):
         out += ["", "Specification problems:"] + [f"  - {p}" for p in r["problems"]]
         return "\n".join(out)
     c = r["cmpi_definition"]
-    out += ["", f"CMPI (dissertation definition, ANSG reference; {c['reference']}):", f"  {c['equation']}",
-            "  dimension scorers: " + ", ".join(f"{k}={v['status']}" for k, v in c["dimension_scorers"].items())]
+    out += ["", f"CMPI (dissertation definition, ANSG reference; {c['reference']}):", f"  {c['equation']}"]
+    ds = r["cmpi_dimension_scorers"]
+    out.append(f"  computable from text: {ds['cmpi_computable_from_text']}; "
+               f"from caller-supplied dimension scores: {ds['cmpi_computable_from_supplied_dimension_scores']}")
+    for name, d in ds["dimensions"].items():
+        out.append(f"    {name}: scorer specified = {d['scorer_specified']}; missing: {d['missing']}")
     out += ["  open issues:"] + [f"    - {i}" for i in c["open_issues"]]
     out += ["", "Different metrics sharing the acronym (never mixed with ANSG CMPI):"]
     for k, v in r["other_cmpi_metrics"].items():
@@ -93,6 +101,11 @@ def render(r):
         out.append(f"    formula: {v['formula']}  [source: {v['formula_source']['kind']}, pages {v['formula_source']['pages']}]")
         out += [f"    conflict: {c}" for c in v["conflicts"]]
     out.append(f"  CULTURA printed-formula maximum (all judge scores 10, K=5): {r['cultura_printed_formula_upper_bound']:g}")
+    cc = r.get("cultura_conflict_computation") or {}
+    if cc:
+        out.append(f"    implied by 0.82: {cc.get('implied_by_0_82')}")
+    out.append("    options for the author (none chosen):")
+    out += [f"      - {o['option']} -> {o['consequence']}" for o in r.get("cultura_author_decision_options") or []]
     out += ["  CULTURA Eq. 4.1 (p.87, schema gating, not CMPI) apparent conflicts:"]
     out += [f"    - {x}" for x in r["cultura_eq_4_1_apparent_conflicts"]]
     out += ["", "Variants and blocking components:"]

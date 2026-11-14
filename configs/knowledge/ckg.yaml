@@ -21,11 +21,24 @@ cited_sources:
     reference: "Bibliography (Ibrahim, Gervás, Méndez 2025a); App. B.3.3"
     doi: "10.1145/3731443.3771364"
     note: "A published paper; whether it distributes the OWL/SWRL file is not established."
+    release_statement: "CST-Onto paper §6.2 'Reproducibility and Open Science' (p.181, PDF p.8): 'Upon publication, we will release: Code (Apache 2.0) ...; Datasets (CC-BY-4.0): annotated cultural prompts, SWRL rule sets, and dialectal corpora; Ontology (OWL 2 DL): Full CST-Onto with public domain release and reasoning modules.' No URL is given."
+    counts_in_paper: "87 core archetypes, 847 specialized concepts, 234 SWRL rules, 'four-tier' ontology (p.174-176); the dissertation describes three levels and 1,847 entities (§3.1.4 p.54)"
+  ai_cinema_repository:
+    reference: "AI-Cinema paper (Complexity 2026) p.1: 'All resources are publicly available at https://github.com/Mossab82/AI-Cinema'; its knowledge base builds on CST-Onto ('847 archetypal patterns', p.7)"
+    url: "https://github.com/Mossab82/AI-Cinema"
+    note: "Repository licence MIT; no ontology or graph file found (evidence/ckg, owner_repositories)."
 
 # Rights and admission. Nothing here is decided; every field stays `pending` until
 # the owner supplies the files and their terms. The thesis states CC BY-NC-SA 4.0
 # for ANHC (A.20.2 p.290) but gives no licence for the CKG or CST-Onto.
 rights:
+  # What the sources state, recorded as statements only. None of them is attached
+  # to an obtainable file, so no licence is treated as verified.
+  stated_in_sources:
+    - {resource: cst_onto, statement: "ontology to be released as 'public domain' (OWL 2 DL)", source: "CST-Onto paper §6.2 p.181", artifact_found: false}
+    - {resource: cst_onto_swrl_rules, statement: "SWRL rule sets to be released under CC-BY-4.0", source: "CST-Onto paper §6.2 p.181", artifact_found: false}
+    - {resource: cst_onto_code, statement: "code to be released under Apache 2.0", source: "CST-Onto paper §6.2 p.181", artifact_found: false}
+    - {resource: ckg, statement: "Zenodo DOI 10.5281/zenodo.8847378 and github.com/mossab-ansg/ckg-arabic", source: "dissertation Table 9.6 p.254", artifact_found: false}
   ckg:
     licence: pending
     permitted_use: pending          # training, CSAM schema embeddings, evaluation

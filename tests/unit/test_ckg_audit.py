@@ -117,7 +117,29 @@ def test_audit_reports_invalid_ontology_structure():
 def test_rights_use_and_admission_stay_pending_and_block():
     cli = _cli()
     r = cli.audit(ROOT / "missing.json", ROOT / "missing.ttl", "turtle")
-    assert set(r["rights"]) == {"ckg", "cst_onto"}
-    for fields in r["rights"].values():
+    assert set(r["rights"]) == {"ckg", "cst_onto", "stated_in_sources"}
+    for key in ("ckg", "cst_onto"):
+        fields = r["rights"][key]
         assert fields == {"licence": "pending", "permitted_use": "pending", "redistribution": "pending", "admission": "pending"}
     assert any(b.startswith("rights/use/admission not decided") for b in r["blocking"])
+
+
+
+def test_owner_repositories_scanned_and_no_ontology_file_found():
+    cli = _cli()
+    cs = cli.cited_sources_status()
+    if cs.get("status") == "not_collected":
+        pytest.skip("CKG source evidence not collected")
+    o = cs["owner_repositories"]
+    assert o["repositories_scanned"] >= 1
+    assert "Mossab82/AI-Cinema" in {r["name"] for r in o["repositories"]}
+    assert o["rdf_owl_files_found"] == []
+
+
+def test_stated_licences_are_recorded_but_not_treated_as_verified():
+    cli = _cli()
+    r = cli.audit(ROOT / "missing.json", ROOT / "missing.ttl", "turtle")
+    stated = r["rights"]["stated_in_sources"]
+    assert {s["resource"] for s in stated} >= {"cst_onto", "cst_onto_swrl_rules", "ckg"}
+    assert all(s["artifact_found"] is False for s in stated)
+    assert r["rights"]["cst_onto"]["licence"] == "pending"
