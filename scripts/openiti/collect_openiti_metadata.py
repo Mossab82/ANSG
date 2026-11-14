@@ -118,7 +118,7 @@ def zenodo_releases():
             "access_right": md.get("access_right"),
             "files": _zenodo_files(hit),
             "related_identifiers": md.get("related_identifiers"),
-            "description_excerpt": re.sub(r"<[^>]+>", " ", md.get("description") or "")[:3000],
+            "description_excerpt": re.sub(r"<[^>]+>", " ", md.get("description") or "")[:8000],
         })
     out.sort(key=lambda r: r.get("publication_date") or "", reverse=True)
     return {"query": f"concept record {ZENODO_CONCEPT_RECID}", "endpoint": used.replace("https://zenodo.org", ""),
@@ -148,12 +148,27 @@ def release_metadata(target_books, target_prefixes, token, max_tags=3):
                 key = "version_uri" if rows and "version_uri" in rows[0] else "versionUri"
                 hits = [r for r in rows if any(str(r.get(key, "")).startswith(b + ".") for b in target_books)
                         or any(str(r.get(key, "")).startswith(p) for p in target_prefixes)]
-                entry["metadata_csv"] = {"name": f["name"], "sha256": hashlib.sha256(data).hexdigest(), "bytes": len(data),
+                entry["metadata_csv"] = {"name": f["name"], "sha256": hashlib.sha256(data).hexdigest(),
+                                         "md5": hashlib.md5(data).hexdigest(), "bytes": len(data),
                                          "rows": len(rows), "columns": list(rows[0].keys()) if rows else [],
                                          "target_rows": hits}
             else:
                 entry["metadata_csv"] = res
         out["inspected"].append(entry)
+    # Fingerprint target texts as published at the newest tag that has metadata
+    # (GitHub copy of the release). Hashed in memory; nothing is written.
+    newest = next((e for e in out["inspected"] if (e.get("metadata_csv") or {}).get("target_rows")), None)
+    if newest:
+        fps = {}
+        for row in newest["metadata_csv"]["target_rows"]:
+            path = (row.get("local_path") or "").lstrip("./")
+            uri = row.get("version_uri") or row.get("versionUri")
+            if not path or not uri:
+                continue
+            res = _attempt(_request, f"{RAW}/OpenITI/RELEASE/{newest['commit']}/{urllib.parse.quote(path)}", max_bytes=MAX_TEXT_BYTES)
+            fps[uri] = ({"path": path, "sha256": hashlib.sha256(res["value"][1]).hexdigest(), "bytes": len(res["value"][1]),
+                         "text_written_to_disk": False} if res["ok"] else {"path": path, "error": res["error"]})
+        out["release_text_fingerprints"] = {"tag": newest["tag"], "commit": newest["commit"], "versions": fps}
     return out
 
 
