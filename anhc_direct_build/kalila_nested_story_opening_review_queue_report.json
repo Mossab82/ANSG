@@ -1,0 +1,33 @@
+{
+  "schema": "ansg.kalila_opening_review_queue_report/1",
+  "status": "metadata_only_manual_review_queue",
+  "candidate_openings": 39,
+  "source_chapters": 9,
+  "candidates_by_source_record_id": {
+    "kalila-1816-01": 15,
+    "kalila-1816-02": 9,
+    "kalila-1816-03": 1,
+    "kalila-1816-04": 2,
+    "kalila-1816-05": 4,
+    "kalila-1816-06": 2,
+    "kalila-1816-07": 1,
+    "kalila-1816-08": 2,
+    "kalila-1816-09": 3
+  },
+  "source_text_embedded": false,
+  "neighboring_cue_offsets_are_story_boundaries": false,
+  "boundary_and_annotation_fields_prefilled": false,
+  "missing_source_records": [],
+  "review_protocol": [
+    "Open the pinned page revision and verify the cue against the extracted source record.",
+    "Decide whether the cue introduces a narrative rather than a citation or example.",
+    "If confirmed, record a separately reviewed ending offset and parent/resumption evidence.",
+    "Leave nesting and DIA/MOTIF/MORAL blank unless a reviewer supplies source evidence.",
+    "Keep all chapters from this work in one split group to prevent leakage."
+  ],
+  "limitations": [
+    "Cue-to-cue spans are navigation aids, not story segmentation.",
+    "Offsets are Unicode code-point offsets into the exact extracted chapter text identified by SHA-256.",
+    "The queue is not a set of gold labels and contributes zero triple-covered tokens."
+  ]
+}
