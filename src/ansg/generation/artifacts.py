@@ -23,7 +23,9 @@ from ..utils.provenance import sha256_file
 
 BACKBONE_PROVENANCE_FILE = "ansg_backbone.json"
 CULTURAL_FORMAT = "ansg-cultural-modules"
-CULTURAL_FORMAT_VERSION = 1
+CULTURAL_FORMAT_VERSION = 2
+"""2 = bridge v2 of ``ansg.pretrained`` (identity at initialisation, ``cultural_gate``, no extra
+LayerNorm). Version-1 checkpoints were produced by the old bridge and are refused."""
 CULTURAL_MANIFEST_SUFFIX = ".manifest.json"
 
 WEIGHT_PATTERNS = ("*.safetensors", "pytorch_model*.bin", "*.safetensors.index.json", "pytorch_model*.bin.index.json")

@@ -42,7 +42,7 @@ def fake_backbone(root, *, synthetic=False, digest=True, provenance=True, vocab=
 def cultural_manifest(ckpt, backbone_info, vocab_sha, *, status="trained", steps=5, data_kind="synthetic",
                       data=None):
     return {
-        "format": "ansg-cultural-modules", "format_version": 1, "checkpoint_sha256": sha256_file(ckpt),
+        "format": "ansg-cultural-modules", "format_version": 2, "checkpoint_sha256": sha256_file(ckpt),
         "architecture": {"schema_count": 4, "schema_dim": 8, "cultural_heads": 12, "lora_rank": 2, "lora_alpha": 4.0},
         "backbone": {"directory_digest": backbone_info["directory_digest"]},
         "tokenizer": {"digest": backbone_info["tokenizer_digest"]},
