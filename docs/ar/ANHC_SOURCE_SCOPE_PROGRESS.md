@@ -1,27 +1,34 @@
-# ANHC source scope and progress
+# ANHC source integration, novelty, and build status
 
-This note separates size evidence from actual narrative data and dialect support.
+## What makes ANHC novel in the thesis
 
-## Current scale measures
+The thesis frames ANHC's novelty as a **combination**: large-scale Arabic narrative text, five-way dialect coverage, three annotation layers (DIA, MOTIF, MORAL), and direct architectural coupling to CSAM, DAL, and culturally grounded RL. Its Chapter 3 source strategy spans three periods and several narrative families; MADAR appears in the dialect-resource landscape, while CAMeL Tools supports morphology-aware preprocessing and root-aware tokenization. These roles matter to the evidence: a toolkit helps prepare and normalize source text, a dialect corpus contributes dialect evidence, and story collections provide narrative content.
+
+The thesis reports these source strata:
+
+| Thesis source stratum | Reported tokens / segments | Named materials |
+| --- | ---: | --- |
+| Classical, pre-1800 | 24.6M / 296K | Mahdi Alf Layla edition (8.2M), Kalila wa-Dimna (3.1M), classical adab (13.3M) |
+| Modern, 1800–2000 | 18.3M / 224K | Mahfouz, Taha Hussein, canonical adab |
+| Contemporary, post-2000 | 27.5M / 327K | Blogs, transcribed oral tales, regional collections |
+| Total | 70.4M / 847K | Five dialect families and three annotation layers |
+
+MADAR should remain visible in the provenance and novelty map because the thesis positions it as a major dialect resource and relates it to dialect adaptation. Its released examples are translated travel-domain sentences, so those sentences cannot be counted as long-form stories. The thesis calls the corpus out at 2.1M in its resource comparison; the direct build keeps this separate from the narrative-text count. CAMeL Tools is documented as the morphology/root-analysis toolkit, including CALIMA MSA and Egyptian databases and lexicon extensions; it contributes processing, not corpus tokens.
+
+## What we have locally verified
 
 | Scope | Measure | Meaning |
 | --- | ---: | --- |
-| Complete Arabic E-Book Corpus | 76,486,597 provider-reported tokens | Provider-native measure across all 1,745 books; close to the thesis's approximate 72M scale, but not a story-only count |
-| Same complete corpus | 107,029,217 local SentencePiece pieces | Direct-build SPM32 count; a different tokenizer and counter |
-| Publisher-selected narrative candidates | 82,705,621 local SentencePiece pieces | Candidate subset; includes adjacent classes and still requires story-level review |
-| Thesis target | 70,404,829 tokens | Historical target; exact tokenizer/preprocessing are unavailable, so direct-build counts do not claim exact reproduction |
-| Human-adjudicated triple-covered text | 0 tokens | DIA, MOTIF, and MORAL coverage must all be human-adjudicated before counting |
+| Complete Arabic E-Book Corpus | 76,486,597 provider-reported tokens | All 1,745 books; provider-native count, not story-only |
+| Same complete corpus | 107,029,217 local SentencePiece pieces | Direct-build SPM32 counter; not comparable one-to-one to the provider count |
+| Narrative candidates from that corpus | 82,705,621 local SentencePiece pieces | Includes adjacent categories such as history and biography; boundary review needed |
+| Four user-supplied dialect files | 66,247 lines / 1,668,817 pieces | Short dialect evidence; not verified stories and not publicly copied |
+| Human-adjudicated triple coverage | 0 tokens | DIA/MOTIF/MORAL coverage must all be adjudicated before it counts |
 
-## Added dialect intake
+The locally available Alf Layla files contain six Arabic-original volumes from the Arabic E-Book Corpus; the edition is not established as the thesis's 8.2M-token Mahdi critical edition. Kalila is a separate 1816 Wikisource edition; it is not the 3.1M-token source family described by the thesis. We preserve these as transparent direct-build sources and do not pass them off as exact historical editions.
 
-The four user-supplied files were counted with the pinned direct-build SentencePiece model. They contain **66,247 non-empty short lines**, **924,493 whitespace words**, and **1,668,817 SentencePiece pieces** across Jordanian, Palestinian, Syrian, and Lebanese labels. Inspection shows short social-media-style lines, not long stories. Their text is not published in this repository; redistribution rights remain unresolved. The detailed count and SHA-256 report is at `data/corpora/anhc_direct_build/user_provided_dialect_count_report.json`.
+The Jordanian Layla Witheeb collection is a useful supplementary contemporary dialect-story source: 109 speakers read and retell one adapted story. Its repetitions form one story-cycle group. It is recorded for text-only intake, but no count is reported until its transcripts are acquired and inspected.
 
-MADAR is retained for external dialect evaluation only: it covers 25 city varieties, including Amman and Salt, but its travel-domain parallel sentences are not narratives and its access terms prohibit modification and redistribution. QADI, NADI, DART, and Shami are likewise separate dialect-identification resources, not story data.
+## Evidence and completion status
 
-## New narrative source
-
-The Layla Witheeb Jordanian Arabic dataset provides orthographic transcriptions for 109 native speakers reading and retelling an adapted Little Red Riding Hood story. Its page identifies CC BY 4.0. It is well matched to Jordanian spoken narrative and can inform dialect modeling and evaluation. The repetitions are renditions of one plot, so they must share a story-cycle split. The published archive is 1.55 GB; only the text transcription files are needed for this corpus workflow, while audio and speaker metadata are unnecessary for the first text-only intake. No token count is recorded until those text files are ingested and checked.
-
-## Completion gate
-
-The current release has a 70M-scale source pool and substantial classical/narrative candidates, but it does **not** yet establish the thesis's 55,600 narrative units or 23M human-adjudicated DIA–MOTIF–MORAL tokens. We will keep the full-corpus scale result, story-only counts, and annotated coverage as separate audited totals. Story boundaries, source attribution, annotation evidence, adjudication, and cycle-safe split assignment are required before the corpus stage can be represented as complete.
+The current build demonstrates comparable corpus scale and usable classical/dialect resource plumbing, but does not yet reconstruct every thesis-named edition or its historical source manifest. The thesis reports 70,404,829 tokens and 23M triple-annotated tokens; this branch must derive corresponding totals from actual, attributed records using a pinned tokenizer and human-adjudicated spans. We keep the novelty claim grounded in the integration design while making every locally verified source and every remaining provenance gap explicit.
