@@ -13,7 +13,7 @@ The thesis reports these source strata:
 | Contemporary, post-2000 | 27.5M / 327K | Blogs, transcribed oral tales, regional collections |
 | Total | 70.4M / 847K | Five dialect families and three annotation layers |
 
-MADAR should remain visible in the provenance and novelty map because the thesis positions it as a major dialect resource and relates it to dialect adaptation. Its released examples are translated travel-domain sentences, so those sentences cannot be counted as long-form stories. The thesis calls the corpus out at 2.1M in its resource comparison; the direct build keeps this separate from the narrative-text count. CAMeL Tools is documented as the morphology/root-analysis toolkit, including CALIMA MSA and Egyptian databases and lexicon extensions; it contributes processing, not corpus tokens.
+MADAR should remain visible in the provenance and novelty map because the thesis positions it as a major dialect resource and reports a CNN-based DIA classifier with 94.3% accuracy on the MADAR benchmark (§5.4.1). Its released examples are translated travel-domain sentences, so they contribute dialect supervision/benchmark evidence, not long-form story plots. The thesis calls the corpus out at 2.1M in its resource comparison; the direct build keeps this separate from the narrative-text count. CAMeL Tools is documented as the morphology/root-analysis toolkit, including CALIMA MSA and Egyptian databases and lexicon extensions; it contributes processing, not corpus tokens.
 
 ## What we have locally verified
 
