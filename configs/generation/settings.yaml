@@ -1,0 +1,62 @@
+# Cultural settings for original-story generation (scientific review, 2026-11).
+#
+# STATUS: unreviewed_draft. Place names are well-known public landmarks; personal
+# names are common given names; dialect markers are frequent, widely attested
+# function words of each variety. They were written by the engineering reviewer,
+# not taken from a validated resource, and are NOT a dialect lexicon. They are
+# used only (a) to brief the generator and (b) as a weak *proxy* for dialect
+# presence, never as evidence of dialect authenticity. Native-speaker review is
+# required before any use in an evaluation (docs/ar/ANSG_SCIENTIFIC_REVIEW_2026-11.md §4).
+#
+# dal_dialect maps to the five coarse DAL classes of the dissertation
+# (MSA/Egyptian/Levantine/Gulf/Maghrebi); `variety` records the finer target that
+# the five-way DAL cannot represent (e.g. southern Jordanian vs. urban Levantine).
+
+review_status: unreviewed_draft
+
+settings:
+  aqaba:
+    label: "العقبة، الأردن"
+    country: Jordan
+    city: Aqaba
+    dal_dialect: Levantine
+    variety: "Jordanian Arabic as spoken in Aqaba (southern Jordan); not urban Levantine"
+    places: ["العقبة", "خليج العقبة", "البحر الأحمر", "ميناء العقبة", "قلعة العقبة", "وادي رم"]
+    names: ["سالم", "عودة", "محمد", "سليمان", "عيد", "فاطمة", "مريم", "حليمة", "نورة"]
+    dialect_markers: ["هسّا", "شو", "وين", "إشي", "زلمة", "ودّي", "بدّي", "هيك"]
+    default_register: {narration: msa, dialogue: dialect}
+
+  alexandria:
+    label: "الإسكندرية، مصر"
+    country: Egypt
+    city: Alexandria
+    dal_dialect: Egyptian
+    variety: "Egyptian Arabic as spoken in Alexandria"
+    places: ["الإسكندرية", "الكورنيش", "قلعة قايتباي", "المنشية", "بحري", "الأنفوشي"]
+    names: ["محمود", "حسن", "عبد الرحمن", "سيد", "فاطمة", "زينب", "نادية", "سعاد"]
+    dialect_markers: ["عايز", "دلوقتي", "إزيك", "ليه", "إيه", "كده", "مش", "أوي"]
+    default_register: {narration: msa, dialogue: dialect}
+
+  kuwait:
+    # The Gulf setting is fixed explicitly to Kuwait City and Kuwaiti Arabic.
+    label: "مدينة الكويت، الكويت"
+    country: Kuwait
+    city: Kuwait City
+    dal_dialect: Gulf
+    variety: "Kuwaiti Arabic"
+    places: ["الكويت", "سوق المباركية", "أبراج الكويت", "جون الكويت", "الخليج العربي"]
+    names: ["عبد الله", "فهد", "جاسم", "يوسف", "مريم", "دانة", "شيخة", "لطيفة"]
+    dialect_markers: ["شلونك", "الحين", "وايد", "شنو", "ليش", "أبي", "زين", "جذي"]
+    default_register: {narration: msa, dialogue: dialect}
+
+  fes:
+    # The Maghrebi setting is fixed explicitly to Fes and Moroccan Darija.
+    label: "فاس، المغرب"
+    country: Morocco
+    city: Fes
+    dal_dialect: Maghrebi
+    variety: "Moroccan Darija as spoken in Fes"
+    places: ["فاس", "فاس البالي", "باب بوجلود", "جامع القرويين", "دار الدباغة شوارة"]
+    names: ["إدريس", "يوسف", "عبد الكريم", "حميد", "خديجة", "فاطمة الزهراء", "سكينة", "زهرة"]
+    dialect_markers: ["بغيت", "واش", "دابا", "بزاف", "مزيان", "شنو", "خويا", "علاش"]
+    default_register: {narration: msa, dialogue: dialect}
