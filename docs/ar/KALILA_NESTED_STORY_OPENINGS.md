@@ -20,6 +20,20 @@ python scripts/mark_kalila_nested_story_openings.py \
 
 تُربط كل إزاحة بالنسخة النصية المطابقة لبصمة المصدر؛ ولا يجوز نقلها إلى تنقيح آخر قبل إعادة حساب المطابقة. تبقى فصول كليلة ودمنة العشرة معاً في مجموعة منع تسرب واحدة.
 
+## قائمة المراجعة اليدوية
+
+تُنشأ قائمة CSV من دون نسخ نص الفصل. لكل موضع، تربط القائمة الصفحة المثبتة ورقم مراجعتها وبصمة النص وإزاحة الافتتاح، وتعرض إزاحتي الافتتاحين السابق واللاحق كوسيلتي تنقل فقط. هاتان الإزاحتان **ليستا** حدّين مقترحين للقصة. حقول اعتماد الافتتاح والنهاية والإطار وعمق التعشيش وDIA/MOTIF/MORAL تبقى فارغة إلى أن يراجعها شخص مقابل المصدر.
+
+```bash
+python scripts/build_kalila_opening_review_queue.py \
+  --markers data/corpora/anhc_direct_build/kalila_1816/reported_tale_openings.jsonl \
+  --sources build/anhc/kalila_1816.jsonl \
+  --output data/corpora/anhc_direct_build/kalila_1816/opening_review_queue.csv \
+  --report data/corpora/anhc_direct_build/kalila_1816/opening_review_queue_report.json
+```
+
+الناتج الحالي 39 صف مراجعة في 9 فصول، من دون نص المصدر أو وسوم مسبقة. الإزاحات محسوبة كنقاط Unicode في النص المستخرج المطابق لبصمة SHA-256.
+
 ## المصادر
 
 - طبعة 1816 على [ويكي مصدر العربية](https://ar.wikisource.org/wiki/%D9%83%D9%84%D9%8A%D9%84%D8%A9_%D9%88%D8%AF%D9%85%D9%86%D8%A9_%281816%29)، برخصة CC BY-SA وفق بيانات المصدر في السجل.
