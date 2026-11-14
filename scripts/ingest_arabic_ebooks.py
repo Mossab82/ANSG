@@ -147,6 +147,22 @@ def main() -> None:
 
     manifest = "".join(json.dumps(record, ensure_ascii=False, separators=(",", ":")) + "\n" for record in records)
     (args.output / "manifest.jsonl").write_text(manifest, encoding="utf-8")
+    alf_books = [row for row in records if "ألف ليلة وليلة" in (row.get("source", {}).get("title") or "")]
+    if alf_books:
+        report_alf = {
+            "work": "Alf Layla wa-Layla",
+            "books": [{"record_id": row["record_id"], "title": row["source"]["title"],
+                       "book_id": row["source"]["book_id"], "translation": row["source"]["translation"],
+                       "original_language": row["source"]["original_language"],
+                       "observed_whitespace_words": row["counts"]["observed_whitespace_words"],
+                       "source_text_sha256": row["source_text_sha256"]} for row in alf_books],
+            "arabic_original_volume_count": sum(not row["source"]["translation"] for row in alf_books),
+            "arabic_original_observed_whitespace_words": sum(row["counts"]["observed_whitespace_words"] for row in alf_books if not row["source"]["translation"]),
+            "all_book_observed_whitespace_words": sum(row["counts"]["observed_whitespace_words"] for row in alf_books),
+            "note": "Whole-book records; run segment_alflayla_heading_candidates.py for provisional title-line markers."
+        }
+    else:
+        report_alf = None
     report = {
         "schema": "ansg.source_ingestion_report/1", "built_utc": datetime.now(timezone.utc).isoformat(),
         "dataset": "The Arabic E-Book Corpus", "version": 1, "dataset_doi": DATASET_DOI,
@@ -160,6 +176,7 @@ def main() -> None:
         "category_whitespace_word_counts_nonexclusive": dict(by_category_words),
         "period_record_counts": dict(by_period), "period_whitespace_word_counts": dict(by_period_words),
         "translation_counts": dict(by_translation), "translation_whitespace_word_counts": dict(by_translation_words),
+        "featured_narrative_work": report_alf,
         "metadata_reported_words": total_words_metadata, "observed_whitespace_words": total_words_observed,
         "token_count": None, "tokenizer": None,
         "limitations": ["publisher genres are candidate filters, not verified story-level segmentation", "books remain unsegmented, unannotated, and unassigned to splits", "this source is not a dialect corpus", "do not equate word counts or the source catalogue token figure with the thesis tokenizer count"]
