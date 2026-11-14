@@ -46,7 +46,7 @@
   },
   "allOf": [
     {"if": {"properties": {"decision": {"const": "reviewed_none"}}}, "then": {"properties": {"label": {"const": "NO_LABEL"}}}},
-    {"if": {"properties": {"decision": {"const": "uncertain"}}}, "then": {"properties": {"provenance": {"properties": {"adjudication_status": {"enum": ["provisional", "disputed"]}}}}}
+    {"if": {"properties": {"decision": {"const": "uncertain"}}}, "then": {"properties": {"provenance": {"properties": {"adjudication_status": {"enum": ["provisional", "disputed"]}}}}}}
   ],
   "additionalProperties": false
 }
