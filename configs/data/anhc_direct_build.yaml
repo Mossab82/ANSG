@@ -1,0 +1,77 @@
+schema: ansg.anhc_direct_build/1
+build_name: ANHC-direct-build
+status: source_intake_started
+principle: collect_and_annotate_primary_texts_directly
+do_not:
+  - reconstruct_missing_historical_records
+  - label_this_release_as_the_historical_thesis_corpus_without_source_identity
+  - pad_or_trim_text_to_force_target_counts
+  - include_model_generated_or_unlicensed_text
+  - infer_nested_story_relations_without_textual_or_editorial_evidence
+
+thesis_targets_for_validation_only:
+  raw_tokens_claimed: 70400000
+  tri_annotated_tokens_claimed: 23000000
+  dialect_varieties_claimed: [MSA, Egyptian, Levantine, Gulf, Maghrebi]
+  period_token_targets_claimed:
+    classical_pre_1800: 24600000
+    modern_1800_2000: 18300000
+    contemporary_post_2000: 27500000
+  note: >
+    These are comparison targets taken from the dissertation. Report observed
+    counts from source files and the documented tokenizer; never alter corpus
+    content to make the observed totals equal these targets.
+
+counting:
+  tokenizer: unresolved
+  tokenizer_must_be_pinned_before_any_claimed_token_total: true
+  normalization_profile: versioned_and_non_destructive
+  report_word_count_and_token_count_separately: true
+
+annotation:
+  layers: [DIA, MOTIF, MORAL]
+  claimed_target_tokens: 23000000
+  status: not_started
+  policy:
+    - publish annotation guidelines and label inventory before annotation
+    - record annotator provenance and adjudication
+    - mark machine-assisted labels as provisional until human validated
+    - split by story_cycle before training_or_evaluation
+
+sources:
+  - source_id: wiksource-ar-alf-layla
+    title: "ألف ليلة وليلة"
+    source_url: "https://ar.wikisource.org/wiki/ألف_ليلة_وليلة"
+    period: classical_pre_1800
+    dialect: MSA_or_edition_specific
+    content_status: source_pages_exist; edition_identity_and_page_rights_require_review
+    training_status: blocked_pending_per_page_edition_license_review
+    redistribution_status: blocked_pending_per_page_edition_license_review
+    acquisition: discover_index_pages_and_pin_revision_ids
+  - source_id: wiksource-ar-kalila-dimna
+    title: "كليلة ودمنة"
+    source_url: "https://ar.wikisource.org/wiki/كليلة_ودمنة"
+    period: classical_pre_1800
+    dialect: MSA_or_edition_specific
+    content_status: source_pages_exist; edition_identity_and_page_rights_require_review
+    training_status: blocked_pending_per_page_edition_license_review
+    redistribution_status: blocked_pending_per_page_edition_license_review
+    acquisition: discover_index_pages_and_pin_revision_ids
+  - source_id: modern-public-domain-literature
+    title: "Arabic narrative works, 1800–2000"
+    source_url: null
+    period: modern_1800_2000
+    dialect: source_specific
+    content_status: source_discovery_required
+    training_status: blocked_until_rights_verified
+    redistribution_status: blocked_until_rights_verified
+    acquisition: select_individual_work_and_edition_with_documented_public_domain_or_permission
+  - source_id: contemporary-consented-stories
+    title: "Original oral and written stories contributed by storytellers"
+    source_url: null
+    period: contemporary_post_2000
+    dialect: [Egyptian, Levantine, Gulf, Maghrebi, MSA]
+    content_status: contributor_collection_not_started
+    training_status: blocked_until_explicit_informed_consent
+    redistribution_status: blocked_until_explicit_license_and_consent
+    acquisition: record_consent_scope_at_story_level
