@@ -70,6 +70,21 @@ sources:
     training_status: blocked_until_rights_verified
     redistribution_status: blocked_until_rights_verified
     acquisition: select_individual_work_and_edition_with_documented_public_domain_or_permission
+  - source_id: arabic-ebook-corpus-hallberg-2024
+    title: "The Arabic E-Book Corpus (Version 1)"
+    source_url: "https://doi.org/10.5878/7rbh-gy93"
+    article_doi: "https://doi.org/10.1016/j.dib.2025.111456"
+    publisher_download: "https://open.doris.gu.snd.se/downloads/public/2024-145/1/data/corpus-txt.zip"
+    license: "CC BY 4.0; source documentation states included works/translations are public domain or CC BY 4.0"
+    source_size: "1,745 books; 80.5 million reported words"
+    selection: [novels, detective.fiction, science.fiction, children.stories, plays, literature, history, biographies, travel.literature]
+    role: narrative_candidate_ingestion; candidate categories require story-boundary review
+    period: source_specific_from_original_publication_year
+    dialect: mostly_edition_specific; not a dialect corpus
+    content_status: downloaded_and_materializer_running
+    training_status: eligible_under_CC_BY_4.0_after_record_level_attribution_and_validation
+    redistribution_status: CC_BY_4.0_attribution_required; retain_original_book_metadata
+    acquisition: scripts/ingest_arabic_ebooks.py
   - source_id: contemporary-consented-stories
     title: "Original oral and written stories contributed by storytellers"
     source_url: null
