@@ -5,8 +5,8 @@ Specification audit only: it validates the transcription, recomputes the printed
 worked examples, lists weight sets reused for different terms, compares the
 defaults in ansg.training with the PPO variants, reports the dissertation's CMPI
 definition and the separate CULTURA / CST-Onto / MM-GTA metrics, and reports
-which inputs block each variant. It scores no text, selects no variant and
-trains nothing.
+which inputs block each variant. It scores no text, makes no selection of its own
+(selections come only from recorded owner decisions) and trains nothing.
 
 Exit status:
   0  specification valid (without --variant)
@@ -42,6 +42,8 @@ def build_report(spec_path, variant=None):
         "problems": problems,
         "selected_variant": spec.selected_variant,
         "selected_ppo_variant": spec.data.get("selected_ppo_variant"),
+        "selection": spec.data.get("selection"),
+        "operational_gaps": spec.data.get("operational_gaps"),
         "cmpi_definition": {"weights": ANSG_CMPI_WEIGHTS, "reference": ANSG_CMPI_REFERENCE,
                             "equation": cmpi_variants["ansg_thesis"]["equation"],
                             "dimension_scorers": cmpi_variants["ansg_thesis"]["dimension_scorers"],
@@ -66,7 +68,8 @@ def build_report(spec_path, variant=None):
         "same_weights_different_terms": spec.same_weights_different_terms() if not problems else [],
         "code_alignment": spec.code_alignment() if not problems else {},
         "notice": ("Specification audit only. No reward or CMPI was computed from text (CMPI's dimension "
-                   "scorers are unspecified), no variant is selected and no thesis result is reproduced."),
+                   "scorers are unspecified), no selection is made beyond the recorded owner decisions, and no thesis "
+                   "result is reproduced."),
     }
     if variant is not None and not problems:
         spec.variant(variant)
@@ -83,7 +86,14 @@ def exit_code(report):
 
 
 def render(r):
-    out = [f"Spec: {r['spec']}", f"Selected variant: {r['selected_variant']} (none selected = author decision pending)"]
+    sel = r.get("selection") or {}
+    out = [f"Spec: {r['spec']}",
+           f"Reference reward: {r['selected_variant']} ({(sel.get('reward') or {}).get('basis', 'no recorded decision')})",
+           f"PPO settings: {r['selected_ppo_variant']} ({(sel.get('ppo') or {}).get('basis', 'no recorded decision')})"]
+    for c in (sel.get("ppo") or {}).get("conflicts") or []:
+        out.append(f"  conflict kept: {c['source']} {c['setting']}={c['value']} vs body {c['body_value']} ({c['reference']})")
+    for name, g in (r.get("operational_gaps") or {}).items():
+        out.append(f"  operational gap: {name} -> {g['status']}")
     if r["problems"]:
         out += ["", "Specification problems:"] + [f"  - {p}" for p in r["problems"]]
         return "\n".join(out)

@@ -1,18 +1,19 @@
 # Decisions register for PR #33 (reward/RL, CMPI, CKG/CST-Onto, training).
 #
-# `decided` entries are the repository owner's directives of 2026-11-14 and are
-# not re-opened in later reports. `awaiting_previous_decision` items were already
-# put to the owner and are not raised again until a new decision arrives.
-# `needs_decision` items still require an explicit owner decision (or explicit
-# support in the dissertation). `awaiting_inputs` items are blocked on files,
-# licences, data or scores, not on a decision.
+# Sections:
+#   decided              the owner's directives (2026-11-14); not re-opened
+#   stated_values        values the dissertation states and the decisions adopt
+#   conflicts_recorded   other statements in the dissertation, kept, not adopted
+#   operational_gaps     missing specifications or inputs; NOT author questions;
+#                        not raised again until an implementation is put forward
+#   awaiting_previous_decision  already put to the owner; not re-raised
 
 schema: ansg.owner_decisions/1
 recorded: "2026-11-14"
 
 decided:
   - id: D1-ansg-cmpi
-    directive: "Adopt the dissertation's CMPI definition and weights for ANSG: 0.35 rhetorical devices, 0.25 dialectal appropriateness, 0.25 narrative structure, 0.15 moral framing. Compute it from caller-supplied dimension scores with documented provenance; do not invent automatic extraction of the scores from text."
+    directive: "Adopt the dissertation's CMPI definition and weights for ANSG; compute from caller-supplied dimension scores with documented provenance; no invented extraction from text."
     implemented_in: [src/ansg/evaluation/cmpi.py, configs/evaluation/cmpi_variants.yaml]
     weights: {rhetorical_devices: 0.35, dialectal_appropriateness: 0.25, narrative_structure: 0.25, moral_framing: 0.15}
     note: "The definition and weights are in the dissertation (§5.1 p.131; §8.7.4 p.223); a procedure for extracting each dimension score from text is not."
@@ -20,41 +21,65 @@ decided:
     directive: "Keep the CULTURA, CST-Onto and MM-GTA metrics separate from ANSG's CMPI; no conversion or substitution."
     implemented_in: [configs/evaluation/cmpi_variants.yaml, src/ansg/evaluation/cmpi.py]
   - id: D3-cultura-conflict
-    directive: "Do not repair the CULTURA equation or change the published result; keep both as printed and record the conflict and the author's options in one record; do not raise it again until a new decision."
+    directive: "Keep the CULTURA equation and published result as printed; record the conflict and the author's options in one record; do not raise it again until a new decision."
     single_record: "configs/evaluation/cmpi_variants.yaml#cultura (printed_formula_conflicts, conflict_computation, author_decision_options)"
-  - id: D4-reward-ppo
-    directive: "Choose no reward or PPO variant; change no normalisation, KL placement or sub-metric without explicit dissertation support or an owner decision; keep unresolved options documented and marked blocked."
-    implemented_in: [configs/specification/reward_rl_variants.yaml]
+  - id: D4-reward-ppo-no-invention
+    directive: "Change no normalisation, KL placement or sub-metric without explicit dissertation support or an owner decision; keep unresolved items documented and blocked."
   - id: D5-resources-rights-training
-    directive: "Assume no CKG or CST-Onto files and no permission to use them; keep resources, rights, admission and training execution blocked until the files, licences and data are supplied."
-    implemented_in: [configs/knowledge/ckg.yaml, configs/training/ansg_direct_profile.yaml]
+    directive: "Assume no CKG or CST-Onto files and no permission to use them; keep resources, rights, admission and training execution blocked until files, licences and data are supplied."
+    implemented_in: [configs/knowledge/ckg.yaml, configs/specification/training_schedule.yaml]
+  - id: D6-reward-reference
+    directive: "Use the full §4.5 formula, Eq. 4.26-4.29, as the detailed reference reward; record Table 4.1, Eq. 5.1 and Appendix A.3 formulas as separate conflicts; sub-components that cannot be computed automatically are caller-supplied inputs with provenance."
+    implemented_in: ["configs/specification/reward_rl_variants.yaml (selected_variant, selection.reward)"]
+  - id: D7-ppo-settings
+    directive: "Adopt the §5.6.3 / Table 5.9 PPO values; record Appendix A.3's learning rate 1e-6 as a conflict with the body."
+    implemented_in: ["configs/specification/reward_rl_variants.yaml (selected_ppo_variant, selection.ppo)", "ansg.reward_spec.RewardSpec.selected_ppo_kwargs"]
+  - id: D8-normalisation-kl
+    directive: "Invent no normalisation rule: record it as a required input. Record KL placement as an implementation choice to pin before training. Do not raise either again unless an implementation is put forward for approval."
+    implemented_in: ["configs/specification/reward_rl_variants.yaml#operational_gaps"]
+  - id: D9-sub-metrics
+    directive: "Use the §4.5 printed weights and equations as they are; keep automatic computation blocked for components whose text measurement the dissertation does not specify (virtue coherence, coreference, temporal, causal, ...). This is a specification gap or evaluation input, not an author decision."
+  - id: D10-training-schedule
+    directive: "Document the §5.6 schedule (supervised 1-30 on full ANHC 70.4M + 23M annotated; adversarial 31-65 with 50K generated samples per epoch + ANHC samples; PPO 66-100 on-policy with 128-story batches); keep execution blocked until data and rights are available."
+    implemented_in: [configs/specification/training_schedule.yaml]
+
+stated_values:
+  reward_reference:
+    variant: ch4_eq_4_26_to_4_29
+    R_total: {R_cult: 0.45, R_ling: 0.35, R_coh: 0.20}
+    R_cult: {CMPI: 0.35, virtue_coherence: 0.30, rhetorical_devices: 0.25, register: 0.10}
+    R_ling: {inverse_perplexity_normalised: 0.40, BLEU: 0.35, BERTScore: 0.25}
+    R_coh: {coreference: 0.50, temporal: 0.30, causal: 0.20}
+    pages: [115, 116, 117, 118]
+  ppo:
+    variant: ch5_s5_6_3_table_5_9
+    values: {clip_range: 0.20, value_coef: 0.50, entropy_coef: 0.01, gae_lambda: 0.95, rollout_batch: 128, ppo_epochs: 4, minibatch: 32, kl_coef: 0.01, max_grad_norm: 0.5, learning_rate: 1.0e-5}
+    pages: [148, 151]
+  training_schedule: "configs/specification/training_schedule.yaml#stages"
+
+conflicts_recorded:
+  - {id: reward-table-4-1, record: "reward_rl_variants.yaml#ch4_table_4_1_and_s4_1_1"}
+  - {id: reward-eq-5-1, record: "reward_rl_variants.yaml#ch5_eq_5_1_s5_6_3"}
+  - {id: reward-appendix-a3-a11, record: "reward_rl_variants.yaml#appendix_a3_a11"}
+  - {id: reward-cultural-subweights-5-5-3, record: "reward_rl_variants.yaml#ch5_s5_5_3_table_5_9_cultural_subweights"}
+  - {id: reward-a21-ratio, record: "reward_rl_variants.yaml#appendix_a21"}
+  - {id: ppo-lr-appendix-a3, record: "reward_rl_variants.yaml#selection.ppo.conflicts"}
+  - {id: training-schedule-elsewhere, record: "training_schedule.yaml#conflicts"}
+  - {id: rhetorical-double-count, record: "docs/SPECIFICATION_CONFLICTS.md C-REWARD-9"}
+
+operational_gaps:
+  - {id: perplexity-normalisation, kind: required_input, record: "reward_rl_variants.yaml#operational_gaps.perplexity_normalisation"}
+  - {id: bleu-normalisation, kind: required_input, record: "reward_rl_variants.yaml#operational_gaps.bleu_normalisation"}
+  - {id: kl-placement, kind: implementation_choice_to_pin_before_training, record: "reward_rl_variants.yaml#operational_gaps.kl_placement"}
+  - {id: sub-metric-scorers, kind: specification_gap_or_evaluation_input, record: "reward_rl_variants.yaml#components (CMPI dimensions, virtue_coherence, register, rhetorical_devices, coreference, temporal, causal, BERTScore model)"}
+  - {id: cmpi-dimension-scores, kind: evaluation_input, record: "cmpi_variants.yaml#ansg_thesis.dimension_scorers"}
+  - {id: discriminator-spec, kind: specification_gap, record: "training_schedule.yaml#stages[adversarial_refinement].code_differs"}
+  - {id: ckg-cst-onto-files, kind: required_input, record: "configs/knowledge/ckg.yaml"}
+  - {id: rights-and-admission, kind: required_input, record: "configs/knowledge/ckg.yaml#rights"}
+  - {id: training-data-and-checkpoints, kind: required_input, record: "training_schedule.yaml#execution"}
 
 awaiting_previous_decision:
   - id: cultura-0.2-vs-0.82
     record: "configs/evaluation/cmpi_variants.yaml#cultura.author_decision_options"
     raised: "2026-11-14"
     status: not_re_raised
-
-needs_decision:
-  - id: reward-variant
-    question: "Which reward variant (and PPO settings) applies"
-    record: "configs/specification/reward_rl_variants.yaml (selected_variant: null, selected_ppo_variant: null; C-REWARD-1..9)"
-  - id: reward-normalisation-kl
-    question: "Normalisation of perplexity/BLEU and placement of the KL penalty (reward-side or loss-side)"
-    record: "configs/specification/reward_rl_variants.yaml (components *_normalised; ch5 kl_penalty.placement: unspecified)"
-  - id: reward-sub-metrics
-    question: "Operational definitions of virtue coherence, register, coreference, temporal, causal, PCI, diversity and the Ch.5 penalty detectors"
-    record: "configs/specification/reward_rl_variants.yaml#components"
-  - id: training-data-staging
-    question: "Chapter 3 vs Chapter 5 use of the 70.4M and 23M data in stage 1 (and which stage schedule applies)"
-    record: "configs/training/ansg_direct_profile.yaml#data_use_conflict; docs/SPECIFICATION_CONFLICTS.md C-TRAIN-1"
-
-awaiting_inputs:
-  - id: cmpi-dimension-scores
-    needed: "dimension scores (with provenance) or a scoring protocol for each of the four CMPI dimensions"
-  - id: ckg-cst-onto-files
-    needed: "the CKG and CST-Onto files with version and licence"
-  - id: rights-and-admission
-    needed: "licences/permissions for CKG, CST-Onto and training data; admission decisions stay pending until then"
-  - id: training-inputs
-    needed: "ANHC data and rights, backbone checkpoint and tokenizer; training execution stays blocked"

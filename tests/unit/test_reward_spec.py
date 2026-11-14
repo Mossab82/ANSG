@@ -25,10 +25,11 @@ def _cli():
     return m
 
 
-def test_spec_is_valid_and_selects_nothing(spec):
+def test_spec_is_valid_and_selections_come_from_recorded_decisions(spec):
     assert spec.validate() == []
-    assert spec.selected_variant is None
-    assert spec.data["selected_ppo_variant"] is None
+    assert spec.selected_variant == spec.data["selection"]["reward"]["variant"] == "ch4_eq_4_26_to_4_29"
+    assert spec.data["selected_ppo_variant"] == spec.data["selection"]["ppo"]["variant"]
+    assert "D6" in spec.data["selection"]["reward"]["basis"] and "D7" in spec.data["selection"]["ppo"]["basis"]
 
 
 def test_cmpi_is_thesis_defined_and_blocks_only_through_its_dimensions(spec):
@@ -142,6 +143,8 @@ def test_ppo_kwargs_require_an_explicit_variant(spec):
     (lambda d: d["variants"]["ch4_table_4_1_and_s4_1_1"]["formula"]["R_total"]["sum"].__setitem__("XYZ", 0.0), "neither a node"),
     (lambda d: d["variants"]["ch4_eq_4_26_to_4_29"]["formula"]["R_cult"]["sum"].update({"R_total": 0.0}), "cycle"),
     (lambda d: d.__setitem__("selected_variant", "invented"), "not a variant"),
+    (lambda d: d["selection"]["reward"].__setitem__("basis", ""), "selection.reward"),
+    (lambda d: d.__setitem__("selected_variant", "cmpi_definition_s5_1_s8_7_4"), "full formula"),
     (lambda d: d["components"]["CMPI"].__setitem__("status", "defined"), "status"),
     (lambda d: d["variants"]["cmpi_definition_s5_1_s8_7_4"]["formula"]["CMPI"]["sum"].update(
         {"rhetorical_devices": 0.30, "moral_framing": 0.20}), "differ from ansg.evaluation.cmpi"),

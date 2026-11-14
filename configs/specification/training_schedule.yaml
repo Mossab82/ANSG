@@ -1,0 +1,60 @@
+# ANSG training schedule adopted by owner decision D10 (2026-11-14):
+# the dissertation's §5.1.3 overview (p.133) and §5.6 (p.149-151). Values below
+# are as printed; conflicting statements elsewhere in the dissertation are listed
+# under `conflicts` and are not merged. Execution stays BLOCKED (D5).
+#
+# Note: configs/training/ansg_direct_profile.yaml (base branch) still records
+# data_use_conflict.status: unresolved_in_thesis; D10 settles the stage-1 data
+# mapping for this work. That file is left to its owner and keeps
+# training_ready: false.
+
+schema: ansg.training_schedule/1
+decision: D10
+sources: ["§5.1.3 'ANSG Training Pipeline: End-to-End Overview' p.133", "§5.6.1-§5.6.3 p.149-151", "Table 5.9 p.148"]
+
+stages:
+  - id: supervised_pretraining
+    epochs: [1, 30]
+    hours_reported: 24
+    objective: "L_LM + lambda_align * L_cultural (Eq. 4.16)"
+    data: "Full ANHC 70.4M tokens (linguistic pretraining) + 23M annotated tokens (cultural fine-tuning)"
+    checkpoint: "best validation CMPI (typically epoch 28-30)"
+    code: ["ansg.training.supervised_step", "scripts/train_cultural_modules.py (CSAM+DAL cross-entropy on a frozen backbone; L_cultural / Eq. 4.16-4.19 not implemented)"]
+  - id: adversarial_refinement
+    epochs: [31, 65]
+    hours_reported: 28
+    objective: "generator-discriminator minimax with cultural authenticity"
+    data: "50K generated samples per epoch + authentic samples from ANHC"
+    checkpoint: "balanced D-score plateau (typically epoch 60-65)"
+    code: ["ansg.training.NarrativeDiscriminator", "ansg.training.discriminator_step", "ansg.training.generator_adversarial_step"]
+    code_differs: "the code's discriminator is an embedding + MLP; Ch.5 (thesis_variants.yaml) describes a 3-layer CNN with feature matching and a 10,000-sample replay buffer"
+  - id: ppo
+    epochs: [66, 100]
+    hours_reported: 20
+    objective: "PPO maximising R_total (reference: Eq. 4.26-4.29, decision D6)"
+    data: "on-policy generation, batch of 128 narratives per update"
+    ppo_variant: ch5_s5_6_3_table_5_9   # decision D7
+    checkpoint: "best validation CMPI, early stopping (patience 10 epochs)"
+    code: ["ansg.training.ppo_update (use RewardSpec.selected_ppo_kwargs())", "ansg.training.cultural_reward"]
+    code_differs: "no rollout loop, no GAE, no KL term (placement to be pinned, D8)"
+
+transitions:
+  phase1_to_phase2: "validation perplexity change < 5% over 1,000 steps"
+  phase2_to_phase3: "discriminator accuracy < 70%"
+  stop: "validation CMPI improvement < 0.01 for 10 consecutive epochs"
+
+conflicts:                        # recorded, not adopted
+  - {where: "Ch.3 §3.1.2", statement: "two phases: pretraining on 70.4M, then fine-tuning on 23M"}
+  - {where: "Table 4.1 p.83", statement: "pretrain (MLM) -> fine-tune L_CSAM -> RL 10K steps, LR 1e-5"}
+  - {where: "§4.1.6 p.90", statement: "100K causal-LM steps -> 50K cultural SFT steps -> 20K PPO steps"}
+  - {where: "A.3 Listing A.2 p.271", statement: "phase-1 10 epochs; RL LR 1e-6 (body: 1e-5)"}
+  - {where: "A.26 Listing A.9", statement: "four phases including multi-agent refinement"}
+
+execution:
+  status: blocked
+  requires:
+    - "ANHC data (70.4M / 23M) with rights and split"
+    - "backbone checkpoint and historical tokenizer"
+    - "reward sub-metric scores or scorers, perplexity/BLEU normalisation rule, pinned KL placement (D8, D9)"
+    - "discriminator specification for the adversarial stage"
+    - "CKG / CST-Onto files and licences (D5)"

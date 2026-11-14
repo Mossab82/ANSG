@@ -10,9 +10,37 @@
 
 schema: ansg.reward_rl_variants/1
 
-# No variant is selected. Selecting one is the author's decision (C-REWARD-1..7).
-selected_variant: null
-selected_ppo_variant: null
+# Selections follow the owner's decisions of 2026-11-14
+# (configs/specification/owner_decisions.yaml, D6 and D7). The other variants stay
+# recorded as conflicting alternatives; none is merged into the reference.
+selected_variant: ch4_eq_4_26_to_4_29
+selected_ppo_variant: ch5_s5_6_3_table_5_9
+selection:
+  reward:
+    variant: ch4_eq_4_26_to_4_29
+    basis: "owner decision D6: Eq. 4.26-4.29 (§4.5, p.115-118) are the detailed reference formula"
+    conflicting_alternatives: [ch4_table_4_1_and_s4_1_1, ch5_eq_5_1_s5_6_3, appendix_a3_a11, ch5_s5_5_3_table_5_9_cultural_subweights, appendix_a21]
+  ppo:
+    variant: ch5_s5_6_3_table_5_9
+    basis: "owner decision D7: values stated in §5.6.3 (p.151) and Table 5.9 (p.148)"
+    conflicts:
+      - {source: appendix_a3_listing_a2, setting: learning_rate, value: 1.0e-6, body_value: 1.0e-5, reference: "A.3 Listing A.2 p.271 vs §5.6.3 p.151 / Table 5.9 (C-TRAIN-3)", resolution: "body value adopted by D7; appendix value kept as a recorded conflict"}
+
+# Operational gaps: not questions to the author. They must be supplied or pinned
+# before a real training run, and are not raised again until an implementation is
+# put forward for approval (owner decision D8).
+operational_gaps:
+  perplexity_normalisation:
+    status: required_input
+    note: "The dissertation gives no rule mapping perplexity to [0,1]; the Eq. 4.30 example (perplexity 15.3 -> 1/15.3 = 0.065 'normalized to [0,1]: 0.82', p.119) does not determine one."
+  bleu_normalisation:
+    status: required_input
+    note: "BLEU scale and normalisation for the reward are not stated (Table 4.1 example uses 0.34)."
+  kl_placement:
+    status: implementation_choice_to_pin_before_training
+    coefficient: 0.01
+    reference: "§5.6.3 p.151"
+    note: "Coefficient stated; placement (reward-side penalty or loss-side term) not stated."
 
 # Status of every quantity a variant refers to.
 #   thesis_defined_composite  defined in the thesis as a weighted composite of other components
@@ -75,6 +103,7 @@ components:
 #       ratio     -> a stated weight ratio between abstract criteria
 variants:
   ch4_eq_4_26_to_4_29:
+    role: reference
     kind: full
     reference: {section: "§4.5.1-§4.5.3", equations: ["4.26", "4.27", "4.28", "4.29"], pages: [115, 116, 117, 118]}
     output: R_total
@@ -88,6 +117,7 @@ variants:
       - "R_cult weights CMPI (0.35) and rhetorical devices (0.25) separately, while CMPI itself contains rhetorical devices (0.35, §5.1 p.131): rhetorical devices enter R_cult twice (effective 0.35*0.35 + 0.25 = 0.3725 of R_cult)."
 
   ch4_table_4_1_and_s4_1_1:
+    role: conflicting_alternative
     kind: full
     reference: {section: "Table 4.1 (RL row); §4.1.1 step 9", equations: [], pages: [81, 83]}
     output: R_total
@@ -95,6 +125,7 @@ variants:
       R_total: {sum: {CMPI: 0.45, BLEU: 0.35, PCI: 0.20}}
 
   ch5_eq_5_1_s5_6_3:
+    role: conflicting_alternative
     kind: full
     reference: {section: "§5.6.3; Table 5.9", equations: ["5.1", "5.2", "5.3"], pages: [148, 150, 151, 152, 153]}
     output: R_total
@@ -114,6 +145,7 @@ variants:
     weight_derivation: {method: AHP, reference: "Eq. 5.1 p.151; Table 5.9 p.148 ('AHP expert consensus (Chapter 4)')"}
 
   ch5_s5_5_3_table_5_9_cultural_subweights:
+    role: conflicting_alternative
     kind: fragment
     defines: [R_cult]
     reference: {section: "§5.5.3; Table 5.9 justification text", equations: [], pages: [148]}
@@ -121,6 +153,7 @@ variants:
       R_cult: {sum: {rhetorical_devices: 0.35, virtue_coherence: 0.30, narrative_structure: 0.25, register: 0.10}}
 
   cmpi_definition_s5_1_s8_7_4:
+    role: definition
     kind: fragment
     defines: [CMPI]
     reference: {section: "§5.1; §8.7.4; App. A.1 Table A.2", equations: [], pages: [131, 223, 268]}
@@ -129,6 +162,7 @@ variants:
       CMPI: {sum: {rhetorical_devices: 0.35, dialectal_appropriateness: 0.25, narrative_structure: 0.25, moral_framing: 0.15}}
 
   appendix_a3_a11:
+    role: conflicting_alternative
     kind: full
     reference: {section: "A.3 Listing A.2; A.11", equations: [], pages: [271, 280, 281]}
     output: R_total
@@ -142,6 +176,7 @@ variants:
       recomputed: "eigenvector 0.350/0.300/0.249/0.100, CR ~ 0.0001 (C-REWARD-4; ansg.evaluation.ahp)"
 
   appendix_a21:
+    role: conflicting_alternative
     kind: ratio
     reference: {section: "A.21.3", equations: [], pages: [291, 292]}
     formula:

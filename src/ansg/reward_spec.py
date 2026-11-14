@@ -5,8 +5,10 @@ PPO statement of the thesis as a separate *variant* with section, equation and
 page. This module loads and validates it and evaluates a variant's arithmetic
 for **caller-supplied** component values. It deliberately:
 
-* selects no variant (``selected_variant`` must be chosen explicitly by the
-  author; :func:`load_reward_spec` exposes it, nothing defaults it);
+* invents no selection: ``selected_variant`` / ``selected_ppo_variant`` are set
+  only by recorded owner decisions (``selection`` block, see
+  ``configs/specification/owner_decisions.yaml``), and every other variant stays
+  a recorded conflicting alternative;
 * scores no text. CMPI's equation is defined in the thesis (a weighted
   composite, §5.1 p.131; implemented in :mod:`ansg.evaluation.cmpi`), but the
   scorers of its four dimensions are not; virtue coherence, coreference, PCI and
@@ -169,6 +171,20 @@ class RewardSpec:
         sel_ppo = self.data.get("selected_ppo_variant")
         if sel_ppo is not None and sel_ppo not in self.ppo_variants:
             problems.append(f"selected_ppo_variant {sel_ppo!r} is not a PPO variant")
+        selection = self.data.get("selection") or {}
+        if sel is not None:
+            r = selection.get("reward") or {}
+            if r.get("variant") != sel or not r.get("basis"):
+                problems.append("selected_variant needs a matching selection.reward entry with a basis")
+            if sel in self.variants and self.variants[sel].get("kind") != "full":
+                problems.append(f"selected_variant {sel!r} must be a full formula")
+            for alt in r.get("conflicting_alternatives") or []:
+                if alt not in self.variants or alt == sel:
+                    problems.append(f"selection.reward: bad conflicting alternative {alt!r}")
+        if sel_ppo is not None:
+            pp = selection.get("ppo") or {}
+            if pp.get("variant") != sel_ppo or not pp.get("basis"):
+                problems.append("selected_ppo_variant needs a matching selection.ppo entry with a basis")
         for vid, v in self.variants.items():
             kind = v.get("kind")
             if kind not in VARIANT_KINDS:
@@ -325,6 +341,13 @@ class RewardSpec:
             if len({u[2] for u in uses}) > 1:
                 out.append({"weights": list(key), "uses": [{"variant": u[0], "node": u[1], "terms_by_weight": list(u[2])} for u in uses]})
         return out
+
+    def selected_ppo_kwargs(self) -> dict[str, Any]:
+        """``ppo_update`` arguments of the PPO variant adopted by owner decision (no defaults changed)."""
+        sel = self.data.get("selected_ppo_variant")
+        if sel is None:
+            raise LookupError("no PPO variant selected")
+        return _ppo_update_kwargs(self, sel)
 
     def ppo_update_kwargs(self, ppo_variant_id: str) -> dict[str, Any]:
         """Arguments for ``ansg.training.ppo_update`` from ONE explicitly named PPO
