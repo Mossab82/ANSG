@@ -4,6 +4,7 @@ status: protocol_defined_data_collection_in_progress
 thesis_targets:
   corpus_tokens_claimed: 70400000
   corpus_exact_tokens_appendix_a17: 70404829
+  direct_build_scale_target_approx: 72000000
   triple_annotated_tokens_claimed: 23000000
   segment_count_claimed: 847000
   narrative_count_appendix_a17: 55600
@@ -13,6 +14,17 @@ thesis_targets:
     These are thesis-reported targets, not measured values of the direct build.
     The dissertation reports incompatible narrative totals and tokenizer settings;
     preserve both source claims in the release report.
+direct_build_source_scale:
+  source: "Arabic E-Book Corpus Version 1, all 1,745 books"
+  provider: "Språkbanken Text"
+  snapshot_date: "2025-09-12"
+  provider_reported_tokens: 76486597
+  provider_reported_sentences: 3629107
+  license: "CC BY 4.0"
+  scope_note: >
+    Provider-native statistic for the complete multi-genre source corpus. It is
+    close to the approximate 72M scale target but is not the thesis tokenizer
+    count and is not interchangeable with the local SentencePiece profile.
 counting:
   text_scope: narrative_text_only
   source_text: preserve_utf8_exact; create_versioned_derivatives_for_preprocessing
