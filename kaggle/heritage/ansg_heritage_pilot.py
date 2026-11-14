@@ -48,22 +48,29 @@ def sha(text):
 CORPUS_COMMIT = "da54c488c9e94d049b5ed38b28a3d8005aac88f7"
 CORPUS_URL = ("https://raw.githubusercontent.com/Mossab82/ANSG/"
               + CORPUS_COMMIT + "/data/corpora/classical_arabic/stories.jsonl")
-TRAIN_IDS = {"arabian_nights-001", "arabian_nights-002", "arabian_nights-003",
-             "arabian_nights-004", "kalila_dimna-006", "kalila_dimna-007",
-             "kalila_dimna-008", "kalila_dimna-009", "kalila_dimna-010",
-             "kalila_dimna-011", "kalila_dimna-012", "kalila_dimna-013",
-             "kalila_dimna-014", "kalila_dimna-017"}
-VALIDATION_IDS = {"kalila_dimna-015", "kalila_dimna-016", "kalila_dimna-018"}
-TEST_IDS = {"kalila_dimna-019", "kalila_dimna-020"}
-EXCLUDED_IDS = {"arabian_nights-005"}  # Sinbad likely overlaps the 4 anthology parts.
+TRAIN_IDS = {"arabian_nights-001", "arabian_nights-002", "arabian_nights-003", "arabian_nights-004",
+             "arabian_nights-005", "kalila_dimna-006", "kalila_dimna-007", "kalila_dimna-008",
+             "kalila_dimna-009", "kalila_dimna-011", "kalila_dimna-012", "kalila_dimna-013",
+             "kalila_dimna-014", "kalila_dimna-016", "kalila_dimna-019"}
+VALIDATION_IDS = {"kalila_dimna-010", "kalila_dimna-017", "kalila_dimna-018"}
+TEST_IDS = {"kalila_dimna-015", "kalila_dimna-020"}
+EXCLUDED_IDS: set = set()  # split v2 (scripts/reproduction/derive_pilot_split.py): Sinbad included; 019 joins 007 in train
 
-def load_verified_corpus():
-    """Load a frozen historical text corpus; verify bytes, IDs and page-level groups."""
+def _download_corpus():
     req=Request(CORPUS_URL,headers={
         "User-Agent":"ANSGResearchPilot/0.3 (https://github.com/Mossab82/ANSG)",
         "Accept":"text/plain"})
     with urlopen(req,timeout=90) as res:
-        raw=res.read()
+        return res.read()
+
+
+def load_verified_corpus(local_path=None, write_manifest=True):
+    """Load a frozen historical text corpus; verify bytes, IDs and page-level groups.
+
+    ``local_path`` (CPU preflight) reads the same JSONL from a checkout instead of the
+    pinned raw GitHub URL; every check below is identical in both modes.
+    """
+    raw=Path(local_path).read_bytes() if local_path else _download_corpus()
     rows=[json.loads(line) for line in raw.decode("utf-8").splitlines() if line.strip()]
     expected=TRAIN_IDS|VALIDATION_IDS|TEST_IDS|EXCLUDED_IDS
     if {r["id"] for r in rows}!=expected or len(rows)!=len(expected):
@@ -78,6 +85,8 @@ def load_verified_corpus():
             "test":[r for r in rows if r["id"] in TEST_IDS]}
     if min(len(x) for x in splits.values())<2:
         raise ValueError("Insufficient distinct chapter/cycle groups")
+    if not write_manifest:
+        return splits
     save_json("source_manifest.json",{
         "corpus_source":CORPUS_URL,
         "source_git_commit":CORPUS_COMMIT,
@@ -102,14 +111,34 @@ def repeated_ngrams(s,n=3):
     grams=[tuple(w[i:i+n]) for i in range(len(w)-n+1)]
     return round(1.0-len(set(grams))/len(grams),4)
 
-def chunks(rows,tokenizer):
+def chunks(rows,tokenizer,max_length=None):
+    """Fixed-length token windows, each tagged with its SOURCE GROUP (record id).
+
+    Run 43561944084 failed with ``KeyError: 'night'``: the frozen corpus records are
+    source pages/cycles (``id``), not nights, and the CPU preflight never executed this
+    function. Windows are now tagged with ``row['id']`` and the preflight runs this path.
+    The incomplete tail of each record (< max_length tokens) is dropped and counted.
+    """
+    max_length=max_length or MAX_LENGTH
     out=[]
     for row in rows:
         ids=tokenizer(row["text"],add_special_tokens=False)["input_ids"]
-        for start in range(0,len(ids)-MAX_LENGTH+1,MAX_LENGTH):
-            chunk=ids[start:start+MAX_LENGTH]
-            if len(chunk)>=64:out.append({"ids":chunk,"night":row["night"]})
+        for start in range(0,len(ids)-max_length+1,max_length):
+            out.append({"ids":ids[start:start+max_length],"group":row["id"]})
     return out
+
+
+def prepare_data(splits,tokenizer,max_length=None):
+    """Chunk every split and enforce that no source group appears in two splits."""
+    data={name:chunks(rows,tokenizer,max_length) for name,rows in splits.items()}
+    groups={name:{c["group"] for c in items} for name,items in data.items()}
+    for a in groups:
+        for b in groups:
+            if a<b and groups[a]&groups[b]:
+                raise ValueError(f"source group leakage between {a} and {b}: {sorted(groups[a]&groups[b])}")
+    if len(data["train"])<30 or len(data["validation"])<3 or len(data["test"])<2:
+        raise RuntimeError("Not enough train/validation/test chunks")
+    return data
 
 def generate_samples(model, tokenizer, stage):
     import torch
@@ -152,11 +181,8 @@ def main():
     tokenizer=AutoTokenizer.from_pretrained(MODEL,trust_remote_code=False)
     if tokenizer.pad_token_id is None:
         tokenizer.pad_token=tokenizer.eos_token
-    train=chunks(train_src,tokenizer)
-    heldout=chunks(eval_src,tokenizer)
-    test_chunks=chunks(test_src,tokenizer)
-    if len(train)<30 or len(heldout)<3 or len(test_chunks)<2:
-        raise RuntimeError("Not enough train and later-night diagnostic chunks")
+    data=prepare_data(splits,tokenizer)
+    train,heldout,test_chunks=data["train"],data["validation"],data["test"]
     save_json("data_report.json",{
         "train_chunks":len(train),"heldout_chunks":len(heldout),
         "train_source_ids":sorted(TRAIN_IDS),"validation_source_ids":sorted(VALIDATION_IDS),
@@ -181,11 +207,13 @@ def main():
     best=float("inf")
     no_improve=0
 
-    def eval_loss():
+    def eval_loss(items=None):
+        """Mean CE over ALL chunks of a split (validation by default)."""
+        items=heldout if items is None else items
         model.eval()
         losses=[]
         with torch.no_grad():
-            for chunk in heldout[:min(24,len(heldout))]:
+            for chunk in items:
                 ids=torch.tensor([chunk["ids"]],device="cuda")
                 with torch.autocast(device_type="cuda",dtype=torch.float16):
                     loss=model(input_ids=ids,labels=ids).loss
@@ -194,8 +222,10 @@ def main():
         return sum(losses)/len(losses)
 
     baseline_loss=eval_loss()
-    save_json("baseline_metrics.json",{"heldout_ce_loss":baseline_loss,
-        "heldout_selection":"first 24 chunks of Kalila validation chapter groups",
+    baseline_test_loss=eval_loss(test_chunks)   # measured once before training; never used for selection
+    save_json("baseline_metrics.json",{"heldout_ce_loss":baseline_loss,"test_ce_loss":baseline_test_loss,
+        "heldout_selection":"all chunks of the Kalila validation chapter groups",
+        "test_policy":"test CE measured before training and once after training; never used for early stopping or checkpoint choice",
         "evaluation_warning":"Grouped by source chapter/cycle; nested sub-story overlaps and shared frame formulae not independently audited. Domain differs from Arabian Nights.",
         "sample_prompts":list(PROMPTS),"performance_claim":"none"})
     rng=random.Random(SEED)
@@ -241,6 +271,7 @@ def main():
                 break
         history.append(record)
 
+    final_test_loss=eval_loss(test_chunks)   # the only post-training touch of the test groups
     model.config.use_cache=True
     after=generate_samples(model,tokenizer,"adapted")
     model.save_pretrained(OUTPUT/"adapter_final",safe_serialization=True)
@@ -258,6 +289,9 @@ def main():
         "last_heldout_loss":next((x["heldout_ce_loss"] for x in reversed(history) if "heldout_ce_loss" in x),None),
         "gpu":device_name,"train_chunks":len(train),"heldout_chunks":len(heldout),
         "test_chunks_reserved_not_used_for_selection":len(test_chunks),
+        "baseline_test_loss":round(baseline_test_loss,5),
+        "final_test_loss":round(final_test_loss,5),
+        "test_loss_note":"measured on the final adapter (not the best-validation checkpoint); reported, not used for any choice",
         "source_git_commit":CORPUS_COMMIT,
         "quality_validation":"Not validated. Human evaluation of Arabic fluency, culture, dialect and plot required.",
         "automated_quality_checks":"Arabic letter ratio, trigram repetition only; NOT equivalent to CRAFT.",

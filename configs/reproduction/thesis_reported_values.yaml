@@ -1,0 +1,136 @@
+# Values TRANSCRIBED from the dissertation (Tesis_Ibrahim, supplied Markdown conversion) for an
+# arithmetic consistency audit. Pages come from the PDF footers in that conversion (see
+# docs/THESIS_TO_CODE_TRACEABILITY.md "Method"). These are the thesis's REPORTED numbers, not
+# measurements by this repository. scripts/reproduction/audit_reported_values.py recomputes each
+# derived value from the thesis's own inputs; a mismatch beyond the tolerance (half a unit of the
+# last reported digit unless stated) is an internal inconsistency of the reported results.
+#
+# formula: Python expression over `inputs` (math functions: sqrt). `reported`: the printed value.
+
+checks:
+  # ---------------------------------------------------------------- Chapter 6 headline
+  - id: GAP-CLOSURE-EQ6.1
+    ref: "§6.1.4, Eq. 6.1, p. 166"
+    claim: "ANSG closes 92.3% of the gap between GPT-4 and the human ceiling (CMPI)"
+    inputs: {ansg: 0.92, baseline: 0.68, human: 0.94}
+    formula: "100 * (ansg - baseline) / (human - baseline)"
+    reported: 92.3
+    tolerance: 0.05
+  - id: GAP-CLOSURE-TABLE6.4-BASELINE
+    ref: "§6.1.4 p. 166 vs Table 6.4 p. 170"
+    claim: "Same gap closure, using the GPT-4 CMPI printed in Table 6.4 (0.73) instead of 0.68"
+    inputs: {ansg: 0.92, baseline: 0.73, human: 0.94}
+    formula: "100 * (ansg - baseline) / (human - baseline)"
+    reported: 92.3
+    tolerance: 0.05
+    note: "C-EVAL-11: GPT-4 CMPI is 0.68 in the text and Eq. 6.1 but 0.73 in Table 6.4"
+  - id: ADVANCE-OVER-GPT4
+    ref: "§6.1.4, p. 166"
+    claim: "CMPI 0.92 is a 35.3% advancement over GPT-4 (0.68)"
+    inputs: {ansg: 0.92, gpt4: 0.68}
+    formula: "100 * (ansg - gpt4) / gpt4"
+    reported: 35.3
+    tolerance: 0.05
+  - id: ADVANCE-OVER-MMGTA
+    ref: "§6.1.4, p. 166"
+    claim: "17.9% over MM-GTA (0.78)"
+    inputs: {ansg: 0.92, mmgta: 0.78}
+    formula: "100 * (ansg - mmgta) / mmgta"
+    reported: 17.9
+    tolerance: 0.05
+
+  # ---------------------------------------------------------------- Table 6.4 (p. 170): ANSG vs MM-GTA row
+  - {id: T6.4-RHETORIC, ref: "Table 6.4, p. 170", claim: "+15.2%", inputs: {a: 0.91, b: 0.79}, formula: "100*(a-b)/b", reported: 15.2, tolerance: 0.05}
+  - {id: T6.4-FORMULAIC, ref: "Table 6.4, p. 170", claim: "+13.2%", inputs: {a: 0.86, b: 0.76}, formula: "100*(a-b)/b", reported: 13.2, tolerance: 0.05}
+  - {id: T6.4-METAPHOR, ref: "Table 6.4, p. 170", claim: "+14.3%", inputs: {a: 0.88, b: 0.77}, formula: "100*(a-b)/b", reported: 14.3, tolerance: 0.05}
+  - {id: T6.4-PROSODY, ref: "Table 6.4, p. 170", claim: "+12.5%", inputs: {a: 0.72, b: 0.64}, formula: "100*(a-b)/b", reported: 12.5, tolerance: 0.05}
+  - {id: T6.4-MORAL, ref: "Table 6.4, p. 170", claim: "+20.3%", inputs: {a: 0.89, b: 0.74}, formula: "100*(a-b)/b", reported: 20.3, tolerance: 0.05}
+  - {id: T6.4-CMPI, ref: "Table 6.4, p. 170", claim: "+17.9%", inputs: {a: 0.92, b: 0.78}, formula: "100*(a-b)/b", reported: 17.9, tolerance: 0.05}
+
+  # ---------------------------------------------------------------- Table 6.5 (p. 171) ΔCMPI vs Table 6.4 CMPI values
+  - {id: T6.5-DELTA-ARABICGPT, ref: "Table 6.5 p. 171 vs Table 6.4 p. 170", claim: "ΔCMPI +0.38 (Table 6.4: ArabicGPT 0.68)", inputs: {ansg: 0.92, base: 0.68}, formula: "ansg-base", reported: 0.38, tolerance: 0.005}
+  - {id: T6.5-DELTA-GPT4, ref: "Table 6.5 p. 171 vs Table 6.4 p. 170", claim: "ΔCMPI +0.24 (Table 6.4: GPT-4 0.73)", inputs: {ansg: 0.92, base: 0.73}, formula: "ansg-base", reported: 0.24, tolerance: 0.005, note: "consistent with the text's 0.68, not with Table 6.4"}
+  - {id: T6.5-DELTA-NARRATIVEMIND, ref: "Table 6.5 p. 171 vs Table 6.4 p. 170", claim: "ΔCMPI +0.16", inputs: {ansg: 0.92, base: 0.76}, formula: "ansg-base", reported: 0.16, tolerance: 0.005}
+  - {id: T6.5-DELTA-MMGTA, ref: "Table 6.5 p. 171 vs Table 6.4 p. 170", claim: "ΔCMPI +0.14", inputs: {ansg: 0.92, base: 0.78}, formula: "ansg-base", reported: 0.14, tolerance: 0.005}
+  - {id: T6.5-DELTA-ARAT5, ref: "Table 6.5 p. 171 vs Table 6.4 p. 170", claim: "ΔCMPI +0.21 (Table 6.4: AraT5-Cultural 0.74)", inputs: {ansg: 0.92, base: 0.74}, formula: "ansg-base", reported: 0.21, tolerance: 0.005}
+
+  # ---------------------------------------------------------------- Table 6.5: Cohen's d vs t-statistic
+  # Independent two-sample t with equal n per group: d = t * sqrt(2/n).
+  - {id: T6.5-D-FROM-T-N200-GPT4, ref: "Table 6.5 p. 171; n = 200 narratives/system from Table 6.7 p. 176", claim: "d = 1.58 with t = 15.8", inputs: {t: 15.8, n: 200}, formula: "t*sqrt(2/n)", reported: 1.58, tolerance: 0.005, note: "consistent if n = 200 per system (human-evaluation sample)"}
+  - {id: T6.5-D-FROM-T-N500-GPT4, ref: "Table 6.5 p. 171; test set n = 500 (§6.1.2, Table 6.9 p. 180)", claim: "d = 1.58 with t = 15.8", inputs: {t: 15.8, n: 500}, formula: "t*sqrt(2/n)", reported: 1.58, tolerance: 0.005, note: "inconsistent if the CMPI comparison used the n = 500 test set"}
+  - {id: T6.5-D-FROM-T-N200-MMGTA, ref: "Table 6.5 p. 171", claim: "d = 0.94 with t = 9.4", inputs: {t: 9.4, n: 200}, formula: "t*sqrt(2/n)", reported: 0.94, tolerance: 0.005}
+  - {id: T6.5-VS-T6.3-D-GPT4, ref: "Table 6.5 p. 171 vs Table 6.3 p. 168", claim: "CMPI d for ANSG vs GPT-4: 1.58 (Table 6.5) vs 1.89 (Table 6.3)", inputs: {d: 1.58}, formula: "d", reported: 1.89, tolerance: 0.005, note: "C-EVAL-10; the executive summary gives 2.14"}
+
+  # ---------------------------------------------------------------- Table 6.7 (p. 176): human evaluation
+  - {id: T6.7-CULTURAL-GAP, ref: "Table 6.7 / text, p. 176", claim: "cultural authenticity gap +21.1% (4.6 vs 3.8)", inputs: {a: 4.6, b: 3.8}, formula: "100*(a-b)/b", reported: 21.1, tolerance: 0.05}
+  - {id: T6.7-D-MMGTA-OVERALL, ref: "Table 6.7, p. 176", claim: "Cohen's d vs ANSG = 0.67 (overall 3.9±0.2 vs 4.5±0.2)", inputs: {m1: 4.5, s1: 0.2, m2: 3.9, s2: 0.2}, formula: "(m1-m2)/sqrt((s1**2+s2**2)/2)", reported: 0.67, tolerance: 0.005, note: "assumes ± is the standard deviation (the table does not say SD or SE)"}
+  - {id: T6.7-D-GPT4-OVERALL, ref: "Table 6.7, p. 176", claim: "Cohen's d vs ANSG = 1.23 (overall 3.4±0.3 vs 4.5±0.2)", inputs: {m1: 4.5, s1: 0.2, m2: 3.4, s2: 0.3}, formula: "(m1-m2)/sqrt((s1**2+s2**2)/2)", reported: 1.23, tolerance: 0.005, note: "assumes ± is the standard deviation"}
+
+  # ---------------------------------------------------------------- Table 6.9 (p. 180): ablation
+  - {id: T6.9-NO-CSAM, ref: "Table 6.9, p. 180", claim: "−15.2% CMPI", inputs: {full: 0.92, abl: 0.78}, formula: "100*(abl-full)/full", reported: -15.2, tolerance: 0.05}
+  - {id: T6.9-NO-DAL-ALDA, ref: "Table 6.9, p. 180", claim: "−15.1% ALDA", inputs: {full: 92.3, abl: 78.4}, formula: "100*(abl-full)/full", reported: -15.1, tolerance: 0.05}
+  - {id: T6.9-NO-RL, ref: "Table 6.9, p. 180", claim: "−33.7% CMPI", inputs: {full: 0.92, abl: 0.61}, formula: "100*(abl-full)/full", reported: -33.7, tolerance: 0.05}
+  - {id: T6.9-NO-CKG, ref: "Table 6.9, p. 180", claim: "−8.7% CMPI", inputs: {full: 0.92, abl: 0.84}, formula: "100*(abl-full)/full", reported: -8.7, tolerance: 0.05}
+  - {id: T6.9-NO-MORPH-BLEU, ref: "Table 6.9, p. 180", claim: "−8.4% BLEU", inputs: {full: 35.8, abl: 32.8}, formula: "100*(abl-full)/full", reported: -8.4, tolerance: 0.05}
+  - {id: T6.9-NO-CSAM-RL, ref: "Table 6.9, p. 180", claim: "synergy −37.0% CMPI", inputs: {full: 0.92, abl: 0.58}, formula: "100*(abl-full)/full", reported: -37.0, tolerance: 0.05}
+  - {id: F6.4-MORPH-CMPI-BAR, ref: "Figure 6.4, p. 180 (axis: CMPI reduction %)", claim: "Morph Pipeline bar = 8.4", inputs: {full: 0.92, abl: 0.87}, formula: "100*(full-abl)/full", reported: 8.4, tolerance: 0.05, note: "8.4 is the BLEU reduction; the CMPI reduction from Table 6.9 is 5.4"}
+  - {id: F6.4-DAL-CMPI-BAR, ref: "Figure 6.4, p. 180", claim: "DAL bar = 3.3", inputs: {full: 0.92, abl: 0.89}, formula: "100*(full-abl)/full", reported: 3.3, tolerance: 0.05}
+
+  # ---------------------------------------------------------------- Table 6.6 (p. 173): ALDA weighted averages
+  - id: T6.6-CONSISTENCY-WEIGHTED
+    ref: "Table 6.6, p. 173"
+    claim: "weighted average consistency 84.3 (n = 150/200/250/175/125)"
+    inputs: {gulf: 92.3, egy: 89.7, msa: 85.2, lev: 78.4, mag: 76.1, ng: 150, ne: 200, nm: 250, nl: 175, nma: 125}
+    formula: "(gulf*ng+egy*ne+msa*nm+lev*nl+mag*nma)/(ng+ne+nm+nl+nma)"
+    reported: 84.3
+    tolerance: 0.05
+  - id: T6.6-CONSISTENCY-UNWEIGHTED
+    ref: "Table 6.6, p. 173"
+    claim: "the row labelled 'Weighted Average' (84.3) equals the UNWEIGHTED mean of the five dialects"
+    inputs: {gulf: 92.3, egy: 89.7, msa: 85.2, lev: 78.4, mag: 76.1}
+    formula: "(gulf+egy+msa+lev+mag)/5"
+    reported: 84.3
+    tolerance: 0.05
+    note: "consistent as an unweighted mean; the n-weighted mean is 84.8 (check T6.6-CONSISTENCY-WEIGHTED)"
+  - id: T6.6-N-TOTAL-VS-TEST-SET
+    ref: "Table 6.6 p. 173 vs test set n = 500 (§6.1.2; Table 6.9 p. 180)"
+    claim: "per-dialect n sums to 900"
+    inputs: {ng: 150, ne: 200, nm: 250, nl: 175, nma: 125}
+    formula: "ng+ne+nm+nl+nma"
+    reported: 500
+    tolerance: 0
+    note: "C-EVAL-12: 900 per-dialect samples vs a 500-narrative test set"
+
+  - {id: A12-TEST-SET-SUM, ref: "App. A.14 Table A.12, p. 283", claim: "test set total 500 (100+100+100+75+75+50)", inputs: {a: 100, b: 100, c: 100, d: 75, e: 75, f: 50}, formula: "a+b+c+d+e+f", reported: 500, tolerance: 0}
+  - {id: A12-VS-T6.6-GULF-N, ref: "Table A.12 p. 283 (Gulf 75) vs Table 6.6 p. 173 (Gulf n = 150)", claim: "Gulf test narratives", inputs: {a12: 75}, formula: "a12", reported: 150, tolerance: 0, note: "per-dialect n in Table 6.6 does not match the test-set composition in Table A.12"}
+
+  # ---------------------------------------------------------------- Ch. 4 reward
+  - {id: EQ4.30, ref: "§4.5.4, Eq. 4.30, p. 119", claim: "R_total = 0.854", inputs: {c: 0.867, l: 0.784, h: 0.950}, formula: "0.45*c+0.35*l+0.20*h", reported: 0.854, tolerance: 0.001, note: "exact 0.85455; printed value truncated"}
+
+  # ---------------------------------------------------------------- Ch. 3 / App. A.20: ANHC size
+  - {id: T3.2-TOKENS-SUM, ref: "Table 3.2, p. 56", claim: "70.4M total", inputs: {c: 24.6, m: 18.3, k: 27.5}, formula: "c+m+k", reported: 70.4, tolerance: 0.05}
+  - {id: T3.2-CLASSICAL-PCT, ref: "Table 3.2, p. 56", claim: "classical 35.0%", inputs: {c: 24.6, t: 70.4}, formula: "100*c/t", reported: 35.0, tolerance: 0.05, note: "rounding-level only (34.94); the three shares sum to 100.1"}
+  - {id: T3.3-TOKENS-SUM, ref: "Table 3.3, p. 56", claim: "70.4M total", inputs: {a: 28.7, b: 22.8, c: 10.2, d: 5.1, e: 3.6}, formula: "a+b+c+d+e", reported: 70.4, tolerance: 0.05}
+  - {id: S3.2.2-CLASSICAL-SOURCES, ref: "§3.2.2, p. 57 vs Table 3.2", claim: "Nights 8.2M + Kalila 3.1M + adab 13.3M = classical 24.6M", inputs: {n: 8.2, k: 3.1, a: 13.3}, formula: "n+k+a", reported: 24.6, tolerance: 0.05}
+  - {id: A20-NARRATIVES-VS-S5.4.4, ref: "App. A.20 Table A.17 p. 289 vs §5.4.4 p. 143", claim: "total narratives 55,600 (A.20) vs 5,247 (§5.4.4)", inputs: {a20: 55600}, formula: "a20", reported: 5247, tolerance: 0}
+  - {id: A20-TOKENS-FROM-NARRATIVES, ref: "App. A.20 Table A.17, p. 289", claim: "55,600 narratives × 1,266 tokens ≈ 70,404,829", inputs: {n: 55600, avg: 1266}, formula: "n*avg", reported: 70404829, tolerance: 27800, note: "tolerance = half a token of average length per narrative"}
+  - {id: S5.4.4-TOKENS-FROM-NARRATIVES, ref: "§5.4.4 p. 143 with A.20 average length", claim: "5,247 narratives × 1,266 tokens vs 70.4M", inputs: {n: 5247, avg: 1266}, formula: "n*avg", reported: 70404829, tolerance: 27800}
+  - {id: A20-MSA-SHARE-VS-T3.3, ref: "App. A.20 p. 289 vs Table 3.3 p. 56", claim: "MSA share 28.3% (A.20) vs 40.8% (Table 3.3)", inputs: {a20: 28.3}, formula: "a20", reported: 40.8, tolerance: 0.05}
+
+  # ---------------------------------------------------------------- MADAR as described in the thesis vs official documentation
+  - id: MADAR-VARIETIES
+    ref: "Table §3.1.5, p. 55 ('26 cities') vs official MADAR page and LREC 2018 paper (evidence/external)"
+    claim: "26 cities"
+    inputs: {cities: 25, msa: 1}
+    formula: "cities"
+    reported: 26
+    tolerance: 0
+    note: "official: 25 city dialects + MSA; 'Corpus-26' counts the 26 varieties, not 26 cities"
+  - id: MADAR-SIZE-WORDS-ESTIMATE
+    ref: "Table §3.1.5, p. 55 ('2.1M') vs official sizes"
+    claim: "MADAR = 2.1M (unit not stated by the thesis)"
+    inputs: {c26_sentences: 2000, c26_varieties: 26, c6_extra_sentences: 10000, c6_varieties: 6, words_per_sentence: 6.5}
+    formula: "(c26_sentences*c26_varieties + c6_extra_sentences*c6_varieties) * words_per_sentence / 1e6"
+    reported: 2.1
+    tolerance: 0.05
+    note: "estimate of total Arabic words in Corpus-26 + Corpus-6 using the paper's 6.5 words/sentence (BTEC average); no official source for '2.1M' was found"

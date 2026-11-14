@@ -1,0 +1,31 @@
+{
+  "schema": "ansg.kaggle_run_history/1",
+  "pilot": "kaggle/heritage/ansg_heritage_pilot.py (Qwen2.5-1.5B-Instruct LoRA on classical Arabic text; supplementary experiment, NOT ANSG-Original)",
+  "kaggle_kernel": "mossabibrahim/ansg-arabic-heritage-lora-pilot-experimental (private)",
+  "transcribed_from": "GitHub Actions job logs (failure_report.json content printed by kaggle/heritage/wait_and_download.py); artifacts could not be downloaded from the audit sandbox",
+  "runs": [
+    {"github_run_id": 43509787560, "head_sha": "9a513e0", "started_utc": "2026-11-13T21:20:20Z",
+     "outcome": "failure", "optimizer_steps": null,
+     "error": "watcher polled a non-existent kernel slug until its timeout (diagnosis recorded in PR #21 by the owner)",
+     "training_result_established": false},
+    {"github_run_id": 43557375454, "head_sha": "2c0c3e3", "started_utc": "2026-11-14T04:35:04Z",
+     "outcome": "failure", "optimizer_steps": 0,
+     "failure_report": {"status": "failed", "error_type": "ValueError", "message": "Page has insufficient Arabic narrative text",
+                        "timestamp_utc": "2026-11-14T04:36:30.597855+00:00"},
+     "root_cause": "wikitext with templates stripped (Wikisource transcludes page text)"},
+    {"github_run_id": 43559807003, "head_sha": "9a3e69d", "started_utc": "2026-11-14T05:05:23Z",
+     "outcome": "failure", "optimizer_steps": 0,
+     "failure_report": {"status": "failed", "error_type": "RuntimeError",
+                        "message": "MediaWiki error for night 3 (ألف ليلة وليلة (مؤسسة هنداوي، 2022)/الجزء الأول/فلما كانت الليلة 3): {'code': 'missingtitle', 'info': \"The page you specified doesn't exist.\"}",
+                        "timestamp_utc": "2026-11-14T05:06:55.974748+00:00"},
+     "root_cause": "page titles constructed per night instead of discovered (src/ansg/data/mediawiki.py discovers them)"},
+    {"github_run_id": 43561944084, "head_sha": "5d1a91e", "run_attempt": 2, "started_utc": "2026-11-14T05:46:59Z",
+     "outcome": "failure", "optimizer_steps": 0,
+     "failure_report": {"status": "failed", "error_type": "KeyError", "message": "'night'",
+                        "timestamp_utc": "2026-11-14T05:48:29.222145+00:00"},
+     "root_cause": "chunks() read row['night'] but the frozen corpus records have 'id' (source page/cycle); the CPU preflight never executed chunks()",
+     "fix": "branch claude/ansg-original-reproduction: chunks() tags windows with row['id']; scripts/preflight_heritage_pilot.py executes the real data path on CPU (reproduced the KeyError with the master version locally before the fix)"}
+  ],
+  "successful_runs": [],
+  "status_after_fix": "no GPU run launched: the rights gate (data/sources/source_registry.json, wikisource_classical_arabic_pages) is pending owner review; split v1 also leaked a test page (kalila_dimna-019) and was replaced by split v2"
+}

@@ -4,14 +4,16 @@ import hashlib
 import json
 from pathlib import Path
 
+# Split v2 (scripts/reproduction/derive_pilot_split.py --check keeps these in sync):
+# v1 put kalila_dimna-019 in TEST although 98.5% of its 8-grams occur in TRAIN page 007.
 BASE = Path("data/corpora/classical_arabic")
 TRAIN = {"arabian_nights-001", "arabian_nights-002", "arabian_nights-003", "arabian_nights-004",
-         "kalila_dimna-006", "kalila_dimna-007", "kalila_dimna-008", "kalila_dimna-009",
-         "kalila_dimna-010", "kalila_dimna-011", "kalila_dimna-012",
-         "kalila_dimna-013", "kalila_dimna-014", "kalila_dimna-017"}
-VALIDATION = {"kalila_dimna-015", "kalila_dimna-016", "kalila_dimna-018"}
-TEST = {"kalila_dimna-019", "kalila_dimna-020"}
-EXCLUDED = {"arabian_nights-005"}  # Sinbad may already appear within the anthology.
+         "arabian_nights-005", "kalila_dimna-006", "kalila_dimna-007", "kalila_dimna-008",
+         "kalila_dimna-009", "kalila_dimna-011", "kalila_dimna-012", "kalila_dimna-013",
+         "kalila_dimna-014", "kalila_dimna-016", "kalila_dimna-019"}
+VALIDATION = {"kalila_dimna-010", "kalila_dimna-017", "kalila_dimna-018"}
+TEST = {"kalila_dimna-015", "kalila_dimna-020"}
+EXCLUDED: set = set()  # split v2: Sinbad page included (0.49% 8-gram overlap); see scripts/reproduction/derive_pilot_split.py
 
 def validate(path=BASE / "stories.jsonl"):
     records = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]

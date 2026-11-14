@@ -63,6 +63,20 @@ jobs:
         run: python tools/check_package_topology.py | tee evidence/topology_py${{ matrix.python }}.txt
       - name: Parameter-audit document is current
         run: python scripts/audit_parameters.py --check
+      - name: Reproduction audits are current (source registry, corpus, story records, reported values, split)
+        run: |
+          python data/sources/build_source_registry.py && git diff --exit-code data/sources/source_registry.json
+          python scripts/validate_classical_corpus.py > /dev/null
+          python scripts/reproduction/derive_pilot_split.py --check > /dev/null
+          python scripts/reproduction/audit_classical_corpus.py --check
+          python scripts/reproduction/build_story_records.py --check
+          python scripts/reproduction/audit_reported_values.py --check
+      - name: Kaggle pilot CPU preflight runs its real data path; rights gate blocks GPU (expected exit 2)
+        run: |
+          python scripts/preflight_heritage_pilot.py > evidence/pilot_preflight_py${{ matrix.python }}.json
+          set +e
+          python scripts/preflight_heritage_pilot.py --require-rights > /dev/null
+          test "$?" -eq 2
       - name: Ingestion CLI refuses to run without a licensed corpus (expected exit 2)
         run: |
           set +e
@@ -82,6 +96,40 @@ jobs:
         with:
           name: evidence-data-only-py${{ matrix.python }}
           path: evidence/
+
+  full-stack-pinned:
+    name: Full suite with pinned dependency versions (requirements/constraints-py311.txt)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install exactly the verified versions (CPU PyTorch)
+        # The CPU wheel index mirrors torch but not every pinned dependency
+        # (e.g. filelock==4.2.10), so PyPI stays the primary index and the CPU
+        # index is an extra one. The constraint is narrowed to the +cpu build of
+        # the same torch release so pip cannot fall back to PyPI's CUDA wheel.
+        run: |
+          python -m pip install --upgrade pip
+          sed 's/^torch==2\.15\.0$/torch==2.15.0+cpu/' requirements/constraints-py311.txt > "$RUNNER_TEMP/constraints-cpu.txt"
+          grep -qx 'torch==2.15.0+cpu' "$RUNNER_TEMP/constraints-cpu.txt"
+          IDX="--index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cpu"
+          python -m pip install -c "$RUNNER_TEMP/constraints-cpu.txt" $IDX torch
+          python -m pip install -c "$RUNNER_TEMP/constraints-cpu.txt" $IDX -e ".[test,model,ontology,splits,pretrained]"
+          python -c "import torch; assert torch.__version__ == '2.15.0+cpu', torch.__version__; print('torch', torch.__version__)"
+          python -m pip freeze > pinned_freeze.txt
+      - name: Complete test suite; fail if anything is skipped
+        run: |
+          python -m pytest -p no:cacheprovider -rs 2>&1 | tee pytest_pinned.txt
+          if grep -Eq "[0-9]+ skipped" pytest_pinned.txt; then echo "unexpected skipped tests"; exit 1; fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evidence-full-stack-pinned
+          path: |
+            pinned_freeze.txt
+            pytest_pinned.txt
 
   full-stack:
     name: Full stack (PyTorch CPU + transformers + all test extras) — one tree, no skips
