@@ -1,0 +1,147 @@
+#!/usr/bin/env python3
+"""Report whether an explicitly configured ANSG reconstruction may start.
+
+This is a preflight only. It never starts training and never marks a run as a
+historical reproduction. Full thesis-stage orchestration is not implemented.
+"""
+import argparse
+import hashlib
+import json
+import os
+import re
+import sys
+
+import yaml
+
+
+REQUIRED_DECISIONS = (
+    "corpus_stage_mapping",
+    "backbone_and_checkpoint",
+    "tokenizer",
+    "csam_variant",
+    "schema_activation_variant",
+    "dal_projection_mapping",
+    "training_schedule",
+    "reward_variant",
+    "cmpi_definition",
+)
+UNRESOLVED = {"", "pending", "unresolved", "unknown", "choose", "tbd"}
+
+
+def sha256_file(path):
+    digest = hashlib.sha256()
+    with open(path, "rb") as source:
+        for chunk in iter(lambda: source.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def check_plan(plan_path, profile_path):
+    blockers = []
+    try:
+        with open(profile_path, encoding="utf-8") as source:
+            profile = yaml.safe_load(source)
+    except (OSError, yaml.YAMLError) as exc:
+        return {"status": "invalid", "blockers": [f"Cannot read profile: {exc}"],
+                "historical_reproduction": False}
+
+    try:
+        with open(plan_path, encoding="utf-8") as source:
+            plan = json.load(source)
+    except (OSError, json.JSONDecodeError) as exc:
+        return {"status": "invalid", "blockers": [f"Cannot read run plan: {exc}"],
+                "historical_reproduction": False}
+
+    if not isinstance(plan, dict):
+        return {"status": "invalid", "blockers": ["Run plan root must be a JSON object."],
+                "historical_reproduction": False}
+    if plan.get("schema") != "ansg.training_run_plan/1":
+        blockers.append("Run plan schema must be ansg.training_run_plan/1.")
+    if plan.get("run_kind") != "reconstruction":
+        blockers.append("Only run_kind=reconstruction is accepted; this tool cannot authorize historical reproduction.")
+    if plan.get("historical_reproduction") is not False:
+        blockers.append("historical_reproduction must be false.")
+
+    decisions = plan.get("decisions")
+    if not isinstance(decisions, dict):
+        blockers.append("decisions must be an object containing explicit thesis choices.")
+        decisions = {}
+    for name in REQUIRED_DECISIONS:
+        value = decisions.get(name)
+        if not isinstance(value, (str, int, float, bool)) or str(value).strip().lower() in UNRESOLVED:
+            blockers.append(f"Unresolved decision: {name}.")
+
+    artifacts = plan.get("artifacts")
+    if not isinstance(artifacts, list) or not artifacts:
+        blockers.append("No artifact files are listed.")
+        artifacts = []
+    roles = set()
+    for item in artifacts:
+        if not isinstance(item, dict):
+            blockers.append("Each artifact entry must be an object.")
+            continue
+        role, path, expected = item.get("role"), item.get("path"), item.get("sha256")
+        if not role or role in roles:
+            blockers.append(f"Artifact role is missing or duplicated: {role!r}.")
+            continue
+        roles.add(role)
+        if not path or not os.path.isfile(path):
+            blockers.append(f"Artifact file missing for role {role}: {path!r}.")
+            continue
+        if not isinstance(expected, str) or not re.fullmatch(r"[0-9a-fA-F]{64}", expected):
+            blockers.append(f"Artifact SHA-256 missing or malformed for role {role}.")
+        elif sha256_file(path) != expected.lower():
+            blockers.append(f"Artifact SHA-256 mismatch for role {role}: {path}.")
+        if not item.get("license"):
+            blockers.append(f"License is not recorded for role {role}.")
+        if item.get("training_allowed") is not True:
+            blockers.append(f"Training permission is not approved for role {role}.")
+
+    # A successful preflight is not sufficient to start the thesis's three-stage run.
+    # Current code has isolated update primitives and a stage-1 cultural fine-tuner only.
+    runner_scope = plan.get("runner_scope")
+    supported = runner_scope == "cultural_modules_sft"
+    if not supported:
+        blockers.append(
+            "No full thesis-stage runner is implemented; available training entry point "
+            "covers cultural_modules_sft only."
+        )
+    if profile.get("training_start_permitted") is not True:
+        blockers.append(
+            "The checked-in operational profile keeps training_start_permitted=false; "
+            "do not edit it to bypass the thesis and artifact gates."
+        )
+
+    return {
+        "status": "blocked" if blockers else "preflight_ready_for_cultural_modules_sft",
+        "run_kind": plan.get("run_kind"),
+        "runner_scope": runner_scope,
+        "decisions_checked": list(REQUIRED_DECISIONS),
+        "artifact_roles_checked": sorted(roles),
+        "blockers": blockers,
+        "historical_reproduction": False,
+        "starts_training": False,
+        "note": "Preflight only; readiness does not assert scientific reproduction or authorize absent rights.",
+    }
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--plan", required=True, help="JSON run plan; see the checked-in template")
+    parser.add_argument("--profile", default="configs/training/ansg_direct_profile.yaml")
+    parser.add_argument("--json", action="store_true", help="Emit machine-readable JSON")
+    args = parser.parse_args(argv)
+    report = check_plan(args.plan, args.profile)
+    if args.json:
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+    else:
+        print(f"Training preflight: {report['status']}")
+        for blocker in report["blockers"]:
+            print(f"- BLOCKED: {blocker}")
+        print("Historical reproduction: false")
+        print("Training started: false")
+    return 0 if report["status"] == "preflight_ready_for_cultural_modules_sft" else 2
+
+
+if __name__ == "__main__":
+    sys.exit(main())
