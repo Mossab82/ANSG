@@ -15,7 +15,7 @@ This branch is assembling a reproducible corpus release from openly licensed sou
 - `arabic_ebooks_all/`: full 1,745-book pool, source report, and reproducible materializer.
 - `tokenizer_spm32/`: token-count report, tokenizer profile, and SHA-256 provenance.
 - `story_units/`: 236 provisional Alf Layla spans plus 10 Kalila chapter containers, work-cycle locks, and unsegmented-prefix record.
-- `alf_layla/story_candidates/`: text of 236 attributed CC BY 4.0 heading spans for review, with null annotation layers; full books are not included. `alf_layla/story_candidates_manifest.json` records shard sizes and Git blob identities; `../../../scripts/verify_alf_layla_candidates.py` verifies them.
+- `alf_layla/story_candidates/`: text of 236 attributed CC BY 4.0 heading spans for review, with null annotation layers; full books are not included. `alf_layla/story_candidates_manifest.json` records shard sizes and Git blob identities; `alf_layla/story_candidates_review_queue.csv` is the metadata-only human review queue; `../../../scripts/verify_alf_layla_candidates.py` verifies the shards.
 - `../../../scripts/ingest_arabic_ebooks.py`: download and materialize source records.
 - `../../../scripts/train_anhc_direct_tokenizer.py`: fit direct tokenizer and count every source text.
 - `../../../scripts/build_story_unit_review_manifest.py`: regenerate source-linked provisional story units.
