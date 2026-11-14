@@ -1,17 +1,335 @@
 {
  "schema": "ansg.openiti_metadata_evidence/1",
- "collected_at_utc": "2026-11-14T10:45:26+00:00",
+ "collected_at_utc": "2026-11-14T10:47:05+00:00",
  "collector": "scripts/openiti/collect_openiti_metadata.py",
  "ci_run": {
-  "GITHUB_RUN_ID": "43586765899",
-  "GITHUB_SHA": "67d6f5cef7e12fb37c0b73403bd85f3f71f75380",
+  "GITHUB_RUN_ID": "43586894246",
+  "GITHUB_SHA": "51692424741a4f3d91a79a25939920a3022e14db",
   "GITHUB_REF_NAME": "data/openiti-heritage-audit"
  },
  "policy": "metadata and fingerprints only; no release archive downloaded; no text written or committed",
  "thesis_reference": "Tesis_Ibrahim §3.2.2, p. 57: Maqāmāt al-Harīrī, Kitāb al-Aghānī and al-Jāḥiẓ's works, 13.3M tokens (edition not stated)",
  "zenodo": {
-  "ok": false,
-  "error": "RuntimeError: no Zenodo endpoint returned versions: [{'url': '/api/records/3082463', 'ok': True, 'error': None}, {'url': '/api/records/17767721/versions?size=100&sort=version', 'ok': False, 'error': 'HTTP 400'}, {'url': '/api/records?q=conceptrecid%3A3082463&all_versions=1&size=100', 'ok': False, 'error': 'HTTP 400'}, {'url': '/api/records?q=parent.id%3A3082463&allversions=true&size=100', 'ok': False, 'error': 'HTTP 400'}]"
+  "ok": true,
+  "value": {
+   "query": "concept record 3082463",
+   "endpoint": "/api/records/17767721/versions",
+   "attempts": [
+    {
+     "url": "/api/records/3082463",
+     "ok": true,
+     "error": null
+    },
+    {
+     "url": "/api/records/17767721/versions",
+     "ok": true,
+     "error": null
+    }
+   ],
+   "total": 9,
+   "releases": [
+    {
+     "recid": 17767721,
+     "doi": "10.5281/zenodo.17767721",
+     "conceptdoi": "10.5281/zenodo.3082463",
+     "version": "2025.1.9",
+     "title": "OpenITI: a Machine-Readable Corpus of Islamicate Texts",
+     "publication_date": "2025-12-30",
+     "license": "cc-by-nc-sa-4.0",
+     "access_right": "open",
+     "files": [
+      {
+       "key": "OpenITI_metadata_2025-1-9.tsv",
+       "size": 12092756,
+       "checksum": "md5:cb2226f64264efa964df9ef659d40199"
+      },
+      {
+       "key": "OpenITI_data_2025-1-9.zip",
+       "size": 5936029637,
+       "checksum": "md5:95cf19a9320fee6c37c4c26c9fa860b1"
+      },
+      {
+       "key": "OpenITI_release-notes_2025-1-9.zip",
+       "size": 204028,
+       "checksum": "md5:e127a3fccd2df033a6462542820f55a0"
+      }
+     ],
+     "related_identifiers": [
+      {
+       "identifier": "https://github.com/OpenITI/RELEASE/tree/v2019.1.1",
+       "relation": "isSupplementTo",
+       "scheme": "url"
+      },
+      {
+       "identifier": "10.5281/zenodo.7764026",
+       "relation": "hasPart",
+       "scheme": "doi"
+      }
+     ],
+     "description_excerpt": "  Co-PIs:  Matthew Thomas Miller (University of Maryland, College Park), Maxim G. Romanov (University of Hamburg), Sarah Bowen Savant (Aga Khan University-ISMC, London). \n The  OpenITI corpus  is a multi-lingual, machine-actionable and scholarly corpus of Islamicate texts that aims to provide a key component for rendering the Islamicate textual tradition accessible to computational analysis and to new forms of digital scholarship. \n As indicated by its name, the OpenITI corpus forms part of the broader and multi-institutional efforts of the   Open Islamicate Texts Initiative (OpenITI)  , which were first assembled into a corpus within the  OpenArabic  project, developed first at Tufts University (at The Perseus Project, 2013&ndash;2015) and then at Leipzig University (at the Alexander von Humboldt Chair for Digital Humanities, 2015&ndash;2017)&mdash;in both cases with the support and under the patronage of Prof. Gregory Crane. It aims to develop the digital infrastructure for the study of Islamicate cultures and to foster synergies and collaboration between computer science, digital humanities, and fields such as Islamic, Arabic, Persian, and Ottoman studies, and which is led by researchers at the Aga Khan University&rsquo;s Institute for the Study of Muslim Civilisations (AKU-ISMC) in London, the University of Hamburg (UHH), Roshan Institute for Persian Studies at the University of Maryland (College Park), and an interdisciplinary advisory board of leading scholars from relevant fields and has received funding from the  European Research Council (ERC)  under the European Union&rsquo;s Horizon 2020 research and innovation programme, awarded to the  KITAB  (Grant Agreement No. 772989, PI Sarah Bowen Savant) and KITAB-Transform projects (Grant Agreement No. 101199672, PI Sarah Bowen Savant), the Mellon Foundation, and the  Qatar National Library  in addition to support from the researchers&rsquo; home institutions. \n &nbsp; \n The present release of the OpenITI corpus contains all digital versions of a text that are available in the corpus (also available at the  https://github.com/OpenITI/RELEASE ). In case more than one version for a text exists, one of these versions will, however, be singled out as the primary version (referred to as 'PRI' in the metadata) while all the others will be categorised as secondary versions (referred to as 'SEC' in the metadata).  OpenITI also releases a  primary version of the OpenITI corpus   consisting only of the primary versions which may be more convenient for most use cases. \n  Note on Release Numbering:  Version  2019.1.1 &mdash;where  2019  is the year of the release, the first dotted number&mdash; .1 &mdash;is the ordinal release number in 2019, and the second dotted number&mdash; .1 &mdash;is the overall release number; the first dotted number will reset every year, while the second one will continue on increasing. \n For more details on this specific version see the release notes. \n  Note:  In case of any i"
+    },
+    {
+     "recid": 10007820,
+     "doi": "10.5281/zenodo.10007820",
+     "conceptdoi": "10.5281/zenodo.3082463",
+     "version": "2023.1.8",
+     "title": "OpenITI: a Machine-Readable Corpus of Islamicate Texts",
+     "publication_date": "2023-10-17",
+     "license": "cc-by-nc-sa-4.0",
+     "access_right": "open",
+     "files": [
+      {
+       "key": "OpenITI_metadata_2023-1-8.csv",
+       "size": 11468560,
+       "checksum": "md5:6b398d58c23089a5dda2c9c21e95b298"
+      },
+      {
+       "key": "data.zip",
+       "size": 5794098657,
+       "checksum": "md5:8563c35f71bb51d4509d839f8cf069e6"
+      },
+      {
+       "key": "release_notes.zip",
+       "size": 125371,
+       "checksum": "md5:3d3930f4acb65d6d21cdbe54f70126a9"
+      }
+     ],
+     "related_identifiers": [
+      {
+       "identifier": "https://github.com/OpenITI/RELEASE/tree/v2019.1.1",
+       "relation": "isSupplementTo",
+       "scheme": "url"
+      },
+      {
+       "identifier": "10.5281/zenodo.7764026",
+       "relation": "hasPart",
+       "scheme": "doi"
+      }
+     ],
+     "description_excerpt": "  Co-PIs : Matthew Thomas Miller (University of Maryland, College Park), Maxim G. Romanov (University of Hamburg), Sarah Bowen Savant (Aga Khan University&mdash;ISMC, London). \n  Open Islamicate Texts Initiative  ( OpenITI , see  https://openiti.org/ )&nbsp;is a multi-institutional effort to construct the first machine-actionable scholarly corpus of premodern Islamicate texts. Led by researchers at the Aga Khan University, Institute for the Study of Muslim Civilisations (AKU-ISMC), University of Hamburg (UH), and the Roshan Institute for Persian Studies at the University of Maryland (College Park) and an interdisciplinary advisory board of leading digital humanists and Islamic, Persian, and Arabic studies scholars,  OpenITI  aims to provide the essential textual infrastructure in Arabic, Persian and other Islamicate languages for new forms of textual analysis and digital scholarship. In the process, OpenITI will enable new synergies between Digital Humanities and the inter-related Islamicate fields of Islamic, Persian, and Arabic Studies. In addition to support from the researchers&rsquo; home institutions, it is supported by funding from the  European Research Council  under the European Union&rsquo;s Horizon 2020 research and innovation programme, awarded to the  KITAB  project (Grant Agreement No. 772989, PI Sarah Bowen Savant) and the  Qatar National Library . \n Currently,  OpenITI  contains almost exclusively Arabic texts, which were first assembled into a corpus within the  OpenArabic  project, developed first at Tufts University (at  The Perseus Project , 2013&ndash;2015) and then at Leipzig University (at the Alexander von Humboldt Chair for Digital Humanities, 2015&ndash;2017)&mdash;in both cases with the support and under the patronage of Prof. Gregory Crane. The much more limited number of Persian texts were compiled during 2015&ndash;2016 in the Persian Digital Library (PDL) pilot (see  Persian Digital Library by PersDigUMD ) at Roshan Institute for Persian Studies at the University of Maryland. These texts have not been made fully compatible with OpenITI mARkdown yet and will be made fully available in next releases. \n This release contains all digital versions of the same text that are available in the OpenITI corpus .  We also release a  'primary' version of the corpus   that contains a single digital version for each text in the corpus that is marked as 'PRI' in the corpus metadata and may be more convenient for some use cases. \n  Note on Release Numbering : Version  2019.1.1 &mdash;where  2019  is the year of the release, the first dotted number&mdash; .1 &mdash;is the ordinal release number in 2019, and the second dotted number&mdash; .1 &mdash;is the overall release number; the first dotted number will reset every year, while the second one will continue on increasing. \n For more details:  https://github.com/OpenITI/RELEASE  \n  Note:  In case of any issues with unzipping the files on Windows using built-in utilities, please use"
+    },
+    {
+     "recid": 7687795,
+     "doi": "10.5281/zenodo.7687795",
+     "conceptdoi": "10.5281/zenodo.3082463",
+     "version": "2022.2.7",
+     "title": "OpenITI: a Machine-Readable Corpus of Islamicate Texts",
+     "publication_date": "2023-02-24",
+     "license": "cc-by-nc-sa-4.0",
+     "access_right": "open",
+     "files": [
+      {
+       "key": "metadata.zip",
+       "size": 2671146,
+       "checksum": "md5:39376415fea35e52cabd9292a202fcee"
+      },
+      {
+       "key": "release_notes.zip",
+       "size": 92733,
+       "checksum": "md5:02df73ee30a631da57c6d3d08fa9c9c7"
+      },
+      {
+       "key": "data.zip",
+       "size": 5714330175,
+       "checksum": "md5:9ff72190f7a94878834c131326d4f0b4"
+      }
+     ],
+     "related_identifiers": [
+      {
+       "identifier": "https://github.com/OpenITI/RELEASE/tree/v2019.1.1",
+       "relation": "isSupplementTo",
+       "scheme": "url"
+      },
+      {
+       "identifier": "10.5281/zenodo.7764026",
+       "relation": "hasPart",
+       "scheme": "doi"
+      }
+     ],
+     "description_excerpt": "  Co-PIs : Matthew Thomas Miller (University of Maryland, College Park), Maxim G. Romanov (University of Hamburg), Sarah Bowen Savant (Aga Khan University&mdash;ISMC, London). \n\n  Open Islamicate Texts Initiative  ( OpenITI , see  https://openiti.org/ )&nbsp;is a multi-institutional effort to construct the first machine-actionable scholarly corpus of premodern Islamicate texts. Led by researchers at the Aga Khan University, Institute for the Study of Muslim Civilisations (AKU-ISMC), University of Hamburg (UH), and the Roshan Institute for Persian Studies at the University of Maryland (College Park) and an interdisciplinary advisory board of leading digital humanists and Islamic, Persian, and Arabic studies scholars,  OpenITI  aims to provide the essential textual infrastructure in Arabic, Persian and other Islamicate languages for new forms of textual analysis and digital scholarship. In the process, OpenITI will enable new synergies between Digital Humanities and the inter-related Islamicate fields of Islamic, Persian, and Arabic Studies. In addition to support from the researchers&rsquo; home institutions, it is supported by funding from the  European Research Council  under the European Union&rsquo;s Horizon 2020 research and innovation programme, awarded to the  KITAB  project (Grant Agreement No. 772989, PI Sarah Bowen Savant) and the  Qatar National Library . \n\n Currently,  OpenITI  contains almost exclusively Arabic texts, which were first assembled into a corpus within the  OpenArabic  project, developed first at Tufts University (at  The Perseus Project , 2013&ndash;2015) and then at Leipzig University (at the Alexander von Humboldt Chair for Digital Humanities, 2015&ndash;2017)&mdash;in both cases with the support and under the patronage of Prof. Gregory Crane. The much more limited number of Persian texts were compiled during 2015&ndash;2016 in the Persian Digital Library (PDL) pilot (see  Persian Digital Library by PersDigUMD ) at Roshan Institute for Persian Studies at the University of Maryland. These texts have not been made fully compatible with OpenITI mARkdown yet and will be made fully available in next releases. \n\n  Note on Release Numbering : Version  2019.1.1 &mdash;where  2019  is the year of the release, the first dotted number&mdash; .1 &mdash;is the ordinal release number in 2019, and the second dotted number&mdash; .1 &mdash;is the overall release number; the first dotted number will reset every year, while the second one will continue on increasing. \n\n For more details:  https://github.com/OpenITI/RELEASE  \n\n  Note:  In case of any issues with unzipping the files on Windows using built-in utilities, please use free softwares, such as&nbsp;WinRAR and 7zip. \n\n &nbsp; \n\n &nbsp; "
+    },
+    {
+     "recid": 6808108,
+     "doi": "10.5281/zenodo.6808108",
+     "conceptdoi": "10.5281/zenodo.3082463",
+     "version": "2022.1.6",
+     "title": "OpenITI: a Machine-Readable Corpus of Islamicate Texts",
+     "publication_date": "2022-07-08",
+     "license": "cc-by-nc-sa-4.0",
+     "access_right": "open",
+     "files": [
+      {
+       "key": "release_notes.zip",
+       "size": 107070,
+       "checksum": "md5:beb03ef40b6864ab9b2507f2a13942b5"
+      },
+      {
+       "key": "metadata.zip",
+       "size": 2633542,
+       "checksum": "md5:54090d3fbc3a730cfe5480146f122f5d"
+      },
+      {
+       "key": "data.zip",
+       "size": 5677003721,
+       "checksum": "md5:079ee997459caa94da71de4cd00162d2"
+      }
+     ],
+     "related_identifiers": [
+      {
+       "identifier": "https://github.com/OpenITI/RELEASE/tree/v2019.1.1",
+       "relation": "isSupplementTo",
+       "scheme": "url"
+      }
+     ],
+     "description_excerpt": "  Co-PIs : Matthew Thomas Miller (University of Maryland, College Park), Maxim G. Romanov (University of Vienna), Sarah Bowen Savant (Aga Khan University&mdash;ISMC, London). \n\n  Open Islamicate Texts Initiative  ( OpenITI , see  https://iti-corpus.github.io/ )&nbsp;is a multi-institutional effort to construct the first machine-actionable scholarly corpus of premodern Islamicate texts. Led by researchers at the Aga Khan University, Institute for the Study of Muslim Civilisations (AKU-ISMC), University of Vienna (UV), Leipzig University (LU), and the Roshan Institute for Persian Studies at the University of Maryland (College Park) and an interdisciplinary advisory board of leading digital humanists and Islamic, Persian, and Arabic studies scholars,  OpenITI  aims to provide the essential textual infrastructure in Arabic, Persian and other Islamicate languages for new forms of textual analysis and digital scholarship. In the process, OpenITI will enable new synergies between Digital Humanities and the inter-related Islamicate fields of Islamic, Persian, and Arabic Studies. In addition to support from the researchers&rsquo; home institutions, it is supported by funding from the  European Research Council  under the European Union&rsquo;s Horizon 2020 research and innovation programme, awarded to the  KITAB  project (Grant Agreement No. 772989, PI Sarah Bowen Savant) and the  Qatar National Library . \n\n Currently,  OpenITI  contains almost exclusively Arabic texts, which were first assembled into a corpus within the  OpenArabic  project, developed first at Tufts University (at  The Perseus Project , 2013&ndash;2015) and then at Leipzig University (at the Alexander von Humboldt Chair for Digital Humanities, 2015&ndash;2017)&mdash;in both cases with the support and under the patronage of Prof. Gregory Crane. The much more limited number of Persian texts were compiled during 2015&ndash;2016 in the Persian Digital Library (PDL) pilot (see  Persian Digital Library by PersDigUMD ) at Roshan Institute for Persian Studies at the University of Maryland. These texts have not been made fully compatible with OpenITI mARkdown yet and will be made fully available in next releases. \n\n  Note on Release Numbering : Version  2019.1.1 &mdash;where  2019  is the year of the release, the first dotted number&mdash; .1 &mdash;is the ordinal release number in 2019, and the second dotted number&mdash; .1 &mdash;is the overall release number; the first dotted number will reset every year, while the second one will continue on increasing. \n\n For more details:  https://github.com/OpenITI/RELEASE  \n\n &nbsp; \n\n &nbsp; "
+    },
+    {
+     "recid": 5550338,
+     "doi": "10.5281/zenodo.5550338",
+     "conceptdoi": "10.5281/zenodo.3082463",
+     "version": "2021.2.5",
+     "title": "OpenITI: a Machine-Readable Corpus of Islamicate Texts",
+     "publication_date": "2021-10-18",
+     "license": "cc-by-nc-sa-4.0",
+     "access_right": "open",
+     "files": [
+      {
+       "key": "metadata.zip",
+       "size": 3226765,
+       "checksum": "md5:649f44c146f9ebe3c6d736949cbb949f"
+      },
+      {
+       "key": "data.zip",
+       "size": 5125344672,
+       "checksum": "md5:1d337299c85829796ee433843a3630b1"
+      },
+      {
+       "key": "release_notes.zip",
+       "size": 93112,
+       "checksum": "md5:ece9474fe18ca7c4e7b0aec5b39c95bc"
+      }
+     ],
+     "related_identifiers": [
+      {
+       "identifier": "https://github.com/OpenITI/RELEASE/tree/v2019.1.1",
+       "relation": "isSupplementTo",
+       "scheme": "url"
+      }
+     ],
+     "description_excerpt": "  Co-PIs : Matthew Thomas Miller (University of Maryland, College Park), Maxim G. Romanov (University of Vienna), Sarah Bowen Savant (Aga Khan University&mdash;ISMC, London). \n\n  Open Islamicate Texts Initiative  ( OpenITI )&nbsp;is a multi-institutional effort to construct the first machine-actionable scholarly corpus of premodern Islamicate texts. Led by researchers at the Aga Khan University, Institute for the Study of Muslim Civilisations (AKU-ISMC), University of Vienna (UV), Leipzig University (LU), and the Roshan Institute for Persian Studies at the University of Maryland (College Park) and an interdisciplinary advisory board of leading digital humanists and Islamic, Persian, and Arabic studies scholars,  OpenITI  aims to provide the essential textual infrastructure in Arabic, Persian and other Islamicate languages for new forms of textual analysis and digital scholarship. In the process, OpenITI will enable new synergies between Digital Humanities and the inter-related Islamicate fields of Islamic, Persian, and Arabic Studies. In addition to support from the researchers&rsquo; home institutions, it is supported by funding from the  European Research Council  under the European Union&rsquo;s Horizon 2020 research and innovation programme, awarded to the  KITAB  project (Grant Agreement No. 772989, PI Sarah Bowen Savant) and the  Qatar National Library . \n\n Currently,  OpenITI  contains almost exclusively Arabic texts, which were first assembled into a corpus within the  OpenArabic  project, developed first at Tufts University (at  The Perseus Project , 2013&ndash;2015) and then at Leipzig University (at the Alexander von Humboldt Chair for Digital Humanities, 2015&ndash;2017)&mdash;in both cases with the support and under the patronage of Prof. Gregory Crane. The much more limited number of Persian texts were compiled during 2015&ndash;2016 in the Persian Digital Library (PDL) pilot (see  Persian Digital Library by PersDigUMD ) at Roshan Institute for Persian Studies at the University of Maryland. These texts have not been made fully compatible with OpenITI mARkdown yet and will be made fully available in next releases. \n\n  Note on Release Numbering : Version  2019.1.1 &mdash;where  2019  is the year of the release, the first dotted number&mdash; .1 &mdash;is the ordinal release number in 2019, and the second dotted number&mdash; .1 &mdash;is the overall release number; the first dotted number will reset every year, while the second one will continue on increasing. \n\n For more details:  https://github.com/OpenITI/RELEASE  \n\n &nbsp; \n\n &nbsp; "
+    },
+    {
+     "recid": 4513723,
+     "doi": "10.5281/zenodo.4513723",
+     "conceptdoi": "10.5281/zenodo.3082463",
+     "version": "2021.1.4",
+     "title": "OpenITI: a Machine-Readable Corpus of Islamicate Texts",
+     "publication_date": "2021-02-05",
+     "license": "cc-by-nc-sa-4.0",
+     "access_right": "open",
+     "files": [
+      {
+       "key": "data.zip",
+       "size": 5298548364,
+       "checksum": "md5:0c42a80a785aad569a85f77e3eb793d0"
+      },
+      {
+       "key": "metadata.zip",
+       "size": 2539220,
+       "checksum": "md5:1bbf3f844d26b6a6b0529e34c4798289"
+      },
+      {
+       "key": "release_notes.zip",
+       "size": 143370,
+       "checksum": "md5:bc0181d42961b5f5704f3a147d98ff78"
+      }
+     ],
+     "related_identifiers": [
+      {
+       "identifier": "https://github.com/OpenITI/RELEASE/tree/v2019.1.1",
+       "relation": "isSupplementTo",
+       "scheme": "url"
+      }
+     ],
+     "description_excerpt": "  Co-PIs : Matthew Thomas Miller (University of Maryland, College Park), Maxim G. Romanov (University of Vienna), Sarah Bowen Savant (Aga Khan University&mdash;ISMC, London). \n\n  Open Islamicate Texts Initiative  ( OpenITI , see  https://iti-corpus.github.io/ )&nbsp;is a multi-institutional effort to construct the first machine-actionable scholarly corpus of premodern Islamicate texts. Led by researchers at the Aga Khan University, Institute for the Study of Muslim Civilisations (AKU-ISMC), University of Vienna (UV), Leipzig University (LU), and the Roshan Institute for Persian Studies at the University of Maryland (College Park) and an interdisciplinary advisory board of leading digital humanists and Islamic, Persian, and Arabic studies scholars,  OpenITI  aims to provide the essential textual infrastructure in Arabic, Persian and other Islamicate languages for new forms of textual analysis and digital scholarship. In the process, OpenITI will enable new synergies between Digital Humanities and the inter-related Islamicate fields of Islamic, Persian, and Arabic Studies. In addition to support from the researchers&rsquo; home institutions, it is supported by funding from the  European Research Council  under the European Union&rsquo;s Horizon 2020 research and innovation programme, awarded to the  KITAB  project (Grant Agreement No. 772989, PI Sarah Bowen Savant) and the  Qatar National Library . \n\n Currently,  OpenITI  contains almost exclusively Arabic texts, which were first assembled into a corpus within the  OpenArabic  project, developed first at Tufts University (at  The Perseus Project , 2013&ndash;2015) and then at Leipzig University (at the Alexander von Humboldt Chair for Digital Humanities, 2015&ndash;2017)&mdash;in both cases with the support and under the patronage of Prof. Gregory Crane. The much more limited number of Persian texts were compiled during 2015&ndash;2016 in the Persian Digital Library (PDL) pilot (see  Persian Digital Library by PersDigUMD ) at Roshan Institute for Persian Studies at the University of Maryland. These texts have not been made fully compatible with OpenITI mARkdown yet and will be made fully available in next releases. \n\n  Note on Release Numbering : Version  2019.1.1 &mdash;where  2019  is the year of the release, the first dotted number&mdash; .1 &mdash;is the ordinal release number in 2019, and the second dotted number&mdash; .1 &mdash;is the overall release number; the first dotted number will reset every year, while the second one will continue on increasing. \n\n For more details:  https://github.com/OpenITI/RELEASE  \n\n &nbsp; \n\n &nbsp; "
+    },
+    {
+     "recid": 4075046,
+     "doi": "10.5281/zenodo.4075046",
+     "conceptdoi": "10.5281/zenodo.3082463",
+     "version": "2020.2.3",
+     "title": "OpenITI: a Machine-Readable Corpus of Islamicate Texts",
+     "publication_date": "2020-10-06",
+     "license": "cc-by-nc-sa-4.0",
+     "access_right": "open",
+     "files": [
+      {
+       "key": "OpenITI-v2020.2.3.zip",
+       "size": 4063843696,
+       "checksum": "md5:491639bebaa364ca766221615039c32b"
+      }
+     ],
+     "related_identifiers": [
+      {
+       "identifier": "https://github.com/OpenITI/RELEASE/tree/v2019.1.1",
+       "relation": "isSupplementTo",
+       "scheme": "url"
+      }
+     ],
+     "description_excerpt": "  Co-PIs : Matthew Thomas Miller (University of Maryland, College Park), Maxim G. Romanov (University of Vienna), Sarah Bowen Savant (Aga Khan University&mdash;ISMC, London). \n\n  Open Islamicate Texts Initiative  ( OpenITI , see  https://iti-corpus.github.io/ )&nbsp;is a multi-institutional effort to construct the first machine-actionable scholarly corpus of premodern Islamicate texts. Led by researchers at the Aga Khan University, Institute for the Study of Muslim Civilisations (AKU-ISMC), University of Vienna (UV), Leipzig University (LU), and the Roshan Institute for Persian Studies at the University of Maryland (College Park) and an interdisciplinary advisory board of leading digital humanists and Islamic, Persian, and Arabic studies scholars,  OpenITI  aims to provide the essential textual infrastructure in Arabic, Persian and other Islamicate languages for new forms of textual analysis and digital scholarship. In the process, OpenITI will enable new synergies between Digital Humanities and the inter-related Islamicate fields of Islamic, Persian, and Arabic Studies. In addition to support from the researchers&rsquo; home institutions, it is supported by funding from the  European Research Council  under the European Union&rsquo;s Horizon 2020 research and innovation programme, awarded to the  KITAB  project (Grant Agreement No. 772989, PI Sarah Bowen Savant) and the  Qatar National Library . \n\n Currently,  OpenITI  contains almost exclusively Arabic texts, which were first assembled into a corpus within the  OpenArabic  project, developed first at Tufts University (at  The Perseus Project , 2013&ndash;2015) and then at Leipzig University (at the Alexander von Humboldt Chair for Digital Humanities, 2015&ndash;2017)&mdash;in both cases with the support and under the patronage of Prof. Gregory Crane. The much more limited number of Persian texts were compiled during 2015&ndash;2016 in the Persian Digital Library (PDL) pilot (see  Persian Digital Library by PersDigUMD ) at Roshan Institute for Persian Studies at the University of Maryland. These texts have not been made fully compatible with OpenITI mARkdown yet and will be made fully available in next releases. \n\n  Note on Release Numbering : Version  2019.1.1 &mdash;where  2019  is the year of the release, the first dotted number&mdash; .1 &mdash;is the ordinal release number in 2019, and the second dotted number&mdash; .1 &mdash;is the overall release number; the first dotted number will reset every year, while the second one will continue on increasing. \n\n For more details:  https://github.com/OpenITI/RELEASE  \n\n &nbsp; \n\n &nbsp; "
+    },
+    {
+     "recid": 3891466,
+     "doi": "10.5281/zenodo.3891466",
+     "conceptdoi": "10.5281/zenodo.3082463",
+     "version": "2020.1.2",
+     "title": "OpenITI: a Machine-Readable Corpus of Islamicate Texts",
+     "publication_date": "2020-06-15",
+     "license": "cc-by-nc-sa-4.0",
+     "access_right": "open",
+     "files": [
+      {
+       "key": "OpenITI-v2020.1.2.zip",
+       "size": 3730574927,
+       "checksum": "md5:3d2e9094303e2eeffdd5cab1acf349b3"
+      }
+     ],
+     "related_identifiers": [
+      {
+       "identifier": "https://github.com/OpenITI/RELEASE/tree/v2019.1.1",
+       "relation": "isSupplementTo",
+       "scheme": "url"
+      }
+     ],
+     "description_excerpt": "  Co-PIs : Matthew Thomas Miller (University of Maryland, College Park), Maxim G. Romanov (University of Vienna), Sarah Bowen Savant (Aga Khan University&mdash;ISMC, London). \n\n  Open Islamicate Texts Initiative  ( OpenITI , see  https://iti-corpus.github.io/ )&nbsp;is a multi-institutional effort to construct the first machine-actionable scholarly corpus of premodern Islamicate texts. Led by researchers at the Aga Khan University, Institute for the Study of Muslim Civilisations (AKU-ISMC), University of Vienna (UV), Leipzig University (LU), and the Roshan Institute for Persian Studies at the University of Maryland (College Park) and an interdisciplinary advisory board of leading digital humanists and Islamic, Persian, and Arabic studies scholars,  OpenITI  aims to provide the essential textual infrastructure in Arabic, Persian and other Islamicate languages for new forms of textual analysis and digital scholarship. In the process, OpenITI will enable new synergies between Digital Humanities and the inter-related Islamicate fields of Islamic, Persian, and Arabic Studies. In addition to support from the researchers&rsquo; home institutions, it is supported by funding from the  European Research Council  under the European Union&rsquo;s Horizon 2020 research and innovation programme, awarded to the  KITAB  project (Grant Agreement No. 772989, PI Sarah Bowen Savant) and the  Qatar National Library . \n\n Currently,  OpenITI  contains almost exclusively Arabic texts, which were first assembled into a corpus within the  OpenArabic  project, developed first at Tufts University (at  The Perseus Project , 2013&ndash;2015) and then at Leipzig University (at the Alexander von Humboldt Chair for Digital Humanities, 2015&ndash;2017)&mdash;in both cases with the support and under the patronage of Prof. Gregory Crane. The much more limited number of Persian texts were compiled during 2015&ndash;2016 in the Persian Digital Library (PDL) pilot (see  Persian Digital Library by PersDigUMD ) at Roshan Institute for Persian Studies at the University of Maryland. These texts have not been made fully compatible with OpenITI mARkdown yet and will be made fully available in next releases. \n\n  Note on Release Numbering : Version  2019.1.1 &mdash;where  2019  is the year of the release, the first dotted number&mdash; .1 &mdash;is the ordinal release number in 2019, and the second dotted number&mdash; .1 &mdash;is the overall release number; the first dotted number will reset every year, while the second one will continue on increasing. \n\n For more details:  https://github.com/OpenITI/RELEASE  \n\n &nbsp; \n\n &nbsp; "
+    },
+    {
+     "recid": 3082464,
+     "doi": "10.5281/zenodo.3082464",
+     "conceptdoi": "10.5281/zenodo.3082463",
+     "version": "2019.1.1",
+     "title": "OpenITI: a Machine-Readable Corpus of Islamicate Texts",
+     "publication_date": "2019-05-20",
+     "license": "cc-by-nc-sa-4.0",
+     "access_right": "open",
+     "files": [
+      {
+       "key": "OpenITI/RELEASE-v2019.1.1.zip",
+       "size": 4137549017,
+       "checksum": "md5:8215dace13290a80509f83371b7631c5"
+      }
+     ],
+     "related_identifiers": [
+      {
+       "identifier": "https://github.com/OpenITI/RELEASE/tree/v2019.1.1",
+       "relation": "isSupplementTo",
+       "scheme": "url"
+      }
+     ],
+     "description_excerpt": "  Co-PIs : Matthew Thomas Miller (University of Maryland, College Park), Maxim G. Romanov (University of Vienna), Sarah Bowen Savant (Aga Khan University&mdash;ISMC, London). \n\n  Open Islamicate Texts Initiative  ( OpenITI , see  https://openiti.github.io/ ) is a multi-institutional effort to construct the first machine-actionable scholarly corpus of premodern Islamicate texts. Led by researchers at the Aga Khan University, Institute for the Study of Muslim Civilisations (AKU-ISMC), University of Vienna (UV), Leipzig University (LU), and the Roshan Institute for Persian Studies at the University of Maryland (College Park) and an interdisciplinary advisory board of leading digital humanists and Islamic, Persian, and Arabic studies scholars,  OpenITI  aims to provide the essential textual infrastructure in Arabic, Persian and other Islamicate languages for new forms of textual analysis and digital scholarship. In the process, OpenITI will enable new synergies between Digital Humanities and the inter-related Islamicate fields of Islamic, Persian, and Arabic Studies. In addition to support from the researchers&rsquo; home institutions, it is supported by funding from the  European Research Council  under the European Union&rsquo;s Horizon 2020 research and innovation programme, awarded to the  KITAB  project (Grant Agreement No. 772989, PI Sarah Bowen Savant) and the  Qatar National Library . \n\n Currently,  OpenITI  contains almost exclusively Arabic texts, which were first assembled into a corpus within the  OpenArabic  project, developed first at Tufts University (at  The Perseus Project , 2013&ndash;2015) and then at Leipzig University (at the Alexander von Humboldt Chair for Digital Humanities, 2015&ndash;2017)&mdash;in both cases with the support and under the patronage of Prof. Gregory Crane. The much more limited number of Persian texts were compiled during 2015&ndash;2016 in the Persian Digital Library (PDL) pilot (see  Persian Digital Library by PersDigUMD ) at Roshan Institute for Persian Studies at the University of Maryland. These texts have not been made fully compatible with OpenITI mARkdown yet and will be made fully available in next releases. \n\n  Note on Release Numbering : Version  2019.1.1 &mdash;where  2019  is the year of the release, the first dotted number&mdash; .1 &mdash;is the ordinal release number in 2019, and the second dotted number&mdash; .1 &mdash;is the overall release number; the first dotted number will reset every year, while the second one will continue on increasing. \n\n For more details:  https://github.com/OpenITI/RELEASE  \n\n &nbsp; \n\n &nbsp; "
+    }
+   ]
+  }
  },
  "release_repository": {
   "ok": true,
