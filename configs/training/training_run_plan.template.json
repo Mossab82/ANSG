@@ -15,7 +15,7 @@
     "dal_projection_mapping": "pending",
     "training_schedule": "pending",
     "reward_variant": "pending",
-    "cmpi_definition": "pending"
+    "cmpi_definition": "owner_supplied_original"
   },
   "artifacts": [
     {
