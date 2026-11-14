@@ -1,11 +1,75 @@
-schema: ansg.anhc_supplemental_sources/1
+schema: ansg.anhc_supplemental_sources/2
 purpose: >-
-  Consolidate the complete-book scale corpus, story-bearing sources, dialect
-  support, and access boundaries for the direct ANHC build. Only rights-cleared,
-  story-verified text enters the narrative training pool.
+  Trace the thesis's novelty as a deliberate integration of narrative source
+  families, Arabic dialect resources, CAMeL-based processing, three annotation
+  layers, and ANSG architectural supervision. This provenance map distinguishes
+  thesis-reported ingredients from locally verified files and licensed intake.
+novelty_claim_from_thesis:
+  source: Tesis_Ibrahim.pdf, Chapter 3, §§3.1.5-3.2 and Appendix A.20
+  thesis_definition: >-
+    ANHC novelty is the combination of approximately 70.4M tokens, narrative
+    focus, five-way dialect coverage, DIA/MOTIF/MORAL annotation, and explicit
+    coupling to CSAM, DAL, and culturally-grounded RL.
+  integration_dimensions:
+    - multiple_classical_modern_contemporary_narrative_families
+    - dialectal_resources_and_five_variety_stratification
+    - CAMeL-assisted morphological analysis and root-aware tokenization
+    - tri-layer DIA_MOTIF_MORAL annotations
+    - source-aligned supervision for CSAM_DAL_RL
+  note: >-
+    MADAR is a dialectal resource and CAMeL Tools is a processing toolkit.
+    They are not interchangeable with long-form story collections; the novelty
+    is the designed integration, not treating every resource as narrative text.
+
+thesis_reported_source_composition:
+  classical_pre_1800:
+    tokens: 24600000
+    segments: 296000
+    named_families:
+      - Alf Layla wa-Layla: 8200000 tokens, Mahdi critical edition
+      - Kalila wa-Dimna: 3100000 tokens
+      - classical_adab: 13300000 tokens, including Maqamat al-Hariri, Kitab al-Aghani, and al-Jahiz works
+    source_files_in_direct_build: partial_different_editions
+  modern_1800_2000:
+    tokens: 18300000
+    segments: 224000
+    named_families: [Naguib Mahfouz, Taha Hussein, canonical adab]
+    source_files_in_direct_build: not_verified; copyright_and_edition_review_required
+  contemporary_post_2000:
+    tokens: 27500000
+    segments: 327000
+    named_families: [blogs, transcribed_oral_tales, regional_collections]
+    source_files_in_direct_build: partial; user_provided_shami_lines_are_not_story_verified
+  dialect_distribution_reported_in_table_3_3:
+    MSA: 28700000
+    Egyptian: 22800000
+    Levantine: 10200000
+    Gulf: 5100000
+    Maghrebi: 3600000
+  thesis_targets:
+    total_tokens: 70404829
+    triple_annotated_tokens: 23000000
+    segments: 847000
+    narrative_units_appendix_A_17: 55600
+  caveat: >-
+    Preserve all thesis-reported values as targets. Other thesis sections
+    report conflicting dialect percentages, narrative counts, tokenization
+    details, and split populations; see the release protocol conflict register.
+
+processing_tools:
+  - tool_id: camel_tools
+    title: CAMeL Tools
+    official_url: https://camel-tools.readthedocs.io/
+    thesis_role: morphology_analysis_for_root_aware_tokenization_and_dialect_preservation
+    reported_version: 1.5.2
+    reported_databases: [calima-msa-s31, calima-egy-s31]
+    fallback: MSA_analysis_plus_dialect_lexicon_extensions_for_other_dialects
+    contributes_source_text: false
+    direct_build_status: not_yet_reproduced; root-aware original tokenizer artifact unavailable
+
 sources:
   - source_id: arabic_ebook_corpus_v1
-    role: full_scale_source_and_narrative_candidates
+    role: open_full_scale_source_pool_and_narrative_candidates
     source_url: https://doi.org/10.5878/7rbh-gy93
     license: CC-BY-4.0
     source_size: 1745_books
@@ -20,54 +84,56 @@ sources:
       whitespace_words_all_books: 66081654
       tokenizer_model_sha256: 7744212cab83605e2726796fc87930a8f58b9c6a765529e541bce4bbea9792ba
     limitations:
-      - provider-native tokens and local SentencePiece pieces are different counters
-      - candidate pool includes adjacent categories such as history and biography
-      - not a dialect corpus; story boundaries and annotation remain incomplete
+      - provider_native_tokens_and_local_sentencepiece_pieces_are_different_counters
+      - candidate_pool_includes_adjacent_categories_such_as_history_and_biography
+      - not_a_dialect_corpus; story_boundaries_and_annotation_remain_incomplete
+      - does_not_replace_named_Mahdi_or_modern_sources_until_edition_identity_is_verified
     story_count_admission: candidate_only_until_story_boundary_review
 
   - source_id: alf_layla_walayla_arabic_editions
     role: classical_nested_story_source
-    edition_scope: six Arabic-original volumes from the Arabic E-Book Corpus
+    thesis_reference: Mahdi_critical_edition_8.2M_reported_tokens
+    direct_build_edition_scope: six Arabic-original volumes from Arabic E-Book Corpus, not confirmed as the Mahdi edition
     local_direct_profile:
       sentencepiece_tokens: 1133994
       provisional_heading_delimited_spans: 236
     split_group: alf_layla_work_cycle
     limitations:
-      - heading spans are provisional, not gold story boundaries
-      - preserve nested stories and hold the complete cycle in one split
+      - direct_build_edition_is_not_verified_as_the_thesis_named_edition
+      - heading_spans_are_provisional_not_gold_story_boundaries
+      - preserve_nested_stories_and_hold_complete_cycle_in_one_split
 
   - source_id: kalila_dimna_1816
     role: classical_fable_source
     source_url: https://ar.wikisource.org/wiki/كليلة_ودمنة
-    edition: Paris_1816
+    thesis_reference: 3.1M_reported_tokens_across_named_source_family
+    direct_build_edition: Paris_1816
     license: CC-BY-SA-4.0
     local_direct_profile:
       sentencepiece_tokens: 51884
       chapter_containers: 10
     split_group: kalila_1816_frame_cycle
     limitations:
-      - chapter containers are not verified individual fable boundaries
-      - honor attribution and share-alike for source-derived adaptations
+      - direct_build_edition_is_not_verified_as_the_thesis_source_edition
+      - chapter_containers_are_not_verified_individual_fable_boundaries
+      - honor_attribution_and_share_alike_for_source_derived_adaptations
 
   - source_id: layla_witheeb_jordanian_storytelling
-    role: consented_dialectal_story_reading_and_retelling
+    role: supplementary_contemporary_dialectal_narrative
     source_url: https://data.mendeley.com/datasets/v9n7g7ns49/1
     dataset_doi: 10.17632/v9n7g7ns49.1
     license: CC-BY-4.0
     published_speakers: 109
-    content: Arabic orthographic transcriptions of read and recalled retellings of one adapted Little Red Riding Hood story, with audio and phonetic annotations
+    content: Arabic orthographic transcriptions of reading and recalled retellings of one adapted Little Red Riding Hood story
     dialects: Jordanian Arabic from multiple governorates
     available_archive_size: 1.55_GB
-    ingestion_policy:
-      include: Arabic orthographic reading and retelling text only
-      exclude: audio, phonetic files, and speaker metadata unless separately approved as necessary
-      story_cycle_split: keep all renditions of Layla Witheeb in a single split group
     data_status: identified_and_license_verified_not_yet_ingested
+    story_cycle_split: keep_all_renditions_of_the_same_plot_together
     count_status: do_not_estimate_tokens_until_text_files_are_ingested
-    limitation: many speakers retell the same adapted plot; not 109 independent plots
+    limitation: supplementary Jordanian story resource; not a substitute for five-family coverage
 
   - source_id: user_provided_levantine_dialect_texts
-    role: auxiliary_DIA_classifier_support_only
+    role: supplementary_dialect_evidence_not_long_form_story_source
     report: data/corpora/anhc_direct_build/user_provided_dialect_count_report.json
     dialect_labels: [Jordanian, Palestinian, Syrian, Lebanese]
     observed_nonempty_rows: 66247
@@ -75,31 +141,34 @@ sources:
     tokenizer_profile: ANHC-direct-SPM32-v1
     data_status: counted_locally_text_not_committed
     redistribution_status: unresolved
-    narrative_admission: excluded_unless_story_provenance_and_story_boundaries_are_established
+    narrative_admission: excluded_until_story_provenance_and_boundaries_are_established
 
   - source_id: madar_parallel_corpus
-    role: external_DIA_evaluation_only
+    role: thesis_dialect_resource_and_DAL_DIA_support
     source_url: https://camel.abudhabi.nyu.edu/madar-parallel-corpus/
+    thesis_reference: Table_3_1_and_dialect_adaptation_context
     dialects: 25_city_varieties_including_Amman_and_Salt
     domain: translated_travel_sentences
     reported_sizes:
       corpus_26: 2000_seed_sentences
       corpus_6: 12000_sentences
     access: official_registration_required
-    license: internal_research_and_evaluation_only
-    restrictions: [no_modification, no_redistribution, no_sublicensing]
+    restrictions: [internal_research_and_evaluation_only, no_modification, no_redistribution, no_sublicensing]
     data_status: not_downloaded
-    narrative_admission: excluded_not_stories
+    direct_build_role: retain_as_dialect_resource_in_provenance_map; use only within approved terms
+    narrative_admission: excluded_not_long_form_story_text
 
-  - source_id: qadi_nadi_dart_and_shami_public_copies
-    role: external_dialect_identification_support_only_after_rights_review
-    data_status: not_in_story_pool
-    narrative_admission: excluded_not_stories
-    note: tweet/social-media or short-line resources; never add their counts to story tokens or tri-annotation coverage
+  - source_id: qadi_nadi_dart_and_shami_resources
+    role: supplementary_dialect_identification_or_DIA_support_after_rights_review
+    data_status: not_all_acquired; some user-provided Shami-like text has local count report
+    narrative_admission: excluded_until_verified_as_narratives
+    note: short social-media resources do not add to narrative token or annotation totals
 
 release_rules:
+  - describe_ANHC_novelty_as_integrated_source_annotation_architecture_design
+  - retain_MADAR_as_a_documented_dialect_component_without_counting_travel_sentences_as_stories
+  - describe_CAMeL_as_processing_support_not_a_text_corpus
   - do_not_merge_provider_token_counts_with_local_tokenizer_counts
-  - do_not_treat_dialect_lines_or_parallel_travel_sentences_as_stories
   - do_not_count_machine_suggested_labels_as_human_adjudicated_coverage
-  - preserve source_cycle_grouping_before_any_train_validation_test_split
+  - preserve_source_cycle_grouping_before_train_validation_test_split
   - do_not_claim_23m_triple_annotated_tokens_until_adjudicated_span_coverage_is_audited
