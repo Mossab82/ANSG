@@ -72,6 +72,7 @@ def test_cst_onto_paper_vs_dissertation_labels_recorded():
     cst = load_cmpi_variants()["cst_onto"]
     reported = {r["metric"]: r["value"] for r in cst["results_reported"]}
     assert reported == {"CRAFT": 0.89, "CMPI (Cultural Moral Precision Index)": 0.78}
+    assert cst["formula"] == "not_specified_in_paper"
     assert any("CulturalScore" in c and "0.89" in c for c in cst["conflicts_with_dissertation"])
 
 
@@ -87,7 +88,10 @@ def test_cultura_printed_equation_is_not_cmpi_and_its_conflicts_are_recorded():
     eq = load_cmpi_variants()["cultura"]["printed_equation_in_thesis"]
     assert eq["id"] == "Eq. 4.1" and eq["page"] == 87 and eq["is_cmpi"] is False
     assert len(eq["apparent_conflicts"]) == 3
-    assert eq["paper_gating_equation_check"] == "pending"
+    cmp = eq["comparison_with_paper_algorithm_1"]
+    assert cmp["finding"] == "different_mechanisms" and cmp["equivalence_claimed"] is False
+    assert len(cmp["algorithm_1_steps"]) == 4
+    assert any("no mixing coefficient alpha" in n and "p_schema" in n for n in cmp["notes"])
 
 
 @pytest.mark.parametrize("mutate, message", [

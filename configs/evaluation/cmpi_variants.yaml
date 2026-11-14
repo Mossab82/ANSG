@@ -84,21 +84,33 @@ cultura:
       - "p_schema is described as 'encodes schema constraint satisfaction' (p.87), not as a probability distribution over the vocabulary; unless it sums to 1, p_gated is not a normalised distribution. Normalisation is not stated."
       - "The same agent is described as 'AraT5 fine-tuned with PPLM ... integrating schema guidance through attention modulation' (p.86), whereas Eq. 4.1 interpolates output probabilities; PPLM steers hidden activations by gradients. Three mechanisms are named for one component."
       - "A fixed weight of 0.7 is attributed to CULTURA's gate alpha (Eq. 4.1, p.87-88) and to NarrativeMind's constraint weighting lambda (p.78; Table 4.3 p.86; Table 6.1 lambda_c = 0.7), while Table A.6 gives NarrativeMind lambda = 0.4 (C-EVAL-9)."
-    paper_gating_equation_check: pending   # the paper's gating mechanism (its Algorithm 1) was not supplied
+    comparison_with_paper_algorithm_1:     # owner extraction, CULTURA paper p.313
+      algorithm_1_steps:
+        - "c <- CSAM(x, O)            # extract cultural-schema indicators"
+        - "M_d <- MaskFromOntology(c, d)   # dialect-conditioned constraint mask"
+        - "y0 <- Generator(x, M_d)"
+        - "y <- Refiner(y0, c, d)"
+      finding: different_mechanisms
+      equivalence_claimed: false
+      notes:
+        - "Algorithm 1 (paper p.313) is a pipeline: schema extraction, an ontology-derived dialect mask, masked generation, then refinement. Eq. 4.1 (dissertation p.87) is a probabilistic mixture of p_LM and p_schema with alpha = 0.7."
+        - "Algorithm 1 mentions no mixing coefficient alpha and does not define p_schema; Eq. 4.1 mentions no constraint mask and no refiner."
+        - "The two sources describe CULTURA's generation mechanism differently; neither is treated as a derivation of the other."
 
 cst_onto:
   status: different_metric
   system: "CST-Onto: An Ontological Framework for Culturally-Grounded Narrative Generation in Arabic"
   publication: "Ibrahim, Gervás, Méndez (2025a), K-CAP '25, DOI 10.1145/3731443.3771364"
   paper_available_in_repository: false
-  formula_source: {kind: owner_extraction, pages: "Table 9", supplied: "2026-11-14"}
+  formula_source: {kind: owner_extraction, pages: "Table 9 and its note", supplied: "2026-11-14"}
   name_in_paper: "Cultural Moral Precision Index"
-  formula: "not printed as an equation in the supplied extraction; described as measuring alignment with moral schemas"
+  formula: not_specified_in_paper        # the paper gives no explicit computation; none is invented here
+  description_in_paper: "measures alignment with moral schemas (Table 9 note)"
   results_reported:
     - {metric: "CRAFT", value: 0.89, where: "CST-Onto paper Table 9"}
     - {metric: "CMPI (Cultural Moral Precision Index)", value: 0.78, where: "CST-Onto paper Table 9"}
   conflicts_with_dissertation:
-    - "The paper's Table 9 reports CRAFT = 0.89 for CST-Onto; the dissertation reports the same 0.89 as CST-Onto's CulturalScore (Table 6.1 note p.162; p.193). Same number, different metric name."
+    - "The paper's Table 9 places 0.89 under CRAFT and 0.78 under CMPI for CST-Onto; the dissertation attributes 0.89 to CST-Onto's CulturalScore (Table 6.1 note p.162; p.193). Same number, different metric name."
     - "The paper reports a CMPI (Cultural Moral Precision Index) of 0.78 for CST-Onto; the dissertation's Table 6.4 has no CST-Onto row, and its 0.78 is MM-GTA's value under the dissertation's own CMPI. The equal values belong to different systems and metrics; no relation is asserted."
   thesis_reevaluation: "p.163: 'CST-Onto evaluation focuses on symbolic reasoning capability rather than fluent generation'"
 
