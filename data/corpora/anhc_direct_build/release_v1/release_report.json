@@ -1,6 +1,6 @@
 {
   "schema": "ansg.direct_build_release_report/1",
-  "built_utc": "2026-11-14T09:34:22.720040+00:00",
+  "built_utc": "2026-11-14T09:39:50.408900+00:00",
   "profile_id": "ANHC-direct-build-v1",
   "status": "reproducible_direct_build_not_historical_reproduction",
   "inputs": {
@@ -128,6 +128,48 @@
     "train": 1394,
     "test": 125,
     "validation": 115
+  },
+  "materialized_training_corpora": {
+    "pretraining": {
+      "train": {
+        "path": "corpora/pretraining/train.jsonl.gz",
+        "records": 1158,
+        "bytes": 132559697,
+        "sha256": "2d8202241afa777e3764813b45bd8428a7bc45a3aa5990e8af00b8266f8e0ddf"
+      },
+      "validation": {
+        "path": "corpora/pretraining/validation.jsonl.gz",
+        "records": 115,
+        "bytes": 13569133,
+        "sha256": "3311fe9a862ff0a44506f71a596a11460e5a2c31b9978196542afcb6492043af"
+      },
+      "test": {
+        "path": "corpora/pretraining/test.jsonl.gz",
+        "records": 125,
+        "bytes": 14679821,
+        "sha256": "80aec89734c0c65a329ff08e34df99cad48a143c25d51f6b2ff5387b9a947bb1"
+      }
+    },
+    "narrative_candidates": {
+      "train": {
+        "path": "corpora/narrative_candidates/train.jsonl.gz",
+        "records": 792,
+        "bytes": 67836727,
+        "sha256": "2aa7b364c19e6e26e45b6fe74d234c700d28781688d2d3c22988168540b37fdb"
+      },
+      "validation": {
+        "path": "corpora/narrative_candidates/validation.jsonl.gz",
+        "records": 79,
+        "bytes": 7179209,
+        "sha256": "d8fe59a59a3f745a5a544f1327e2d1cd21578471c74cf541c2c54833302d30c2"
+      },
+      "test": {
+        "path": "corpora/narrative_candidates/test.jsonl.gz",
+        "records": 80,
+        "bytes": 7156048,
+        "sha256": "d8b33abd80649e88d9254e58afa009b9a88acbd5b90b82f8fae20b216664f358"
+      }
+    }
   },
   "annotation_layers": {
     "DIA": {
