@@ -102,8 +102,11 @@ def validate_plan(plan: StoryPlan, settings: Mapping[str, CulturalSetting]) -> V
     rep.issues = [i for i in rep.issues if i.code != "W-NO-SOURCE-TEXT"]
     setting = settings.get(plan.setting)
     if setting is None:
+        # keep checking the rest of the plan; only the setting-specific name/place checks are skipped
         rep.issues.append(Issue("E-PLAN-SETTING-UNKNOWN", "error", f"unknown setting {plan.setting!r}"))
-        return rep
+    if isinstance(plan.target_words, bool) or not (isinstance(plan.target_words, int) and plan.target_words > 0):
+        rep.issues.append(Issue("E-PLAN-TARGET-WORDS", "error",
+                                f"target_words must be a positive integer, got {plan.target_words!r}"))
     for key in ("narration", "dialogue"):
         if plan.register.get(key) not in REGISTERS:
             rep.issues.append(Issue("E-PLAN-REGISTER", "error", f"register.{key} must be one of {REGISTERS}"))
@@ -116,7 +119,7 @@ def validate_plan(plan: StoryPlan, settings: Mapping[str, CulturalSetting]) -> V
             rep.issues.append(Issue("W-PLAN-NO-GLOSS", "warning", "planned event has no description", ev.id))
     if not any(e.kind in (EntityKind.CHARACTER, EntityKind.GROUP) for e in plan.graph.entities):
         rep.issues.append(Issue("E-PLAN-NO-CHARACTER", "error", "plan has no character"))
-    for ent in plan.graph.entities:
+    for ent in plan.graph.entities if setting is not None else ():
         if ent.kind is EntityKind.CHARACTER and setting.names and not mention_matches(ent.name, setting.names):
             rep.issues.append(Issue("W-PLAN-NAME-OUTSIDE-SETTING", "warning",
                                     f"character name {ent.name!r} is not in the {setting.id} name list", ent.id))

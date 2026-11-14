@@ -93,3 +93,23 @@ def test_story_proxies_are_labelled_and_detect_copying(settings):
     assert s["dialect_marker_rate"]["per_100_words"] > 0
     assert s["plan_surface_coverage"]["characters_named"] == "2/2"
     assert sp.distinct_n([original, original], 2)["distinct"] < sp.distinct_n([original, source], 2)["distinct"]
+
+
+def test_valid_plan_has_no_textual_cue_warnings(settings):
+    # plans have no source text: a missing connective is not a review item for them
+    assert validate_plan(plan(), settings).issues == []
+
+
+def test_unknown_setting_does_not_hide_other_plan_errors(settings):
+    p = plan()
+    p.setting = "atlantis"
+    p.graph.events[0].modality = Modality.ACTUAL
+    assert {"E-PLAN-SETTING-UNKNOWN", "E-PLAN-MODALITY"} <= validate_plan(p, settings).codes()
+
+
+@pytest.mark.parametrize("words", [0, -5, True, "500"])
+def test_target_length_must_be_positive(settings, words):
+    p = plan()
+    p.target_words = words
+    with pytest.raises(ValueError, match="E-PLAN-TARGET-WORDS"):
+        build_prompt(p, settings)

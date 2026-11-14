@@ -235,8 +235,13 @@ class EventGraph:
                                    AnnotationStatus(x.get("status", "automatic")),
                                    AnnotationSource(x.get("source", "automatic")))
 
+        def mention(x: Any) -> Evidence:
+            if x is None:
+                raise ValueError("an entity mention must be a span, not null")
+            return ev(x)
+
         entities = [Entity(e["id"], e["name"], EntityKind(e["kind"]), e.get("narrative_role"),
-                           list(e.get("aliases") or []), [ev(m) for m in e.get("mentions") or []])
+                           list(e.get("aliases") or []), [mention(m) for m in e.get("mentions") or []])
                     for e in d.get("entities") or []]
         events = [Event(
             id=e["id"], trigger=e["trigger"], evidence=ev(e.get("evidence")),
