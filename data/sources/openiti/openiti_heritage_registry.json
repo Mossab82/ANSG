@@ -3,10 +3,10 @@
  "generated_by": "scripts/openiti/build_openiti_heritage_registry.py",
  "evidence": {
   "path": "data/sources/openiti/openiti_metadata_evidence.json",
-  "collected_at_utc": "2026-11-14T10:48:37+00:00",
+  "collected_at_utc": "2026-11-14T14:19:18+00:00",
   "ci_run": {
-   "GITHUB_RUN_ID": "43587009723",
-   "GITHUB_SHA": "95e72f122633fcf80ec23ecc6ed1b32fd2f53c55",
+   "GITHUB_RUN_ID": "43604230563",
+   "GITHUB_SHA": "8e44422fd12f34d9abe0eaa9f475980780d8b6db",
    "GITHUB_REF_NAME": "data/openiti-heritage-audit"
   }
  },
