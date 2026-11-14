@@ -30,6 +30,7 @@ def main():
     ap.add_argument("--training-sentences", type=int, default=200000)
     ap.add_argument("--sample-seed", type=int, default=20261114)
     ap.add_argument("--kalila-jsonl", type=Path)
+    ap.add_argument("--reuse-existing-model", action="store_true")
     args = ap.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     training_text = args.output / "training_text.txt"
@@ -67,28 +68,36 @@ def main():
     with sample_path.open("w", encoding="utf-8", newline="\n") as out:
         for line in reservoir:
             out.write(line + "\n")
+    training_text_sha256 = sha256(training_text)
+    training_text.unlink()
 
     prefix = args.output / "anhc_direct_spm32"
-    spm.SentencePieceTrainer.train(
-        input=str(sample_path), model_prefix=str(prefix), model_type="unigram",
-        vocab_size=args.vocab_size, character_coverage=0.9995,
-        normalization_rule_name="nfkc", add_dummy_prefix=True,
-        remove_extra_whitespaces=False, input_sentence_size=0,
-        shuffle_input_sentence=False, num_threads=4,
-        bos_id=1, eos_id=2, unk_id=0, pad_id=-1,
-        hard_vocab_limit=False, max_sentence_length=16384,
-    )
     model_path = prefix.with_suffix(".model")
+    if args.reuse_existing_model:
+        if not model_path.is_file():
+            raise SystemExit(f"Cannot reuse missing model: {model_path}")
+    else:
+        spm.SentencePieceTrainer.train(
+            input=str(sample_path), model_prefix=str(prefix), model_type="unigram",
+            vocab_size=args.vocab_size, character_coverage=0.9995,
+            normalization_rule_name="nfkc", add_dummy_prefix=True,
+            remove_extra_whitespaces=False, input_sentence_size=0,
+            shuffle_input_sentence=False, num_threads=4,
+            bos_id=1, eos_id=2, unk_id=0, pad_id=-1,
+            hard_vocab_limit=False, max_sentence_length=16384,
+        )
     sp = spm.SentencePieceProcessor(model_file=str(model_path))
     by_scope_tokens = Counter()
     by_scope_words = Counter()
     by_period_tokens = Counter()
     by_period_words = Counter()
     by_translation_tokens = Counter()
+    by_translation_words = Counter()
     all_tokens = all_words = 0
+    narrative_candidate_tokens = narrative_candidate_words = 0
     alf_layla_tokens = alf_layla_words = 0
     kalila_tokens = kalila_words = 0
-    for path in record_paths:
+    for record_index, path in enumerate(record_paths, start=1):
         with gzip.open(path, "rt", encoding="utf-8") as source:
             record = json.loads(source.readline())
         text = record["text"]
@@ -100,6 +109,9 @@ def main():
             scopes.append("narrative_adjacent")
         if not scopes:
             scopes.append("non_narrative_general")
+        if categories & (CORE | ADJACENT):
+            narrative_candidate_tokens += count
+            narrative_candidate_words += words
         for scope in scopes:
             by_scope_tokens[scope] += count
             by_scope_words[scope] += words
@@ -114,9 +126,11 @@ def main():
             alf_layla_words += words
         all_tokens += count
         all_words += words
+        if record_index % 50 == 0:
+            print(f"Counted {record_index}/{len(record_paths)} books", flush=True)
 
     # Count the already collected Kalila text under this same direct-build profile.
-    kalila_path = args.kalila_jsonl or args.records.parent.parent / "kalila_1816" / "kalila_1816.jsonl"
+    kalila_path = args.kalila_jsonl or args.records.parent.parent / "kalila_1816.jsonl"
     if kalila_path.exists():
         for line in kalila_path.open(encoding="utf-8"):
             row = json.loads(line)
@@ -141,10 +155,15 @@ def main():
             "population_lines": seen_lines,
             "sample_text_sha256": sha256(sample_path)
         },
-        "training_text_sha256": sha256(training_text),
+        "training_text_sha256": training_text_sha256,
         "tokenizer_model_sha256": sha256(model_path),
         "counting": "SentencePiece pieces; excludes BOS/EOS/padding; JSON metadata and annotations excluded",
         "all_books": {"records": len(record_paths), "observed_whitespace_words": all_words, "sentencepiece_tokens": all_tokens},
+        "narrative_candidates_unique": {
+            "record_selection": "publisher category intersects core OR adjacent narrative categories",
+            "sentencepiece_tokens": narrative_candidate_tokens,
+            "observed_whitespace_words": narrative_candidate_words
+        },
         "narrative_scope_sentencepiece_tokens_nonexclusive": dict(by_scope_tokens),
         "narrative_scope_whitespace_words_nonexclusive": dict(by_scope_words),
         "period_sentencepiece_tokens": dict(by_period_tokens),
