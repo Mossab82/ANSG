@@ -111,7 +111,8 @@ memory. Long generations on CPU are slow.
    python scripts/train_cultural_modules.py --backbone /models/aragpt2-large \
        --examples data/processed/examples/train.examples.jsonl \
        --schema-vocabulary data/processed/examples/schema_vocabulary.json \
-       --data-kind real --steps <N> --device cuda --output checkpoints/cultural.pt
+       --data-kind real --authorization-manifest data/private/training_authorization.json \\
+       --steps <N> --device cuda --output checkpoints/cultural.pt
    ansg-generate --backbone /models/aragpt2-large --cultural-checkpoint checkpoints/cultural.pt \
        --schema-vocabulary data/processed/examples/schema_vocabulary.json \
        --schema-node <CKG node id> --dialect Egyptian --prompt "..." --output runs/committee/ansg.json
