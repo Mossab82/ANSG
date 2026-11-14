@@ -47,6 +47,7 @@ def main() -> None:
     parser.add_argument("--zip", dest="zip_path", type=Path, default=Path("arabic-corpus-txt.zip"))
     parser.add_argument("--metadata", type=Path, default=Path("metadata.tsv"))
     parser.add_argument("--output", type=Path, default=Path("anhc_direct_build/arabic_ebooks"))
+    parser.add_argument("--scope", choices=["narrative_candidates", "all_books"], default="narrative_candidates", help="all_books is the broad pretraining pool; narrative_candidates filters publisher categories")
     args = parser.parse_args()
     args.zip_path.parent.mkdir(parents=True, exist_ok=True)
     args.metadata.parent.mkdir(parents=True, exist_ok=True)
@@ -64,8 +65,8 @@ def main() -> None:
     for row in rows:
         tags = set((row.get("category") or "").split(","))
         scopes = [name for name, allowed in CATEGORIES.items() if tags & allowed]
-        if scopes:
-            row["_scopes"] = scopes
+        if args.scope == "all_books" or scopes:
+            row["_scopes"] = scopes or ["non_narrative_general"]
             selected.append(row)
 
     by_scope = Counter()
@@ -91,7 +92,9 @@ def main() -> None:
             text = raw.decode("utf-8")
             sha = hashlib.sha256(raw).hexdigest()
             tags = sorted(set((row.get("category") or "").split(",")))
-            scope = "narrative_core" if "narrative_core" in row["_scopes"] else "narrative_adjacent"
+            scope = ("narrative_core" if "narrative_core" in row["_scopes"] else
+                     "narrative_adjacent" if "narrative_adjacent" in row["_scopes"] else
+                     "non_narrative_general")
             year = row.get("origpubdate") or ""
             era = period(year)
             record = {
@@ -165,7 +168,7 @@ def main() -> None:
         report_alf = None
     report = {
         "schema": "ansg.source_ingestion_report/1", "built_utc": datetime.now(timezone.utc).isoformat(),
-        "dataset": "The Arabic E-Book Corpus", "version": 1, "dataset_doi": DATASET_DOI,
+        "dataset": "The Arabic E-Book Corpus", "version": 1, "dataset_doi": DATASET_DOI, "intake_scope": args.scope,
         "article_doi": ARTICLE_DOI, "license": "CC BY 4.0",
         "archive_sha256": hashlib.sha256(args.zip_path.read_bytes()).hexdigest(),
         "metadata_sha256": hashlib.sha256(args.metadata.read_bytes()).hexdigest(),
