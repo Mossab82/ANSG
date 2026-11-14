@@ -3,8 +3,8 @@ import pytest
 
 from ansg.evaluation import ansg_cmpi as lazy_ansg_cmpi
 from ansg.evaluation.cmpi import (
-    ANSG_CMPI_WEIGHTS, DIMENSION_SCORERS_SPECIFIED, ansg_cmpi, ansg_cmpi_from_mapping, load_cmpi_variants,
-    validate_cmpi_variants,
+    ANSG_CMPI_WEIGHTS, DIMENSION_SCORERS_SPECIFIED, ansg_cmpi, ansg_cmpi_from_mapping, cultura_cmpi_as_printed,
+    cultura_printed_upper_bound, load_cmpi_variants, mm_gta_cmpi_as_printed, validate_cmpi_variants,
 )
 from ansg.utils.config import load_yaml_config
 
@@ -42,28 +42,61 @@ def test_variants_file_is_consistent_and_keeps_metrics_apart():
     assert validate_cmpi_variants(data) == []
     ansg = data["ansg_thesis"]
     assert {s["page"] for s in ansg["sources"]} >= {131, 223, 268}
+    assert ansg["terminology_conflict"]
+    names = {ansg["name"]}
     for key in ("cultura", "cst_onto", "mm_gta"):
         v = data[key]
-        assert v["status"] == "different_metric" and v["formula"] == "pending"
-        assert v["paper_available_in_repository"] is False
+        assert v["status"] == "different_metric" and v["formula"] != "pending"
+        assert v["formula_source"]["kind"] == "owner_extraction"
         assert "weights" not in v and "equation" not in v
-    # MM-GTA's 0.78 is recorded as the thesis's re-evaluation, not the paper's metric
-    assert "not the MM-GTA paper's metric" in data["mm_gta"]["results_reported_in_thesis"][0]["note"]
-    # CST-Onto's 0.89 is CulturalScore, not CMPI
-    assert data["cst_onto"]["results_reported_in_thesis"][0]["metric"] == "CulturalScore"
+        assert v["name_in_paper"] not in names
+        names.add(v["name_in_paper"])
+    assert data["cultura"]["name_in_paper"] == "Cultural Matching Performance Index"
+    assert data["cst_onto"]["name_in_paper"] == "Cultural Moral Precision Index"
+    assert data["mm_gta"]["name_in_paper"] == "Cross-dialectal Morphological Preservation Index"
+
+
+def test_cultura_printed_formula_and_its_recorded_conflict():
+    cultura = load_cmpi_variants()["cultura"]
+    weights = [c["weight"] for c in cultura["criteria"]]
+    assert weights == [0.25, 0.25, 0.25, 0.15, 0.10] and cultura["K"] == 5
+    assert cultura["formula_source"]["pages"] == "314-315"
+    assert cultura_printed_upper_bound(weights) == pytest.approx(0.2)
+    assert any(r["value"] == 0.82 for r in cultura["results_reported"] if isinstance(r["value"], float))
+    assert any("0.2" in c and "0.82" in c for c in cultura["printed_formula_conflicts"])
+    # computed exactly as printed, never "corrected"
+    assert cultura_cmpi_as_printed([8, 8, 8, 8, 8], weights) == pytest.approx(0.8 / 5)
+
+
+def test_cst_onto_paper_vs_dissertation_labels_recorded():
+    cst = load_cmpi_variants()["cst_onto"]
+    reported = {r["metric"]: r["value"] for r in cst["results_reported"]}
+    assert reported == {"CRAFT": 0.89, "CMPI (Cultural Moral Precision Index)": 0.78}
+    assert any("CulturalScore" in c and "0.89" in c for c in cst["conflicts_with_dissertation"])
+
+
+def test_mm_gta_is_a_morphological_f1():
+    mm = load_cmpi_variants()["mm_gta"]
+    assert mm["formula"] == "CMPI = 2 * P_morph * R_morph / (P_morph + R_morph)"
+    assert mm_gta_cmpi_as_printed(0.8, 0.8) == pytest.approx(0.8)
+    assert mm_gta_cmpi_as_printed(0.0, 0.0) == 0.0
+    assert "not the MM-GTA paper's metric" in mm["results_reported"][0]["note"]
 
 
 def test_cultura_printed_equation_is_not_cmpi_and_its_conflicts_are_recorded():
     eq = load_cmpi_variants()["cultura"]["printed_equation_in_thesis"]
     assert eq["id"] == "Eq. 4.1" and eq["page"] == 87 and eq["is_cmpi"] is False
     assert len(eq["apparent_conflicts"]) == 3
-    assert eq["paper_equation_check"] == "pending"
+    assert eq["paper_gating_equation_check"] == "pending"
 
 
 @pytest.mark.parametrize("mutate, message", [
     (lambda d: d["ansg_thesis"]["weights"].__setitem__("moral_framing", 0.2), "differ"),
-    (lambda d: d["cultura"].__setitem__("formula", "0.5*x"), "pending"),
+    (lambda d: d["cultura"].__setitem__("formula", "pending"), "formula"),
     (lambda d: d["mm_gta"].__setitem__("weights", {"a": 1.0}), "ANSG-style"),
+    (lambda d: d["cst_onto"].__setitem__("name_in_paper", "Cultural Motif Preservation Index"), "distinct"),
+    (lambda d: d["cultura"].__setitem__("printed_formula_conflicts", []), "conflict must be recorded"),
+    (lambda d: d["mm_gta"].__setitem__("conflicts_with_dissertation", []), "differences from the dissertation"),
     (lambda d: d["cultura"]["printed_equation_in_thesis"].__setitem__("apparent_conflicts", []), "apparent conflicts"),
 ])
 def test_validation_catches_mixing(mutate, message):

@@ -12,13 +12,18 @@ metric (0-1 scale)", App. A.1 Table A.2 p.268)::
 a text, so nothing here scores text: the caller supplies the four dimension
 scores and must state where they came from.
 
-CULTURA, CST-Onto and MM-GTA use metrics of the same name defined in their own
-papers, on other test sets and protocols. They are recorded separately in
-``configs/evaluation/cmpi_variants.yaml`` and are never computed, converted or
-compared here.
+CULTURA ("Cultural Matching Performance Index"), CST-Onto ("Cultural Moral
+Precision Index") and MM-GTA ("Cross-dialectal Morphological Preservation
+Index") use the same acronym for different metrics, recorded in
+``configs/evaluation/cmpi_variants.yaml``. The two printed paper formulas are
+reproduced *as printed* (:func:`cultura_cmpi_as_printed`,
+:func:`mm_gta_cmpi_as_printed`) only so that their stated properties can be
+checked; they are never converted to, compared with or substituted for the ANSG
+CMPI.
 """
 from __future__ import annotations
 
+import math
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -74,6 +79,35 @@ def load_cmpi_variants(path: str | Path | None = None) -> dict[str, Any]:
     return dict(data)
 
 
+def cultura_cmpi_as_printed(scores_0_to_10, weights) -> float:
+    """CULTURA paper (PRIMA 2025, pp. 314-315), exactly as printed:
+    CMPI(S) = (1/K) * sum_i w_i * (s_i / 10), sum_i w_i = 1. No correction applied."""
+    scores, weights = list(scores_0_to_10), list(weights)
+    if len(scores) != len(weights) or not scores:
+        raise ValueError("one weight per criterion is required")
+    if not math.isclose(sum(weights), 1.0, abs_tol=1e-9):
+        raise ValueError("the printed formula requires weights summing to 1")
+    if any(not 0 <= s <= 10 for s in scores):
+        raise ValueError("judge scores are on a 0-10 scale")
+    return sum(w * (s / 10.0) for w, s in zip(weights, scores)) / len(scores)
+
+
+def cultura_printed_upper_bound(weights) -> float:
+    """Maximum of the printed CULTURA formula (all judge scores = 10)."""
+    weights = list(weights)
+    return cultura_cmpi_as_printed([10] * len(weights), weights)
+
+
+def mm_gta_cmpi_as_printed(p_morph: float, r_morph: float) -> float:
+    """MM-GTA paper, as printed: CMPI = 2 * P_morph * R_morph / (P_morph + R_morph)."""
+    if not (0 <= p_morph <= 1 and 0 <= r_morph <= 1):
+        raise ValueError("precision and recall must be in [0, 1]")
+    return 0.0 if p_morph + r_morph == 0 else 2 * p_morph * r_morph / (p_morph + r_morph)
+
+
+SEPARATE_METRICS = ("cultura", "cst_onto", "mm_gta")
+
+
 def validate_cmpi_variants(data: Mapping[str, Any]) -> list[str]:
     """Consistency of the variants file with this module and its separation rules."""
     problems: list[str] = []
@@ -82,15 +116,40 @@ def validate_cmpi_variants(data: Mapping[str, Any]) -> list[str]:
         problems.append(f"ansg_thesis weights {ansg.get('weights')} differ from ANSG_CMPI_WEIGHTS")
     if not any(s.get("page") == 131 for s in ansg.get("sources") or []):
         problems.append("ansg_thesis must cite §5.1 p.131")
-    for key in ("cultura", "cst_onto", "mm_gta"):
+    if not ansg.get("terminology_conflict"):
+        problems.append("ansg_thesis: the CMPI naming conflict must be recorded")
+    names = {ansg.get("name")}
+    for key in SEPARATE_METRICS:
         v = data.get(key) or {}
         if v.get("status") != "different_metric":
             problems.append(f"{key}: status must be 'different_metric'")
-        if v.get("paper_available_in_repository") is False and v.get("formula") != "pending":
-            problems.append(f"{key}: formula must stay 'pending' while the paper is unavailable")
         if "weights" in v or "equation" in v:
-            problems.append(f"{key}: must not carry ANSG-style weights/equation")
-    eq = ((data.get("cultura") or {}).get("printed_equation_in_thesis") or {})
+            problems.append(f"{key}: must not carry ANSG-style weights/equation keys")
+        src = v.get("formula_source") or {}
+        if not src.get("kind") or not src.get("pages"):
+            problems.append(f"{key}: formula_source with kind and pages is required")
+        if not v.get("formula") or v.get("formula") == "pending":
+            problems.append(f"{key}: formula (or an explicit statement that none is printed) is required")
+        if not v.get("name_in_paper") or v.get("name_in_paper") in names:
+            problems.append(f"{key}: name_in_paper must be given and distinct from the other CMPI names")
+        names.add(v.get("name_in_paper"))
+        if not v.get("conflicts_with_dissertation"):
+            problems.append(f"{key}: differences from the dissertation must be recorded")
+    cultura = data.get("cultura") or {}
+    weights = [c.get("weight") for c in cultura.get("criteria") or []]
+    if len(weights) != cultura.get("K") or not weights:
+        problems.append("cultura: K must equal the number of weighted criteria")
+    else:
+        try:
+            bound = cultura_printed_upper_bound(weights)
+        except ValueError as exc:
+            problems.append(f"cultura: {exc}")
+        else:
+            reported = [r["value"] for r in cultura.get("results_reported") or [] if isinstance(r.get("value"), (int, float))]
+            if any(r > bound for r in reported) and not cultura.get("printed_formula_conflicts"):
+                problems.append(f"cultura: printed formula bound {bound:g} is below a reported value {reported}; "
+                                "the conflict must be recorded")
+    eq = cultura.get("printed_equation_in_thesis") or {}
     if eq.get("is_cmpi") is not False or not eq.get("apparent_conflicts"):
         problems.append("cultura: printed Eq. 4.1 must be marked is_cmpi: false with its apparent conflicts recorded")
     return problems

@@ -1,20 +1,24 @@
 # CMPI definitions: the dissertation's ANSG definition, kept apart from the
-# metrics of the same name in the author's earlier systems.
+# metrics that share the acronym in the author's earlier papers.
 #
 # * `ansg_thesis` is the implementation reference for ANSG
 #   (src/ansg/evaluation/cmpi.py). Its equation is printed in prose in the
 #   dissertation; the scorers of its four dimensions are not specified.
-# * `cultura`, `cst_onto`, `mm_gta` are DIFFERENT metrics (other papers, other
-#   test sets, other protocols). Their formulas and results are never mixed with
-#   ANSG's: no conversion, no comparison, no substitution. The papers are not in
-#   this repository; everything not stated in the dissertation is `pending`.
+# * `cultura`, `cst_onto`, `mm_gta` are DIFFERENT metrics with different names,
+#   criteria, scales and test protocols. Their formulas and results are never
+#   mixed with ANSG's: no conversion, no comparison, no substitution.
+# * Paper formulas below were extracted by the repository owner from the cited
+#   pages and supplied on 2026-11-14 (`formula_source: owner_extraction`). The
+#   papers are not committed and were not re-read here.
 #
-# Pages = PDF footers of the supplied Markdown export of the dissertation.
+# Pages = PDF footers of the supplied Markdown export of the dissertation, or the
+# paper's own page numbers where stated.
 
 schema: ansg.cmpi_variants/1
 
 ansg_thesis:
   name: "Cultural Motif Preservation Index"
+  terminology_conflict: "The dissertation expands CMPI in two ways (below); the earlier papers use the same acronym for three further metrics (cultura, cst_onto, mm_gta). Recorded as a terminological conflict; the ANSG definition is unaffected."
   name_variants:
     - {name: "Cultural Motif Preservation Index", where: "§4.5.1 p.115; Ch.6 intro p.160; glossary p.20"}
     - {name: "Cultural Meaning Preservation Index", where: "§5.1 p.131; App. A.1 Table A.2 p.268"}
@@ -51,41 +55,64 @@ cultura:
   system: "CULTURA: A Multi-agent Neural-Symbolic System for Culturally-Aware Arabic Story Generation"
   publication: "Ibrahim, Gervás, Méndez (2026b), PRIMA 2025, LNCS 16366, DOI 10.1007/978-3-032-13562-9_24"
   paper_available_in_repository: false
-  description_in_thesis: "quantifies the preservation of culturally significant patterns through hierarchical schema activation scoring (p.160)"
-  formula: pending        # not printed in the dissertation; requires the paper
-  dimensions: pending
-  results_reported_in_thesis:            # CULTURA's own test set and protocol; not comparable to ANSG's CMPI
-    - {value: 0.82, baseline: "AraT5 0.49", relative: "+67%", where: "§4.1.5 p.87; Ch.6 intro p.160; §2.7.3 p.39"}
-    - {value: "31% CMPI degradation without schema constraints (ablation)", where: "§4.1.5 p.87"}
+  formula_source: {kind: owner_extraction, pages: "314-315", supplied: "2026-11-14"}
+  name_in_paper: "Cultural Matching Performance Index"
+  formula: "CMPI(S) = (1/K) * sum_{i=1..K} w_i * (s_i / 10), with sum_i w_i = 1"
+  K: 5
+  criteria:                        # judge scores s_i on a 0-10 scale
+    - {criterion: motif_alignment, weight: 0.25}
+    - {criterion: moral_causal_consistency, weight: 0.25}
+    - {criterion: dialect_appropriateness, weight: 0.25}
+    - {criterion: linguistic_register, weight: 0.15}
+    - {criterion: cultural_references, weight: 0.10}
+  score_scale: [0, 10]
+  results_reported:
+    - {value: 0.82, baseline: "AraT5 0.49", relative: "+67%", where: "paper (as cited by the dissertation §4.1.5 p.87; Ch.6 intro p.160; §2.7.3 p.39)"}
+    - {value: "31% CMPI degradation without schema constraints (ablation)", where: "dissertation §4.1.5 p.87"}
+  printed_formula_conflicts:       # recorded as printed; no correction is guessed
+    - "With the 1/K factor and weights summing to 1, the maximum of the printed formula is (1/K) * sum_i w_i * 1 = 1/5 = 0.2 for K = 5, which contradicts the published CMPI of 0.82."
+  conflicts_with_dissertation:
+    - "The dissertation says CMPI was 'originally introduced in our CULTURA system' (p.160) and expands it as 'Cultural Motif Preservation Index'; the CULTURA paper's metric is the 'Cultural Matching Performance Index' with five judge-scored criteria and different weights (0.25/0.25/0.25/0.15/0.10), not the dissertation's four AHP-weighted dimensions (0.35/0.25/0.25/0.15)."
+    - "The dissertation's description 'hierarchical schema activation scoring' (p.160) does not match the paper's judge-scored weighted criteria."
   thesis_reevaluation: "p.163: 're-evaluated on the unified thesis test set ... yields comparable performance'; no value printed"
   printed_equation_in_thesis:
     id: "Eq. 4.1"
     page: 87
     text: "p_gated(w_t|c,s) = alpha * p_LM(w_t|c) + (1 - alpha) * p_schema(w_t|s), alpha = 0.7 (fixed)"
-    is_cmpi: false       # this is CULTURA's schema gating, not a CMPI formula
+    is_cmpi: false       # CULTURA's schema gating as printed in the dissertation, not a CMPI formula
     apparent_conflicts:  # recorded, not resolved
       - "p_schema is described as 'encodes schema constraint satisfaction' (p.87), not as a probability distribution over the vocabulary; unless it sums to 1, p_gated is not a normalised distribution. Normalisation is not stated."
       - "The same agent is described as 'AraT5 fine-tuned with PPLM ... integrating schema guidance through attention modulation' (p.86), whereas Eq. 4.1 interpolates output probabilities; PPLM steers hidden activations by gradients. Three mechanisms are named for one component."
       - "A fixed weight of 0.7 is attributed to CULTURA's gate alpha (Eq. 4.1, p.87-88) and to NarrativeMind's constraint weighting lambda (p.78; Table 4.3 p.86; Table 6.1 lambda_c = 0.7), while Table A.6 gives NarrativeMind lambda = 0.4 (C-EVAL-9)."
-    paper_equation_check: pending   # compare with the CULTURA paper's printed equation once the paper is supplied
+    paper_gating_equation_check: pending   # the paper's gating mechanism (its Algorithm 1) was not supplied
 
 cst_onto:
   status: different_metric
   system: "CST-Onto: An Ontological Framework for Culturally-Grounded Narrative Generation in Arabic"
   publication: "Ibrahim, Gervás, Méndez (2025a), K-CAP '25, DOI 10.1145/3731443.3771364"
   paper_available_in_repository: false
-  formula: pending
-  results_reported_in_thesis:
-    - {metric: "CulturalScore", value: 0.89, where: "Table 6.1 note p.162; §8 p.193", note: "CulturalScore, not CMPI"}
-    - {metric: "appropriateness vs rule compliance", value: "50-53% vs 89%", where: "§4.1.1 p.78"}
-  thesis_reevaluation: "p.163: 'CST-Onto evaluation focuses on symbolic reasoning capability rather than fluent generation'; Table 6.4 has no CST-Onto row"
+  formula_source: {kind: owner_extraction, pages: "Table 9", supplied: "2026-11-14"}
+  name_in_paper: "Cultural Moral Precision Index"
+  formula: "not printed as an equation in the supplied extraction; described as measuring alignment with moral schemas"
+  results_reported:
+    - {metric: "CRAFT", value: 0.89, where: "CST-Onto paper Table 9"}
+    - {metric: "CMPI (Cultural Moral Precision Index)", value: 0.78, where: "CST-Onto paper Table 9"}
+  conflicts_with_dissertation:
+    - "The paper's Table 9 reports CRAFT = 0.89 for CST-Onto; the dissertation reports the same 0.89 as CST-Onto's CulturalScore (Table 6.1 note p.162; p.193). Same number, different metric name."
+    - "The paper reports a CMPI (Cultural Moral Precision Index) of 0.78 for CST-Onto; the dissertation's Table 6.4 has no CST-Onto row, and its 0.78 is MM-GTA's value under the dissertation's own CMPI. The equal values belong to different systems and metrics; no relation is asserted."
+  thesis_reevaluation: "p.163: 'CST-Onto evaluation focuses on symbolic reasoning capability rather than fluent generation'"
 
 mm_gta:
   status: different_metric
   system: "MM-GTA: Morphological Modeling via Graph-Based Text Adaptation"
   publication: "K-CAP '25, DOI 10.1145/3731443.3771368"
   paper_available_in_repository: false
-  formula: pending
-  results_reported_in_thesis:
-    - {metric: "CMPI (thesis re-evaluation under the unified CRAFT protocol)", value: 0.78, where: "Table 6.4 p.170; p.166", note: "the thesis's measurement, not the MM-GTA paper's metric"}
+  formula_source: {kind: owner_extraction, pages: "not stated in the supplied extraction", supplied: "2026-11-14"}
+  name_in_paper: "Cross-dialectal Morphological Preservation Index"
+  formula: "CMPI = 2 * P_morph * R_morph / (P_morph + R_morph)"
+  measures: "preservation of morphological features through root-and-pattern agreement (an F1-style harmonic mean of morphological precision and recall)"
+  results_reported:
+    - {metric: "CMPI (dissertation definition, dissertation's re-evaluation)", value: 0.78, where: "dissertation Table 6.4 p.170; p.166", note: "the thesis's measurement, not the MM-GTA paper's metric"}
+  conflicts_with_dissertation:
+    - "The dissertation's Table 6.4 reports MM-GTA under 'CMPI' (0.78) with the dissertation's cultural metric; the MM-GTA paper's CMPI is a morphological F1. The two are independent metrics."
   thesis_reevaluation: "p.163: prior systems re-evaluated on the unified thesis test set; 'Original papers report metrics under different evaluation protocols'"

@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from ansg.evaluation.cmpi import (  # noqa: E402
-    ANSG_CMPI_REFERENCE, ANSG_CMPI_WEIGHTS, load_cmpi_variants, validate_cmpi_variants,
+    ANSG_CMPI_REFERENCE, ANSG_CMPI_WEIGHTS, cultura_printed_upper_bound, load_cmpi_variants, validate_cmpi_variants,
 )
 from ansg.reward_spec import DEFAULT_SPEC, load_reward_spec  # noqa: E402
 
@@ -46,7 +46,15 @@ def build_report(spec_path, variant=None):
                             "dimension_scorers": cmpi_variants["ansg_thesis"]["dimension_scorers"],
                             "open_issues": cmpi_variants["ansg_thesis"]["open_issues"]},
         "other_cmpi_metrics": {k: {"status": cmpi_variants[k]["status"], "publication": cmpi_variants[k]["publication"],
-                                   "formula": cmpi_variants[k]["formula"]} for k in ("cultura", "cst_onto", "mm_gta")},
+                                   "name_in_paper": cmpi_variants[k]["name_in_paper"],
+                                   "formula": cmpi_variants[k]["formula"],
+                                   "formula_source": cmpi_variants[k]["formula_source"],
+                                   "results_reported": cmpi_variants[k].get("results_reported"),
+                                   "conflicts": cmpi_variants[k].get("printed_formula_conflicts", [])
+                                   + cmpi_variants[k]["conflicts_with_dissertation"]}
+                               for k in ("cultura", "cst_onto", "mm_gta")},
+        "cultura_printed_formula_upper_bound": cultura_printed_upper_bound(
+            [c["weight"] for c in cmpi_variants["cultura"]["criteria"]]),
         "cultura_eq_4_1_apparent_conflicts": cmpi_variants["cultura"]["printed_equation_in_thesis"]["apparent_conflicts"],
         "variants": {vid: {"kind": v["kind"], "reference": v["reference"],
                            "blockers": spec.blockers(vid)} for vid, v in spec.variants.items()} if not problems else {},
@@ -79,8 +87,12 @@ def render(r):
     out += ["", f"CMPI (dissertation definition, ANSG reference; {c['reference']}):", f"  {c['equation']}",
             "  dimension scorers: " + ", ".join(f"{k}={v['status']}" for k, v in c["dimension_scorers"].items())]
     out += ["  open issues:"] + [f"    - {i}" for i in c["open_issues"]]
-    out += ["", "Different metrics of the same name (never mixed with ANSG CMPI):"]
-    out += [f"  {k}: {v['publication']} — formula {v['formula']}" for k, v in r["other_cmpi_metrics"].items()]
+    out += ["", "Different metrics sharing the acronym (never mixed with ANSG CMPI):"]
+    for k, v in r["other_cmpi_metrics"].items():
+        out.append(f"  {k}: '{v['name_in_paper']}' — {v['publication']}")
+        out.append(f"    formula: {v['formula']}  [source: {v['formula_source']['kind']}, pages {v['formula_source']['pages']}]")
+        out += [f"    conflict: {c}" for c in v["conflicts"]]
+    out.append(f"  CULTURA printed-formula maximum (all judge scores 10, K=5): {r['cultura_printed_formula_upper_bound']:g}")
     out += ["  CULTURA Eq. 4.1 (p.87, schema gating, not CMPI) apparent conflicts:"]
     out += [f"    - {x}" for x in r["cultura_eq_4_1_apparent_conflicts"]]
     out += ["", "Variants and blocking components:"]

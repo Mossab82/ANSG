@@ -158,7 +158,7 @@ def test_cli_exit_codes(tmp_path, capsys):
     assert cli.main(["--variant", "ch5_eq_5_1_s5_6_3"]) == 2
     out = capsys.readouterr().out
     assert "BLOCKED" in out and "no thesis result is reproduced" in out
-    assert "CMPI = 0.35*rhetorical_devices" in out and "formula pending" in out
+    assert "CMPI = 0.35*rhetorical_devices" in out and "Cultural Matching Performance Index" in out
     broken = yaml.safe_load(DEFAULT_SPEC.read_text(encoding="utf-8"))
     broken["variants"]["appendix_a21"]["formula"]["cultural_vs_fluency"]["sum"]["fluency"] = 0.5
     p = tmp_path / "spec.yaml"
