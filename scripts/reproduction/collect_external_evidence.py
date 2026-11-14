@@ -185,12 +185,34 @@ def corpus_pages() -> tuple[list[dict], list[dict]]:
             report = analyse_structure(blocks)
             rec["tales_found"] = len(report.tales)
             rec["night_markers"] = len(report.night_blocks)
+            nights = [n for _, n in sorted(report.night_blocks.items())]
+            rec["night_sequence"] = {"first": nights[0] if nights else None, "last": nights[-1] if nights else None,
+                                     "count": len(nights),
+                                     "regressions": [[a, b] for a, b in zip(nights, nights[1:]) if b <= a],
+                                     "gaps": [[a, b] for a, b in zip(nights, nights[1:]) if b > a + 1]}
+            rec["unparsed_night_headings"] = report.unparsed_night_headings[:50]
             rec["ambiguities"] = report.ambiguities[:200]
-            for t in report.tales:
+            first = report.tales[0].start_block if report.tales else len(blocks)
+            rec["untitled_prefix"] = {"blocks": first,
+                                      "words": sum(len(b.text.split()) for b in blocks[:first])}
+            tales = list(report.tales)
+            if not tales and blocks:
+                # Kalila wa-Dimna pages are one chapter each: the page boundary is the evidence.
+                from ansg.data.tale_structure import TaleNode
+                title = next((b.text for b in blocks if b.kind == "heading"), row["title"].split("/")[-1])
+                tales = [TaleNode(id="chapter", title=title, start_block=0, end_block=len(blocks),
+                                  heading_level=None, ambiguities=[
+                                      "embedded fables within the chapter are not marked in the source and are "
+                                      "not extracted"])]
+                rec["untitled_prefix"] = {"blocks": 0, "words": 0}
+            for t in tales:
                 text = "\n\n".join(b.text for b in blocks[t.start_block:t.end_block])
                 segments.append({"segment_id": f"{row['id']}/{t.id}", "source_record_id": row["id"],
                                  "source_title": row["title"], "revision_id": row["revision_id"],
                                  "title": t.title, "block_span": [t.start_block, t.end_block],
+                                 "boundary_evidence": ("source page = one chapter" if t.id == "chapter" else
+                                                       "starts at a tale-title heading/block; ends at the next "
+                                                       "tale title or the end of the page"),
                                  "heading_level": t.heading_level, "parent_segment_id":
                                  f"{row['id']}/{t.parent}" if t.parent else None,
                                  "nesting_evidence": t.nesting_evidence,
@@ -202,7 +224,8 @@ def corpus_pages() -> tuple[list[dict], list[dict]]:
             rec["error"] = f"{type(e).__name__}: {e}"
         pages.append(rec)
         print(json.dumps({k: rec.get(k) for k in ("id", "frozen_text_reproducible_from_pinned_revision",
-                                                    "blocks", "tales_found", "night_markers",
+                                                    "blocks", "tales_found", "night_markers", "night_sequence",
+                                                    "untitled_prefix", "categories",
                                                     "licence_like_templates", "error")}, ensure_ascii=False),
               flush=True)
     return pages, segments

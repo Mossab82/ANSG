@@ -188,3 +188,14 @@ def test_unparsed_night_headings_are_reported():
     rep = analyse_structure([Block("text", "الليلة الكذا"), Block("heading", "حكاية ما", 2),
                              Block("text", "نص.")])
     assert rep.unparsed_night_headings == ["الليلة الكذا"]
+
+
+def test_plural_and_ordinal_tale_titles_are_recognised():
+    """Real heading forms found in the pinned Wikisource pages (evidence run 43564395466):
+    the frame tale uses the plural 'حكايات', Sinbad's voyages use 'الحكاية الثانية ...'."""
+    b = [Block("heading", "حكايات الملك وأخيه", 2), Block("text", "نص الإطار."),
+         Block("heading", "حكاية التاجر", 2), Block("text", "نص."),
+         Block("heading", "الحكاية الثانية من حكايات المسافر", 2), Block("text", "نص.")]
+    rep = analyse_structure(b)
+    assert [t.title for t in rep.tales] == ["حكايات الملك وأخيه", "حكاية التاجر", "الحكاية الثانية من حكايات المسافر"]
+    assert all(t.parent is None for t in rep.tales)        # equal heading levels: no nesting inferred

@@ -12,6 +12,8 @@ on:
     branches: [claude/ansg-original-reproduction]
     paths:
       - 'scripts/reproduction/collect_external_evidence.py'
+      - 'src/ansg/data/tale_structure.py'
+      - 'src/ansg/data/mediawiki.py'
       - '.github/workflows/reproduction-evidence.yml'
   workflow_dispatch:
 

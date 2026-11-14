@@ -34,7 +34,8 @@ from .leakage import story_cycle_groups
 from .records import NarrativeMetadata, NarrativeRecord, SourceProvenance
 from .splits import SplitConfig, assign_splits, check_no_leakage
 
-DEFAULT_TITLE_PATTERN = r"^\s*(?:حكاية|قصة|حديث)\s+\S+"
+DEFAULT_TITLE_PATTERN = r"^\s*(?:ال)?(?:حكاية|حكايات|قصة|حديث)\s+\S+"
+"""Matches 'حكاية …', the plural 'حكايات …' (e.g. the frame tale of Shahriyar) and 'الحكاية الثانية …'."""
 DEFAULT_NIGHT_PATTERN = r"(?:فلما\s+)?(?:كانت\s+)?الليلة\s+(?P<num>[ء-ي\s]+?|\d+)\s*$"
 DEFAULT_FRAMING_CUES = ("وما حكاية", "حكايتي", "أحكي لك", "أحكي لكم", "أحدثك", "سأحدثك", "اسمع حكاية",
                         "فحكى", "فحكت", "فقص عليه")
