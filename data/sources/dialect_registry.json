@@ -1,0 +1,136 @@
+{
+  "schema": "ansg.dialect_sources/1",
+  "reviewed_on": "2026-11-14",
+  "status": "metadata_only_no_dataset_downloads",
+  "purpose": "Independent dialect resource discovery for existing DAL, not a change to thesis architecture or original evaluation",
+  "datasets": [
+    {
+      "id": "MADAR",
+      "url": "https://camel.abudhabi.nyu.edu/madar-parallel-corpus/",
+      "verified": true,
+      "data": "2k parallel sentences across 25 city dialects; further 12k for five cities",
+      "roles": [
+        "dialect_style_reference",
+        "evaluation_under_license"
+      ],
+      "limits": [
+        "mostly short travel-related sentences, not narrative stories",
+        "license research/evaluation internal only; disallows redistribution and alteration",
+        "Amman, Salt, Alexandria, Cairo and Fes among 25; Aqaba-specific absent",
+        "heldout benchmark must not be used for training"
+      ]
+    },
+    {
+      "id": "NADI",
+      "url": "https://nadi.dlnlp.ai/",
+      "verified": true,
+      "data": "Dialect identification shared tasks, variable editions/country/province granularity",
+      "roles": [
+        "dialect_identification_evaluation"
+      ],
+      "limits": [
+        "access may require registration",
+        "tweets or short texts, not literary narratives",
+        "license varies by edition"
+      ]
+    },
+    {
+      "id": "QADI",
+      "url": "https://huggingface.co/datasets/Abdelrahman-Rezk/Arabic_Dialect_Identification",
+      "verified": true,
+      "data": "about 540k tweets, 18 Arab countries",
+      "roles": [
+        "country_dialect_classification"
+      ],
+      "limits": [
+        "short social texts not full stories",
+        "verify data license before training or redistribution"
+      ]
+    },
+    {
+      "id": "DART",
+      "url": "https://www.lrec-conf.org/proceedings/lrec2018/summaries/1013.html",
+      "verified": true,
+      "data": "about 25k dialect-annotated tweets across Egyptian, Maghrebi, Levantine, Gulf, Iraqi",
+      "roles": [
+        "dialect_classifier_benchmark"
+      ],
+      "limits": [
+        "not a movie screenplay dataset",
+        "review original distribution terms"
+      ]
+    },
+    {
+      "id": "Habibi",
+      "url": "https://aclanthology.org/2020.lrec-1.165/",
+      "verified": true,
+      "data": "30k+ copyrighted song lyrics annotated across 6 dialect families",
+      "roles": [
+        "dialectological_background_only"
+      ],
+      "limits": [
+        "music lyrics, not folktales",
+        "distribution for research is not blanket permission for model-training redistribution",
+        "not recommended for storytelling fine-tuning"
+      ]
+    },
+    {
+      "id": "PADIC",
+      "url": "https://sites.aub.edu.lb/arabicnlp/tools/",
+      "verified": true,
+      "data": "Parallel Arabic dialect corpus, referenced by Arabic NLP Observatory",
+      "roles": [
+        "possible_dialect_parallel_evaluation"
+      ],
+      "limits": [
+        "access, license, splits and variants require verification"
+      ]
+    },
+    {
+      "id": "Masader",
+      "url": "https://arbml.github.io/masader/",
+      "verified": true,
+      "data": "catalogue with >1,100 dataset entries as observed November 2026",
+      "roles": [
+        "discovery_only"
+      ],
+      "limits": [
+        "catalogue license differs from each linked dataset's rights",
+        "not itself a training corpus"
+      ]
+    },
+    {
+      "id": "Wattpad_and_modern_novels",
+      "url": "https://www.wattpad.com/",
+      "verified": true,
+      "data": "user-generated fiction, novels and dialect dialogue",
+      "roles": [
+        "permission_based_future_data_only"
+      ],
+      "limits": [
+        "individual authors own works; do not scrape, upload, or train on them without appropriate permission",
+        "cannot conflate modern copyrighted works with public-domain heritage"
+      ]
+    },
+    {
+      "id": "Shami_Corpus_specific",
+      "url": null,
+      "verified": false,
+      "data": "Unverified under exact name as a long-form licensed narrative corpus",
+      "roles": [
+        "do_not_ingest"
+      ],
+      "limits": [
+        "request original DOI/repository and license before any use"
+      ]
+    }
+  ],
+  "research_gates": [
+    "Never add retrieved dataset text to GitHub without confirmed rights",
+    "Keep existing ANSG thesis original data and metric provenance unchanged",
+    "Use separate dialect-specific validated partitions for DAL; never mix official test with training",
+    "For Jordanian dialect, Amman/Salt is not Aqaba dialect; require a local-speech source or native-speaker evaluation",
+    "Measure authenticity with human dialect speakers, not just marker word frequency",
+    "Document source name, dialect granularity, licence, splits, record genre and hash"
+  ]
+}
