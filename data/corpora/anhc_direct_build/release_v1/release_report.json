@@ -1,13 +1,29 @@
 {
   "schema": "ansg.direct_build_release_report/1",
-  "built_utc": "2026-11-14T09:30:13.536161+00:00",
+  "built_utc": "2026-11-14T09:34:22.720040+00:00",
   "profile_id": "ANHC-direct-build-v1",
   "status": "reproducible_direct_build_not_historical_reproduction",
   "inputs": {
-    "candidate_manifest": "anhc_direct_build/arabic_ebooks/manifest.jsonl",
-    "candidate_manifest_sha256": "c9d905d0b535551f01e2adc62726c026e2c34aa75aa1f994fa3a54474ba5e5c8",
-    "tokenizer_model": "anhc_direct_build/tokenizer_spm32/anhc_direct_spm32.model",
-    "tokenizer_model_sha256": "7744212cab83605e2726796fc87930a8f58b9c6a765529e541bce4bbea9792ba",
+    "candidate_manifest": {
+      "path": "anhc_direct_build/arabic_ebooks/manifest.jsonl",
+      "sha256": "c9d905d0b535551f01e2adc62726c026e2c34aa75aa1f994fa3a54474ba5e5c8"
+    },
+    "story_units": {
+      "path": "anhc_direct_build/story_units/story_units_provisional_base.jsonl",
+      "sha256": "e06a00e1512aface617dbc113f5d57ba75ae33eadfdcdd2ac656fa7625d22fc9"
+    },
+    "tokenizer_model": {
+      "path": "anhc_direct_build/tokenizer_spm32/anhc_direct_spm32.model",
+      "sha256": "7744212cab83605e2726796fc87930a8f58b9c6a765529e541bce4bbea9792ba"
+    },
+    "kalila_jsonl": {
+      "path": "anhc_direct_build/kalila_1816.jsonl",
+      "sha256": "d8e100db296e55d14957791d063ea4212fff38ea9fc51c7bcd5111e0d8c1f737"
+    },
+    "dialect_audit_report": {
+      "path": "anhc_direct_build/user_provided_dialect_count_report.json",
+      "sha256": "ef5b181b5a6d9b9ce3a74bdd86e803a6e6bc6b72c3333d75c77f83bbc368ede3"
+    },
     "sentencepiece_version": "0.2.0",
     "vocabulary_size": 32000
   },
