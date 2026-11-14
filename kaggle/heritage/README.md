@@ -13,7 +13,7 @@
 
 ## Persistence and review
 
-- New **private** Kaggle script: [ansg-heritage-lora-pilot](https://www.kaggle.com/code/mossabibrahim/ansg-heritage-lora-pilot).
+- New **private** Kaggle script: [ansg-heritage-lora-pilot](https://www.kaggle.com/code/mossabibrahim/ansg-arabic-heritage-lora-pilot-experimental).
 - Checkpoints and reports are written in `/kaggle/working/ansg_heritage_pilot/` and downloaded via Kaggle version outputs to GitHub Artifacts after COMPLETE.
 - Required outputs: `source_manifest.json`, `data_report.json`, `baseline_metrics.json`, `baseline_samples.json`, `adapted_samples.json`, `train_progress.json`, `adapter_final/`, `final_report.json`.
 - Failure creates `failure_report.json`, and GPU run is marked failed. No paper-quality claim from a success badge.
