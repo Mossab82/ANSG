@@ -85,3 +85,18 @@ def test_register_sections_are_disjoint():
     ids = [x["id"] for key in ("decided", "conflicts_recorded", "operational_gaps", "awaiting_previous_decision")
            for x in REG[key]]
     assert len(ids) == len(set(ids))
+
+
+def test_d10_is_reflected_in_the_operational_profile():
+    profile = yaml.safe_load((ROOT / "configs/training/ansg_direct_profile.yaml").read_text(encoding="utf-8"))
+    conflict = profile["data_use_conflict"]
+    assert "chapter_3_interpretation" in conflict and "chapter_5_interpretation" in conflict   # still documented
+    assert "Chapter 3" in conflict["thesis_conflict"] and "Chapter 5" in conflict["thesis_conflict"]
+    choice = conflict["selected_reconstruction"]
+    assert "70.4M" in choice["stage_1_data_mapping"] and "23M" in choice["stage_1_data_mapping"]
+    assert choice["decision"].startswith("D10")
+    assert "D10" in profile["training"]["stages"][0]["data_mapping"]
+    gate = " ".join(profile["training_gate"]["required_before_any_run"]).lower()
+    assert "resolve chapter 3" not in gate and "unresolved" not in gate
+    assert "split" in gate and "rights" in gate
+    assert profile["training_ready"] is False and profile["training_start_permitted"] is False

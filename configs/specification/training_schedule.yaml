@@ -3,9 +3,8 @@
 # are as printed; conflicting statements elsewhere in the dissertation are listed
 # under `conflicts` and are not merged. Execution stays BLOCKED (D5).
 #
-# Note: configs/training/ansg_direct_profile.yaml (base branch) still records
-# data_use_conflict.status: unresolved_in_thesis; D10 settles the stage-1 data
-# mapping for this work. That file is left to its owner and keeps
+# configs/training/ansg_direct_profile.yaml records the same D10 stage-1 data
+# mapping, keeps the Chapter 3 / Chapter 5 conflict documented, and keeps
 # training_ready: false.
 
 schema: ansg.training_schedule/1
