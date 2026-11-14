@@ -86,7 +86,8 @@ def zenodo_releases():
     attempts.append({"url": f"/api/records/{ZENODO_CONCEPT_RECID}", "ok": latest["ok"], "error": latest.get("error")})
     candidates = []
     if latest["ok"]:
-        candidates.append(f"https://zenodo.org/api/records/{latest['value'].get('id')}/versions?size=100&sort=version")
+        rid = latest["value"].get("id")
+        candidates += [f"https://zenodo.org/api/records/{rid}/versions", f"https://zenodo.org/api/records/{rid}/versions?size=100"]
     candidates += [
         "https://zenodo.org/api/records?" + urllib.parse.urlencode({"q": f"conceptrecid:{ZENODO_CONCEPT_RECID}", "all_versions": "1", "size": 100}),
         "https://zenodo.org/api/records?" + urllib.parse.urlencode({"q": f"parent.id:{ZENODO_CONCEPT_RECID}", "allversions": "true", "size": 100}),
@@ -98,7 +99,10 @@ def zenodo_releases():
             data, used = res["value"], url
             break
     if data is None:
-        raise RuntimeError(f"no Zenodo endpoint returned versions: {attempts}")
+        if not latest["ok"]:
+            raise RuntimeError(f"no Zenodo endpoint answered: {attempts}")
+        # Fall back to the latest release only (the concept record resolves to it).
+        data, used = {"hits": {"hits": [latest["value"]], "total": None}}, f"https://zenodo.org/api/records/{ZENODO_CONCEPT_RECID}"
     out = []
     for hit in data.get("hits", {}).get("hits", []):
         md = hit.get("metadata", {})
@@ -112,7 +116,8 @@ def zenodo_releases():
             "publication_date": md.get("publication_date"),
             "license": lic.get("id") if isinstance(lic, dict) else lic,
             "access_right": md.get("access_right"),
-            "files": [{"key": f.get("key"), "size": f.get("size"), "checksum": f.get("checksum")} for f in hit.get("files", [])],
+            "files": _zenodo_files(hit),
+            "related_identifiers": md.get("related_identifiers"),
             "description_excerpt": re.sub(r"<[^>]+>", " ", md.get("description") or "")[:3000],
         })
     out.sort(key=lambda r: r.get("publication_date") or "", reverse=True)
@@ -150,6 +155,14 @@ def release_metadata(target_books, target_prefixes, token, max_tags=3):
                 entry["metadata_csv"] = res
         out["inspected"].append(entry)
     return out
+
+
+def _zenodo_files(hit):
+    files = hit.get("files")
+    if isinstance(files, dict):  # InvenioRDM shape: {"entries": {...}} or {"entries": [...]}
+        entries = files.get("entries") or {}
+        files = list(entries.values()) if isinstance(entries, dict) else entries
+    return [{"key": f.get("key"), "size": f.get("size"), "checksum": f.get("checksum")} for f in files or []]
 
 
 def latest_commit(repo, path, token):
