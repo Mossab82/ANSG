@@ -118,7 +118,6 @@ def main():
                 for scope in sorted({u.get('candidate_scope', 'unspecified') for u in out if u.get('unit_type') == 'whole_book_source_container'})
             },
             'total_inventory_rows': len(out),
-            'new_whole_book_containers_added_this_run': added,
             'unassigned_split_rows': sum(1 for u in out if u.get('split') == 'unassigned'),
             'non_null_annotation_rows': sum(1 for u in out if isinstance(u.get('annotations'), dict) and any(v is not None for v in u['annotations'].values())),
         },
