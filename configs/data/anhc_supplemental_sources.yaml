@@ -146,7 +146,8 @@ sources:
   - source_id: madar_parallel_corpus
     role: thesis_dialect_resource_and_DAL_DIA_support
     source_url: https://camel.abudhabi.nyu.edu/madar-parallel-corpus/
-    thesis_reference: Table_3_1_and_dialect_adaptation_context
+    thesis_reference: Table_3_1_resource_comparison_and_Chapter_5_Section_5_4_1_DIA_benchmark
+    thesis_reported_DIA_result: CNN_classifier_94.3_percent_accuracy_on_MADAR_benchmark
     dialects: 25_city_varieties_including_Amman_and_Salt
     domain: translated_travel_sentences
     reported_sizes:
