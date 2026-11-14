@@ -141,6 +141,14 @@ def main():
     (out / "kalila_1816.jsonl").write_text(jsonl, encoding="utf-8")
     with (out / "kalila_1816.jsonl.gz").open("wb") as target:
         target.write(gzip.compress(jsonl.encode("utf-8"), compresslevel=9, mtime=0))
+    shards = out / "records"
+    shards.mkdir(exist_ok=True)
+    for row in records:
+        payload = (json.dumps(row, ensure_ascii=False, separators=(",", ":")) + "\n").encode("utf-8")
+        shard = shards / f"{row['record_id']}.jsonl"
+        shard.write_bytes(payload)
+        compressed_shard = shards / f"{row['record_id']}.jsonl.gz"
+        compressed_shard.write_bytes(gzip.compress(payload, compresslevel=9, mtime=0))
     report = {
         "schema": "ansg.anhc_direct_build_report/1",
         "built_utc": datetime.now(timezone.utc).isoformat(),
@@ -148,7 +156,7 @@ def main():
         "edition": "Paris, 1816; associated with editor Sylvestre de Sacy",
         "source_license": "CC BY-SA 4.0 (Wikisource page footer; attribution and share-alike apply)",
         "requested_chapters": len(titles), "accepted_chapters": len(records), "excluded_paratext": excluded,
-        "failures": failures,
+        "record_shards": len(records), "failures": failures,
         "whitespace_words": sum(row["counts"]["whitespace_words"] for row in records),
         "annotations_complete": False, "story_level_segmentation_complete": False,
         "split": "unassigned", "tokenizer": "not selected; whitespace-word counts only",
