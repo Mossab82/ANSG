@@ -6,6 +6,8 @@ This intake uses *The Arabic E-Book Corpus (Version 1)* by Andreas Hallberg, Uni
 
 ## Materialized on 2026-11-14
 
+The intake has two explicit scopes: `narrative_candidates` selects books in publisher story/literature categories for story segmentation and annotation; `all_books` retains the full licensed collection as a broad language-model pretraining pool. The latter is not treated as 1,745 verified stories.
+
 - 1,745 source books in the archive.
 - 1,388 books selected as narrative candidates from publisher categories.
 - 941 include a core literary category: novels, detective fiction, science fiction, children's stories, plays, or literature.
@@ -23,10 +25,15 @@ From the repository root, run:
 python scripts/ingest_arabic_ebooks.py \
   --zip arabic-corpus-txt.zip \
   --metadata arabic-ebooks-metadata.tsv \
+  --scope narrative_candidates \
   --output data/corpora/anhc_direct_build/arabic_ebooks
 ```
 
+For the broad pretraining pool, change the scope to `all_books` and use a different output directory.
+
 If the archive or metadata files are absent, the script downloads them from the source deposit. It preserves each source text, attaches book-level attribution and SHA-256, and writes per-book compressed JSONL records, a manifest, and a build report. It does not split books into story units, annotate them, or assign train/validation/test splits.
+
+To materialize the entire 1,745-book base for pretraining, pass `--scope all_books`; to materialize only the story/literature candidate subset, pass `--scope narrative_candidates` (the default). Use separate output directories so the broad pretraining pool cannot be mistaken for the story-only subset.
 
 ## Rights and citation
 
