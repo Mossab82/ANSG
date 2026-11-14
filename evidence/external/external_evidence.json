@@ -1,11 +1,11 @@
 {
   "schema": "ansg.external_evidence/1",
-  "collected_utc": "2026-11-14T06:02:55.448199+00:00",
+  "collected_utc": "2026-11-14T06:06:09.207587+00:00",
   "collector": "scripts/reproduction/collect_external_evidence.py",
   "github_run": {
     "repository": "Mossab82/ANSG",
-    "run_id": "43564395466",
-    "sha": "e0dc1f3ff6227dd103ee3876e92db2e2ef83743f"
+    "run_id": "43564658606",
+    "sha": "a82e9e154c0d8a1b1e09d1547d92c59953a4874f"
   },
   "thesis_artefacts": {
     "zenodo": [
@@ -138,8 +138,8 @@
         "status": 200,
         "final_url": "https://sites.google.com/nyu.edu/madar/",
         "content_type": "text/html; charset=utf-8",
-        "sha256": "49a2a0251ea2fc3633955b88d266a96e2ab69ccf690aec0ac7d36efa066ec5cb",
-        "bytes": 246408,
+        "sha256": "2bafc6c7ef8deb2892705605e49b56390125458b1ff25b58320560c8bcb5ce72",
+        "bytes": 246444,
         "snippets": [
           "The project aimed at improving dialectal Arabic processing by: Developing resources for Arabic Dialect modeling, including the creation of a 25-city multi-dialect lexicon and a 25-city multi-dialect parallel corpus; Developing machine translation systems among dialects, dialects and English, dialects and Standard Arabic; and Developing dialect identification systems that can work on a variety of g",
           "Members Nizar Habash Lead Principal Investigator NYUAD Kemal Oflazer Co-lead Principal Investigator CMU-Q Houda Bouamor Principal Investigator CMU-Q Owen Rambow Principal Investigator Columbia Mohammed Salameh Postdoctoral Researcher CMU-Q Wajdi Zaghouani Postdoctoral Researcher CMU-Q Ossama Obeid Research Associate CMU-Q/NYUAD Dana Abdulrahim Linguist University of Bahrain Salam Khalifa Research ",
@@ -286,14 +286,27 @@
             "line": "حكاية الحمال مع البنات"
           }
         ],
-        "tales_found": 5,
+        "tales_found": 6,
         "night_markers": 0,
+        "night_sequence": {
+          "first": null,
+          "last": null,
+          "count": 0,
+          "regressions": [],
+          "gaps": []
+        },
+        "unparsed_night_headings": [],
         "ambiguities": [
-          "tale-0002 'حكاية التاجر مع العفريت': framing cue 'أحدثك' in the preceding block suggests it is told inside tale-0001 'حكاية الحمار والثور مع صاحب الزرع' (candidate only; not accepted)",
-          "tale-0003 'حكاية الصياد مع العفريت': framing cue 'وما حكاية' in the preceding block suggests it is told inside tale-0002 'حكاية التاجر مع العفريت' (candidate only; not accepted)",
-          "tale-0004 'حكاية الملك يونان والحكيم رويان': no markup or cue decides whether it is embedded in tale-0003 or a sibling; recorded as top-level",
-          "tale-0005 'حكاية الحمال مع البنات': no markup or cue decides whether it is embedded in tale-0004 or a sibling; recorded as top-level"
-        ]
+          "tale-0002 'حكاية الحمار والثور مع صاحب الزرع': no markup or cue decides whether it is embedded in tale-0001 or a sibling; recorded as top-level",
+          "tale-0003 'حكاية التاجر مع العفريت': framing cue 'أحدثك' in the preceding block suggests it is told inside tale-0002 'حكاية الحمار والثور مع صاحب الزرع' (candidate only; not accepted)",
+          "tale-0004 'حكاية الصياد مع العفريت': framing cue 'وما حكاية' in the preceding block suggests it is told inside tale-0003 'حكاية التاجر مع العفريت' (candidate only; not accepted)",
+          "tale-0005 'حكاية الملك يونان والحكيم رويان': no markup or cue decides whether it is embedded in tale-0004 or a sibling; recorded as top-level",
+          "tale-0006 'حكاية الحمال مع البنات': no markup or cue decides whether it is embedded in tale-0005 or a sibling; recorded as top-level"
+        ],
+        "untitled_prefix": {
+          "blocks": 0,
+          "words": 0
+        }
       },
       {
         "id": "arabian_nights-002",
@@ -503,10 +516,27 @@
         ],
         "tales_found": 3,
         "night_markers": 21,
+        "night_sequence": {
+          "first": 20,
+          "last": 41,
+          "count": 21,
+          "regressions": [],
+          "gaps": [
+            [
+              20,
+              22
+            ]
+          ]
+        },
+        "unparsed_night_headings": [],
         "ambiguities": [
           "tale-0002 'حكاية الخياط والأحدب واليهودي والمباشر والنصراني فيما وقع بينهم': no markup or cue decides whether it is embedded in tale-0001 or a sibling; recorded as top-level",
           "tale-0003 'حكاية مزين بغداد': framing cue 'حكايتي' in the preceding block suggests it is told inside tale-0002 'حكاية الخياط والأحدب واليهودي والمباشر والنصراني فيما وقع بينهم' (candidate only; not accepted)"
-        ]
+        ],
+        "untitled_prefix": {
+          "blocks": 5,
+          "words": 381
+        }
       },
       {
         "id": "arabian_nights-003",
@@ -1238,10 +1268,44 @@
         ],
         "tales_found": 3,
         "night_markers": 85,
+        "night_sequence": {
+          "first": 42,
+          "last": 130,
+          "count": 85,
+          "regressions": [
+            [
+              88,
+              87
+            ]
+          ],
+          "gaps": [
+            [
+              76,
+              78
+            ],
+            [
+              81,
+              84
+            ],
+            [
+              85,
+              88
+            ],
+            [
+              87,
+              89
+            ]
+          ]
+        },
+        "unparsed_night_headings": [],
         "ambiguities": [
           "tale-0002 'حكاية التاجر أيوب وابنه غانم وبنته فتنة': no markup or cue decides whether it is embedded in tale-0001 or a sibling; recorded as top-level",
           "tale-0003 'حكاية الملك عمر النعمان وولديه شركان وضوء المكان': no markup or cue decides whether it is embedded in tale-0002 or a sibling; recorded as top-level"
-        ]
+        ],
+        "untitled_prefix": {
+          "blocks": 14,
+          "words": 3711
+        }
       },
       {
         "id": "arabian_nights-004",
@@ -1411,7 +1475,32 @@
         ],
         "tales_found": 1,
         "night_markers": 16,
-        "ambiguities": []
+        "night_sequence": {
+          "first": 983,
+          "last": 1001,
+          "count": 16,
+          "regressions": [],
+          "gaps": [
+            [
+              983,
+              985
+            ],
+            [
+              988,
+              990
+            ],
+            [
+              999,
+              1001
+            ]
+          ]
+        },
+        "unparsed_night_headings": [],
+        "ambiguities": [],
+        "untitled_prefix": {
+          "blocks": 1,
+          "words": 3
+        }
       },
       {
         "id": "arabian_nights-005",
@@ -1779,9 +1868,54 @@
             "line": "وفي الليلة الستين بعد الخمسمائة"
           }
         ],
-        "tales_found": 1,
+        "tales_found": 3,
         "night_markers": 41,
-        "ambiguities": []
+        "night_sequence": {
+          "first": 531,
+          "last": 560,
+          "count": 41,
+          "regressions": [
+            [
+              553,
+              531
+            ]
+          ],
+          "gaps": [
+            [
+              531,
+              537
+            ],
+            [
+              538,
+              540
+            ],
+            [
+              540,
+              544
+            ],
+            [
+              552,
+              554
+            ],
+            [
+              554,
+              556
+            ],
+            [
+              556,
+              558
+            ]
+          ]
+        },
+        "unparsed_night_headings": [],
+        "ambiguities": [
+          "tale-0002 'الحكاية الثانية من حكايات السندباد البحري وهي السفرة الثانية': no markup or cue decides whether it is embedded in tale-0001 or a sibling; recorded as top-level",
+          "tale-0003 'الحكاية الخامسة من حكايات السندباد البحري وهي السفرة الخامسة': no markup or cue decides whether it is embedded in tale-0002 or a sibling; recorded as top-level"
+        ],
+        "untitled_prefix": {
+          "blocks": 1,
+          "words": 3
+        }
       },
       {
         "id": "kalila_dimna-006",
@@ -1827,9 +1961,21 @@
         ],
         "tales_found": 0,
         "night_markers": 0,
+        "night_sequence": {
+          "first": null,
+          "last": null,
+          "count": 0,
+          "regressions": [],
+          "gaps": []
+        },
+        "unparsed_night_headings": [],
         "ambiguities": [
           "no tale titles recognised; check title_pattern for this edition"
-        ]
+        ],
+        "untitled_prefix": {
+          "blocks": 0,
+          "words": 0
+        }
       },
       {
         "id": "kalila_dimna-007",
@@ -1875,9 +2021,21 @@
         ],
         "tales_found": 0,
         "night_markers": 0,
+        "night_sequence": {
+          "first": null,
+          "last": null,
+          "count": 0,
+          "regressions": [],
+          "gaps": []
+        },
+        "unparsed_night_headings": [],
         "ambiguities": [
           "no tale titles recognised; check title_pattern for this edition"
-        ]
+        ],
+        "untitled_prefix": {
+          "blocks": 0,
+          "words": 0
+        }
       },
       {
         "id": "kalila_dimna-008",
@@ -1923,9 +2081,21 @@
         ],
         "tales_found": 0,
         "night_markers": 0,
+        "night_sequence": {
+          "first": null,
+          "last": null,
+          "count": 0,
+          "regressions": [],
+          "gaps": []
+        },
+        "unparsed_night_headings": [],
         "ambiguities": [
           "no tale titles recognised; check title_pattern for this edition"
-        ]
+        ],
+        "untitled_prefix": {
+          "blocks": 0,
+          "words": 0
+        }
       },
       {
         "id": "kalila_dimna-009",
@@ -1971,9 +2141,21 @@
         ],
         "tales_found": 0,
         "night_markers": 0,
+        "night_sequence": {
+          "first": null,
+          "last": null,
+          "count": 0,
+          "regressions": [],
+          "gaps": []
+        },
+        "unparsed_night_headings": [],
         "ambiguities": [
           "no tale titles recognised; check title_pattern for this edition"
-        ]
+        ],
+        "untitled_prefix": {
+          "blocks": 0,
+          "words": 0
+        }
       },
       {
         "id": "kalila_dimna-010",
@@ -2009,9 +2191,21 @@
         "mediawiki_sections": [],
         "tales_found": 0,
         "night_markers": 0,
+        "night_sequence": {
+          "first": null,
+          "last": null,
+          "count": 0,
+          "regressions": [],
+          "gaps": []
+        },
+        "unparsed_night_headings": [],
         "ambiguities": [
           "no tale titles recognised; check title_pattern for this edition"
-        ]
+        ],
+        "untitled_prefix": {
+          "blocks": 0,
+          "words": 0
+        }
       },
       {
         "id": "kalila_dimna-011",
@@ -2057,9 +2251,21 @@
         ],
         "tales_found": 0,
         "night_markers": 0,
+        "night_sequence": {
+          "first": null,
+          "last": null,
+          "count": 0,
+          "regressions": [],
+          "gaps": []
+        },
+        "unparsed_night_headings": [],
         "ambiguities": [
           "no tale titles recognised; check title_pattern for this edition"
-        ]
+        ],
+        "untitled_prefix": {
+          "blocks": 0,
+          "words": 0
+        }
       },
       {
         "id": "kalila_dimna-012",
@@ -2105,9 +2311,21 @@
         ],
         "tales_found": 0,
         "night_markers": 0,
+        "night_sequence": {
+          "first": null,
+          "last": null,
+          "count": 0,
+          "regressions": [],
+          "gaps": []
+        },
+        "unparsed_night_headings": [],
         "ambiguities": [
           "no tale titles recognised; check title_pattern for this edition"
-        ]
+        ],
+        "untitled_prefix": {
+          "blocks": 0,
+          "words": 0
+        }
       },
       {
         "id": "kalila_dimna-013",
@@ -2153,9 +2371,21 @@
         ],
         "tales_found": 0,
         "night_markers": 0,
+        "night_sequence": {
+          "first": null,
+          "last": null,
+          "count": 0,
+          "regressions": [],
+          "gaps": []
+        },
+        "unparsed_night_headings": [],
         "ambiguities": [
           "no tale titles recognised; check title_pattern for this edition"
-        ]
+        ],
+        "untitled_prefix": {
+          "blocks": 0,
+          "words": 0
+        }
       },
       {
         "id": "kalila_dimna-014",
@@ -2201,9 +2431,21 @@
         ],
         "tales_found": 0,
         "night_markers": 0,
+        "night_sequence": {
+          "first": null,
+          "last": null,
+          "count": 0,
+          "regressions": [],
+          "gaps": []
+        },
+        "unparsed_night_headings": [],
         "ambiguities": [
           "no tale titles recognised; check title_pattern for this edition"
-        ]
+        ],
+        "untitled_prefix": {
+          "blocks": 0,
+          "words": 0
+        }
       },
       {
         "id": "kalila_dimna-015",
@@ -2249,9 +2491,21 @@
         ],
         "tales_found": 0,
         "night_markers": 0,
+        "night_sequence": {
+          "first": null,
+          "last": null,
+          "count": 0,
+          "regressions": [],
+          "gaps": []
+        },
+        "unparsed_night_headings": [],
         "ambiguities": [
           "no tale titles recognised; check title_pattern for this edition"
-        ]
+        ],
+        "untitled_prefix": {
+          "blocks": 0,
+          "words": 0
+        }
       },
       {
         "id": "kalila_dimna-016",
@@ -2297,9 +2551,21 @@
         ],
         "tales_found": 0,
         "night_markers": 0,
+        "night_sequence": {
+          "first": null,
+          "last": null,
+          "count": 0,
+          "regressions": [],
+          "gaps": []
+        },
+        "unparsed_night_headings": [],
         "ambiguities": [
           "no tale titles recognised; check title_pattern for this edition"
-        ]
+        ],
+        "untitled_prefix": {
+          "blocks": 0,
+          "words": 0
+        }
       },
       {
         "id": "kalila_dimna-017",
@@ -2345,9 +2611,21 @@
         ],
         "tales_found": 0,
         "night_markers": 0,
+        "night_sequence": {
+          "first": null,
+          "last": null,
+          "count": 0,
+          "regressions": [],
+          "gaps": []
+        },
+        "unparsed_night_headings": [],
         "ambiguities": [
           "no tale titles recognised; check title_pattern for this edition"
-        ]
+        ],
+        "untitled_prefix": {
+          "blocks": 0,
+          "words": 0
+        }
       },
       {
         "id": "kalila_dimna-018",
@@ -2393,9 +2671,21 @@
         ],
         "tales_found": 0,
         "night_markers": 0,
+        "night_sequence": {
+          "first": null,
+          "last": null,
+          "count": 0,
+          "regressions": [],
+          "gaps": []
+        },
+        "unparsed_night_headings": [],
         "ambiguities": [
           "no tale titles recognised; check title_pattern for this edition"
-        ]
+        ],
+        "untitled_prefix": {
+          "blocks": 0,
+          "words": 0
+        }
       },
       {
         "id": "kalila_dimna-019",
@@ -2441,9 +2731,21 @@
         ],
         "tales_found": 0,
         "night_markers": 0,
+        "night_sequence": {
+          "first": null,
+          "last": null,
+          "count": 0,
+          "regressions": [],
+          "gaps": []
+        },
+        "unparsed_night_headings": [],
         "ambiguities": [
           "no tale titles recognised; check title_pattern for this edition"
-        ]
+        ],
+        "untitled_prefix": {
+          "blocks": 0,
+          "words": 0
+        }
       },
       {
         "id": "kalila_dimna-020",
@@ -2489,9 +2791,21 @@
         ],
         "tales_found": 0,
         "night_markers": 0,
+        "night_sequence": {
+          "first": null,
+          "last": null,
+          "count": 0,
+          "regressions": [],
+          "gaps": []
+        },
+        "unparsed_night_headings": [],
         "ambiguities": [
           "no tale titles recognised; check title_pattern for this edition"
-        ]
+        ],
+        "untitled_prefix": {
+          "blocks": 0,
+          "words": 0
+        }
       }
     ]
   }

@@ -3,12 +3,32 @@
   "derived_from": "data/corpora/classical_arabic/stories.jsonl revisions",
   "method": "ansg.data.tale_structure.analyse_structure on rendered HTML of the pinned revision",
   "text_included": false,
-  "collected_utc": "2026-11-14T06:02:55.448199+00:00",
-  "github_run_id": "43564395466",
+  "collected_utc": "2026-11-14T06:06:09.207587+00:00",
+  "github_run_id": "43564658606",
   "status": "automatic segmentation; nesting only from heading hierarchy; requires human review",
   "segments": [
     {
       "segment_id": "arabian_nights-001/tale-0001",
+      "source_record_id": "arabian_nights-001",
+      "source_title": "ألف ليلة وليلة/الجزء الأول",
+      "revision_id": 529885,
+      "title": "حكايات الملك شهريار وأخيه الملك شاه زمان",
+      "block_span": [
+        0,
+        17
+      ],
+      "boundary_evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
+      "heading_level": 2,
+      "parent_segment_id": null,
+      "nesting_evidence": null,
+      "candidate_parent": null,
+      "nights": [],
+      "ambiguities": [],
+      "text_sha256": "80df3b53b8f99662f22db4d4af805fbf2801e429a8257637e853434085995fbb",
+      "words": 1325
+    },
+    {
+      "segment_id": "arabian_nights-001/tale-0002",
       "source_record_id": "arabian_nights-001",
       "source_title": "ألف ليلة وليلة/الجزء الأول",
       "revision_id": 529885,
@@ -17,17 +37,20 @@
         17,
         19
       ],
+      "boundary_evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
       "heading_level": 2,
       "parent_segment_id": null,
       "nesting_evidence": null,
       "candidate_parent": null,
       "nights": [],
-      "ambiguities": [],
+      "ambiguities": [
+        "tale-0002 'حكاية الحمار والثور مع صاحب الزرع': no markup or cue decides whether it is embedded in tale-0001 or a sibling; recorded as top-level"
+      ],
       "text_sha256": "d8bb5a6b62ea282d771db24b77157de1a9f5a0cca40bb3c47bac88a170feaa5b",
       "words": 773
     },
     {
-      "segment_id": "arabian_nights-001/tale-0002",
+      "segment_id": "arabian_nights-001/tale-0003",
       "source_record_id": "arabian_nights-001",
       "source_title": "ألف ليلة وليلة/الجزء الأول",
       "revision_id": 529885,
@@ -36,19 +59,20 @@
         19,
         24
       ],
+      "boundary_evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
       "heading_level": 2,
       "parent_segment_id": null,
       "nesting_evidence": null,
-      "candidate_parent": "arabian_nights-001/tale-0001",
+      "candidate_parent": "arabian_nights-001/tale-0002",
       "nights": [],
       "ambiguities": [
-        "tale-0002 'حكاية التاجر مع العفريت': framing cue 'أحدثك' in the preceding block suggests it is told inside tale-0001 'حكاية الحمار والثور مع صاحب الزرع' (candidate only; not accepted)"
+        "tale-0003 'حكاية التاجر مع العفريت': framing cue 'أحدثك' in the preceding block suggests it is told inside tale-0002 'حكاية الحمار والثور مع صاحب الزرع' (candidate only; not accepted)"
       ],
       "text_sha256": "cf4269d0801ae758c0a393a0d75519b94a048fe01da7f0c1ee0d4e34aa17018b",
       "words": 2038
     },
     {
-      "segment_id": "arabian_nights-001/tale-0003",
+      "segment_id": "arabian_nights-001/tale-0004",
       "source_record_id": "arabian_nights-001",
       "source_title": "ألف ليلة وليلة/الجزء الأول",
       "revision_id": 529885,
@@ -57,19 +81,20 @@
         24,
         42
       ],
+      "boundary_evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
       "heading_level": 2,
       "parent_segment_id": null,
       "nesting_evidence": null,
-      "candidate_parent": "arabian_nights-001/tale-0002",
+      "candidate_parent": "arabian_nights-001/tale-0003",
       "nights": [],
       "ambiguities": [
-        "tale-0003 'حكاية الصياد مع العفريت': framing cue 'وما حكاية' in the preceding block suggests it is told inside tale-0002 'حكاية التاجر مع العفريت' (candidate only; not accepted)"
+        "tale-0004 'حكاية الصياد مع العفريت': framing cue 'وما حكاية' in the preceding block suggests it is told inside tale-0003 'حكاية التاجر مع العفريت' (candidate only; not accepted)"
       ],
       "text_sha256": "a387fb5cfe59dd5c4732f3194b75eae2c52598c0ea03c0e2efdf73171c16d544",
       "words": 1174
     },
     {
-      "segment_id": "arabian_nights-001/tale-0004",
+      "segment_id": "arabian_nights-001/tale-0005",
       "source_record_id": "arabian_nights-001",
       "source_title": "ألف ليلة وليلة/الجزء الأول",
       "revision_id": 529885,
@@ -78,19 +103,20 @@
         42,
         147
       ],
+      "boundary_evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
       "heading_level": 2,
       "parent_segment_id": null,
       "nesting_evidence": null,
       "candidate_parent": null,
       "nights": [],
       "ambiguities": [
-        "tale-0004 'حكاية الملك يونان والحكيم رويان': no markup or cue decides whether it is embedded in tale-0003 or a sibling; recorded as top-level"
+        "tale-0005 'حكاية الملك يونان والحكيم رويان': no markup or cue decides whether it is embedded in tale-0004 or a sibling; recorded as top-level"
       ],
       "text_sha256": "bbf6cfe38df904b7cbefca42ee6a4cbe62b81f5b345a6f750e1cd7332b590000",
       "words": 6385
     },
     {
-      "segment_id": "arabian_nights-001/tale-0005",
+      "segment_id": "arabian_nights-001/tale-0006",
       "source_record_id": "arabian_nights-001",
       "source_title": "ألف ليلة وليلة/الجزء الأول",
       "revision_id": 529885,
@@ -99,13 +125,14 @@
         147,
         321
       ],
+      "boundary_evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
       "heading_level": 2,
       "parent_segment_id": null,
       "nesting_evidence": null,
       "candidate_parent": null,
       "nights": [],
       "ambiguities": [
-        "tale-0005 'حكاية الحمال مع البنات': no markup or cue decides whether it is embedded in tale-0004 or a sibling; recorded as top-level"
+        "tale-0006 'حكاية الحمال مع البنات': no markup or cue decides whether it is embedded in tale-0005 or a sibling; recorded as top-level"
       ],
       "text_sha256": "142b43432712953cd5106b370d6850e097fb6b94566cf6552d73834760772b01",
       "words": 14177
@@ -120,6 +147,7 @@
         5,
         43
       ],
+      "boundary_evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
       "heading_level": 2,
       "parent_segment_id": null,
       "nesting_evidence": null,
@@ -145,6 +173,7 @@
         43,
         71
       ],
+      "boundary_evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
       "heading_level": null,
       "parent_segment_id": null,
       "nesting_evidence": null,
@@ -175,6 +204,7 @@
         71,
         99
       ],
+      "boundary_evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
       "heading_level": 2,
       "parent_segment_id": null,
       "nesting_evidence": null,
@@ -207,6 +237,7 @@
         14,
         45
       ],
+      "boundary_evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
       "heading_level": 2,
       "parent_segment_id": null,
       "nesting_evidence": null,
@@ -234,6 +265,7 @@
         45,
         72
       ],
+      "boundary_evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
       "heading_level": 2,
       "parent_segment_id": null,
       "nesting_evidence": null,
@@ -266,6 +298,7 @@
         72,
         320
       ],
+      "boundary_evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
       "heading_level": 2,
       "parent_segment_id": null,
       "nesting_evidence": null,
@@ -355,6 +388,7 @@
         1,
         39
       ],
+      "boundary_evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
       "heading_level": 2,
       "parent_segment_id": null,
       "nesting_evidence": null,
@@ -389,8 +423,9 @@
       "title": "حكاية السندباد",
       "block_span": [
         1,
-        162
+        62
       ],
+      "boundary_evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
       "heading_level": 2,
       "parent_segment_id": null,
       "nesting_evidence": null,
@@ -401,7 +436,6 @@
         533,
         534,
         535,
-        536,
         537,
         538,
         539,
@@ -418,16 +452,407 @@
         550,
         551,
         552,
-        553,
+        553
+      ],
+      "ambiguities": [],
+      "text_sha256": "24301858e7b136ff461de37501f2483f1e25663c2a082dec9dc9d464f1ce0445",
+      "words": 21093
+    },
+    {
+      "segment_id": "arabian_nights-005/tale-0002",
+      "source_record_id": "arabian_nights-005",
+      "source_title": "ألف ليلة وليلة/السندباد البحري",
+      "revision_id": 302476,
+      "title": "الحكاية الثانية من حكايات السندباد البحري وهي السفرة الثانية",
+      "block_span": [
+        62,
+        105
+      ],
+      "boundary_evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
+      "heading_level": 2,
+      "parent_segment_id": null,
+      "nesting_evidence": null,
+      "candidate_parent": null,
+      "nights": [
+        535,
+        536,
+        537,
+        538,
+        540,
+        544,
+        545,
+        546,
+        547,
+        548,
+        549
+      ],
+      "ambiguities": [
+        "tale-0002 'الحكاية الثانية من حكايات السندباد البحري وهي السفرة الثانية': no markup or cue decides whether it is embedded in tale-0001 or a sibling; recorded as top-level"
+      ],
+      "text_sha256": "f579f674a0b0897779abb9feee1dedeb3a203bfb1c189f06dc28bc1555124053",
+      "words": 7988
+    },
+    {
+      "segment_id": "arabian_nights-005/tale-0003",
+      "source_record_id": "arabian_nights-005",
+      "source_title": "ألف ليلة وليلة/السندباد البحري",
+      "revision_id": 302476,
+      "title": "الحكاية الخامسة من حكايات السندباد البحري وهي السفرة الخامسة",
+      "block_span": [
+        105,
+        162
+      ],
+      "boundary_evidence": "starts at a tale-title heading/block; ends at the next tale title or the end of the page",
+      "heading_level": null,
+      "parent_segment_id": null,
+      "nesting_evidence": null,
+      "candidate_parent": null,
+      "nights": [
+        549,
+        550,
+        551,
+        552,
         554,
         556,
         558,
         559,
         560
       ],
-      "ambiguities": [],
-      "text_sha256": "fd40217de0e2ad2ba9bba9bbd06d0824a44757e4724d8c14bcd1e940ca310e2d",
-      "words": 35980
+      "ambiguities": [
+        "tale-0003 'الحكاية الخامسة من حكايات السندباد البحري وهي السفرة الخامسة': no markup or cue decides whether it is embedded in tale-0002 or a sibling; recorded as top-level"
+      ],
+      "text_sha256": "e420770ddac4561d90977585b9b42fb2949dc8d80a0a38550f61155ee1425b3f",
+      "words": 6899
+    },
+    {
+      "segment_id": "kalila_dimna-006/chapter",
+      "source_record_id": "kalila_dimna-006",
+      "source_title": "كليلة ودمنة/الناسك وابن عرس",
+      "revision_id": 251292,
+      "title": "الناسك وابن عرس",
+      "block_span": [
+        0,
+        2
+      ],
+      "boundary_evidence": "source page = one chapter",
+      "heading_level": null,
+      "parent_segment_id": null,
+      "nesting_evidence": null,
+      "candidate_parent": null,
+      "nights": [],
+      "ambiguities": [
+        "embedded fables within the chapter are not marked in the source and are not extracted"
+      ],
+      "text_sha256": "98bf8b7201dc864e78ee60e586f3638b7d8aa4e0da105696180d70d4ba399cac",
+      "words": 561
+    },
+    {
+      "segment_id": "kalila_dimna-007/chapter",
+      "source_record_id": "kalila_dimna-007",
+      "source_title": "كليلة ودمنة/باب إيلاذ وبلاذ وايراخت",
+      "revision_id": 231372,
+      "title": "باب إيلاذ وبلاذ وايراخت",
+      "block_span": [
+        0,
+        9
+      ],
+      "boundary_evidence": "source page = one chapter",
+      "heading_level": null,
+      "parent_segment_id": null,
+      "nesting_evidence": null,
+      "candidate_parent": null,
+      "nights": [],
+      "ambiguities": [
+        "embedded fables within the chapter are not marked in the source and are not extracted"
+      ],
+      "text_sha256": "7c6887d5e69bf5b51a187c191be66d86fe767b88927159bfbbe4432f416fa776",
+      "words": 3578
+    },
+    {
+      "segment_id": "kalila_dimna-008/chapter",
+      "source_record_id": "kalila_dimna-008",
+      "source_title": "كليلة ودمنة/باب ابن الملك وأصحابه",
+      "revision_id": 231368,
+      "title": "باب ابن الملك وأصحابه",
+      "block_span": [
+        0,
+        3
+      ],
+      "boundary_evidence": "source page = one chapter",
+      "heading_level": null,
+      "parent_segment_id": null,
+      "nesting_evidence": null,
+      "candidate_parent": null,
+      "nights": [],
+      "ambiguities": [
+        "embedded fables within the chapter are not marked in the source and are not extracted"
+      ],
+      "text_sha256": "3eb47a84258b50baa2639cdb13c46cc0a59fe0c0681c2a7bdf4fb4d84e25c1d9",
+      "words": 1245
+    },
+    {
+      "segment_id": "kalila_dimna-009/chapter",
+      "source_record_id": "kalila_dimna-009",
+      "source_title": "كليلة ودمنة/باب ابن الملك والطائر فنزة",
+      "revision_id": 231363,
+      "title": "باب ابن الملك والطائر فنزة",
+      "block_span": [
+        0,
+        5
+      ],
+      "boundary_evidence": "source page = one chapter",
+      "heading_level": null,
+      "parent_segment_id": null,
+      "nesting_evidence": null,
+      "candidate_parent": null,
+      "nights": [],
+      "ambiguities": [
+        "embedded fables within the chapter are not marked in the source and are not extracted"
+      ],
+      "text_sha256": "314af276b0173a62fa9f6209855836fb74a813e463becead57f4143b5ba16cb4",
+      "words": 1282
+    },
+    {
+      "segment_id": "kalila_dimna-010/chapter",
+      "source_record_id": "kalila_dimna-010",
+      "source_title": "كليلة ودمنة/باب الأسد والثور وهو أول الكتاب",
+      "revision_id": 272368,
+      "title": "باب الأسد والثور وهو أول الكتاب",
+      "block_span": [
+        0,
+        19
+      ],
+      "boundary_evidence": "source page = one chapter",
+      "heading_level": null,
+      "parent_segment_id": null,
+      "nesting_evidence": null,
+      "candidate_parent": null,
+      "nights": [],
+      "ambiguities": [
+        "embedded fables within the chapter are not marked in the source and are not extracted"
+      ],
+      "text_sha256": "8feb37663cfeb79d281414638b2c2d8fd03d1035579ca281f1684243decb9be6",
+      "words": 8807
+    },
+    {
+      "segment_id": "kalila_dimna-011/chapter",
+      "source_record_id": "kalila_dimna-011",
+      "source_title": "كليلة ودمنة/باب الأسد والشغبر الناسك وهو ابن آوى",
+      "revision_id": 302554,
+      "title": "باب الأسد والشغبر الناسك وهو ابن آوى من كتاب كليلة و دمنة",
+      "block_span": [
+        0,
+        4
+      ],
+      "boundary_evidence": "source page = one chapter",
+      "heading_level": null,
+      "parent_segment_id": null,
+      "nesting_evidence": null,
+      "candidate_parent": null,
+      "nights": [],
+      "ambiguities": [
+        "embedded fables within the chapter are not marked in the source and are not extracted"
+      ],
+      "text_sha256": "35c1b888c4717184961fa6cb8f11672fbea31892a64e1e1f3fbfb043010ee4ed",
+      "words": 1718
+    },
+    {
+      "segment_id": "kalila_dimna-012/chapter",
+      "source_record_id": "kalila_dimna-012",
+      "source_title": "كليلة ودمنة/باب البوم والغربان",
+      "revision_id": 285510,
+      "title": "باب البوم والغربان",
+      "block_span": [
+        0,
+        11
+      ],
+      "boundary_evidence": "source page = one chapter",
+      "heading_level": null,
+      "parent_segment_id": null,
+      "nesting_evidence": null,
+      "candidate_parent": null,
+      "nights": [],
+      "ambiguities": [
+        "embedded fables within the chapter are not marked in the source and are not extracted"
+      ],
+      "text_sha256": "2b742a83d22a99221e2c5d8f07a4eaf9852438fa71fa67578f04178daea6d75a",
+      "words": 4508
+    },
+    {
+      "segment_id": "kalila_dimna-013/chapter",
+      "source_record_id": "kalila_dimna-013",
+      "source_title": "كليلة ودمنة/باب الجرذ والسنور",
+      "revision_id": 231362,
+      "title": "باب الجرذ والسنور",
+      "block_span": [
+        0,
+        3
+      ],
+      "boundary_evidence": "source page = one chapter",
+      "heading_level": null,
+      "parent_segment_id": null,
+      "nesting_evidence": null,
+      "candidate_parent": null,
+      "nights": [],
+      "ambiguities": [
+        "embedded fables within the chapter are not marked in the source and are not extracted"
+      ],
+      "text_sha256": "2c7f862fef13a88576a0985a3f1d70f5cd88ec8cebe66e4f5f587d5476028a76",
+      "words": 1188
+    },
+    {
+      "segment_id": "kalila_dimna-014/chapter",
+      "source_record_id": "kalila_dimna-014",
+      "source_title": "كليلة ودمنة/باب الحمامة المطوقة",
+      "revision_id": 245541,
+      "title": "باب الحمامة المطوقة",
+      "block_span": [
+        0,
+        6
+      ],
+      "boundary_evidence": "source page = one chapter",
+      "heading_level": null,
+      "parent_segment_id": null,
+      "nesting_evidence": null,
+      "candidate_parent": null,
+      "nights": [],
+      "ambiguities": [
+        "embedded fables within the chapter are not marked in the source and are not extracted"
+      ],
+      "text_sha256": "b41c0ffff4deb4d831c58c96c6014757960e49815886611b33b42f72e7af2e13",
+      "words": 3283
+    },
+    {
+      "segment_id": "kalila_dimna-015/chapter",
+      "source_record_id": "kalila_dimna-015",
+      "source_title": "كليلة ودمنة/باب الحمامة والثعلب ومالك الحزين",
+      "revision_id": 231369,
+      "title": "باب الحمامة والثعلب ومالك الحزين",
+      "block_span": [
+        0,
+        2
+      ],
+      "boundary_evidence": "source page = one chapter",
+      "heading_level": null,
+      "parent_segment_id": null,
+      "nesting_evidence": null,
+      "candidate_parent": null,
+      "nights": [],
+      "ambiguities": [
+        "embedded fables within the chapter are not marked in the source and are not extracted"
+      ],
+      "text_sha256": "a86cbe4136a55b431f6b084dc1c243943547856974e15e9eda829c6eb3a6504b",
+      "words": 552
+    },
+    {
+      "segment_id": "kalila_dimna-016/chapter",
+      "source_record_id": "kalila_dimna-016",
+      "source_title": "كليلة ودمنة/باب السائح والصائغ",
+      "revision_id": 381514,
+      "title": "باب السائح والصائغ",
+      "block_span": [
+        0,
+        2
+      ],
+      "boundary_evidence": "source page = one chapter",
+      "heading_level": null,
+      "parent_segment_id": null,
+      "nesting_evidence": null,
+      "candidate_parent": null,
+      "nights": [],
+      "ambiguities": [
+        "embedded fables within the chapter are not marked in the source and are not extracted"
+      ],
+      "text_sha256": "0c1ff1c5bc992d01a6712781b53fed45027975a28e801b6810006139c92688d6",
+      "words": 1001
+    },
+    {
+      "segment_id": "kalila_dimna-017/chapter",
+      "source_record_id": "kalila_dimna-017",
+      "source_title": "كليلة ودمنة/باب الفحص عن أمر دمنة",
+      "revision_id": 290965,
+      "title": "باب الفحص عن أمر دمنة",
+      "block_span": [
+        0,
+        7
+      ],
+      "boundary_evidence": "source page = one chapter",
+      "heading_level": null,
+      "parent_segment_id": null,
+      "nesting_evidence": null,
+      "candidate_parent": null,
+      "nights": [],
+      "ambiguities": [
+        "embedded fables within the chapter are not marked in the source and are not extracted"
+      ],
+      "text_sha256": "0ba07ba6ea37c62d02615b050b336cb9dfdf5fd1367e9087899eae06a10f5b35",
+      "words": 3434
+    },
+    {
+      "segment_id": "kalila_dimna-018/chapter",
+      "source_record_id": "kalila_dimna-018",
+      "source_title": "كليلة ودمنة/باب القرد والغيلم",
+      "revision_id": 231360,
+      "title": "باب القرد والغيلم",
+      "block_span": [
+        0,
+        2
+      ],
+      "boundary_evidence": "source page = one chapter",
+      "heading_level": null,
+      "parent_segment_id": null,
+      "nesting_evidence": null,
+      "candidate_parent": null,
+      "nights": [],
+      "ambiguities": [
+        "embedded fables within the chapter are not marked in the source and are not extracted"
+      ],
+      "text_sha256": "4c42e7d2627839a11876a0ec183687999d2aeddd25c6468ffd3afef665a56b72",
+      "words": 1168
+    },
+    {
+      "segment_id": "kalila_dimna-019/chapter",
+      "source_record_id": "kalila_dimna-019",
+      "source_title": "كليلة ودمنة/باب اللبوة والإسوار والشغبر",
+      "revision_id": 374244,
+      "title": "باب اللبوة والإسوار والشغبر",
+      "block_span": [
+        0,
+        2
+      ],
+      "boundary_evidence": "source page = one chapter",
+      "heading_level": null,
+      "parent_segment_id": null,
+      "nesting_evidence": null,
+      "candidate_parent": null,
+      "nights": [],
+      "ambiguities": [
+        "embedded fables within the chapter are not marked in the source and are not extracted"
+      ],
+      "text_sha256": "82881f1fb825bd775bb234cd409f83cf4de2da7864c916154e159b94fff83f0d",
+      "words": 603
+    },
+    {
+      "segment_id": "kalila_dimna-020/chapter",
+      "source_record_id": "kalila_dimna-020",
+      "source_title": "كليلة ودمنة/باب الناسك والضيف",
+      "revision_id": 231371,
+      "title": "باب الناسك والضيف",
+      "block_span": [
+        0,
+        2
+      ],
+      "boundary_evidence": "source page = one chapter",
+      "heading_level": null,
+      "parent_segment_id": null,
+      "nesting_evidence": null,
+      "candidate_parent": null,
+      "nights": [],
+      "ambiguities": [
+        "embedded fables within the chapter are not marked in the source and are not extracted"
+      ],
+      "text_sha256": "7e78e02cca944c16ad840a064534689e7904c267cf832ca99e2a02432edfdecd",
+      "words": 290
     }
   ]
 }
