@@ -12,7 +12,8 @@ This intake uses *The Arabic E-Book Corpus (Version 1)* by Andreas Hallberg, Uni
 - 472 include an adjacent narrative category: history, biographies, or travel literature. Twenty-five books fall into both category groups.
 - 51,567,623 observed whitespace-delimited words across all selected texts; the source metadata reports 62,891,124 words for those same selected records. Both counts are kept in the report; the difference requires investigation.
 - 38,491,864 observed words are from Arabic-original works; 13,075,759 are from translated works.
-- No tokenizer-based token total is claimed. These are whole-book candidates, not story-segmented or annotated records. They are primarily edition-specific Arabic, not a dialect corpus.
+- No tokenizer-based token total is claimed. These are whole-book candidates, not yet adjudicated story segments or annotations. They are primarily edition-specific Arabic, not a dialect corpus.
+- This intake includes six Arabic-original volumes of *Alf Layla wa-Layla* (692,899 observed whitespace words) plus one Arabic translation of an English-origin edition (14,523 observed words). A first rule-based pass found **236 standalone heading candidates** in the six Arabic-original volumes. They are provisional boundary markers requiring review; nested story links remain unresolved. See `alf_layla_boundaries/`.
 
 ## Reproduction
 
