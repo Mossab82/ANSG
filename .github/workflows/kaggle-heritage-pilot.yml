@@ -25,7 +25,9 @@ jobs:
       - name: Check out research code
         uses: actions/checkout@v4
       - name: Check immutable corpus integrity and source-group split BEFORE GPU
-        run: python scripts/validate_classical_corpus.py
+        run: |
+          python -m py_compile kaggle/heritage/ansg_heritage_pilot.py
+          python scripts/validate_classical_corpus.py
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
