@@ -97,5 +97,86 @@
   "translation_whitespace_word_counts": {
     "translated": 13075759,
     "Arabic_original": 38491864
+  },
+  "featured_narrative_work": {
+    "work": "Alf Layla wa-Layla",
+    "books": [
+      {
+        "record_id": "hindawi-13815802",
+        "title": "ألف ليلة وليلة",
+        "book_id": "13815802",
+        "translation": true,
+        "original_language": "English",
+        "metadata_word_count": 17426,
+        "observed_whitespace_words": 14523,
+        "source_text_sha256": "aa186ac9cd06315876ce18f70f164fb00584bdd9ed68c3a6cc05b39db0c9be6f"
+      },
+      {
+        "record_id": "hindawi-27482482",
+        "title": "ألف ليلة وليلة (الجزء السادس)",
+        "book_id": "27482482",
+        "translation": false,
+        "original_language": "Arabic",
+        "metadata_word_count": 129999,
+        "observed_whitespace_words": 106781,
+        "source_text_sha256": "008a5c1c85ec17c1874a6fe53edc424c1645562496bed5305195314396bd519d"
+      },
+      {
+        "record_id": "hindawi-36973840",
+        "title": "ألف ليلة وليلة (الجزء الثاني)",
+        "book_id": "36973840",
+        "translation": false,
+        "original_language": "Arabic",
+        "metadata_word_count": 145000,
+        "observed_whitespace_words": 118272,
+        "source_text_sha256": "4e64e3a22f4faccd735c63e98bdd5c8b82c207bc0d86bb4e506dd6ac0b802ea7"
+      },
+      {
+        "record_id": "hindawi-39419251",
+        "title": "ألف ليلة وليلة (الجزء الرابع)",
+        "book_id": "39419251",
+        "translation": false,
+        "original_language": "Arabic",
+        "metadata_word_count": 143794,
+        "observed_whitespace_words": 117947,
+        "source_text_sha256": "185852e36b87c20f1452e8e13df72ac01e15a66b4ca9d9110023b9b2dac64d4a"
+      },
+      {
+        "record_id": "hindawi-61961973",
+        "title": "ألف ليلة وليلة (الجزء الأول)",
+        "book_id": "61961973",
+        "translation": false,
+        "original_language": "Arabic",
+        "metadata_word_count": 163522,
+        "observed_whitespace_words": 134426,
+        "source_text_sha256": "ff31ee5ab6e491b998bc3de4438264d195bd9cf4a32819d03d160047d056f2b0"
+      },
+      {
+        "record_id": "hindawi-75264279",
+        "title": "ألف ليلة وليلة (الجزء الخامس)",
+        "book_id": "75264279",
+        "translation": false,
+        "original_language": "Arabic",
+        "metadata_word_count": 124622,
+        "observed_whitespace_words": 102674,
+        "source_text_sha256": "3541af86f80e1aa4a0d981cfe53eff0ee99d54b6b995fb62d24ebba5331af660"
+      },
+      {
+        "record_id": "hindawi-85931905",
+        "title": "ألف ليلة وليلة (الجزء الثالث)",
+        "book_id": "85931905",
+        "translation": false,
+        "original_language": "Arabic",
+        "metadata_word_count": 137977,
+        "observed_whitespace_words": 112799,
+        "source_text_sha256": "c0e48fa7fba518da061c6df1bdb2aee2aaa85b83ae32e1e06da9b4c24890ca91"
+      }
+    ],
+    "arabic_original_volume_count": 6,
+    "arabic_original_observed_whitespace_words": 692899,
+    "all_seven_observed_whitespace_words": 707422,
+    "provisional_heading_boundary_count": 236,
+    "boundary_report": "alf_layla_boundaries/boundary_report.json",
+    "interpretation": "Six Arabic-original volumes and one Arabic translation of an English-origin edition. Heading matches are provisional boundary candidates, not adjudicated story segmentation."
   }
 }
