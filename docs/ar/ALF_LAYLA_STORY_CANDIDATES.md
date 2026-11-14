@@ -31,7 +31,7 @@ python scripts/build_alf_layla_story_text_candidates.py \
 
 ## سلامة ملفات الإصدار
 
-يربط `data/corpora/anhc_direct_build/alf_layla/story_candidates_manifest.json` كل جزء بحجمه ومعرّف Git blob SHA-1 الخاص به، ويعرض العدد الكلي للسجلات والكلمات والقطع. هذه المعرّفات تثبت هوية الملفات داخل Git؛ وتظل بصمات مصادر الكتب الكاملة محفوظة في كل سجل.
+يربط `data/corpora/anhc_direct_build/alf_layla/story_candidates_manifest.json` كل جزء بحجمه ومعرّف Git blob SHA-1 الخاص به، ويعرض العدد الكلي للسجلات والكلمات والقطع. للتحقق من الملفات والإسناد والعدادات محلياً شغّل `python scripts/verify_alf_layla_candidates.py`. هذه المراجعة تتحقق من هوية الملفات واتساق الحقول، ولا تحسم حدود القصص أو صحة الوسوم. تظل بصمات مصادر الكتب الكاملة محفوظة في كل سجل.
 
 ## المصدر والترخيص
 
