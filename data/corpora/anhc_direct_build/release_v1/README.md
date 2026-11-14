@@ -40,3 +40,5 @@ The thesis reports 70,404,829 corpus tokens and 23M triple-covered tokens. This 
 ## Provisional heading-bounded sections
 
 A separate inventory extracts 8,838 provisional heading-bounded sections from 478 of 951 narrative-source records (27,639,186 direct SentencePiece pieces). These are section candidates that require content and boundary review; they are not confirmed stories or human annotations. The extended all-source scan reports 12,804 candidate sections and 52,343,938 pieces, keeping the 24,704,752-piece adjacent-category portion separate from core narrative candidates. Its scope-broken counts are in `all_source_section_candidates_report.json`. Rebuild them with `scripts/segment_story_boundary_candidates.py`; see [`ANHC_HEADING_SECTION_CANDIDATES.md`](../../../../docs/ar/ANHC_HEADING_SECTION_CANDIDATES.md). Source text remains local and is not committed.
+
+The report-only metadata review queue for the 447 adjacent-category sources is in `adjacent_source_review_queue.csv`; regenerate it with `scripts/build_adjacent_source_review_queue.py`. It does not classify sources as stories or contain source text.
