@@ -62,6 +62,8 @@ def main(argv=None):
         try:
             with open(args.run_plan, encoding="utf-8") as source:
                 plan = json.load(source)
+            if plan.get("data_kind") != "real":
+                raise ValueError("run plan data_kind must be real for real-data training")
             plan_artifacts = {item.get("role"): item for item in plan.get("artifacts", [])
                               if isinstance(item, dict)}
             for role, cli_path in (("licensed_training_examples", args.examples),
