@@ -14,7 +14,7 @@ python scripts/train_anhc_direct_tokenizer.py --records build/anhc/all_books/rec
 python scripts/build_anhc_direct.py --candidate-manifest build/anhc/candidates/manifest.jsonl --records-root build/anhc/candidates --story-units data/corpora/anhc_direct_build/story_units/story_units_provisional.jsonl --tokenizer-model build/anhc/tokenizer/anhc_direct_spm32.model --kalila-jsonl build/anhc/kalila_1816.jsonl --output build/anhc/release_v1 --seed ANHC-direct-v1 --train-ratio 0.8 --validation-ratio 0.1
 ```
 
-The ingestion script downloads the cited source archive and metadata when they are absent. The pipeline verifies every candidate text against its SHA-256 before counting it. The tokenizer counts pieces without BOS/EOS/padding. Source text stays in its attributed input files; generated release outputs contain source metadata and record IDs, not copies of the books. To add the separate count-only user dialect summary, pass `--dialect-audit-report /path/to/privacy-safe-report.json`; the dialect text itself is excluded from story totals and splits.
+The ingestion script downloads the cited source archive and metadata when they are absent. The pipeline verifies every candidate text against its SHA-256 before counting and emitting it. The tokenizer counts pieces without BOS/EOS/padding. By default, the build writes compressed text records under `corpora/`; these are local model inputs, are not checked into the repository, and are ignored by `.gitignore`. Use `--metadata-only` to generate reports and split manifests without writing text copies. To add the separate count-only user dialect summary, pass `--dialect-audit-report /path/to/privacy-safe-report.json`; the dialect text itself is excluded from story totals and splits.
 
 ## Current direct-build run
 
@@ -31,6 +31,8 @@ The ingestion script downloads the cited source archive and metadata when they a
 - `source_records.jsonl`: source metadata and per-record counts.
 - `story_units.jsonl`: provisional units with group-level splits and null annotation layers.
 - `split_assignments.jsonl` and `*_record_ids.txt`: deterministic split map and record lists.
+- `corpora/pretraining/{train,validation,test}.jsonl.gz`: all source text records, including adjacent categories, for self-supervised pretraining.
+- `corpora/narrative_candidates/{train,validation,test}.jsonl.gz`: only core and classical candidates; whole books/chapters remain unsegmented and require story-boundary review before supervised story generation.
 - `annotations/{DIA,MOTIF,MORAL}.jsonl`: empty files for future annotation ingestion.
 
 The thesis reports 70,404,829 corpus tokens and 23M triple-covered tokens. This run does not reproduce those figures: it uses a different tokenizer profile and available sources, and contains no adjudicated triple-layer labels. The thesis itself also reports 55,600 narratives in Appendix A.17 versus 5,247 in §5.4.4, and gives different dialect distributions across its tables; see the repository's [thesis alignment report](../../../../docs/ar/ANHC_THESIS_ALIGNMENT.md), [The Arabic E-Book Corpus](https://doi.org/10.5878/7rbh-gy93), and [OpenITI documentation](https://openiti.org/documentation/).
