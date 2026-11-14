@@ -37,6 +37,23 @@ def sha256_file(path):
     return digest.hexdigest()
 
 
+def sha256_directory(path):
+    """Match ANSG's backbone directory digest (path<TAB>file SHA-256 lines)."""
+    inventory = {}
+    for current, directories, filenames in os.walk(path):
+        directories[:] = sorted(name for name in directories if not name.startswith("."))
+        for filename in sorted(filenames):
+            if filename.startswith("."):
+                continue
+            file_path = os.path.join(current, filename)
+            relative = os.path.relpath(file_path, path).replace(os.sep, "/")
+            if relative == "ansg_backbone.json":
+                continue
+            inventory[relative] = sha256_file(file_path)
+    lines = "".join(f"{name}\\t{digest}\\n" for name, digest in sorted(inventory.items()))
+    return hashlib.sha256(lines.encode("utf-8")).hexdigest()
+
+
 def check_plan(plan_path, profile_path):
     blockers = []
     try:
@@ -91,14 +108,19 @@ def check_plan(plan_path, profile_path):
             blockers.append(f"Artifact role is missing or duplicated: {role!r}.")
             continue
         roles.add(role)
-        if not path or not os.path.isfile(path):
-            blockers.append(f"Artifact file missing for role {role}: {path!r}.")
+        kind = item.get("kind", "file")
+        if kind not in {"file", "directory"}:
+            blockers.append(f"Unsupported artifact kind for role {role}: {kind!r}.")
+            continue
+        exists = os.path.isfile(path) if kind == "file" else os.path.isdir(path)
+        if not path or not exists:
+            blockers.append(f"Artifact {kind} missing for role {role}: {path!r}.")
             continue
         if not isinstance(expected, str) or not re.fullmatch(r"[0-9a-fA-F]{64}", expected):
             blockers.append(f"Artifact SHA-256 missing or malformed for role {role}.")
         else:
             try:
-                actual_hash = sha256_file(path)
+                actual_hash = sha256_file(path) if kind == "file" else sha256_directory(path)
             except OSError as exc:
                 blockers.append(f"Cannot read artifact for role {role}: {exc}.")
             else:
