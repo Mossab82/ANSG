@@ -42,11 +42,13 @@ def validate_real_data_authorization(manifest_path, examples_path, vocabulary_pa
     except (OSError, json.JSONDecodeError) as exc:
         raise ValueError(f"cannot read authorization manifest: {exc}") from exc
 
+    if not isinstance(manifest, dict):
+        raise ValueError("authorization manifest root must be a JSON object")
     if manifest.get("schema") != "ansg.training_authorization/1":
         raise ValueError("authorization manifest schema must be ansg.training_authorization/1")
     if manifest.get("review_status") != "approved" or manifest.get("training_authorized") is not True:
         raise ValueError("real-data training requires explicit approved status and training_authorized=true")
-    if not manifest.get("approver") or not manifest.get("approved_at"):
+    if not manifest.get("approver") or not isinstance(manifest.get("approved_at"), str):
         raise ValueError("authorization manifest must record approver and approved_at")
     try:
         dt.datetime.fromisoformat(manifest["approved_at"].replace("Z", "+00:00"))
@@ -62,7 +64,8 @@ def validate_real_data_authorization(manifest_path, examples_path, vocabulary_pa
         source_path = source.get("path")
         source_hash = source.get("sha256", "")
         if (source.get("training_allowed") is not True or not source.get("license")
-                or len(source_hash) != 64 or any(ch not in "0123456789abcdef" for ch in source_hash.lower())
+                or not isinstance(source_hash, str) or len(source_hash) != 64
+                or any(ch not in "0123456789abcdef" for ch in source_hash.lower())
                 or not source_path or not os.path.isfile(source_path)):
             raise ValueError("each source must record an existing file path, license, SHA-256, and training_allowed=true")
         if _sha256(source_path) != source_hash.lower():
@@ -74,13 +77,15 @@ def validate_real_data_authorization(manifest_path, examples_path, vocabulary_pa
     by_role = {item.get("role"): item for item in derived if isinstance(item, dict)}
     for role, path in (("examples", examples_path), ("schema_vocabulary", vocabulary_path)):
         item = by_role.get(role)
-        if not item or not item.get("path") or not item.get("sha256"):
+        if not item or not item.get("path") or not isinstance(item.get("sha256"), str):
             raise ValueError(f"authorization manifest is missing the {role} derived file")
         expected = os.path.realpath(item["path"])
         actual = os.path.realpath(path)
         if expected != actual:
             raise ValueError(f"authorization manifest {role} path does not match CLI input")
-        if _sha256(actual) != item["sha256"]:
+        if not os.path.isfile(actual):
+            raise ValueError(f"authorization manifest {role} file does not exist: {actual}")
+        if _sha256(actual) != item["sha256"].lower():
             raise ValueError(f"authorization manifest {role} SHA-256 does not match file")
     return _sha256(manifest_path)
 
