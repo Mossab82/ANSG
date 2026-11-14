@@ -106,14 +106,18 @@ def main() -> None:
                 raise ValueError(f"Source text hash mismatch for {rid}")
 
             totals["source_records"] += 1
-            totals["source_sentencepiece_tokens"] += len(tokenizer.encode(text, out_type=int))
+            source_piece_count = len(tokenizer.encode(text, out_type=int))
+            totals["source_sentencepiece_tokens"] += source_piece_count
             scope = str(record.get("candidate_scope") or
                         record.get("narrative", {}).get("candidate_scope", "unspecified"))
             totals[f"records_scope_{scope}"] += 1
+            totals[f"source_sentencepiece_tokens_scope_{scope}"] += source_piece_count
             matches = heading_matches(text)
             totals["records_with_heading_candidates"] += bool(matches)
+            totals[f"records_with_heading_candidates_scope_{scope}"] += bool(matches)
             if not matches:
-                totals["unheaded_source_sentencepiece_tokens"] += len(tokenizer.encode(text, out_type=int))
+                totals["unheaded_source_sentencepiece_tokens"] += source_piece_count
+                totals[f"unheaded_source_sentencepiece_tokens_scope_{scope}"] += source_piece_count
                 continue
 
             prefix = text[:matches[0]["start_char"]]
@@ -154,6 +158,7 @@ def main() -> None:
                 totals["candidate_chars"] += len(span)
                 totals["candidate_whitespace_words"] += row["observed_whitespace_words"]
                 totals["candidate_sentencepiece_tokens"] += token_count
+                totals[f"candidate_sentencepiece_tokens_scope_{scope}"] += token_count
                 totals[f"candidates_split_{assignment['split']}"] += 1
                 cue_counts[heading["cue"]] += 1
 
