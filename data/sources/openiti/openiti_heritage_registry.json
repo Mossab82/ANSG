@@ -975,7 +975,11 @@
        "author": "الجاحظ",
        "source_text_sha256": "ad4ea4f3d40783115db1411b7c33e5ba3a95818445984d430e6ac646c379274f",
        "split": "train",
-       "work_group": "work_f084b8a3368e38e3"
+       "work_group": "work_f084b8a3368e38e3",
+       "direct_build_review_queues": [
+        "core_story_source_review_queue",
+        "narrative_section_review_queue"
+       ]
       }
      ]
     },
@@ -2222,7 +2226,10 @@
        "author": "الجاحظ",
        "source_text_sha256": "e30fe5a3464a9ae3451795d205003f0383f7a33a40fd884da1c400a575e52fe2",
        "split": "train",
-       "work_group": "work_2ec43af68fee7068"
+       "work_group": "work_2ec43af68fee7068",
+       "direct_build_review_queues": [
+        "core_story_source_review_queue"
+       ]
       }
      ]
     },
@@ -3869,7 +3876,10 @@
        "author": "الجاحظ",
        "source_text_sha256": "c080da0e110e797c178d52d5bbfd7dc015429adea073cc4114dddf79a05c8c45",
        "split": "validation",
-       "work_group": "work_40ff427cc6224472"
+       "work_group": "work_40ff427cc6224472",
+       "direct_build_review_queues": [
+        "core_story_source_review_queue"
+       ]
       }
      ]
     },
@@ -4968,7 +4978,10 @@
        "author": "الجاحظ",
        "source_text_sha256": "187324643c1359aa14b9598a7234f38a7d2a3aea636bd132428b058b5a912eb9",
        "split": "train",
-       "work_group": "work_6e35146c549acb3c"
+       "work_group": "work_6e35146c549acb3c",
+       "direct_build_review_queues": [
+        "core_story_source_review_queue"
+       ]
       }
      ]
     },
@@ -5713,7 +5726,10 @@
        "author": "الجاحظ",
        "source_text_sha256": "4153c4f6df0d024fc3b9cd87b6409eaac5976c8304c480617514d4f1c6ef1a5f",
        "split": "train",
-       "work_group": "work_e9250da1b41fe511"
+       "work_group": "work_e9250da1b41fe511",
+       "direct_build_review_queues": [
+        "adjacent_source_review_queue"
+       ]
       }
      ]
     },
@@ -6158,7 +6174,10 @@
        "author": "الجاحظ",
        "source_text_sha256": "e17cb258a6cf8c6f9b9cdb3ecca2a9d04f40b61a05d993a5bfdbd8666cae0c66",
        "split": "train",
-       "work_group": "work_624ab25a963f9b6d"
+       "work_group": "work_624ab25a963f9b6d",
+       "direct_build_review_queues": [
+        "core_story_source_review_queue"
+       ]
       }
      ]
     },

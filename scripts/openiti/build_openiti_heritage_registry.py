@@ -99,6 +99,24 @@ def load_direct_build():
     return recs, split
 
 
+# PR #28 metadata-only review queues; the registry points to them, it does not copy them.
+REVIEW_QUEUES = {
+    "core_story_source_review_queue": ("release_v1/core_story_source_review_queue.csv", "source_record_id"),
+    "adjacent_source_review_queue": ("release_v1/adjacent_source_review_queue.csv", "record_id"),
+    "narrative_section_review_queue": ("release_v1/narrative_section_review_queue-*.csv", "source_record_id"),
+}
+
+
+def review_queue_index():
+    idx = defaultdict(list)
+    for name, (pattern, col) in REVIEW_QUEUES.items():
+        for path in sorted(glob.glob(str(DIRECT_BUILD / pattern))):
+            for r in csv.DictReader(open(path, encoding="utf-8-sig")):
+                if name not in idx[r[col]]:
+                    idx[r[col]].append(name)
+    return idx
+
+
 def version_source(version_uri):
     m = ID_PREFIX_RE.search(version_uri)
     if not m:
@@ -162,6 +180,7 @@ def build(evidence, recs, split):
     books_ev = evidence.get("books", {})
     hindawi_versions = {h["versionUri"]: "hindawi-" + h["hindawi_id"] for h in cat.get("hindawi_derived_versions", [])}
 
+    queues = review_queue_index()
     release_licence = (zen.get("latest") or {}).get("license") if zen["status"] == "collected" else None
     rel_tag, rel_fps = release_text_fps(evidence)
     versions_by_book = defaultdict(list)
@@ -208,7 +227,8 @@ def build(evidence, recs, split):
                     "direct_build_version_overlap": hid if hid in split else None,
                 })
             work_overlap = [{"record_id": rid, **recs.get(rid, {}), "split": split.get(rid, {}).get("split"),
-                             "work_group": split.get(rid, {}).get("work_group")}
+                             "work_group": split.get(rid, {}).get("work_group"),
+                             "direct_build_review_queues": queues.get(rid, [])}
                             for rid in CURATED_WORK_OVERLAP.get(book, [])]
             book_yml = ymls.get(book + ".yml", {})
             books.append({

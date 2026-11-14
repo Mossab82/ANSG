@@ -91,3 +91,17 @@ def test_no_text_payload_in_committed_openiti_files():
         if f.suffix == ".json":
             longest = max((len(s) for s in strings(json.loads(f.read_text(encoding="utf-8")))), default=0)
             assert longest < 20000, f"{f.name} holds a string of {longest} characters; text must not be committed"
+
+
+def test_overlap_records_point_to_existing_review_queues(reg):
+    """Each overlapping direct-build record is referenced (not copied) in a PR #28 review queue."""
+    builder = _load("build_openiti_heritage_registry", "scripts/openiti/build_openiti_heritage_registry.py")
+    idx = builder.review_queue_index()
+    seen = 0
+    for w in reg["works"]:
+        for b in w["openiti_books"]:
+            for o in b["direct_build_work_overlap"]:
+                seen += 1
+                assert o["direct_build_review_queues"], o["record_id"]
+                assert o["direct_build_review_queues"] == idx[o["record_id"]]
+    assert seen == 6
