@@ -1,0 +1,48 @@
+name: Build Arabic classical narrative corpus (CPU only)
+
+on:
+  push:
+    branches: [data/curated-arabic-classical-story-sources]
+    paths:
+      - 'scripts/build_classical_corpus.py'
+      - '.github/workflows/build-classical-corpus.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: classical-corpus-build
+  cancel-in-progress: false
+
+jobs:
+  build-and-commit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install parser
+        run: pip install 'beautifulsoup4==4.13.4'
+      - name: Fetch verified source pages and validate text
+        run: python scripts/build_classical_corpus.py
+      - name: Commit the extracted corpus to the source branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/corpora/classical_arabic/
+          if ! git diff --cached --quiet; then
+            git commit -m "data: add provenance-tracked classical Arabic corpus (unassigned splits)"
+            git push
+          fi
+      - name: Preserve diagnostics even when extraction fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: classical-arabic-corpus-build-report
+          path: data/corpora/classical_arabic/build_report.json
+          if-no-files-found: warn
