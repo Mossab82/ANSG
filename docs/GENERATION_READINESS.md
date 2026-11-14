@@ -105,8 +105,11 @@ memory. Long generations on CPU are slow.
 5. **Optional: cultural modules.** Steps 5 and 6 require the licensed corpus and a real CKG export:
 
    ```bash
+   # Only after the owner has resolved the run-plan choices and approved all data rights.
+   # Keep the checked-in default profile blocked; create this approved profile separately.
    ansg-ingest --config configs/data/nights.yaml
    ansg-build-examples --records-dir data/processed/nights --ckg data/private/ckg.json \
+       --backbone-sha256 <digest-from-step-3> \
        --output data/processed/examples
    python scripts/train_cultural_modules.py --backbone /models/aragpt2-large \
        --examples data/processed/examples/train.examples.jsonl \
