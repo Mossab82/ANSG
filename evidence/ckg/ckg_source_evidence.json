@@ -1,0 +1,137 @@
+{
+ "schema": "ansg.ckg_source_evidence/1",
+ "collected_at_utc": "2026-11-14T14:37:57+00:00",
+ "collector": "scripts/ckg/collect_ckg_source_metadata.py",
+ "ci_run": {
+  "GITHUB_RUN_ID": "43605865531",
+  "GITHUB_SHA": "ae6de194754c88fef90bbad9f8bbd97a33de73bf",
+  "GITHUB_REF_NAME": "training/reward-rl-ckg-audit"
+ },
+ "policy": "metadata only; no ontology, graph or paper text downloaded or committed",
+ "thesis_references": {
+  "ckg_artifact": "Table 9.6, p. 254: OWL ontology with 1,847 cultural patterns; github.com/mossab-ansg/ckg-arabic; DOI 10.5281/zenodo.8847378",
+  "cst_onto_paper": "Bibliography (Ibrahim, Gervás, Méndez 2025a) and App. B.3.3: K-CAP '25, pp. 174-181, DOI 10.1145/3731443.3771364"
+ },
+ "ckg_zenodo_record": {
+  "api": {
+   "url": "https://zenodo.org/api/records/8847378",
+   "status": 404,
+   "final_url": "https://zenodo.org/api/records/8847378"
+  },
+  "doi_resolution": {
+   "url": "https://doi.org/10.5281/zenodo.8847378",
+   "status": 404,
+   "final_url": "https://doi.org/10.5281/zenodo.8847378"
+  }
+ },
+ "ckg_github_repo": {
+  "url": "https://api.github.com/repos/mossab-ansg/ckg-arabic",
+  "status": 404,
+  "final_url": "https://api.github.com/repos/mossab-ansg/ckg-arabic"
+ },
+ "ckg_github_owner": {
+  "url": "https://api.github.com/users/mossab-ansg",
+  "status": 404,
+  "final_url": "https://api.github.com/users/mossab-ansg"
+ },
+ "cst_onto_paper_crossref": {
+  "url": "https://api.crossref.org/works/10.1145/3731443.3771364",
+  "status": 200,
+  "final_url": "https://api.crossref.org/works/10.1145/3731443.3771364",
+  "record": {
+   "title": "CST-Onto: An Ontological Framework for Culturally-Grounded Narrative Generation in Arabic",
+   "container": "Proceedings of the Knowledge Capture Conference 2025",
+   "published": [
+    [
+     2025,
+     12,
+     10
+    ]
+   ],
+   "publisher": "ACM",
+   "license": [],
+   "links": [
+    "https://dl.acm.org/doi/pdf/10.1145/3731443.3771364"
+   ],
+   "relation": {},
+   "resource_primary": "https://dl.acm.org/doi/10.1145/3731443.3771364",
+   "references_count": 23,
+   "reference_urls_with_artifact_hints": []
+  }
+ },
+ "cst_onto_paper_doi_resolution": {
+  "url": "https://doi.org/10.1145/3731443.3771364",
+  "status": 403,
+  "final_url": "https://dl.acm.org/doi/10.1145/3731443.3771364"
+ },
+ "cst_onto_paper_landing_page": {
+  "url": "https://dl.acm.org/doi/10.1145/3731443.3771364",
+  "status": 403,
+  "final_url": "https://dl.acm.org/doi/10.1145/3731443.3771364",
+  "artifact_like_links": [],
+  "bytes": 0
+ },
+ "zenodo_search": {
+  "\"CST-Onto\"": {
+   "url": "https://zenodo.org/api/records?q=%22CST-Onto%22&size=25",
+   "status": 200,
+   "final_url": "https://zenodo.org/api/records?q=%22CST-Onto%22&size=25",
+   "hits": []
+  },
+  "\"CSTOnto\"": {
+   "url": "https://zenodo.org/api/records?q=%22CSTOnto%22&size=25",
+   "status": 200,
+   "final_url": "https://zenodo.org/api/records?q=%22CSTOnto%22&size=25",
+   "hits": []
+  },
+  "title:\"Cultural Schema Theory\" AND arabic": {
+   "url": "https://zenodo.org/api/records?q=title%3A%22Cultural+Schema+Theory%22+AND+arabic&size=25",
+   "status": 200,
+   "final_url": "https://zenodo.org/api/records?q=title%3A%22Cultural+Schema+Theory%22+AND+arabic&size=25",
+   "hits": []
+  }
+ },
+ "github_search": {
+  "CST-Onto": {
+   "url": "https://api.github.com/search/repositories?q=CST-Onto&per_page=25",
+   "status": 200,
+   "final_url": "https://api.github.com/search/repositories?q=CST-Onto&per_page=25",
+   "items": [
+    {
+     "full_name": "wenliangming/CSTCloudOntology",
+     "html_url": "https://github.com/wenliangming/CSTCloudOntology",
+     "description": "This is an ontology about China Science & Technology Cloud, which contains OWL/OWL-S files.",
+     "license": null,
+     "pushed_at": "2023-05-25T03:49:36Z"
+    },
+    {
+     "full_name": "Habib-creater/1x4-cylindrical-patch-antenna-array",
+     "html_url": "https://github.com/Habib-creater/1x4-cylindrical-patch-antenna-array",
+     "description": "1x4 microstrip patch antenna array conformally bent onto a 30cm-radius cylinder, phase-corrected for beam steering from 0-50 deg, simulated in CST Studio Suite (-10.92 dB S11 at 2.07 GHz).",
+     "license": "MIT",
+     "pushed_at": "2026-09-20T13:06:48Z"
+    }
+   ]
+  },
+  "cst-onto ontology": {
+   "url": "https://api.github.com/search/repositories?q=cst-onto+ontology&per_page=25",
+   "status": 200,
+   "final_url": "https://api.github.com/search/repositories?q=cst-onto+ontology&per_page=25",
+   "items": [
+    {
+     "full_name": "wenliangming/CSTCloudOntology",
+     "html_url": "https://github.com/wenliangming/CSTCloudOntology",
+     "description": "This is an ontology about China Science & Technology Cloud, which contains OWL/OWL-S files.",
+     "license": null,
+     "pushed_at": "2023-05-25T03:49:36Z"
+    }
+   ]
+  },
+  "ckg-arabic": {
+   "url": "https://api.github.com/search/repositories?q=ckg-arabic&per_page=25",
+   "status": 200,
+   "final_url": "https://api.github.com/search/repositories?q=ckg-arabic&per_page=25",
+   "items": []
+  }
+ }
+}
