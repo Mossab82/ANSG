@@ -1,10 +1,10 @@
 {
  "schema": "ansg.ckg_source_evidence/1",
- "collected_at_utc": "2026-11-14T14:37:57+00:00",
+ "collected_at_utc": "2026-11-14T16:31:04+00:00",
  "collector": "scripts/ckg/collect_ckg_source_metadata.py",
  "ci_run": {
-  "GITHUB_RUN_ID": "43605865531",
-  "GITHUB_SHA": "ae6de194754c88fef90bbad9f8bbd97a33de73bf",
+  "GITHUB_RUN_ID": "43616016832",
+  "GITHUB_SHA": "650a5eb10ba374e87d72908330f2677007682b4e",
   "GITHUB_REF_NAME": "training/reward-rl-ckg-audit"
  },
  "policy": "metadata only; no ontology, graph or paper text downloaded or committed",
@@ -133,5 +133,181 @@
    "final_url": "https://api.github.com/search/repositories?q=ckg-arabic&per_page=25",
    "items": []
   }
+ },
+ "owner_repositories": {
+  "url": "https://api.github.com/users/Mossab82/repos?per_page=100&type=owner&sort=pushed",
+  "status": 200,
+  "final_url": "https://api.github.com/users/Mossab82/repos?per_page=100&type=owner&sort=pushed",
+  "repositories": [
+   {
+    "full_name": "Mossab82/ANSG",
+    "html_url": "https://github.com/Mossab82/ANSG",
+    "default_branch": "master",
+    "license": null,
+    "pushed_at": "2026-11-14T16:30:56Z",
+    "description": "",
+    "tree_status": 200,
+    "tree_truncated": false,
+    "ontology_like_files": [
+     {
+      "path": "configs/knowledge/ckg.yaml",
+      "size": 3905,
+      "git_blob_sha": "9f028862f006dcf88e2cd5fa209139e02ef4da02"
+     },
+     {
+      "path": "examples/ckg_demo.json",
+      "size": 346,
+      "git_blob_sha": "db9f8dbde32a4553a6fc0800e32e36aedddad99c"
+     },
+     {
+      "path": "src/ansg/knowledge/ckg.py",
+      "size": 16834,
+      "git_blob_sha": "13b44d9549ee9bad8466785ff37ea183877dc5fe"
+     },
+     {
+      "path": "tests/fixtures/ckg/synthetic_ckg.json",
+      "size": 1189,
+      "git_blob_sha": "a61bc1f7d94286b61de37ea914a3007a624f6d21"
+     },
+     {
+      "path": "tests/fixtures/ckg/synthetic_onto.ttl",
+      "size": 330,
+      "git_blob_sha": "962263d1fe7eb50175cea69014dfef281c439544"
+     },
+     {
+      "path": "tests/unit/test_ckg.py",
+      "size": 2448,
+      "git_blob_sha": "cdf2e26b3185413d20f05286a7ea453c9939a095"
+     }
+    ]
+   },
+   {
+    "full_name": "Mossab82/arabic-spellcheck",
+    "html_url": "https://github.com/Mossab82/arabic-spellcheck",
+    "default_branch": "main",
+    "license": "MIT",
+    "pushed_at": "2025-02-28T18:07:21Z",
+    "description": "",
+    "tree_status": 200,
+    "tree_truncated": false,
+    "ontology_like_files": []
+   },
+   {
+    "full_name": "Mossab82/multilingua-ocr",
+    "html_url": "https://github.com/Mossab82/multilingua-ocr",
+    "default_branch": "main",
+    "license": "MIT",
+    "pushed_at": "2025-02-09T09:47:57Z",
+    "description": "",
+    "tree_status": 200,
+    "tree_truncated": false,
+    "ontology_like_files": [
+     {
+      "path": "docs/cultural/ontology.md",
+      "size": 503,
+      "git_blob_sha": "e0ad2f37320dc87ace807039ff9ad1f913b5c76c"
+     }
+    ]
+   },
+   {
+    "full_name": "Mossab82/AI-Cinema",
+    "html_url": "https://github.com/Mossab82/AI-Cinema",
+    "default_branch": "main",
+    "license": "MIT",
+    "pushed_at": "2024-12-20T11:22:37Z",
+    "description": "",
+    "tree_status": 200,
+    "tree_truncated": false,
+    "ontology_like_files": []
+   },
+   {
+    "full_name": "Mossab82/NarrativeMind",
+    "html_url": "https://github.com/Mossab82/NarrativeMind",
+    "default_branch": "main",
+    "license": "MIT",
+    "pushed_at": "2024-12-13T13:13:45Z",
+    "description": "",
+    "tree_status": 200,
+    "tree_truncated": false,
+    "ontology_like_files": []
+   },
+   {
+    "full_name": "Mossab82/ANAR",
+    "html_url": "https://github.com/Mossab82/ANAR",
+    "default_branch": "master",
+    "license": null,
+    "pushed_at": "2024-12-08T17:17:58Z",
+    "description": "",
+    "tree_status": 200,
+    "tree_truncated": false,
+    "ontology_like_files": []
+   },
+   {
+    "full_name": "Mossab82/arabic_narratives2",
+    "html_url": "https://github.com/Mossab82/arabic_narratives2",
+    "default_branch": "main",
+    "license": "MIT",
+    "pushed_at": "2024-12-03T14:33:24Z",
+    "description": "",
+    "tree_status": 200,
+    "tree_truncated": false,
+    "ontology_like_files": []
+   },
+   {
+    "full_name": "Mossab82/arabic_ner_model",
+    "html_url": "https://github.com/Mossab82/arabic_ner_model",
+    "default_branch": "main",
+    "license": "MIT",
+    "pushed_at": "2024-11-21T09:56:18Z",
+    "description": "Classical Arabic Named Entity Recognition",
+    "tree_status": 200,
+    "tree_truncated": false,
+    "ontology_like_files": []
+   },
+   {
+    "full_name": "Mossab82/arabic-narrative-generator",
+    "html_url": "https://github.com/Mossab82/arabic-narrative-generator",
+    "default_branch": "main",
+    "license": null,
+    "pushed_at": "2024-11-17T16:57:57Z",
+    "description": "A Hybrid Rule-Based and Machine Learning System for Generating Arabic Narrative Stories Inspired by One Thousand and One Nights",
+    "tree_status": 200,
+    "tree_truncated": false,
+    "ontology_like_files": []
+   },
+   {
+    "full_name": "Mossab82/arabic_ner_model2",
+    "html_url": "https://github.com/Mossab82/arabic_ner_model2",
+    "default_branch": "main",
+    "license": null,
+    "pushed_at": "2024-11-12T06:21:13Z",
+    "description": "",
+    "tree_status": 200,
+    "tree_truncated": false,
+    "ontology_like_files": []
+   },
+   {
+    "full_name": "Mossab82/Mossab82",
+    "html_url": "https://github.com/Mossab82/Mossab82",
+    "default_branch": "main",
+    "license": null,
+    "pushed_at": "2021-12-15T20:57:10Z",
+    "description": "Config files for my GitHub profile.",
+    "tree_status": 409,
+    "tree_truncated": null,
+    "ontology_like_files": []
+   },
+   {
+    "full_name": "Mossab82/story2",
+    "html_url": "https://github.com/Mossab82/story2",
+    "default_branch": "master",
+    "license": null,
+    "pushed_at": "2021-01-01T19:17:04Z",
+    "description": "",
+    "tree_status": 200,
+    "tree_truncated": false,
+    "ontology_like_files": []
+   }
+  ]
  }
 }
