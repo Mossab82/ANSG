@@ -1,10 +1,10 @@
 {
  "schema": "ansg.openiti_metadata_evidence/1",
- "collected_at_utc": "2026-11-14T10:47:05+00:00",
+ "collected_at_utc": "2026-11-14T10:48:37+00:00",
  "collector": "scripts/openiti/collect_openiti_metadata.py",
  "ci_run": {
-  "GITHUB_RUN_ID": "43586894246",
-  "GITHUB_SHA": "51692424741a4f3d91a79a25939920a3022e14db",
+  "GITHUB_RUN_ID": "43587009723",
+  "GITHUB_SHA": "95e72f122633fcf80ec23ecc6ed1b32fd2f53c55",
   "GITHUB_REF_NAME": "data/openiti-heritage-audit"
  },
  "policy": "metadata and fingerprints only; no release archive downloaded; no text written or committed",
@@ -66,7 +66,7 @@
        "scheme": "doi"
       }
      ],
-     "description_excerpt": "  Co-PIs:  Matthew Thomas Miller (University of Maryland, College Park), Maxim G. Romanov (University of Hamburg), Sarah Bowen Savant (Aga Khan University-ISMC, London). \n The  OpenITI corpus  is a multi-lingual, machine-actionable and scholarly corpus of Islamicate texts that aims to provide a key component for rendering the Islamicate textual tradition accessible to computational analysis and to new forms of digital scholarship. \n As indicated by its name, the OpenITI corpus forms part of the broader and multi-institutional efforts of the   Open Islamicate Texts Initiative (OpenITI)  , which were first assembled into a corpus within the  OpenArabic  project, developed first at Tufts University (at The Perseus Project, 2013&ndash;2015) and then at Leipzig University (at the Alexander von Humboldt Chair for Digital Humanities, 2015&ndash;2017)&mdash;in both cases with the support and under the patronage of Prof. Gregory Crane. It aims to develop the digital infrastructure for the study of Islamicate cultures and to foster synergies and collaboration between computer science, digital humanities, and fields such as Islamic, Arabic, Persian, and Ottoman studies, and which is led by researchers at the Aga Khan University&rsquo;s Institute for the Study of Muslim Civilisations (AKU-ISMC) in London, the University of Hamburg (UHH), Roshan Institute for Persian Studies at the University of Maryland (College Park), and an interdisciplinary advisory board of leading scholars from relevant fields and has received funding from the  European Research Council (ERC)  under the European Union&rsquo;s Horizon 2020 research and innovation programme, awarded to the  KITAB  (Grant Agreement No. 772989, PI Sarah Bowen Savant) and KITAB-Transform projects (Grant Agreement No. 101199672, PI Sarah Bowen Savant), the Mellon Foundation, and the  Qatar National Library  in addition to support from the researchers&rsquo; home institutions. \n &nbsp; \n The present release of the OpenITI corpus contains all digital versions of a text that are available in the corpus (also available at the  https://github.com/OpenITI/RELEASE ). In case more than one version for a text exists, one of these versions will, however, be singled out as the primary version (referred to as 'PRI' in the metadata) while all the others will be categorised as secondary versions (referred to as 'SEC' in the metadata).  OpenITI also releases a  primary version of the OpenITI corpus   consisting only of the primary versions which may be more convenient for most use cases. \n  Note on Release Numbering:  Version  2019.1.1 &mdash;where  2019  is the year of the release, the first dotted number&mdash; .1 &mdash;is the ordinal release number in 2019, and the second dotted number&mdash; .1 &mdash;is the overall release number; the first dotted number will reset every year, while the second one will continue on increasing. \n For more details on this specific version see the release notes. \n  Note:  In case of any i"
+     "description_excerpt": "  Co-PIs:  Matthew Thomas Miller (University of Maryland, College Park), Maxim G. Romanov (University of Hamburg), Sarah Bowen Savant (Aga Khan University-ISMC, London). \n The  OpenITI corpus  is a multi-lingual, machine-actionable and scholarly corpus of Islamicate texts that aims to provide a key component for rendering the Islamicate textual tradition accessible to computational analysis and to new forms of digital scholarship. \n As indicated by its name, the OpenITI corpus forms part of the broader and multi-institutional efforts of the   Open Islamicate Texts Initiative (OpenITI)  , which were first assembled into a corpus within the  OpenArabic  project, developed first at Tufts University (at The Perseus Project, 2013&ndash;2015) and then at Leipzig University (at the Alexander von Humboldt Chair for Digital Humanities, 2015&ndash;2017)&mdash;in both cases with the support and under the patronage of Prof. Gregory Crane. It aims to develop the digital infrastructure for the study of Islamicate cultures and to foster synergies and collaboration between computer science, digital humanities, and fields such as Islamic, Arabic, Persian, and Ottoman studies, and which is led by researchers at the Aga Khan University&rsquo;s Institute for the Study of Muslim Civilisations (AKU-ISMC) in London, the University of Hamburg (UHH), Roshan Institute for Persian Studies at the University of Maryland (College Park), and an interdisciplinary advisory board of leading scholars from relevant fields and has received funding from the  European Research Council (ERC)  under the European Union&rsquo;s Horizon 2020 research and innovation programme, awarded to the  KITAB  (Grant Agreement No. 772989, PI Sarah Bowen Savant) and KITAB-Transform projects (Grant Agreement No. 101199672, PI Sarah Bowen Savant), the Mellon Foundation, and the  Qatar National Library  in addition to support from the researchers&rsquo; home institutions. \n &nbsp; \n The present release of the OpenITI corpus contains all digital versions of a text that are available in the corpus (also available at the  https://github.com/OpenITI/RELEASE ). In case more than one version for a text exists, one of these versions will, however, be singled out as the primary version (referred to as 'PRI' in the metadata) while all the others will be categorised as secondary versions (referred to as 'SEC' in the metadata).  OpenITI also releases a  primary version of the OpenITI corpus   consisting only of the primary versions which may be more convenient for most use cases. \n  Note on Release Numbering:  Version  2019.1.1 &mdash;where  2019  is the year of the release, the first dotted number&mdash; .1 &mdash;is the ordinal release number in 2019, and the second dotted number&mdash; .1 &mdash;is the overall release number; the first dotted number will reset every year, while the second one will continue on increasing. \n For more details on this specific version see the release notes. \n  Note:  In case of any issues with unzipping the files on Windows using built-in utilities, please use free softwares, such as WinRAR and 7zip. \n &nbsp; \n &nbsp; "
     },
     {
      "recid": 10007820,
@@ -106,7 +106,7 @@
        "scheme": "doi"
       }
      ],
-     "description_excerpt": "  Co-PIs : Matthew Thomas Miller (University of Maryland, College Park), Maxim G. Romanov (University of Hamburg), Sarah Bowen Savant (Aga Khan University&mdash;ISMC, London). \n  Open Islamicate Texts Initiative  ( OpenITI , see  https://openiti.org/ )&nbsp;is a multi-institutional effort to construct the first machine-actionable scholarly corpus of premodern Islamicate texts. Led by researchers at the Aga Khan University, Institute for the Study of Muslim Civilisations (AKU-ISMC), University of Hamburg (UH), and the Roshan Institute for Persian Studies at the University of Maryland (College Park) and an interdisciplinary advisory board of leading digital humanists and Islamic, Persian, and Arabic studies scholars,  OpenITI  aims to provide the essential textual infrastructure in Arabic, Persian and other Islamicate languages for new forms of textual analysis and digital scholarship. In the process, OpenITI will enable new synergies between Digital Humanities and the inter-related Islamicate fields of Islamic, Persian, and Arabic Studies. In addition to support from the researchers&rsquo; home institutions, it is supported by funding from the  European Research Council  under the European Union&rsquo;s Horizon 2020 research and innovation programme, awarded to the  KITAB  project (Grant Agreement No. 772989, PI Sarah Bowen Savant) and the  Qatar National Library . \n Currently,  OpenITI  contains almost exclusively Arabic texts, which were first assembled into a corpus within the  OpenArabic  project, developed first at Tufts University (at  The Perseus Project , 2013&ndash;2015) and then at Leipzig University (at the Alexander von Humboldt Chair for Digital Humanities, 2015&ndash;2017)&mdash;in both cases with the support and under the patronage of Prof. Gregory Crane. The much more limited number of Persian texts were compiled during 2015&ndash;2016 in the Persian Digital Library (PDL) pilot (see  Persian Digital Library by PersDigUMD ) at Roshan Institute for Persian Studies at the University of Maryland. These texts have not been made fully compatible with OpenITI mARkdown yet and will be made fully available in next releases. \n This release contains all digital versions of the same text that are available in the OpenITI corpus .  We also release a  'primary' version of the corpus   that contains a single digital version for each text in the corpus that is marked as 'PRI' in the corpus metadata and may be more convenient for some use cases. \n  Note on Release Numbering : Version  2019.1.1 &mdash;where  2019  is the year of the release, the first dotted number&mdash; .1 &mdash;is the ordinal release number in 2019, and the second dotted number&mdash; .1 &mdash;is the overall release number; the first dotted number will reset every year, while the second one will continue on increasing. \n For more details:  https://github.com/OpenITI/RELEASE  \n  Note:  In case of any issues with unzipping the files on Windows using built-in utilities, please use"
+     "description_excerpt": "  Co-PIs : Matthew Thomas Miller (University of Maryland, College Park), Maxim G. Romanov (University of Hamburg), Sarah Bowen Savant (Aga Khan University&mdash;ISMC, London). \n  Open Islamicate Texts Initiative  ( OpenITI , see  https://openiti.org/ )&nbsp;is a multi-institutional effort to construct the first machine-actionable scholarly corpus of premodern Islamicate texts. Led by researchers at the Aga Khan University, Institute for the Study of Muslim Civilisations (AKU-ISMC), University of Hamburg (UH), and the Roshan Institute for Persian Studies at the University of Maryland (College Park) and an interdisciplinary advisory board of leading digital humanists and Islamic, Persian, and Arabic studies scholars,  OpenITI  aims to provide the essential textual infrastructure in Arabic, Persian and other Islamicate languages for new forms of textual analysis and digital scholarship. In the process, OpenITI will enable new synergies between Digital Humanities and the inter-related Islamicate fields of Islamic, Persian, and Arabic Studies. In addition to support from the researchers&rsquo; home institutions, it is supported by funding from the  European Research Council  under the European Union&rsquo;s Horizon 2020 research and innovation programme, awarded to the  KITAB  project (Grant Agreement No. 772989, PI Sarah Bowen Savant) and the  Qatar National Library . \n Currently,  OpenITI  contains almost exclusively Arabic texts, which were first assembled into a corpus within the  OpenArabic  project, developed first at Tufts University (at  The Perseus Project , 2013&ndash;2015) and then at Leipzig University (at the Alexander von Humboldt Chair for Digital Humanities, 2015&ndash;2017)&mdash;in both cases with the support and under the patronage of Prof. Gregory Crane. The much more limited number of Persian texts were compiled during 2015&ndash;2016 in the Persian Digital Library (PDL) pilot (see  Persian Digital Library by PersDigUMD ) at Roshan Institute for Persian Studies at the University of Maryland. These texts have not been made fully compatible with OpenITI mARkdown yet and will be made fully available in next releases. \n This release contains all digital versions of the same text that are available in the OpenITI corpus .  We also release a  'primary' version of the corpus   that contains a single digital version for each text in the corpus that is marked as 'PRI' in the corpus metadata and may be more convenient for some use cases. \n  Note on Release Numbering : Version  2019.1.1 &mdash;where  2019  is the year of the release, the first dotted number&mdash; .1 &mdash;is the ordinal release number in 2019, and the second dotted number&mdash; .1 &mdash;is the overall release number; the first dotted number will reset every year, while the second one will continue on increasing. \n For more details:  https://github.com/OpenITI/RELEASE  \n  Note:  In case of any issues with unzipping the files on Windows using built-in utilities, please use free softwares, such as&nbsp;WinRAR and 7zip. \n &nbsp; "
     },
     {
      "recid": 7687795,
@@ -360,6 +360,7 @@
      "metadata_csv": {
       "name": "OpenITI_metadata_2025-1-9.tsv",
       "sha256": "10a025fcfc1bf96d218096f0dfe1d9416f9ff277f092c42622cb012cc4da2a61",
+      "md5": "cb2226f64264efa964df9ef659d40199",
       "bytes": 12092756,
       "rows": 14107,
       "columns": [
@@ -3698,6 +3699,7 @@
      "metadata_csv": {
       "name": "OpenITI_metadata_2022-2-7.csv",
       "sha256": "3a9f4abcd0114dc079a302ff56b60d74474f3f1ef513284261a261fddd4ab1eb",
+      "md5": "1dd609fef65cabce2e49ba94393e5e73",
       "bytes": 9591464,
       "rows": 11302,
       "columns": [
@@ -5851,7 +5853,691 @@
       ]
      }
     }
-   ]
+   ],
+   "release_text_fingerprints": {
+    "tag": "v2025.1.9",
+    "commit": "cfc4157a3cf2054c0888f133970a4eaa3e22e58c",
+    "versions": {
+     "0255Jahiz.AmilWaMamul.JK010594-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.AmilWaMamul/0255Jahiz.AmilWaMamul.JK010594-ara1",
+      "sha256": "b1b83effc5682ed6d15e53ab721c6dbb9d0e86d632dae4777125cf3ac85f43a1",
+      "bytes": 71329,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.AmilWaMamul.Shamela0000594-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.AmilWaMamul/0255Jahiz.AmilWaMamul.Shamela0000594-ara1",
+      "sha256": "3a7c531b9b073aaaa9970da4ac503006422c9f7b1f5f7855cfac3eff86d9e5d7",
+      "bytes": 71607,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.BalaghaWaIjaz.Shamela0010428BK37-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.BalaghaWaIjaz/0255Jahiz.BalaghaWaIjaz.Shamela0010428BK37-ara1.mARkdown",
+      "sha256": "734fa7aecc0902056cf121ce1ad2219c8ddad2181ce5afd211f2c38058d0a7b1",
+      "bytes": 3741,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.BalaghaWaIjaz.Shamela0010670BK13-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.BalaghaWaIjaz/0255Jahiz.BalaghaWaIjaz.Shamela0010670BK13-ara2.mARkdown",
+      "sha256": "7aa02f43220d868eb47f88c6e782f69a8f4ec43f86c863e2377bef1102da0096",
+      "bytes": 3656,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.BayanWaTabyin.JK001009-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.BayanWaTabyin/0255Jahiz.BayanWaTabyin.JK001009-ara1",
+      "sha256": "5d02338b8170fc9f7a5ac33c0b045e65f824e82dfa739de45fa85d8843fb7606",
+      "bytes": 1527598,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.BayanWaTabyin.Masaha003365Vols-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.BayanWaTabyin/0255Jahiz.BayanWaTabyin.Masaha003365Vols-ara1",
+      "sha256": "209bddcebf01f7f2f6d9b9b8ca40789961f3cc507b5c30d30327dce2cb3ea498",
+      "bytes": 1828477,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.BayanWaTabyin.ShamAY0033779-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.BayanWaTabyin/0255Jahiz.BayanWaTabyin.ShamAY0033779-ara1",
+      "sha256": "2f5050881c92af87dd72ebca31b0639ef94531d908f94acaf6de9e9ada79b28e",
+      "bytes": 1531754,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.BayanWaTabyin.ShamAY0033801-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.BayanWaTabyin/0255Jahiz.BayanWaTabyin.ShamAY0033801-ara1",
+      "sha256": "9b96a3cfb3a6440695b403645a64090ab4d822e3f8ea1b10ff05654007ce1d3d",
+      "bytes": 1540252,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.BayanWaTabyin.Shamela0010614-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.BayanWaTabyin/0255Jahiz.BayanWaTabyin.Shamela0010614-ara1.completed",
+      "sha256": "c0dcb20c30a09648f5ec82ef923d0ba4eff2c53976684e1ad3c14306183e4ea2",
+      "bytes": 1620199,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.BayanWaTabyin.Zaydiyya0000478-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.BayanWaTabyin/0255Jahiz.BayanWaTabyin.Zaydiyya0000478-ara1",
+      "sha256": "765140f5019a992b3f1018025623715698388b36336f1f3c9d56acbc79b9e6aa",
+      "bytes": 1541800,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Bighal.JK010609-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Bighal/0255Jahiz.Bighal.JK010609-ara1",
+      "sha256": "5bf19a72d0d3b97356cbeb37be60d9595e0fb78e604f70964d3b5b2fddf254f0",
+      "bytes": 149507,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Bighal.Shamela0010428BK18-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Bighal/0255Jahiz.Bighal.Shamela0010428BK18-ara1.mARkdown",
+      "sha256": "668ac0bf013f8812555335f15b0ce406ae43a738ffd971acef28db68b729b747",
+      "bytes": 155368,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Bighal.Shamela0010506-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Bighal/0255Jahiz.Bighal.Shamela0010506-ara1.mARkdown",
+      "sha256": "ae51df726f83f07363f2b16f9584728b1b075bffe7acb2637135cfcfbe251bbf",
+      "bytes": 124495,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Bukhala.JK007061-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Bukhala/0255Jahiz.Bukhala.JK007061-ara1",
+      "sha256": "f816db5fd00484f8bcd2b48bce54d4e7a59fc21997f1fe091c0d62364f5e0f79",
+      "bytes": 470674,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Bukhala.JK009201-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Bukhala/0255Jahiz.Bukhala.JK009201-ara1",
+      "sha256": "8e2f99fc499ae182d8f052245b89ff35816cd72211ba6167254d3678974cc0dc",
+      "bytes": 501089,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Bukhala.Masaha002332-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Bukhala/0255Jahiz.Bukhala.Masaha002332-ara1",
+      "sha256": "e6a92658f47e6596773fd21fcc50b35ecbdfed14df64776dc0d91e18eaecbe7e",
+      "bytes": 681123,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Bukhala.ShamAY0033775-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Bukhala/0255Jahiz.Bukhala.ShamAY0033775-ara1",
+      "sha256": "ab52b8026ccb519ea65b8d7bbf8171226eca04ed0f1c93677329562df3e412e0",
+      "bytes": 487386,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Bukhala.Shamela0010501-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Bukhala/0255Jahiz.Bukhala.Shamela0010501-ara1.mARkdown",
+      "sha256": "90011d8e2dde0d4c075ec60248792e05b531b1c3af1fe57ac8417211e7b7aedf",
+      "bytes": 515108,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.BursanWaCurjan.JK010538-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.BursanWaCurjan/0255Jahiz.BursanWaCurjan.JK010538-ara1",
+      "sha256": "0df48e4a1a730dabb1da03bb664784e6daf6fdabd0767e9413c1f4f0a9ed1773",
+      "bytes": 377480,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.BursanWaCurjan.Masaha002333-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.BursanWaCurjan/0255Jahiz.BursanWaCurjan.Masaha002333-ara1",
+      "sha256": "6d93f9f2656db7b9ca646d736385a897219b1ed11382c9b131b9b816dedd98d9",
+      "bytes": 1366371,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.BursanWaCurjan.Shamela0010538-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.BursanWaCurjan/0255Jahiz.BursanWaCurjan.Shamela0010538-ara1.mARkdown",
+      "sha256": "989867aad207ea19df5cbbfa5f7b03bda6c71f06b5321ca8d7c4edf96d821fc7",
+      "bytes": 402697,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.CadawaWaHasad.Shamela0010428BK11-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.CadawaWaHasad/0255Jahiz.CadawaWaHasad.Shamela0010428BK11-ara1.mARkdown",
+      "sha256": "ccab77ab1e3c4feeafdf8c61bbcdaf10ab4632d229d933b8f80be7c934bce409",
+      "bytes": 52010,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.CadawaWaHasad.Shamela0010670BK17-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.CadawaWaHasad/0255Jahiz.CadawaWaHasad.Shamela0010670BK17-ara2.mARkdown",
+      "sha256": "b8b301e32c3c71a4c6be61eb2821bd4cb613229423b8a5ee570c5bf225d6a4e3",
+      "bytes": 52720,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Cuthmaniyya.Shamela0010428BK31-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Cuthmaniyya/0255Jahiz.Cuthmaniyya.Shamela0010428BK31-ara1.mARkdown",
+      "sha256": "2d6155a1da39b6769e2704bf031d9fc00b0af12279ca6ed7db90f5d30244635f",
+      "bytes": 39981,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Cuthmaniyya.Shamela0096338-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Cuthmaniyya/0255Jahiz.Cuthmaniyya.Shamela0096338-ara1",
+      "sha256": "a39a9af3593811068e16c828bb2d2d3dd5dea66efb8cb2301ed3b0d3d5981fbe",
+      "bytes": 509752,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Cuthmaniyya.Shia003459BK1-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Cuthmaniyya/0255Jahiz.Cuthmaniyya.Shia003459BK1-ara1.mARkdown",
+      "sha256": "e1a5489d9989cab52e36e43c3c00d02fc394e319809b040a9fc7881f8eeb5dcb",
+      "bytes": 501182,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.DhammAkhlaqKuttab.Shamela0010428BK17-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.DhammAkhlaqKuttab/0255Jahiz.DhammAkhlaqKuttab.Shamela0010428BK17-ara1.mARkdown",
+      "sha256": "fa66fd8943c4386a444937a1fcc9a1de0e9ebcacdf02313198071fad60099b58",
+      "bytes": 31060,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.DhammAkhlaqKuttab.Shamela0010709BK9-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.DhammAkhlaqKuttab/0255Jahiz.DhammAkhlaqKuttab.Shamela0010709BK9-ara2.mARkdown",
+      "sha256": "e5d377c394a316beb0cee1dc2490d9979373addc59b22e38b6028aebce55d64b",
+      "bytes": 31335,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.FadlHashim.Shamela0010709BK4-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.FadlHashim/0255Jahiz.FadlHashim.Shamela0010709BK4-ara2.mARkdown",
+      "sha256": "88fa13345d4a6a1bc27629734d49850ee0ed0616593e413457aead00ab30e0e5",
+      "bytes": 135970,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.FakhrSudan.Shamela0010428BK6-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.FakhrSudan/0255Jahiz.FakhrSudan.Shamela0010428BK6-ara1.mARkdown",
+      "sha256": "f5116863f2823280309146f4c04d09593d5ec567ea9dfd3d439e08c9f11f1c86",
+      "bytes": 61576,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.FakhrSudan.Shamela0010709BK7-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.FakhrSudan/0255Jahiz.FakhrSudan.Shamela0010709BK7-ara2.mARkdown",
+      "sha256": "e9245b7732f8c243860ff72ef0872e8e54e0a830362b36e62d117a29ce4b22e2",
+      "bytes": 61078,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Futya.Shamela0010670BK10-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.Futya/0255Jahiz.Futya.Shamela0010670BK10-ara2.mARkdown",
+      "sha256": "71e8104b48425e08d32c6b6628656505c28ecc8d9f27437a68e812261c197a5b",
+      "bytes": 13865,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.HakamaynWaTaswibCali.Shamela0010709BK3-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.HakamaynWaTaswibCali/0255Jahiz.HakamaynWaTaswibCali.Shamela0010709BK3-ara2.mARkdown",
+      "sha256": "67561804a59cd493320324acdc3edd3261073ebcb7334a0012a271dc11c9650d",
+      "bytes": 165824,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.HaninIlaAwtan.Shamela0010428BK19-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.HaninIlaAwtan/0255Jahiz.HaninIlaAwtan.Shamela0010428BK19-ara1.mARkdown",
+      "sha256": "d5a944cb044bb05658772bab514165de5efa7295a3effb2b4c6358c8d96f6d81",
+      "bytes": 33146,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.HasidWaMahsud.Shamela0010428BK20-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.HasidWaMahsud/0255Jahiz.HasidWaMahsud.Shamela0010428BK20-ara1.mARkdown",
+      "sha256": "d1aa0b3518a9b3f237bba360f363a7d686771de59fce10a6a38dab352d136d1b",
+      "bytes": 23145,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.HasidWaMahsud.Shamela0010670BK2-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.HasidWaMahsud/0255Jahiz.HasidWaMahsud.Shamela0010670BK2-ara2.mARkdown",
+      "sha256": "7d15702224a3d13e3e2cf9d80f9071ad8704e99c384a122ad442894362216946",
+      "bytes": 23366,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Hayawan.JK007068-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Hayawan/0255Jahiz.Hayawan.JK007068-ara1",
+      "sha256": "dfd667502799f739a987554e4e15893e39929d555df81efbdca83acc3c268aaa",
+      "bytes": 3240488,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Hayawan.Masaha002972Vols-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Hayawan/0255Jahiz.Hayawan.Masaha002972Vols-ara1",
+      "sha256": "e25ec2a1816bcf4982e0205d69896040a4dd818e1576dfd2282b89eae7d020e5",
+      "bytes": 5422697,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Hayawan.ShamAY0033772-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Hayawan/0255Jahiz.Hayawan.ShamAY0033772-ara1",
+      "sha256": "f0ab61b74fcc4fea45e479a83957eabc3ba5a5511b6691c547c48b0382b2c4bd",
+      "bytes": 3282794,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Hayawan.Shamela0023775-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Hayawan/0255Jahiz.Hayawan.Shamela0023775-ara1.completed",
+      "sha256": "42218e3d0be9e651686bde2c31e569bcf5e84c8264b138f7882077a0b249eb32",
+      "bytes": 3480590,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Hijab.Shamela0010428BK14-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Hijab/0255Jahiz.Hijab.Shamela0010428BK14-ara1.mARkdown",
+      "sha256": "28125bb4e7b89e5ed716cbbb2e8ec310bc0ad55ab721c2a89161c787db679052",
+      "bytes": 70065,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Hijab.Shamela0010709BK8-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.Hijab/0255Jahiz.Hijab.Shamela0010709BK8-ara2.mARkdown",
+      "sha256": "bc3f9bb6af686a6dd920a9d20f9c094e2758be6e29bd666a30b4f153ed2d8757",
+      "bytes": 69346,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.HujajNubuwwa.Shamela0010428BK27-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.HujajNubuwwa/0255Jahiz.HujajNubuwwa.Shamela0010428BK27-ara1.mARkdown",
+      "sha256": "b06021433c6caf0d505eef0a8d03b6ac125f61398801ee15e262a9de5e0cc64c",
+      "bytes": 94847,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.IstihqaqImama.Shamela0010428BK41-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.IstihqaqImama/0255Jahiz.IstihqaqImama.Shamela0010428BK41-ara1.mARkdown",
+      "sha256": "2dd16a732113753acb00761f198caed50b919f3e45ad172cd6fdb4cfa3ec693a",
+      "bytes": 13988,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.IstinjazWacd.Shamela0010428BK42-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.IstinjazWacd/0255Jahiz.IstinjazWacd.Shamela0010428BK42-ara1.mARkdown",
+      "sha256": "bed019c450e46e2a41c079d30aed6cfc929681c098a4c83ecdcd5e08cfb72f74",
+      "bytes": 11187,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.IstinjazWacd.Shamela0010670BK20-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.IstinjazWacd/0255Jahiz.IstinjazWacd.Shamela0010670BK20-ara2.mARkdown",
+      "sha256": "add1daa21f29dd0ea856d4fe500ef0ea8673500510c055efa76e4e7dc5eb707f",
+      "bytes": 11362,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.JaddWaHazl.Shamela0010428BK34-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.JaddWaHazl/0255Jahiz.JaddWaHazl.Shamela0010428BK34-ara1.mARkdown",
+      "sha256": "d271d17f22a4f12d2b8db1e5dc5d3e47103f569958deee30301e6285bf824733",
+      "bytes": 11793,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.JaddWaHazl.Shamela0010428BK7-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.JaddWaHazl/0255Jahiz.JaddWaHazl.Shamela0010428BK7-ara1.mARkdown",
+      "sha256": "236c0a4ad2d1b712a2bce51e6c29a802b6d8c0977c7868f70222970ef6337276",
+      "bytes": 75356,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.JaddWaHazl.Shamela0010670BK16-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.JaddWaHazl/0255Jahiz.JaddWaHazl.Shamela0010670BK16-ara2.mARkdown",
+      "sha256": "dc2a96f94d79aea00756a621498abda1b243b9e1e73d16bace9565116245b3b0",
+      "bytes": 76228,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.JawabatFiImama.Shamela0010428BK47-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.JawabatFiImama/0255Jahiz.JawabatFiImama.Shamela0010428BK47-ara1.mARkdown",
+      "sha256": "2d573705122c8db61aaee80db14ffd3c41b69c86a008c2b4f867edc600ba3be8",
+      "bytes": 35265,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.KhalqQuran.Shamela0010428BK28-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.KhalqQuran/0255Jahiz.KhalqQuran.Shamela0010428BK28-ara1.mARkdown",
+      "sha256": "586afe592d073ec171ec2317d51970854a5926d3383e4bf9ce3c921e769c4827",
+      "bytes": 26222,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.KitmanSirr.Shamela0010428BK5-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.KitmanSirr/0255Jahiz.KitmanSirr.Shamela0010428BK5-ara1.mARkdown",
+      "sha256": "29af27b10003e7c6d0c34b146d8649dff24f552707173b50e8a4b55401ec430a",
+      "bytes": 52539,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.KitmanSirr.Shamela0010670BK1-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.KitmanSirr/0255Jahiz.KitmanSirr.Shamela0010670BK1-ara2.mARkdown",
+      "sha256": "580212346dfbad917e3f273c69e2aa62885c45587ecaa21ab146dc7581244c20",
+      "bytes": 52812,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.MacadWaMacash.Shamela0010428BK33-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.MacadWaMacash/0255Jahiz.MacadWaMacash.Shamela0010428BK33-ara1.mARkdown",
+      "sha256": "2d0de75f0929e050aa8d11140f8273030bcee38913fb0d14d0c394d328df57ec",
+      "bytes": 15623,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.MacadWaMacash.Shamela0010428BK4-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.MacadWaMacash/0255Jahiz.MacadWaMacash.Shamela0010428BK4-ara1.mARkdown",
+      "sha256": "343df658443183c5b24b529b78fa6bdfaa5decdffdaf4e745263b161e9ee0489",
+      "bytes": 65408,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.MacadWaMacash.Shamela0010709BK1-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.MacadWaMacash/0255Jahiz.MacadWaMacash.Shamela0010709BK1-ara2.mARkdown",
+      "sha256": "b0f8aff4b72f7c392e729aca325a0cb1a87cb513cfb74adb2e9b7d3656755fdf",
+      "bytes": 66052,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Macrifa.Shamela0010428BK32-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Macrifa/0255Jahiz.Macrifa.Shamela0010428BK32-ara1.mARkdown",
+      "sha256": "89768479f4daee8de395fcf898fcd303be7a905d869ed76c366737530ff8a6e6",
+      "bytes": 30875,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.MadhNabidh.Shamela0010428BK23-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.MadhNabidh/0255Jahiz.MadhNabidh.Shamela0010428BK23-ara1.mARkdown",
+      "sha256": "eeafa2f937dcd362b3494835a65ffb51b2d4f07601decb962948d5aab917ca2d",
+      "bytes": 22159,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.MadhNabidh.Shamela0010670BK11-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.MadhNabidh/0255Jahiz.MadhNabidh.Shamela0010670BK11-ara2.mARkdown",
+      "sha256": "0b66ecd533e9decf7aa8835e2534f13b845e943f468ba7af43ac640969b48abd",
+      "bytes": 22685,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.MadhTujjar.Shamela0010428BK45-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.MadhTujjar/0255Jahiz.MadhTujjar.Shamela0010428BK45-ara1.mARkdown",
+      "sha256": "1af89e3ce491fe885a1f505be7248b9b1d712b8bafa26178fa70cac0a38252eb",
+      "bytes": 9035,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.MadhTujjar.Shamela0010670BK9-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.MadhTujjar/0255Jahiz.MadhTujjar.Shamela0010670BK9-ara2.mARkdown",
+      "sha256": "c8408655386c5685fce830e8fe67c892e013d20fa3681674775a5ada39b2efe8",
+      "bytes": 9091,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.MahasinWaAddad.JK009364-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.MahasinWaAddad/0255Jahiz.MahasinWaAddad.JK009364-ara1.mARkdown",
+      "sha256": "7e76159d897f2625749a754cd7e86a369de95e460a9680a26d14349a26a25820",
+      "bytes": 662789,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.MahasinWaAddad.Masaha002334-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.MahasinWaAddad/0255Jahiz.MahasinWaAddad.Masaha002334-ara1",
+      "sha256": "aeca55f4c9f0ee4d4b2670b9908e1f9a0ad1039f16ca75d29ee005a21f97a03d",
+      "bytes": 725604,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.MahasinWaAddad.ShamAY0033780-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.MahasinWaAddad/0255Jahiz.MahasinWaAddad.ShamAY0033780-ara1",
+      "sha256": "8d383b959612f8c0c7a74b49ec65b59be60d5f9ebb1bfbdfbd352701f992c229",
+      "bytes": 675008,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.MahasinWaAddad.Shamela0010511-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.MahasinWaAddad/0255Jahiz.MahasinWaAddad.Shamela0010511-ara2",
+      "sha256": "c9fc07b634b6d1b325ff2ce0082c7dbb368b4d11bbe1a8c274cd144a5787143f",
+      "bytes": 698036,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.ManaqibTurk.Shamela0010428BK26-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.ManaqibTurk/0255Jahiz.ManaqibTurk.Shamela0010428BK26-ara1.mARkdown",
+      "sha256": "eb55cc727878d3bc8f56dec375fbba6b3ba91d18bb240a14c7aaf36f795a49f9",
+      "bytes": 78275,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.ManaqibTurk.Shamela0010428BK3-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.ManaqibTurk/0255Jahiz.ManaqibTurk.Shamela0010428BK3-ara1.mARkdown",
+      "sha256": "75499ce839633aba935fa3d11d783ce75af3f87deb2d4f3389d08d53eca3a2ed",
+      "bytes": 115399,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.ManaqibTurk.Shamela0010709BK6-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.ManaqibTurk/0255Jahiz.ManaqibTurk.Shamela0010709BK6-ara2.mARkdown",
+      "sha256": "7caaf09bb5ba52081b860289514acbaefb05cf9e47aa0c227237fdd5a6c0ae57",
+      "bytes": 115741,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.MawaddaWaKhulta.Shamela0010428BK40-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.MawaddaWaKhulta/0255Jahiz.MawaddaWaKhulta.Shamela0010428BK40-ara1.mARkdown",
+      "sha256": "31e16121d2e6e0c7ac7cbb764fb1d70861881fab2ed867d35e5d225ee89eb3a3",
+      "bytes": 20246,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.MawaddaWaKhulta.Shamela0010670BK19-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.MawaddaWaKhulta/0255Jahiz.MawaddaWaKhulta.Shamela0010670BK19-ara2.mARkdown",
+      "sha256": "8014f0bf1742bdb49285293868722aa73788a666e40362586c2697c1a153f21c",
+      "bytes": 20266,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.MiatKalima.LAL2013020401BK2-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.MiatKalima/0255Jahiz.MiatKalima.LAL2013020401BK2-ara1",
+      "sha256": "c3c628bc5fc7be24cce78155eeda2834700a7ba8b1a93a223c4679a28723709d",
+      "bytes": 11601,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Mucallimin.Shamela0010428BK21-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Mucallimin/0255Jahiz.Mucallimin.Shamela0010428BK21-ara1.mARkdown",
+      "sha256": "d26641b9e6730a464720149b5dbc31fdf8eb94adeb07ca9b48edb61905be1106",
+      "bytes": 32356,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Mucallimin.Shamela0010670BK6-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.Mucallimin/0255Jahiz.Mucallimin.Shamela0010670BK6-ara2.mARkdown",
+      "sha256": "a70db72c0716a5e213143a2c1fc7c0bc93fbe664c1dfb04001ac6f5a3ebb6995",
+      "bytes": 31353,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.MufakharatJawari.Shamela0010428BK15-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.MufakharatJawari/0255Jahiz.MufakharatJawari.Shamela0010428BK15-ara1.mARkdown",
+      "sha256": "a06b794a4622f2646e1521b591bf88f780c4db10c61fbe39d154cc9aabcce1ca",
+      "bytes": 62990,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.MufakharatJawari.Shamela0010670BK5-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.MufakharatJawari/0255Jahiz.MufakharatJawari.Shamela0010670BK5-ara2.mARkdown",
+      "sha256": "1a22bf93db0409a6f7502bdeaa6b7c2a84a71ce5390674510288dfd9fcca59a9",
+      "bytes": 63445,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Nabita.Shamela0010428BK13-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Nabita/0255Jahiz.Nabita.Shamela0010428BK13-ara1.mARkdown",
+      "sha256": "13a886e8c9269b186fe49ca9f15e89d39da69095293b3b2a8ee9160b27c53c60",
+      "bytes": 24894,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.NafyTashbih.Shamela0010428BK8-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.NafyTashbih/0255Jahiz.NafyTashbih.Shamela0010428BK8-ara1.mARkdown",
+      "sha256": "b92d62875f7707a903086de6a9f7f0ca500187bbbc1c66c3dea3a638275b47fd",
+      "bytes": 38224,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Nisa.Shamela0010428BK25-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Nisa/0255Jahiz.Nisa.Shamela0010428BK25-ara1.mARkdown",
+      "sha256": "06534c9c74ae2b5844c21b1c5455905831e7e127fb6e8b57567ae5047be56baa",
+      "bytes": 30652,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Nubl.Shamela0010428BK39-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Nubl/0255Jahiz.Nubl.Shamela0010428BK39-ara1.mARkdown",
+      "sha256": "971ae39efece1012aaeec9ecf48bb61aca4addb6d9740a17808cac89ed25881f",
+      "bytes": 29453,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Nubl.Shamela0010670BK3-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.Nubl/0255Jahiz.Nubl.Shamela0010670BK3-ara2.mARkdown",
+      "sha256": "132beb438f1789cf94d1e943c1eed06e4d078d796eb1d9de9f19500772e620e7",
+      "bytes": 29518,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Qiyan.Shamela0010428BK16-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Qiyan/0255Jahiz.Qiyan.Shamela0010428BK16-ara1.mARkdown",
+      "sha256": "a863f27b0206ee926aacce54913f22b24fd93d615707badf910f27ce3feebdb7",
+      "bytes": 58227,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.RaddCalaMushabbiha.Shamela0010428BK30-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.RaddCalaMushabbiha/0255Jahiz.RaddCalaMushabbiha.Shamela0010428BK30-ara1.mARkdown",
+      "sha256": "776c321966d50e9b0888a93cd0a6985a276061e26c0a44a14dac7441927b2489",
+      "bytes": 17857,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.RaddCalaNasara.Shamela0010428BK29-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.RaddCalaNasara/0255Jahiz.RaddCalaNasara.Shamela0010428BK29-ara1.mARkdown",
+      "sha256": "da5262f155fb1fb584df2b1f22b153778fe7d713af8f6489f8b9bfa6f427591a",
+      "bytes": 75023,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.RaddCalaNasara.Shamela0037716-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.RaddCalaNasara/0255Jahiz.RaddCalaNasara.Shamela0037716-ara1.completed",
+      "sha256": "6d59217ef7f5edee6285717acc3fb7290c9bc7622948137b100aaab1b182d5e9",
+      "bytes": 74767,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Rasail.Hindawi047090584-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Rasail/0255Jahiz.Rasail.Hindawi047090584-ara1",
+      "sha256": "6e8fe22dfa6eb535a4f73af8299872803a1c6344ecb371b7d44412e6e5f10892",
+      "bytes": 858599,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.RisalaCabbasiyya.Shamela0010709BK5-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.RisalaCabbasiyya/0255Jahiz.RisalaCabbasiyya.Shamela0010709BK5-ara2.mARkdown",
+      "sha256": "faafb695fe18fd0564c4aa5ecb4463c73c41ddf2686fcaea2072bcb2b5ca0f59",
+      "bytes": 10172,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.RisalaIlaAbiFaraj.Shamela0010428BK10-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.RisalaIlaAbiFaraj/0255Jahiz.RisalaIlaAbiFaraj.Shamela0010428BK10-ara1.mARkdown",
+      "sha256": "30eeee02b6fd57a59c7f98f1e5875d5fbb97ebb38ed3521d4abe5ca7a23fdba9",
+      "bytes": 8990,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.RisalaIlaAbiFaraj.Shamela0010670BK18-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.RisalaIlaAbiFaraj/0255Jahiz.RisalaIlaAbiFaraj.Shamela0010670BK18-ara2.mARkdown",
+      "sha256": "98788d84d38b69577ab608b28780262ff5222ed453d5c5bee29742178958ee6b",
+      "bytes": 9431,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.RisalaIlaIbnAbiDawud.Shamela0010428BK9-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.RisalaIlaIbnAbiDawud/0255Jahiz.RisalaIlaIbnAbiDawud.Shamela0010428BK9-ara1.mARkdown",
+      "sha256": "13d1fdbbc61b52fffe43331e61e7b1ba848d142be7c39480a56dbe7aa5250924",
+      "bytes": 13228,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.SharibWaMashrub.Shamela0010428BK46-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.SharibWaMashrub/0255Jahiz.SharibWaMashrub.Shamela0010428BK46-ara1.mARkdown",
+      "sha256": "b97a7756276cfb5a8258e6f37b2173b3c8987a6a6e8dafdc009886ee259f1d96",
+      "bytes": 28309,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.SharibWaMashrub.Shamela0010670BK12-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.SharibWaMashrub/0255Jahiz.SharibWaMashrub.Shamela0010670BK12-ara2.mARkdown",
+      "sha256": "993d13f39a96a15f2d825b11dcb3da3f653bae307806664f8c0d4c9bf2b3a9a9",
+      "bytes": 28641,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.SinacatKalam.Shamela0010428BK44-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.SinacatKalam/0255Jahiz.SinacatKalam.Shamela0010428BK44-ara1.mARkdown",
+      "sha256": "e12cfb70da8c1a8a805262a82376b8b2e48439869d77854069c0cb76510781a9",
+      "bytes": 13635,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.SinacatQuwwad.Shamela0010428BK12-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.SinacatQuwwad/0255Jahiz.SinacatQuwwad.Shamela0010428BK12-ara1.mARkdown",
+      "sha256": "f54689257b286218554f6fe572a1b01fa82b3bb9fa5a1b42960f1b97f3fc7ef3",
+      "bytes": 15254,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.SinacatQuwwad.Shamela0010670BK15-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.SinacatQuwwad/0255Jahiz.SinacatQuwwad.Shamela0010670BK15-ara2.mARkdown",
+      "sha256": "457f15ad267ed58d8ed753bc3fc17ceca572495c9fbe5724eb6253bfda852df6",
+      "bytes": 16095,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.TabaqatMughannin.Shamela0010428BK24-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.TabaqatMughannin/0255Jahiz.TabaqatMughannin.Shamela0010428BK24-ara1.mARkdown",
+      "sha256": "c290d65dc913e0db80551f149ce2c0fcbcd1667627757b86b9cf1f536f95fd2a",
+      "bytes": 10613,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.TabaqatMughannin.Shamela0010670BK7-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.TabaqatMughannin/0255Jahiz.TabaqatMughannin.Shamela0010670BK7-ara2.mARkdown",
+      "sha256": "8f8b1bb455df60fb8a071afe8f1822a5b32c93bfcb70097757a0d9e6297f639e",
+      "bytes": 10852,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.TabsiraBiTijara.JK009177-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.TabsiraBiTijara/0255Jahiz.TabsiraBiTijara.JK009177-ara1",
+      "sha256": "05b5484acf36a2c88459a9fb998cb3cb1856165905954188cbe8d65ca6fedf0e",
+      "bytes": 27594,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.TabsiraBiTijara.Shamela0006956-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.TabsiraBiTijara/0255Jahiz.TabsiraBiTijara.Shamela0006956-ara1.mARkdown",
+      "sha256": "220fc3bb532eef44b35da112aea6e7e6fbc0e70ef1ad2b992005c010fbde0c2b",
+      "bytes": 27041,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.TafdilBatn.Shamela0010428BK38-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.TafdilBatn/0255Jahiz.TafdilBatn.Shamela0010428BK38-ara1.mARkdown",
+      "sha256": "73b027edd3762e49c12e4d5d7e129e5d15082327abaf28648a6af9685d20088b",
+      "bytes": 19898,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.TafdilBatn.Shamela0010670BK4-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.TafdilBatn/0255Jahiz.TafdilBatn.Shamela0010670BK4-ara2.mARkdown",
+      "sha256": "ba265c55c671d89353b575857268e181ea74a723cfae69159ef416726939ac04",
+      "bytes": 21767,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.TafdilNutq.Shamela0010428BK43-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.TafdilNutq/0255Jahiz.TafdilNutq.Shamela0010428BK43-ara1.mARkdown",
+      "sha256": "adbd5a23d34d3a7da2b10482652b326f4b4cd17b36785947bc126ea50605a7a4",
+      "bytes": 18234,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.TafdilNutq.Shamela0010670BK14-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.TafdilNutq/0255Jahiz.TafdilNutq.Shamela0010670BK14-ara2.mARkdown",
+      "sha256": "c4dd46ba8a5b073b31e13d23b8be49932163140c01d61ef8659970ca2ca7a8d7",
+      "bytes": 18765,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.TajFiAkhlaq.JK010587-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.TajFiAkhlaq/0255Jahiz.TajFiAkhlaq.JK010587-ara1",
+      "sha256": "3f1444ebff191cc94bfde68f82f09d64d671a3838facf91869f911e1d72e7e6a",
+      "bytes": 243235,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.TajFiAkhlaq.Shamela0022623-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.TajFiAkhlaq/0255Jahiz.TajFiAkhlaq.Shamela0022623-ara1.mARkdown",
+      "sha256": "5626e47a2b32ab4d1f4ed50617eb0711b7b7ceed893065e76c3642a24a9736d0",
+      "bytes": 245833,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.TarbicWaTadwir.Shamela0010428BK22-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.TarbicWaTadwir/0255Jahiz.TarbicWaTadwir.Shamela0010428BK22-ara1.mARkdown",
+      "sha256": "4862a147860fec1be95f82bc1d1495da6e5d71ef254d2a67ff67651f437a573a",
+      "bytes": 68066,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.TarbicWaTadwir.Shamela0010670BK21-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.TarbicWaTadwir/0255Jahiz.TarbicWaTadwir.Shamela0010670BK21-ara2.mARkdown",
+      "sha256": "5d67fda6b44b9a26f401d1e4b9ccfe42c631de6db274c8dacef42779eeaeb508",
+      "bytes": 151869,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Wukala.Shamela0010428BK35-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.Wukala/0255Jahiz.Wukala.Shamela0010428BK35-ara1.mARkdown",
+      "sha256": "9ccffb708e3c8f066bfc3b20846d44b3779149f2df3a9ed9b0bad718c6a4222c",
+      "bytes": 13698,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.Wukala.Shamela0010670BK8-ara2": {
+      "path": "data/0255Jahiz/0255Jahiz.Wukala/0255Jahiz.Wukala.Shamela0010670BK8-ara2.mARkdown",
+      "sha256": "f10c50840dca401bcaebcc626d0eac92e1195c56adaeff067142a923ae7a1dfb",
+      "bytes": 13962,
+      "text_written_to_disk": false
+     },
+     "0255Jahiz.ZaydiyyaWaRafida.Shamela0010428BK48-ara1": {
+      "path": "data/0255Jahiz/0255Jahiz.ZaydiyyaWaRafida/0255Jahiz.ZaydiyyaWaRafida.Shamela0010428BK48-ara1.mARkdown",
+      "sha256": "ef75ea9d795765271b4c4fa8ca8f7273de6affd67c04cf7965133306f711b708",
+      "bytes": 22939,
+      "text_written_to_disk": false
+     },
+     "0362AbuFarajIsbahani.Aghani.JK000927-ara1": {
+      "path": "data/0362AbuFarajIsbahani/0362AbuFarajIsbahani.Aghani/0362AbuFarajIsbahani.Aghani.JK000927-ara1.completed",
+      "sha256": "c8f1491d3b0d53ce6ba0143346fa269347db69584d577440342821f251964003",
+      "bytes": 14558350,
+      "text_written_to_disk": false
+     },
+     "0516IbnCaliHariri.Maqamat.JK009202-ara1": {
+      "path": "data/0516IbnCaliHariri/0516IbnCaliHariri.Maqamat/0516IbnCaliHariri.Maqamat.JK009202-ara1",
+      "sha256": "7d6e3a89d9baf10b27883dc8558258168138c7ff1815471de86156f4d030f173",
+      "bytes": 503391,
+      "text_written_to_disk": false
+     },
+     "0516IbnCaliHariri.Maqamat.ShamAY0033787-ara1": {
+      "path": "data/0516IbnCaliHariri/0516IbnCaliHariri.Maqamat/0516IbnCaliHariri.Maqamat.ShamAY0033787-ara1",
+      "sha256": "5e7659e8dc70005bd293e7b60900b21a83f04cb04e3e5d51b89fc531ee883cdc",
+      "bytes": 519955,
+      "text_written_to_disk": false
+     },
+     "0516IbnCaliHariri.Maqamat.Shamela0026585-ara1": {
+      "path": "data/0516IbnCaliHariri/0516IbnCaliHariri.Maqamat/0516IbnCaliHariri.Maqamat.Shamela0026585-ara1",
+      "sha256": "47bbbf942b78f25cb5f25cf7e6ccd71bb1cc387bc9ea2ec113a25f929564ad56",
+      "bytes": 527474,
+      "text_written_to_disk": false
+     }
+    }
+   }
   }
  },
  "kitab_catalogue": {
