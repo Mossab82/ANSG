@@ -1,0 +1,29 @@
+{
+  "schema": "ansg.kalila_reported_tale_opening_report/1",
+  "status": "opening_cues_only_not_story_segmentation",
+  "edition": "Kalila wa-Dimna, Paris 1816; pinned Wikisource source revisions",
+  "source_chapters": 10,
+  "reported_tale_opening_candidates": 39,
+  "candidates_by_source_chapter_id": {
+    "kalila-1816-01": 15,
+    "kalila-1816-02": 9,
+    "kalila-1816-03": 1,
+    "kalila-1816-04": 2,
+    "kalila-1816-05": 4,
+    "kalila-1816-06": 2,
+    "kalila-1816-07": 1,
+    "kalila-1816-08": 2,
+    "kalila-1816-09": 3
+  },
+  "source_text_embedded": false,
+  "story_endings_inferred": false,
+  "nesting_relations_inferred": false,
+  "human_annotations_added": 0,
+  "triple_covered_tokens": 0,
+  "limitations": [
+    "The formula can introduce a nested tale, an illustrative parable, or a cited example.",
+    "An opening marker does not identify the embedded tale's ending or the parent's resumption.",
+    "Chapter context and source-text review are required before treating a marker as a story unit.",
+    "All source chapters remain in one direct-build split group."
+  ]
+}

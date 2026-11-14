@@ -1,0 +1,16 @@
+{
+  "schema": "ansg.adjacent_source_review_queue_report/1",
+  "status": "metadata_only_review_queue_not_story_classification",
+  "adjacent_source_records": 447,
+  "records_with_heading_sections": 235,
+  "heading_sections": 3966,
+  "heading_section_sentencepiece_pieces": 24704752,
+  "human_review_completed": false,
+  "annotations_created": 0,
+  "source_text_embedded": false,
+  "limitations": [
+    "Adjacent-category source titles/categories do not prove that the text is a story.",
+    "Heading-bounded pieces are provisional source spans, not verified narrative content.",
+    "Every row requires a human content/relevance review before adding it to a story corpus."
+  ]
+}

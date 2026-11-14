@@ -1,0 +1,77 @@
+{
+  "schema": "ansg.user_provided_dialect_intake_report/1",
+  "built_utc": "2026-11-14T07:58:03.759160+00:00",
+  "privacy": "Text content is not copied into this report or the public repository. Source text remains local and its provenance/redistribution terms must be documented before release.",
+  "tokenizer": {
+    "profile_id": "ANHC-direct-SPM32-v1",
+    "model_sha256": "7744212cab83605e2726796fc87930a8f58b9c6a765529e541bce4bbea9792ba",
+    "sentencepiece_version": "0.2.0",
+    "count": "SentencePiece pieces; NFKC profile; excludes metadata and special tokens"
+  },
+  "aggregate": {
+    "nonempty_rows": 66247,
+    "unique_rows_within_file_only": 66066,
+    "whitespace_words": 924493,
+    "sentencepiece_tokens": 1668817,
+    "duplicate_rows_within_file": 181
+  },
+  "sources": [
+    {
+      "source_id": "user-provided-shami-jordanian",
+      "input_file": "jordinian.txt",
+      "dialect_label_from_file_name": "Jordanian",
+      "sha256": "a3949b16152538abdf7715ff9468ce0fde485613c3a4c349051f7ef5b9122d47",
+      "nonempty_rows": 7017,
+      "unique_rows_within_file": 7001,
+      "duplicate_rows_within_file": 16,
+      "whitespace_words": 122346,
+      "sentencepiece_tokens": 223661,
+      "genre_status": "short social-media-like lines; story status unverified",
+      "public_text_included": false,
+      "redistribution_status": "unresolved"
+    },
+    {
+      "source_id": "user-provided-shami-palestinian",
+      "input_file": "Palestinian.txt",
+      "dialect_label_from_file_name": "Palestinian",
+      "sha256": "c9721dd658286e53a9765fd700168d9d2cd98d2f7be781a493969a449b1c37e9",
+      "nonempty_rows": 10642,
+      "unique_rows_within_file": 10633,
+      "duplicate_rows_within_file": 9,
+      "whitespace_words": 174967,
+      "sentencepiece_tokens": 325367,
+      "genre_status": "short social-media-like lines; story status unverified",
+      "public_text_included": false,
+      "redistribution_status": "unresolved"
+    },
+    {
+      "source_id": "user-provided-shami-syrian",
+      "input_file": "syrian.txt",
+      "dialect_label_from_file_name": "Syrian",
+      "sha256": "ff25c69acaf77879642d899f45b191c58b7968a27c2933e6167c9ce5ad1574ec",
+      "nonempty_rows": 37759,
+      "unique_rows_within_file": 37727,
+      "duplicate_rows_within_file": 32,
+      "whitespace_words": 523591,
+      "sentencepiece_tokens": 937545,
+      "genre_status": "short social-media-like lines; story status unverified",
+      "public_text_included": false,
+      "redistribution_status": "unresolved"
+    },
+    {
+      "source_id": "user-provided-shami-lebanese",
+      "input_file": "Lebanees.txt",
+      "dialect_label_from_file_name": "Lebanese",
+      "sha256": "ae1d349c39c217416fd38c50aebdc45125f76a3a5b4ec5e98a8cbbf93c1a3751",
+      "nonempty_rows": 10829,
+      "unique_rows_within_file": 10705,
+      "duplicate_rows_within_file": 124,
+      "whitespace_words": 103589,
+      "sentencepiece_tokens": 182244,
+      "genre_status": "short social-media-like lines; story status unverified",
+      "public_text_included": false,
+      "redistribution_status": "unresolved"
+    }
+  ],
+  "scope_note": "These are short user-provided dialectal/social-media lines. They are auxiliary dialect evidence, not verified narrative stories and not part of ANHC story-token or triple-annotation totals."
+}

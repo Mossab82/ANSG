@@ -1,0 +1,161 @@
+# Operational reconstruction profile for the ANSG thesis.
+# This is a documented reconstruction choice, not a recovered historical run config.
+schema_version: 1
+profile_id: ansg_direct_reconstruction_v1
+status: inferred_from_thesis_text
+historical_reproduction: false
+training_ready: false
+training_start_permitted: false
+notes:
+  - "Do not report this profile as the original training configuration."
+  - "No historical checkpoints, optimizer logs, corpus manifest, CKG release, or 23M-token annotation archive were available."
+  - "A future executable trainer must validate every required artifact and stop if an input is missing."
+
+sources:
+  thesis_sections:
+    corpus: "Chapter 3 §3.1.2, p.52; Tables 3.2–3.3, pp.56–57; Appendix A.17, p.289"
+    preprocessing: "Chapter 3 §3.4, pp.60–62; Chapter 5 §5.4.1, pp.139–140"
+    schedule: "Chapter 5 §5.1.3, p.133 and §5.2, p.134"
+    objectives: "Chapter 4 Eq. 4.16–4.19 and Eq. 4.29; Chapter 5 §5.6, Tables 5.9–5.11"
+    model: "Appendix A.3; Chapter 5 Table 5.1"
+  reconciliation_document: "docs/ar/ANSG_OPERATIONAL_PROFILE_RECONCILIATION.md"
+
+corpus_claims:
+  historical:
+    full_corpus_tokens: 70400000
+    triply_annotated_tokens: 23000000
+    stories_appendix: 55600
+    tokenizer: "32K SentencePiece with CAMeL Tools root-aware preprocessing"
+    verified_artifacts_available: false
+  current_direct_build:
+    sentencepiece_pieces: 82757505
+    source_records: 1398
+    provisional_story_inventory_rows: 1634
+    human_adjudicated_triple_coverage_tokens: 0
+    dialect_support_piece_count_excluded_from_story_corpus: 1668817
+    tokenizer_is_historical_root_aware_tokenizer: false
+    historical_reproduction: false
+
+data_use_conflict:
+  status: unresolved_in_thesis
+  chapter_3_interpretation:
+    stage_1: "Pretrain on the full 70.4M-token corpus."
+    stage_2: "Fine-tune on the 23M-token triple-annotated portion."
+  chapter_5_interpretation:
+    stage_1_epochs_1_to_30: "Supervised pretraining using the full 70.4M plus the 23M annotated data (as stated in §5.1.3)."
+  selected_reconstruction:
+    training_schedule_follows: "Chapter 5 three-stage execution schedule"
+    stage_1_data_mapping: "Unresolved; preserve both statements and require an explicit run-time choice after the thesis owner reconciles them."
+    do_not_silently_sum_or_deduplicate: true
+
+model:
+  backbone:
+    thesis_identifier: "AraGPT2-large"
+    expected_base_parameters: 774000000
+    expected_total_parameters_with_cultural_modules: 847000000
+    confidence: medium
+    checkpoint_available: false
+    note: "Chapter 4 also names GPT-2 Medium (355M); model identifier and parameter totals need checkpoint verification."
+  csam:
+    cultural_heads: 12
+    heads_by_family:
+      heritage: 4
+      rhetoric: 4
+      dialect: 4
+    head_dimension: 64
+    implied_internal_width: 768
+    backbone_width_in_appendix: 1280
+    projection_1280_to_768_is_reconstruction_choice: true
+    beta: 0.347
+    gamma: 0.283
+    logit_adjustment_equation: "Chapter 4 Eq. 4.9"
+    rhetoric_bias_formula_fully_specified: false
+    auxiliary_losses_fully_specified: false
+  cultural_schema:
+    similarity_threshold: 0.5
+    typical_active_schemas_min: 3
+    typical_active_schemas_max: 5
+    inventory_size: 898
+    embedding: "OWL2Vec*"
+    embedding_dimension: 300
+    projection_dimension: 768
+    appendix_alternative:
+      threshold: 0.75
+      embedding_dimension: 256
+      max_active: 50
+    selected_source: "Chapter 4 equations and tables; appendix alternative retained as a conflict"
+  dal:
+    dialects: [MSA, EGY, LEV, Gulf, Maghrebi]
+    lora_rank: 8
+    lora_alpha: 16
+    dropout: 0.05
+    schema_conditioned_gate: true
+    gpt2_qv_projection_mapping_verified: false
+    note: "GPT-2 commonly uses a fused QKV projection; target mapping needs an explicit implementation decision."
+  tokenizer:
+    historical_family: "SentencePiece"
+    vocabulary_size: 32000
+    historical_training_sample_tokens: 50000000
+    camelt_tools_morphology_required_for_historical_match: true
+    historical_tokenizer_artifact_available: false
+    direct_build_tokenizer_is_equivalent: false
+
+training:
+  stages:
+    - id: supervised_pretraining
+      epochs: [1, 30]
+      duration_hours_reported: 24
+      objective_reference: "Chapter 4 Eq. 4.16–4.19"
+      data_mapping: "unresolved_data_use_conflict"
+    - id: adversarial_refinement
+      epochs: [31, 65]
+      duration_hours_reported: 28
+      generated_samples_per_epoch: 50000
+      objective: "GAN/adversarial refinement per Chapter 5; exact discriminator/loss wiring must be recovered or separately specified"
+    - id: culturally_grounded_rl
+      epochs: [66, 100]
+      duration_hours_reported: 20
+      early_stopping_epoch_reported: 87
+      early_stopping_tolerance_epochs: 3
+      algorithm: PPO
+      reward:
+        equation: "R_total = 0.45 * R_cult + 0.35 * R_ling + 0.20 * R_coh"
+        R_cult: "CMPI"
+        R_ling: "normalized BLEU-4 + (1 - normalized perplexity)"
+        R_coh: "sentence-level cosine similarity"
+        coherence_penalty: "Chapter 5 Eq. 5.2"
+        proverb_repetition_penalty: "Chapter 5 Eq. 5.3"
+        normalization_bounds_defined: false
+        CMPI_equation_recovered: false
+      ppo:
+        learning_rate: 0.00001
+        clip_range: 0.20
+        value_coefficient: 0.50
+        entropy_coefficient: 0.01
+        gae_lambda: 0.95
+        ppo_updates_per_batch: 4
+        minibatch_size: 32
+        rollout_batch_size: 128
+        target_kl: 0.01
+        max_gradient_norm: 0.5
+      appendix_alternative_learning_rate: 0.000001
+      learning_rate_selection_note: "Use Chapter 5 value for the plotted run; retain Appendix A.2 value as conflicting alternative."
+
+training_gate:
+  required_before_any_run:
+    - "Resolve chapter 3 vs chapter 5 corpus-use staging."
+    - "Provide legally authorized, versioned corpus files and a manifest."
+    - "Provide the historical root-aware tokenizer or explicitly label a new run."
+    - "Provide model checkpoint/config and verify parameter count."
+    - "Define missing loss, CMPI, reward normalization, CSAM rhetoric-bias, and DAL fused-QKV mappings."
+    - "Use actual annotation records only; synthetic/demo labels contribute zero historical annotation coverage."
+    - "Record seed, code commit, dependencies, data/tokenizer hashes, logs, and checkpoints."
+  default_action: "refuse_to_start_without_explicitly_complete_artifacts"
+
+direct_build:
+  corpus_pretraining_jsonl_gz: "corpora/pretraining/{train,validation,test}.jsonl.gz"
+  narrative_candidate_jsonl_gz: "corpora/narrative_candidates/{train,validation,test}.jsonl.gz"
+  split_seed: "ANHC-direct-v1"
+  split_ratios: [0.8, 0.1, 0.1]
+  split_assignment: "deterministic source/work-group SHA-256 assignment"
+  note: "This split is a direct-build convenience; it is not the thesis TF-IDF/DBSCAN stratified split."

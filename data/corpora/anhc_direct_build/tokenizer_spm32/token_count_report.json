@@ -1,0 +1,91 @@
+{
+  "schema": "ansg.token_count_report/1",
+  "built_utc": "2026-11-14T07:36:02.364045+00:00",
+  "profile_id": "ANHC-direct-SPM32-v1",
+  "sentencepiece_version": "0.2.0",
+  "model_type": "unigram",
+  "vocab_size_requested": 32000,
+  "vocab_size_actual": 32000,
+  "normalization": "SentencePiece NFKC; source text preserved separately",
+  "root_aware": false,
+  "training_corpus": "all 1,745 CC-BY Arabic E-Book Corpus books, source text only, lexicographically sorted source filenames",
+  "tokenizer_training_sample": {
+    "algorithm": "reservoir sampling over non-empty source-text lines",
+    "seed": 20261114,
+    "sampled_lines": 200000,
+    "population_lines": 2299461,
+    "sample_text_sha256": "8d671965a637c5f7251b787617bc6122078cbe607d69f80e73614d9fc610d0e0"
+  },
+  "training_text_sha256": "1259e39a39ef6cee0ffa4ee53e5aa68df59475fcd7cb560434897af34fabf2ca",
+  "tokenizer_model_sha256": "7744212cab83605e2726796fc87930a8f58b9c6a765529e541bce4bbea9792ba",
+  "counting": "SentencePiece pieces; excludes BOS/EOS/padding; JSON metadata and annotations excluded",
+  "all_books": {
+    "records": 1745,
+    "observed_whitespace_words": 66081654,
+    "sentencepiece_tokens": 107029217
+  },
+  "narrative_candidates_unique": {
+    "record_selection": "publisher category intersects core OR adjacent narrative categories",
+    "sentencepiece_tokens": 82705621,
+    "observed_whitespace_words": 51567623
+  },
+  "narrative_scope_sentencepiece_tokens_nonexclusive": {
+    "narrative_core": 42150781,
+    "non_narrative_general": 24323596,
+    "narrative_adjacent": 42509236
+  },
+  "narrative_scope_whitespace_words_nonexclusive": {
+    "narrative_core": 25875270,
+    "non_narrative_general": 14514031,
+    "narrative_adjacent": 26873329
+  },
+  "period_sentencepiece_tokens": {
+    "modern_1800_2000": 95414560,
+    "classical_pre_1800": 2836046,
+    "unknown": 7463501,
+    "contemporary_post_2000": 1315110
+  },
+  "period_whitespace_words": {
+    "modern_1800_2000": 59477208,
+    "classical_pre_1800": 1658732,
+    "unknown": 4157761,
+    "contemporary_post_2000": 787953
+  },
+  "translation_sentencepiece_tokens": {
+    "translated": 26171547,
+    "Arabic_original": 80857670
+  },
+  "translation_whitespace_words": {
+    "translated": 16275825,
+    "Arabic_original": 49805829
+  },
+  "alf_layla": {
+    "observed_whitespace_words": 707422,
+    "sentencepiece_tokens": 1133994
+  },
+  "kalila_1816": {
+    "observed_whitespace_words": 30115,
+    "sentencepiece_tokens": 51884
+  },
+  "thesis_comparison": {
+    "claimed_tokens": 70400000,
+    "exact_reproduction": false,
+    "reason": "The thesis's original root-aware SentencePiece model and preprocessing artifact are not available; this direct profile is reproducible but not the historical tokenizer.",
+    "claimed_tokens_exact": 70404829
+  },
+  "artifacts": {
+    "model": "anhc_direct_spm32.model",
+    "vocab": "anhc_direct_spm32.vocab",
+    "training_sample": "training_sample.txt"
+  },
+  "source_published_statistics": {
+    "provider": "Språkbanken Text",
+    "corpus_version_date": "2025-09-12",
+    "provider_reported_tokens": 76486597,
+    "provider_reported_sentences": 3629107,
+    "license": "CC BY 4.0",
+    "source_url": "https://spraakbanken.gu.se/resurser/arabic-ebooks",
+    "recomputed_by_this_script": false,
+    "comparability_note": "Provider-reported corpus tokens use the provider's own processing; do not equate or add them to this script's SentencePiece counts."
+  }
+}

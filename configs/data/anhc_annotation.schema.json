@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Mossab82/ANSG/blob/main/configs/data/anhc_annotation.schema.json",
+  "title": "ANHC span annotation",
+  "type": "object",
+  "required": [
+    "schema",
+    "story_id",
+    "layer",
+    "decision",
+    "span",
+    "label",
+    "evidence",
+    "provenance"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ansg.anhc_annotation/1"
+    },
+    "annotation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "story_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "layer": {
+      "enum": [
+        "DIA",
+        "MOTIF",
+        "MORAL"
+      ]
+    },
+    "decision": {
+      "enum": [
+        "label",
+        "reviewed_none",
+        "uncertain",
+        "out_of_scope"
+      ]
+    },
+    "span": {
+      "type": "object",
+      "required": [
+        "char_start",
+        "char_end",
+        "tokenizer_profile",
+        "token_start",
+        "token_end"
+      ],
+      "properties": {
+        "char_start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "char_end": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "tokenizer_profile": {
+          "type": "string",
+          "minLength": 1
+        },
+        "token_start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "token_end": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "label": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "evidence": {
+      "type": "string"
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "annotator_id",
+        "guideline_version",
+        "adjudication_status",
+        "created_at"
+      ],
+      "properties": {
+        "annotator_id": {
+          "type": "string"
+        },
+        "guideline_version": {
+          "type": "string"
+        },
+        "adjudication_status": {
+          "enum": [
+            "unreviewed",
+            "provisional",
+            "adjudicated",
+            "disputed"
+          ]
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "adjudicator_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "concept_inventory_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "parent_annotation_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "decision": {
+            "const": "reviewed_none"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "label": {
+            "const": "NO_LABEL"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "decision": {
+            "const": "uncertain"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "provenance": {
+            "properties": {
+              "adjudication_status": {
+                "enum": [
+                  "provisional",
+                  "disputed"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "decision": {
+            "const": "out_of_scope"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "label": {
+            "const": "OUT_OF_SCOPE"
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
+}

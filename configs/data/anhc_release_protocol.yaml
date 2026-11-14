@@ -1,0 +1,109 @@
+schema: ansg.anhc_release_protocol/1
+release_id: ANHC-direct-build
+status: protocol_defined_data_collection_in_progress
+thesis_targets:
+  corpus_tokens_claimed: 70400000
+  corpus_exact_tokens_appendix_a17: 70404829
+  direct_build_scale_target_approx: 72000000
+  triple_annotated_tokens_claimed: 23000000
+  segment_count_claimed: 847000
+  narrative_count_appendix_a17: 55600
+  narratives_split_section_5_4_4: 5247
+  split_counts_section_5_4_4: {train: 4197, validation: 525, test: 525}
+  note: >
+    These are thesis-reported targets, not measured values of the direct build.
+    The dissertation reports incompatible narrative totals and tokenizer settings;
+    preserve both source claims in the release report.
+direct_build_source_scale:
+  source: "Arabic E-Book Corpus Version 1, all 1,745 books"
+  provider: "Språkbanken Text"
+  snapshot_date: "2025-09-12"
+  provider_reported_tokens: 76486597
+  provider_reported_sentences: 3629107
+  license: "CC BY 4.0"
+  scope_note: >
+    Provider-native statistic for the complete multi-genre source corpus. It is
+    close to the approximate 72M scale target but is not the thesis tokenizer
+    count and is not interchangeable with the local SentencePiece profile.
+counting:
+  text_scope: narrative_text_only
+  source_text: preserve_utf8_exact; create_versioned_derivatives_for_preprocessing
+  offsets: unicode_code_points_half_open
+  exclude_from_count: [json_metadata, annotation_payloads, padding, bos_eos_special_tokens]
+  normalization: report_raw_and_each_versioned_normalized_profile_separately
+  profiles:
+    - id: thesis_sentencepiece32k_root_aware
+      source_claim: chapter_5_section_5_4_1
+      vocab_size: 32000
+      root_aware: true
+      tokenizer_artifact: unresolved_original_model_not_in_repository
+      role: thesis_comparison_profile
+      exact_reproduction: false_until_original_model_and_preprocessing_are_recovered
+    - id: model_native_bpe
+      source_claims: [chapter_4_standard_gpt2, appendix_a_aragpt2_large]
+      tokenizer_artifact: pin_exact_backbone_revision_before_counting
+      role: model_input_length_and_compute_profile
+  report_fields: [raw_characters, whitespace_words, sentence_count, segment_count, token_count_by_profile, tokenizer_sha256, normalization_profile, split]
+  never_force_counts: true
+annotation:
+  layers: [DIA, MOTIF, MORAL]
+  target_triple_covered_tokens: 23000000
+  storage: one_jsonl_file_per_layer_plus_manifest
+  unit: span
+  offsets: unicode_code_points_half_open
+  adjudicated_only_counts_toward_target: true
+  coverage_definition: >
+    A token is triple-covered only when its token interval is covered by a
+    human-adjudicated DIA decision, a human-adjudicated MOTIF decision, and a
+    human-adjudicated MORAL decision. Explicit reviewed-none decisions count as
+    coverage; missing, provisional, or unresolved decisions do not.
+  labels:
+    DIA:
+      thesis_core: [MSA, EGY, LEV, GULF, MAG]
+      preserve_additional_claims: [IRQ, SUD, YEM, MIXED, UNKNOWN]
+      rule: >
+        Annotate evidence-bearing utterance spans. Do not infer dialect from
+        author location or character identity alone. Mark mixed spans separately.
+    MOTIF:
+      inventory: versioned_external_concept_ids
+      rule: >
+        Link only text-supported narrative/cultural motif spans to a versioned
+        concept or archetype ID. Preserve nested spans; never infer parent-child
+        story relations without explicit textual or editorial evidence.
+    MORAL:
+      thesis_core_8: [JUSTICE, WISDOM, COURAGE, TEMPERANCE, FAITH, CHARITY, PATIENCE, GRATITUDE]
+      legacy_alternatives_reported: [GENEROSITY, HONOR, TRUTHFULNESS]
+      rule: >
+        Label moral claims supported by text evidence; permit multiple labels and
+        explicit reviewed-none decisions. Keep the alternative inventory visible
+        until the thesis codebook conflict is resolved.
+  provenance_required: [annotator_id, guideline_version, adjudication_status, evidence, created_at]
+  machine_suggested_labels_are_provisional: true
+  inter_annotator_agreement: report_per_layer_and_by_dialect; do_not_claim_thesis_kappa_without_reproduction
+splits:
+  unit: story_cycle_cluster
+  leakage_policy: keep_near_duplicates_nested_tales_and_related_cycle_members_in_one_split
+  thesis_method_claim: tfidf_dbscan_epsilon_0_3_min_samples_2_plus_stratification
+  thesis_method_missing_details: [tfidf_analyzer, ngram_range, distance_metric, normalization, random_seed, cluster_to_split_assignment]
+  direct_build_operational_profile:
+    id: direct_grouped_split_v1
+    tfidf_analyzer: char
+    ngram_range: [3, 5]
+    distance_metric: cosine
+    dbscan_epsilon: 0.3
+    dbscan_min_samples: 2
+    split_ratio: {train: 0.8, validation: 0.1, test: 0.1}
+    random_seed: 1729
+    stratify_by: [dialect, period]
+    exact_thesis_reproduction: false
+  thesis_claimed_split_counts: {narratives: 5247, train: 4197, validation: 525, test: 525}
+  holdout_target: test
+  build_split_after_story_segmentation_and_duplicate_clustering: true
+  report_actual_counts_and_cluster_assignments: true
+unresolved_thesis_conflicts:
+  - C-MODEL-3_tokenizer_sentencepiece_vs_standard_gpt2_bpe
+  - C-ANHC-1_55600_narratives_vs_5247_split_population
+  - C-ANHC-3_motif_inventory_87_437_847
+  - C-ANHC-4_moral_inventory_8_vs_12_classes
+  - C-SPLIT-1_incomplete_tfidf_dbscan_specification
+  - C-ANHC-6_annotation_team_and_iaa_variants

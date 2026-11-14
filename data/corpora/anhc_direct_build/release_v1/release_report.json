@@ -1,0 +1,223 @@
+{
+  "schema": "ansg.direct_build_release_report/1",
+  "built_utc": "2026-11-14T09:39:50.408900+00:00",
+  "profile_id": "ANHC-direct-build-v1",
+  "status": "reproducible_direct_build_not_historical_reproduction",
+  "inputs": {
+    "candidate_manifest": {
+      "path": "anhc_direct_build/arabic_ebooks/manifest.jsonl",
+      "sha256": "c9d905d0b535551f01e2adc62726c026e2c34aa75aa1f994fa3a54474ba5e5c8"
+    },
+    "story_units": {
+      "path": "anhc_direct_build/story_units/story_units_provisional_base.jsonl",
+      "sha256": "e06a00e1512aface617dbc113f5d57ba75ae33eadfdcdd2ac656fa7625d22fc9"
+    },
+    "tokenizer_model": {
+      "path": "anhc_direct_build/tokenizer_spm32/anhc_direct_spm32.model",
+      "sha256": "7744212cab83605e2726796fc87930a8f58b9c6a765529e541bce4bbea9792ba"
+    },
+    "kalila_jsonl": {
+      "path": "anhc_direct_build/kalila_1816.jsonl",
+      "sha256": "d8e100db296e55d14957791d063ea4212fff38ea9fc51c7bcd5111e0d8c1f737"
+    },
+    "dialect_audit_report": {
+      "path": "anhc_direct_build/user_provided_dialect_count_report.json",
+      "sha256": "ef5b181b5a6d9b9ce3a74bdd86e803a6e6bc6b72c3333d75c77f83bbc368ede3"
+    },
+    "sentencepiece_version": "0.2.0",
+    "vocabulary_size": 32000
+  },
+  "source_text_records": 1398,
+  "candidate_sources": 1388,
+  "supplemental_classical_chapters": 10,
+  "candidate_scope_counts": {
+    "narrative_core": 941,
+    "narrative_adjacent": 447,
+    "classical_narrative": 10
+  },
+  "candidate_scope_whitespace_words": {
+    "narrative_core": 25875270,
+    "narrative_adjacent": 25692353,
+    "classical_narrative": 30115
+  },
+  "candidate_scope_sentencepiece_tokens": {
+    "narrative_core": 42150781,
+    "narrative_adjacent": 40554840,
+    "classical_narrative": 51884
+  },
+  "grouped_splits": {
+    "algorithm": "SHA-256(seed, work_group) threshold assignment; group rows cannot cross splits",
+    "seed": "ANHC-direct-v1",
+    "ratios": {
+      "train": 0.8,
+      "validation": 0.1,
+      "test": 0.1
+    },
+    "realized": {
+      "train": {
+        "records": 1158,
+        "groups": 1143,
+        "story_unit_rows": 1394,
+        "observed_whitespace_words": 42500410,
+        "sentencepiece_tokens": 68299060
+      },
+      "validation": {
+        "records": 115,
+        "groups": 115,
+        "story_unit_rows": 115,
+        "observed_whitespace_words": 4335482,
+        "sentencepiece_tokens": 6952211
+      },
+      "test": {
+        "records": 125,
+        "groups": 125,
+        "story_unit_rows": 125,
+        "observed_whitespace_words": 4761846,
+        "sentencepiece_tokens": 7506234
+      }
+    }
+  },
+  "auxiliary_dialect_support": {
+    "included_in_narrative_counts": false,
+    "included_in_story_splits": false,
+    "redistribution_status": "unresolved; count report only",
+    "summary": {
+      "nonempty_rows": 66247,
+      "unique_rows_within_file_only": 66066,
+      "whitespace_words": 924493,
+      "sentencepiece_tokens": 1668817,
+      "duplicate_rows_within_file": 181
+    },
+    "sources": [
+      {
+        "source_id": "user-provided-shami-jordanian",
+        "dialect_label_from_file_name": "Jordanian",
+        "nonempty_rows": 7017,
+        "whitespace_words": 122346,
+        "sentencepiece_tokens": 223661,
+        "redistribution_status": "unresolved"
+      },
+      {
+        "source_id": "user-provided-shami-palestinian",
+        "dialect_label_from_file_name": "Palestinian",
+        "nonempty_rows": 10642,
+        "whitespace_words": 174967,
+        "sentencepiece_tokens": 325367,
+        "redistribution_status": "unresolved"
+      },
+      {
+        "source_id": "user-provided-shami-syrian",
+        "dialect_label_from_file_name": "Syrian",
+        "nonempty_rows": 37759,
+        "whitespace_words": 523591,
+        "sentencepiece_tokens": 937545,
+        "redistribution_status": "unresolved"
+      },
+      {
+        "source_id": "user-provided-shami-lebanese",
+        "dialect_label_from_file_name": "Lebanese",
+        "nonempty_rows": 10829,
+        "whitespace_words": 103589,
+        "sentencepiece_tokens": 182244,
+        "redistribution_status": "unresolved"
+      }
+    ]
+  },
+  "story_unit_rows": 1634,
+  "story_units_by_split": {
+    "train": 1394,
+    "test": 125,
+    "validation": 115
+  },
+  "materialized_training_corpora": {
+    "pretraining": {
+      "train": {
+        "path": "corpora/pretraining/train.jsonl.gz",
+        "records": 1158,
+        "bytes": 132559697,
+        "sha256": "2d8202241afa777e3764813b45bd8428a7bc45a3aa5990e8af00b8266f8e0ddf"
+      },
+      "validation": {
+        "path": "corpora/pretraining/validation.jsonl.gz",
+        "records": 115,
+        "bytes": 13569133,
+        "sha256": "3311fe9a862ff0a44506f71a596a11460e5a2c31b9978196542afcb6492043af"
+      },
+      "test": {
+        "path": "corpora/pretraining/test.jsonl.gz",
+        "records": 125,
+        "bytes": 14679821,
+        "sha256": "80aec89734c0c65a329ff08e34df99cad48a143c25d51f6b2ff5387b9a947bb1"
+      }
+    },
+    "narrative_candidates": {
+      "train": {
+        "path": "corpora/narrative_candidates/train.jsonl.gz",
+        "records": 792,
+        "bytes": 67836727,
+        "sha256": "2aa7b364c19e6e26e45b6fe74d234c700d28781688d2d3c22988168540b37fdb"
+      },
+      "validation": {
+        "path": "corpora/narrative_candidates/validation.jsonl.gz",
+        "records": 79,
+        "bytes": 7179209,
+        "sha256": "d8fe59a59a3f745a5a544f1327e2d1cd21578471c74cf541c2c54833302d30c2"
+      },
+      "test": {
+        "path": "corpora/narrative_candidates/test.jsonl.gz",
+        "records": 80,
+        "bytes": 7156048,
+        "sha256": "d8b33abd80649e88d9254e58afa009b9a88acbd5b90b82f8fae20b216664f358"
+      }
+    }
+  },
+  "annotation_layers": {
+    "DIA": {
+      "rows": 0,
+      "adjudicated": false,
+      "status": "empty_template_only"
+    },
+    "MOTIF": {
+      "rows": 0,
+      "adjudicated": false,
+      "status": "empty_template_only"
+    },
+    "MORAL": {
+      "rows": 0,
+      "adjudicated": false,
+      "status": "empty_template_only"
+    }
+  },
+  "triple_covered_tokens": 0,
+  "thesis_comparison": {
+    "reported_corpus_tokens": 70404829,
+    "reported_triple_covered_tokens": 23000000,
+    "reproduces_historical_counts": false,
+    "reported_narrative_count_variants": {
+      "appendix_A17": 55600,
+      "chapter_5_section_5_4_4": 5247
+    },
+    "reported_split_in_chapter_5_section_5_4_4": {
+      "train": 4197,
+      "validation": 525,
+      "test": 525
+    },
+    "reported_split_method": "TF-IDF representations then DBSCAN (epsilon=0.3, min_samples=2); stratification by dialect, cultural density, and period",
+    "reported_tokenizer": "32K SentencePiece with CAMeL Tools morphological preprocessing and root preservation; trained on 50M representative tokens",
+    "internal_conflicts": [
+      "Appendix A.17 reports 55,600 narratives while Chapter 5 section 5.4.4 reports 5,247; unit relationship is unspecified.",
+      "Dialect distributions differ between Chapter 3 Table 3.3, Chapter 5 stratification targets, and Appendix A.17.",
+      "Chapter 3 temporal distribution differs from Chapter 5 temporal stratification targets.",
+      "Original source manifest, historical tokenizer and adjudicated annotation exports are unavailable to this build."
+    ],
+    "reason": "Direct-build tokenizer, sources, boundaries, split method, and original adjudicated annotation records differ or remain unavailable."
+  },
+  "limitations": [
+    "Publisher categories are candidate filters; whole books are not verified story units.",
+    "The 80/10/10 ratios and hash seed are direct-build operational choices, not historical thesis split values.",
+    "DIA/MOTIF/MORAL outputs are empty templates; no labels or human adjudication are fabricated.",
+    "Alf Layla volumes are already among the Arabic E-Book Corpus candidates and are counted once; story-span rows add no duplicate text tokens.",
+    "Optional user-provided dialect support counts are auxiliary and excluded from story-token and split totals.",
+    "The script writes compressed local copies of attributed source texts under corpora/; do not redistribute or commit those files without preserving source terms."
+  ]
+}

@@ -1,0 +1,129 @@
+schema: ansg.anhc_direct_build/1
+build_name: ANHC-direct-build
+status: source_intake_started
+release_protocol: configs/data/anhc_release_protocol.yaml
+annotation_schema: configs/data/anhc_annotation.schema.json
+principle: collect_and_annotate_primary_texts_directly
+do_not:
+  - reconstruct_missing_historical_records
+  - label_this_release_as_the_historical_thesis_corpus_without_source_identity
+  - pad_or_trim_text_to_force_target_counts
+  - include_model_generated_or_unlicensed_text
+  - infer_nested_story_relations_without_textual_or_editorial_evidence
+
+thesis_targets_for_validation_only:
+  raw_tokens_claimed: 70400000
+  tri_annotated_tokens_claimed: 23000000
+  dialect_varieties_claimed: [MSA, Egyptian, Levantine, Gulf, Maghrebi]
+  period_token_targets_claimed:
+    classical_pre_1800: 24600000
+    modern_1800_2000: 18300000
+    contemporary_post_2000: 27500000
+  note: >
+    These are comparison targets taken from the dissertation. Report observed
+    counts from source files and the documented tokenizer; never alter corpus
+    content to make the observed totals equal these targets.
+
+counting:
+  tokenizer: unresolved_original_profile
+  report_profiles: [thesis_sentencepiece32k_root_aware, model_native_bpe]
+  protocol: docs/ar/ANHC_RELEASE_PROTOCOL.md
+  tokenizer_must_be_pinned_before_any_claimed_token_total: true
+  normalization_profile: versioned_and_non_destructive
+  report_word_count_and_token_count_separately: true
+
+annotation:
+  layers: [DIA, MOTIF, MORAL]
+  claimed_target_tokens: 23000000
+  status: not_started
+  policy:
+    - publish annotation guidelines and label inventory before annotation
+    - record annotator provenance and adjudication
+    - mark machine-assisted labels as provisional until human validated
+    - split by story_cycle before training_or_evaluation
+
+sources:
+  - source_id: wiksource-ar-alf-layla
+    title: "ألف ليلة وليلة"
+    source_url: "https://ar.wikisource.org/wiki/ألف_ليلة_وليلة"
+    period: classical_pre_1800
+    dialect: MSA_or_edition_specific
+    content_status: source_pages_exist; edition_identity_and_page_rights_require_review
+    training_status: blocked_pending_per_page_edition_license_review
+    redistribution_status: blocked_pending_per_page_edition_license_review
+    acquisition: discover_index_pages_and_pin_revision_ids
+  - source_id: wiksource-ar-kalila-dimna
+    title: "كليلة ودمنة"
+    source_url: "https://ar.wikisource.org/wiki/كليلة_ودمنة"
+    period: classical_pre_1800
+    dialect: MSA_or_edition_specific
+    content_status: source_pages_exist; edition_identity_and_page_rights_require_review
+    training_status: blocked_pending_per_page_edition_license_review
+    redistribution_status: blocked_pending_per_page_edition_license_review
+    acquisition: discover_index_pages_and_pin_revision_ids
+  - source_id: shami-levantine-corpus
+    title: "Shami: A Corpus of Levantine Arabic Dialects"
+    source_url: "https://huggingface.co/datasets/arbml/Shami"
+    paper_url: "https://aclanthology.org/L18-1576/"
+    upstream_repository: "https://github.com/GU-CLASP/shami-corpus"
+    reported_volume: 117805
+    observed_huggingface_snapshot_rows: 66251
+    dialects: [Jordanian, Palestinian, Syrian, Lebanese]
+    content_type: social_media_sentences; not narrative stories
+    role: dialect_reference_or_DIA_classifier_support_only
+    license_status: repository_is_apache_2_but_dataset_provenance_and_redistribution_terms_require_review
+    training_status: research_copy_requires_rights_review; exclude_from_story_count
+    redistribution_status: blocked_until_dataset_text_rights_confirmed
+  - source_id: madar-parallel-corpus
+    title: "MADAR Parallel Corpus"
+    source_url: "https://camel.abudhabi.nyu.edu/madar-parallel-corpus/"
+    reported_volume: "Corpus-26: 2,000 seed sentences across 25 city dialects plus MSA; Corpus-6: 12,000 sentences across six varieties"
+    dialects: 25_city_varieties
+    content_type: translated_travel_domain_parallel_sentences; not narrative stories
+    role: external_dialect_evaluation_only; not narrative or story-count data
+    license_status: internal_research_and_evaluation_only; no modification_or_redistribution
+    access: official_registration_form_required
+    training_status: evaluation_only_after_access_and_terms_acceptance; use raw files without modification
+    redistribution_status: prohibited
+  - source_id: arabic-stories-corpus-mawdoo3-qisasse
+    title: "Arabic Stories Corpus"
+    source_url: "https://github.com/motazsaad/Arabic-Stories-Corpus"
+    reported_volume: "listed in resource catalogs as 146 stories; verify current files before counting"
+    content_type: MSA_story_texts
+    repository_license: Apache-2.0
+    underlying_source_rights: mawdoo3_and_qisasse_source_text_terms_not_documented_in_repository
+    training_status: blocked_pending_rights_review
+    redistribution_status: blocked_pending_rights_review
+  - source_id: modern-public-domain-literature
+    title: "Arabic narrative works, 1800–2000"
+    source_url: null
+    period: modern_1800_2000
+    dialect: source_specific
+    content_status: source_discovery_required
+    training_status: blocked_until_rights_verified
+    redistribution_status: blocked_until_rights_verified
+    acquisition: select_individual_work_and_edition_with_documented_public_domain_or_permission
+  - source_id: arabic-ebook-corpus-hallberg-2024
+    title: "The Arabic E-Book Corpus (Version 1)"
+    source_url: "https://doi.org/10.5878/7rbh-gy93"
+    article_doi: "https://doi.org/10.1016/j.dib.2025.111456"
+    publisher_download: "https://open.doris.gu.snd.se/downloads/public/2024-145/1/data/corpus-txt.zip"
+    license: "CC BY 4.0; source documentation states included works/translations are public domain or CC BY 4.0"
+    source_size: "1,745 books; 80.5 million reported words"\n    provider_native_statistics: {provider: Språkbanken Text, snapshot: 2025-09-12, tokens: 76486597, sentences: 3629107, license: "CC BY 4.0"}\n    provider_statistics_recomputed_locally: false
+    selection: [all_1745_for_full_genre_pool, novels, detective.fiction, science.fiction, children.stories, plays, literature, history, biographies, travel.literature]
+    role: full_genre_pool_and_narrative_candidate_ingestion; candidate categories require story-boundary review
+    period: source_specific_from_original_publication_year
+    dialect: mostly_edition_specific; not a dialect corpus
+    content_status: all_1745_materialized; 1388 narrative_candidates_not_yet_story_segmented_or_annotated
+    training_status: eligible_under_CC_BY_4.0_after_record_level_attribution_and_validation
+    redistribution_status: CC_BY_4.0_attribution_required; retain_original_book_metadata
+    acquisition: scripts/ingest_arabic_ebooks.py
+  - source_id: contemporary-consented-stories
+    title: "Original oral and written stories contributed by storytellers"
+    source_url: null
+    period: contemporary_post_2000
+    dialect: [Egyptian, Levantine, Gulf, Maghrebi, MSA]
+    content_status: contributor_collection_not_started
+    training_status: blocked_until_explicit_informed_consent
+    redistribution_status: blocked_until_explicit_license_and_consent
+    acquisition: record_consent_scope_at_story_level

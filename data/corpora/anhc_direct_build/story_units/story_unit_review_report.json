@@ -1,0 +1,27 @@
+{
+  "schema": "ansg.story_unit_review_manifest/2",
+  "status": "provisional_inventory_not_gold_segmented",
+  "boundary_policy": "Whole-book source containers remain unsegmented; heading spans and chapter containers remain provisional and never become gold boundaries automatically.",
+  "split_policy": "All units from the same work/cycle are locked together; no train/validation/test assignment is made until deduplication, boundary review, and grouping are complete.",
+  "counts": {
+    "story_span_and_chapter_container_rows": 246,
+    "whole_book_source_container_rows": 1388,
+    "whole_book_candidates_by_scope": {
+      "narrative_adjacent": 447,
+      "narrative_core": 941
+    },
+    "whole_book_observed_whitespace_words_by_scope": {
+      "narrative_adjacent": 25692353,
+      "narrative_core": 25875270
+    },
+    "total_inventory_rows": 1634,
+    "unassigned_split_rows": 1634,
+    "non_null_annotation_rows": 0
+  },
+  "limitations": [
+    "Candidate-scope labels are intake metadata, not validated story labels.",
+    "Word counts use the source manifest whitespace-token convention, not the thesis tokenizer.",
+    "The inventory does not establish the thesis ANHC total or its historical tokenizer, annotation coverage, or split counts.",
+    "The whole-book shards contain metadata and source hashes, not the book text."
+  ]
+}

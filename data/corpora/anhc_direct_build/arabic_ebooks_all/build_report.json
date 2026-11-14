@@ -1,0 +1,180 @@
+{
+  "schema": "ansg.source_ingestion_report/1",
+  "built_utc": "2026-11-14T07:14:15.534782+00:00",
+  "dataset": "The Arabic E-Book Corpus",
+  "version": 1,
+  "dataset_doi": "https://doi.org/10.5878/7rbh-gy93",
+  "intake_scope": "all_books",
+  "article_doi": "https://doi.org/10.1016/j.dib.2025.111456",
+  "license": "CC BY 4.0",
+  "archive_sha256": "e4f96ba66c92b3d01a328e2f20129f293f69c09e29d649f8117b685d0b903df3",
+  "metadata_sha256": "078a27624404c9ccb5163ff38d90e3580e6d2a5ce4c23e77c330d28a35d52189",
+  "archive_books": 1745,
+  "selected_candidates": 1745,
+  "materialized_records": 1745,
+  "missing_archive_files": [],
+  "scope_record_counts_nonexclusive": {
+    "narrative_core": 941,
+    "non_narrative_general": 357,
+    "narrative_adjacent": 472
+  },
+  "scope_whitespace_word_counts_nonexclusive": {
+    "narrative_core": 25875270,
+    "non_narrative_general": 14514031,
+    "narrative_adjacent": 26873329
+  },
+  "publisher_category_counts_nonexclusive": {
+    "literature": 287,
+    "detective.fiction": 169,
+    "philosophy": 99,
+    "travel.literature": 55,
+    "geography": 7,
+    "history": 326,
+    "science.fiction": 81,
+    "biographies": 124,
+    "novels": 178,
+    "children.stories": 167,
+    "plays": 88,
+    "social.sciences": 65,
+    "literary.criticism": 93,
+    "science": 28,
+    "poetry": 89,
+    "economics": 10,
+    "politics": 35,
+    "linguistics": 22,
+    "psychology": 19,
+    "arts": 19,
+    "environmental.sciences": 3,
+    "technology": 3,
+    "health": 1,
+    "religions": 1
+  },
+  "category_whitespace_word_counts_nonexclusive": {
+    "literature": 12433315,
+    "detective.fiction": 3930204,
+    "philosophy": 4465360,
+    "travel.literature": 2888577,
+    "geography": 387740,
+    "history": 20218929,
+    "science.fiction": 877739,
+    "biographies": 5700556,
+    "novels": 7889620,
+    "children.stories": 1571088,
+    "plays": 1077647,
+    "social.sciences": 3095183,
+    "literary.criticism": 5379731,
+    "science": 1307312,
+    "poetry": 2904130,
+    "economics": 342292,
+    "politics": 1477068,
+    "linguistics": 615766,
+    "psychology": 859895,
+    "arts": 576813,
+    "environmental.sciences": 352658,
+    "technology": 389874,
+    "health": 18664,
+    "religions": 36238
+  },
+  "period_record_counts": {
+    "modern_1800_2000": 1525,
+    "classical_pre_1800": 41,
+    "unknown": 169,
+    "contemporary_post_2000": 10
+  },
+  "period_whitespace_word_counts": {
+    "modern_1800_2000": 59477208,
+    "classical_pre_1800": 1658732,
+    "unknown": 4157761,
+    "contemporary_post_2000": 787953
+  },
+  "translation_counts": {
+    "translated": 491,
+    "Arabic_original": 1254
+  },
+  "translation_whitespace_word_counts": {
+    "translated": 16275825,
+    "Arabic_original": 49805829
+  },
+  "featured_narrative_work": {
+    "work": "Alf Layla wa-Layla",
+    "books": [
+      {
+        "record_id": "hindawi-13815802",
+        "title": "ألف ليلة وليلة",
+        "book_id": "13815802",
+        "translation": true,
+        "original_language": "English",
+        "observed_whitespace_words": 14523,
+        "source_text_sha256": "aa186ac9cd06315876ce18f70f164fb00584bdd9ed68c3a6cc05b39db0c9be6f"
+      },
+      {
+        "record_id": "hindawi-27482482",
+        "title": "ألف ليلة وليلة (الجزء السادس)",
+        "book_id": "27482482",
+        "translation": false,
+        "original_language": "Arabic",
+        "observed_whitespace_words": 106781,
+        "source_text_sha256": "008a5c1c85ec17c1874a6fe53edc424c1645562496bed5305195314396bd519d"
+      },
+      {
+        "record_id": "hindawi-36973840",
+        "title": "ألف ليلة وليلة (الجزء الثاني)",
+        "book_id": "36973840",
+        "translation": false,
+        "original_language": "Arabic",
+        "observed_whitespace_words": 118272,
+        "source_text_sha256": "4e64e3a22f4faccd735c63e98bdd5c8b82c207bc0d86bb4e506dd6ac0b802ea7"
+      },
+      {
+        "record_id": "hindawi-39419251",
+        "title": "ألف ليلة وليلة (الجزء الرابع)",
+        "book_id": "39419251",
+        "translation": false,
+        "original_language": "Arabic",
+        "observed_whitespace_words": 117947,
+        "source_text_sha256": "185852e36b87c20f1452e8e13df72ac01e15a66b4ca9d9110023b9b2dac64d4a"
+      },
+      {
+        "record_id": "hindawi-61961973",
+        "title": "ألف ليلة وليلة (الجزء الأول)",
+        "book_id": "61961973",
+        "translation": false,
+        "original_language": "Arabic",
+        "observed_whitespace_words": 134426,
+        "source_text_sha256": "ff31ee5ab6e491b998bc3de4438264d195bd9cf4a32819d03d160047d056f2b0"
+      },
+      {
+        "record_id": "hindawi-75264279",
+        "title": "ألف ليلة وليلة (الجزء الخامس)",
+        "book_id": "75264279",
+        "translation": false,
+        "original_language": "Arabic",
+        "observed_whitespace_words": 102674,
+        "source_text_sha256": "3541af86f80e1aa4a0d981cfe53eff0ee99d54b6b995fb62d24ebba5331af660"
+      },
+      {
+        "record_id": "hindawi-85931905",
+        "title": "ألف ليلة وليلة (الجزء الثالث)",
+        "book_id": "85931905",
+        "translation": false,
+        "original_language": "Arabic",
+        "observed_whitespace_words": 112799,
+        "source_text_sha256": "c0e48fa7fba518da061c6df1bdb2aee2aaa85b83ae32e1e06da9b4c24890ca91"
+      }
+    ],
+    "arabic_original_volume_count": 6,
+    "arabic_original_observed_whitespace_words": 692899,
+    "all_book_observed_whitespace_words": 707422,
+    "note": "Whole-book records; run segment_alflayla_heading_candidates.py for provisional title-line markers."
+  },
+  "metadata_reported_words": 80587361,
+  "observed_whitespace_words": 66081654,
+  "token_count": null,
+  "tokenizer": null,
+  "limitations": [
+    "publisher genres are candidate filters, not verified story-level segmentation",
+    "books remain unsegmented, unannotated, and unassigned to splits",
+    "this source is not a dialect corpus",
+    "do not equate word counts or the source catalogue token figure with the thesis tokenizer count"
+  ]
+}
