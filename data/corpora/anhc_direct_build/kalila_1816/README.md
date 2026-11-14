@@ -15,5 +15,7 @@ This is the first collected source batch for the direct ANHC build. It contains 
 ## Files
 
 - `build_report.json`: collection counts, missing pages, and limitations.
-- `records/kalila-1816-XX.jsonl`: one UTF-8 JSONL source record per available chapter, in source order. Files are plain text and can be concatenated for ingestion.
+- `records/kalila-1816-XX.jsonl`: compact chapter manifest with source metadata, counts, SHA-256, and ordered segment paths.
+- `records/segments/kalila-1816-XX/part-NNN.jsonl`: UTF-8 text segments. Concatenate each segment’s `text` field in ascending `segment_index` to reconstruct the exact extracted source text; verify it against the manifest’s `source_text_sha256`.
+- `kalila_1816.jsonl.gz`: complete local build output, not required for repository ingestion.
 - `../../../../scripts/build_kalila_1816.py`: reproducible MediaWiki API fetcher; stores both plain JSONL and compressed local outputs.
