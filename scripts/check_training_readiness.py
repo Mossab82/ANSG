@@ -117,6 +117,13 @@ def check_plan(plan_path, profile_path):
             "No full thesis-stage runner is implemented; available training entry point "
             "covers cultural_modules_sft only."
         )
+    elif runner_scope == "cultural_modules_sft":
+        required_roles = {"licensed_training_examples", "backbone_checkpoint", "schema_vocabulary"}
+        missing_roles = sorted(required_roles - roles)
+        for role in missing_roles:
+            blockers.append(f"Required artifact role is missing for cultural_modules_sft: {role}.")
+    if profile.get("training_ready") is not True:
+        blockers.append("The operational profile keeps training_ready=false.")
     if profile.get("training_start_permitted") is not True:
         blockers.append(
             "The checked-in operational profile keeps training_start_permitted=false; "
