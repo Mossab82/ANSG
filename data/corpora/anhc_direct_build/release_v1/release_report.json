@@ -1,0 +1,95 @@
+{
+  "schema": "ansg.direct_build_release_report/1",
+  "built_utc": "2026-11-14T09:16:12.806074+00:00",
+  "profile_id": "ANHC-direct-build-v1",
+  "status": "reproducible_direct_build_not_historical_reproduction",
+  "inputs": {
+    "candidate_manifest": "anhc_direct_build/arabic_ebooks/manifest.jsonl",
+    "candidate_manifest_sha256": "c9d905d0b535551f01e2adc62726c026e2c34aa75aa1f994fa3a54474ba5e5c8",
+    "tokenizer_model": "anhc_direct_build/tokenizer_spm32/anhc_direct_spm32.model",
+    "tokenizer_model_sha256": "7744212cab83605e2726796fc87930a8f58b9c6a765529e541bce4bbea9792ba",
+    "sentencepiece_version": "0.2.0",
+    "vocabulary_size": 32000
+  },
+  "candidate_sources": 1388,
+  "candidate_scope_counts": {
+    "narrative_core": 941,
+    "narrative_adjacent": 447
+  },
+  "candidate_scope_whitespace_words": {
+    "narrative_core": 25875270,
+    "narrative_adjacent": 25692353
+  },
+  "candidate_scope_sentencepiece_tokens": {
+    "narrative_core": 42150781,
+    "narrative_adjacent": 40554840
+  },
+  "grouped_splits": {
+    "algorithm": "SHA-256(seed, work_group) threshold assignment; group rows cannot cross splits",
+    "seed": "ANHC-direct-v1",
+    "ratios": {
+      "train": 0.8,
+      "validation": 0.1,
+      "test": 0.1
+    },
+    "realized": {
+      "train": {
+        "records": 1148,
+        "groups": 1142,
+        "story_unit_rows": 1394,
+        "observed_whitespace_words": 42470295,
+        "sentencepiece_tokens": 68247176
+      },
+      "validation": {
+        "records": 115,
+        "groups": 115,
+        "story_unit_rows": 115,
+        "observed_whitespace_words": 4335482,
+        "sentencepiece_tokens": 6952211
+      },
+      "test": {
+        "records": 125,
+        "groups": 125,
+        "story_unit_rows": 125,
+        "observed_whitespace_words": 4761846,
+        "sentencepiece_tokens": 7506234
+      }
+    }
+  },
+  "story_unit_rows": 1634,
+  "story_units_by_split": {
+    "train": 1394,
+    "test": 125,
+    "validation": 115
+  },
+  "annotation_layers": {
+    "DIA": {
+      "rows": 0,
+      "adjudicated": false,
+      "status": "empty_template_only"
+    },
+    "MOTIF": {
+      "rows": 0,
+      "adjudicated": false,
+      "status": "empty_template_only"
+    },
+    "MORAL": {
+      "rows": 0,
+      "adjudicated": false,
+      "status": "empty_template_only"
+    }
+  },
+  "triple_covered_tokens": 0,
+  "thesis_comparison": {
+    "reported_corpus_tokens": 70404829,
+    "reported_triple_covered_tokens": 23000000,
+    "reproduces_historical_counts": false,
+    "reason": "Direct-build tokenizer, sources, boundaries, and original adjudicated annotation records differ or remain unavailable."
+  },
+  "limitations": [
+    "Publisher categories are candidate filters; whole books are not verified story units.",
+    "The 80/10/10 ratios and hash seed are direct-build operational choices, not historical thesis split values.",
+    "DIA/MOTIF/MORAL outputs are empty templates; no labels or human adjudication are fabricated.",
+    "The script emits source-record ID lists and metadata; source text remains in its attributed input files."
+  ]
+}
