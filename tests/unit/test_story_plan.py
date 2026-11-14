@@ -113,3 +113,17 @@ def test_target_length_must_be_positive(settings, words):
     p.target_words = words
     with pytest.raises(ValueError, match="E-PLAN-TARGET-WORDS"):
         build_prompt(p, settings)
+
+
+def test_plan_without_events_or_characters_is_rejected(settings):
+    p = plan()
+    p.graph.events, p.graph.relations = [], []
+    assert "E-PLAN-EMPTY" in validate_plan(p, settings).codes()
+    p = plan()
+    p.graph.entities = [e for e in p.graph.entities if e.kind is not EntityKind.CHARACTER]
+    p.graph.events, p.graph.relations, p.graph.initial_knowledge = [], [], []
+    assert "E-PLAN-NO-CHARACTER" in validate_plan(p, settings).codes()
+    p = plan()
+    p.graph.events[1].gloss = None             # warning only: build_prompt falls back to the trigger
+    assert "W-PLAN-NO-GLOSS" in validate_plan(p, settings).codes()
+    assert "\n2. سأل" in build_prompt(p, settings)

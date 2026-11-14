@@ -348,7 +348,8 @@ def test_every_documented_error_code_is_exercised():
     documented = set(re.findall(r"\bE-[A-Z-]+[A-Z]\b", spec))
     tests = "".join((root / "tests" / "unit" / n).read_text(encoding="utf-8")
                     for n in ("test_event_graph.py", "test_story_plan.py"))
-    code = (root / "src" / "ansg" / "narrative" / "validation.py").read_text(encoding="utf-8")
+    code = "".join((root / "src" / "ansg" / "narrative" / n).read_text(encoding="utf-8")
+                   for n in ("validation.py", "plan.py"))         # §4.7 plan codes live in plan.py
     assert documented and all(c in code for c in documented)
     assert sorted(c for c in documented if c not in tests) == []
 
