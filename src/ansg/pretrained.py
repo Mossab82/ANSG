@@ -83,7 +83,7 @@ class PretrainedANSG(nn.Module):
         return states,head(states),out
 
     def forward(self,input_ids,schema_ids,dialect_ids=None,labels=None,attention_mask=None,schema_mask=None,
-                past_key_values=None,use_cache=False):
+                past_key_values=None,use_cache=False,dialect_compatibility_mask=None):
         # Issue #15: optional backbone KV cache for incremental generation. CSAM (token->schema
         # cross-attention) and DAL act per position, so the newest positions' outputs only need
         # the newest backbone hidden states.
@@ -98,7 +98,8 @@ class PretrainedANSG(nn.Module):
         cultural=self.from_cultural(self.csam(z,schema_ids,schema_mask=schema_mask)-z)
         schemas=self.csam.schema_embeddings(schema_ids)
         summary=(schemas * schema_mask.unsqueeze(-1).to(schemas.dtype)).sum(dim=1) / schema_mask.sum(dim=1,keepdim=True).clamp_min(1)
-        states=self.dal(original+self.cultural_gate*cultural,summary,dialect_ids,\n                        compatibility_mask=dialect_compatibility_mask)
+        states=self.dal(original+self.cultural_gate*cultural,summary,dialect_ids,
+                        compatibility_mask=dialect_compatibility_mask)
         delta=states-original
         head=self.backbone.get_output_embeddings()
         if isinstance(head,nn.Linear):
