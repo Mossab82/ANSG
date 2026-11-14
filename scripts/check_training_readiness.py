@@ -14,17 +14,17 @@ import sys
 import yaml
 
 
-REQUIRED_DECISIONS = (
-    "corpus_stage_mapping",
-    "backbone_and_checkpoint",
-    "tokenizer",
-    "csam_variant",
-    "schema_activation_variant",
-    "dal_projection_mapping",
-    "training_schedule",
-    "reward_variant",
-    "cmpi_definition",
-)
+ALLOWED_DECISIONS = {
+    "corpus_stage_mapping": {"chapter3_two_stage", "chapter5_three_stage"},
+    "backbone_and_checkpoint": {"ch4_gpt2_medium", "ch5_774m_base", "appendix_aragpt2_large"},
+    "tokenizer": {"standard_backbone_bpe", "sentencepiece_root_aware_32k"},
+    "csam_variant": {"eq_4_9_to_4_13", "section_4_3_6", "appendix_a25"},
+    "schema_activation_variant": {"eq_4_20_table_4_2", "appendix_a4"},
+    "dal_projection_mapping": {"generic_per_layer", "qv_projection", "gpt2_fused_c_attn"},
+    "training_schedule": {"table_4_1", "section_4_1_6", "chapter5_three_stage", "appendix_a26"},
+    "reward_variant": {"eq_4_26_to_4_29", "table_4_1", "section_5_6_3", "appendix_a3_a11"},
+    "cmpi_definition": {"owner_supplied_original", "new_operational_definition"},
+}
 UNRESOLVED = {"", "pending", "unresolved", "unknown", "choose", "tbd"}
 
 
@@ -69,10 +69,12 @@ def check_plan(plan_path, profile_path):
     if not isinstance(decisions, dict):
         blockers.append("decisions must be an object containing explicit thesis choices.")
         decisions = {}
-    for name in REQUIRED_DECISIONS:
+    for name, allowed in ALLOWED_DECISIONS.items():
         value = decisions.get(name)
-        if not isinstance(value, (str, int, float, bool)) or str(value).strip().lower() in UNRESOLVED:
+        if not isinstance(value, str) or value.strip().lower() in UNRESOLVED:
             blockers.append(f"Unresolved decision: {name}.")
+        elif value not in allowed:
+            blockers.append(f"Unsupported value for {name}: {value!r}; choose one of {sorted(allowed)}.")
 
     artifacts = plan.get("artifacts")
     if not isinstance(artifacts, list) or not artifacts:
@@ -125,7 +127,7 @@ def check_plan(plan_path, profile_path):
         "status": "blocked" if blockers else "preflight_ready_for_cultural_modules_sft",
         "run_kind": plan.get("run_kind"),
         "runner_scope": runner_scope,
-        "decisions_checked": list(REQUIRED_DECISIONS),
+        "decisions_checked": sorted(ALLOWED_DECISIONS),
         "artifact_roles_checked": sorted(roles),
         "blockers": blockers,
         "historical_reproduction": False,
