@@ -1,0 +1,101 @@
+{
+  "schema": "ansg.source_ingestion_report/1",
+  "built_utc": "2026-11-14T06:58:08.874302+00:00",
+  "dataset": "The Arabic E-Book Corpus",
+  "version": 1,
+  "dataset_doi": "https://doi.org/10.5878/7rbh-gy93",
+  "article_doi": "https://doi.org/10.1016/j.dib.2025.111456",
+  "license": "CC BY 4.0",
+  "archive_sha256": "e4f96ba66c92b3d01a328e2f20129f293f69c09e29d649f8117b685d0b903df3",
+  "metadata_sha256": "078a27624404c9ccb5163ff38d90e3580e6d2a5ce4c23e77c330d28a35d52189",
+  "archive_books": 1745,
+  "selected_candidates": 1388,
+  "materialized_records": 1388,
+  "missing_archive_files": [],
+  "scope_record_counts_nonexclusive": {
+    "narrative_core": 941,
+    "narrative_adjacent": 472,
+    "both": 25
+  },
+  "publisher_category_counts_nonexclusive": {
+    "literature": 287,
+    "detective.fiction": 169,
+    "travel.literature": 55,
+    "history": 326,
+    "geography": 6,
+    "science.fiction": 81,
+    "biographies": 124,
+    "novels": 178,
+    "children.stories": 167,
+    "plays": 88,
+    "poetry": 7,
+    "literary.criticism": 29,
+    "social.sciences": 15,
+    "philosophy": 22,
+    "science": 3,
+    "politics": 12,
+    "linguistics": 5,
+    "arts": 5,
+    "environmental.sciences": 1,
+    "economics": 3,
+    "psychology": 1
+  },
+  "period_record_counts": {
+    "modern_1800_2000": 1208,
+    "classical_pre_1800": 30,
+    "unknown": 147,
+    "contemporary_post_2000": 3
+  },
+  "translation_counts": {
+    "translated": 441,
+    "Arabic_original": 947
+  },
+  "metadata_reported_words": 62891124,
+  "observed_whitespace_words": 51567623,
+  "token_count": null,
+  "tokenizer": null,
+  "limitations": [
+    "publisher genres are candidate filters, not verified story-level segmentation",
+    "books remain unsegmented, unannotated, and unassigned to splits",
+    "this source is not a dialect corpus",
+    "do not equate word counts or the source catalogue token figure with the thesis tokenizer count"
+  ],
+  "scope_whitespace_word_counts_nonexclusive": {
+    "narrative_core": 25875270,
+    "narrative_adjacent": 26873329,
+    "both": 1180976
+  },
+  "category_whitespace_word_counts_nonexclusive": {
+    "literature": 12433315,
+    "detective.fiction": 3930204,
+    "travel.literature": 2888577,
+    "history": 20218929,
+    "geography": 372870,
+    "science.fiction": 877739,
+    "biographies": 5700556,
+    "novels": 7889620,
+    "children.stories": 1571088,
+    "plays": 1077647,
+    "poetry": 195142,
+    "literary.criticism": 1689423,
+    "social.sciences": 1122496,
+    "philosophy": 1121545,
+    "science": 261725,
+    "politics": 475452,
+    "linguistics": 162594,
+    "arts": 174938,
+    "environmental.sciences": 164487,
+    "economics": 28620,
+    "psychology": 59872
+  },
+  "period_whitespace_word_counts": {
+    "modern_1800_2000": 47757877,
+    "classical_pre_1800": 792825,
+    "unknown": 2874266,
+    "contemporary_post_2000": 142655
+  },
+  "translation_whitespace_word_counts": {
+    "translated": 13075759,
+    "Arabic_original": 38491864
+  }
+}
