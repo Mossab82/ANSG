@@ -80,10 +80,10 @@ sources:
     reported_volume: "Corpus-26: 2,000 seed sentences across 25 city dialects plus MSA; Corpus-6: 12,000 sentences across six varieties"
     dialects: 25_city_varieties
     content_type: translated_travel_domain_parallel_sentences; not narrative stories
-    role: dialect_identifier_training_or_evaluation_if_available_under_terms
+    role: external_dialect_evaluation_only; not narrative or story-count data
     license_status: internal_research_and_evaluation_only; no modification_or_redistribution
     access: official_registration_form_required
-    training_status: research_only_after_download_and_terms_acceptance
+    training_status: evaluation_only_after_access_and_terms_acceptance; use raw files without modification
     redistribution_status: prohibited
   - source_id: arabic-stories-corpus-mawdoo3-qisasse
     title: "Arabic Stories Corpus"
@@ -109,12 +109,12 @@ sources:
     article_doi: "https://doi.org/10.1016/j.dib.2025.111456"
     publisher_download: "https://open.doris.gu.snd.se/downloads/public/2024-145/1/data/corpus-txt.zip"
     license: "CC BY 4.0; source documentation states included works/translations are public domain or CC BY 4.0"
-    source_size: "1,745 books; 80.5 million reported words"
-    selection: [novels, detective.fiction, science.fiction, children.stories, plays, literature, history, biographies, travel.literature]
-    role: narrative_candidate_ingestion; candidate categories require story-boundary review
+    source_size: "1,745 books; 80.5 million reported words"\n    provider_native_statistics: {provider: Språkbanken Text, snapshot: 2025-09-12, tokens: 76486597, sentences: 3629107, license: "CC BY 4.0"}\n    provider_statistics_recomputed_locally: false
+    selection: [all_1745_for_full_genre_pool, novels, detective.fiction, science.fiction, children.stories, plays, literature, history, biographies, travel.literature]
+    role: full_genre_pool_and_narrative_candidate_ingestion; candidate categories require story-boundary review
     period: source_specific_from_original_publication_year
     dialect: mostly_edition_specific; not a dialect corpus
-    content_status: downloaded_and_materialized_1388_candidates; 1388_records_not_yet_story_segmented_or_annotated
+    content_status: all_1745_materialized; 1388 narrative_candidates_not_yet_story_segmented_or_annotated
     training_status: eligible_under_CC_BY_4.0_after_record_level_attribution_and_validation
     redistribution_status: CC_BY_4.0_attribution_required; retain_original_book_metadata
     acquisition: scripts/ingest_arabic_ebooks.py
