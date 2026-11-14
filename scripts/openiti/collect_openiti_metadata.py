@@ -245,7 +245,16 @@ def main(argv=None):
             targets.append({"work_key": work, **{k: r.get(k) for k in CATALOGUE_FIELDS}})
         elif kind == "related":
             related.append({k: r.get(k) for k in ("versionUri", "book", "status", "title_ar", "tok_length", "url")})
-    evidence["kitab_catalogue"] = {**cat_meta, "target_rows": targets, "related_rows_not_targets": related}
+    # All catalogue versions derived from Hindawi books: the ANHC direct build already
+    # holds Hindawi books (Arabic E-Book Corpus), so these are potential duplicates.
+    hindawi = []
+    for r in rows:
+        m = re.search(r"\.Hindawi0*(\d+)-", r.get("versionUri", ""))
+        if m:
+            hindawi.append({"versionUri": r["versionUri"], "hindawi_id": m.group(1), "status": r.get("status"),
+                            "tok_length": r.get("tok_length")})
+    evidence["kitab_catalogue"] = {**cat_meta, "target_rows": targets, "related_rows_not_targets": related,
+                                   "hindawi_derived_versions": hindawi}
 
     books = {}
     for t in targets:
