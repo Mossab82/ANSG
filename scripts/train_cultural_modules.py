@@ -107,13 +107,30 @@ def main(argv=None):
     from ansg.generation.cultural import load_example_rows, save_cultural_modules, train_cultural_modules
     from ansg.generation.runtime import GenerationError, build_cultural, load_backbone, resolve_device
     import torch
+
+    def verify_real_training_inputs():
+        if authorization_hash is None:
+            return
+        try:
+            current_authorization_hash = validate_real_data_authorization(
+                args.authorization_manifest, args.examples, args.schema_vocabulary
+            )
+        except ValueError as exc:
+            raise GenerationError(str(exc)) from exc
+        if current_authorization_hash != authorization_hash:
+            raise GenerationError("authorization manifest changed after preflight")
+        if sha256_file(args.run_plan) != run_plan_hash or sha256_file(args.profile) != profile_hash:
+            raise GenerationError("run plan or operational profile changed after preflight")
+
     try:
         device = resolve_device(args.device)
         backbone = load_backbone(args.backbone, expected_digest=args.backbone_sha256,
                                  allow_unverified=args.allow_unverified_backbone, device=device, dtype=torch.float32)
+        verify_real_training_inputs()
         cultural = build_cultural(backbone, schema_vocabulary=args.schema_vocabulary, checkpoint=None,
                                   init_seed=args.seed)
         rows = load_example_rows(args.examples, cultural.schema_vocabulary.schema_count)
+        verify_real_training_inputs()
         record = train_cultural_modules(cultural, backbone, rows, steps=args.steps, lr=args.lr,
                                         batch_size=args.batch_size, max_length=args.max_length, seed=args.seed)
         record["backbone_hash_verified"] = backbone.hash_verified
@@ -126,7 +143,7 @@ def main(argv=None):
         manifest = save_cultural_modules(cultural, backbone, args.output, training=record, data_kind=args.data_kind,
                                          data_files={"examples": args.examples,
                                                      "schema_vocabulary": args.schema_vocabulary})
-    except GenerationError as exc:
+    except (GenerationError, ValueError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
     summary = {"output": args.output, "data_kind": args.data_kind, "steps": args.steps,
