@@ -43,55 +43,53 @@ def save_json(name, value):
 def sha(text):
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
-def fetch_night(n):
-    """Fetch *rendered* MediaWiki text; wikitext contains transclusion tags, not story prose."""
-    from bs4 import BeautifulSoup
-    from urllib.parse import quote
-    page = TITLE_PREFIX + str(n)
-    params = urlencode({"action": "parse", "page": page, "prop": "text",
-                        "format": "json", "formatversion": 2, "redirects": 1})
-    req = Request(SOURCE + "?" + params, headers={
-        "User-Agent": "ANSGResearchPilot/0.2 (research; https://github.com/Mossab82/ANSG)",
-        "Accept": "application/json"})
-    for attempt in range(3):
-        try:
-            with urlopen(req, timeout=35) as response:
-                item = json.load(response)
-            if "error" in item:
-                raise RuntimeError(f"MediaWiki error for night {n} ({page}): {item['error']}")
-            rendered = item["parse"]["text"]
-            if isinstance(rendered, dict):
-                rendered = rendered["*"]
-            soup = BeautifulSoup(rendered, "html.parser")
-            root = soup.select_one(".mw-parser-output") or soup
-            # Remove interface/chapter navigation and citation notes; retain actual text.
-            for tag in root.select("script, style, .mw-editsection, .reference, .noprint, .ws-noexport, .toc"):
-                tag.decompose()
-            paragraphs = [p.get_text(" ", strip=True) for p in root.select("p")]
-            paragraphs = [p for p in paragraphs if len(p) >= 30]
-            text = " ".join(paragraphs) if paragraphs else root.get_text(" ", strip=True)
-            text = re.sub(r"\s+", " ", text).strip()
-            arabic_count = sum('\u0600' <= c <= '\u06ff' for c in text)
-            diagnostics = {"night": n, "characters": len(text),
-                           "arabic_characters": arabic_count, "paragraphs": len(paragraphs),
-                           "page": page, "parse_method": "MediaWiki_rendered_html"}
-            print("Source validation:", json.dumps(diagnostics, ensure_ascii=False), flush=True)
-            if len(text) < 200 or arabic_count < 100:
-                raise ValueError(f"night {n}: rendered source too short: "
-                                 f"characters={len(text)}, Arabic={arabic_count}, page={page}")
-            return {"night": n, "title": page,
-                    "url": "https://ar.wikisource.org/wiki/" + quote(page.replace(" ", "_"), safe="/"),
-                    "text": text, "sha256": sha(text), "characters": len(text),
-                    "parse_method": "MediaWiki_rendered_html", "arabic_characters": arabic_count}
-        except (ValueError, RuntimeError):
-            # Deterministic page and content errors do not improve on retry.
-            raise
-        except Exception as exc:
-            print(f"night {n} download attempt {attempt+1} failed: {type(exc).__name__}: {exc}",
-                  flush=True)
-            if attempt == 2:
-                raise RuntimeError(f"night {n} source request failed after 3 attempts: {exc}") from exc
-            time.sleep(2 * (attempt + 1))
+# Frozen, already-extracted text corpus from Github Actions #43561547592.
+# The commit is immutable, preventing accidental replacement of the training set.
+CORPUS_COMMIT = "da54c488c9e94d049b5ed38b28a3d8005aac88f7"
+CORPUS_URL = ("https://raw.githubusercontent.com/Mossab82/ANSG/"
+              + CORPUS_COMMIT + "/data/corpora/classical_arabic/stories.jsonl")
+TRAIN_IDS = {"arabian_nights-001", "arabian_nights-002", "arabian_nights-003",
+             "arabian_nights-004", "kalila_dimna-006", "kalila_dimna-007",
+             "kalila_dimna-008", "kalila_dimna-009", "kalila_dimna-010",
+             "kalila_dimna-011", "kalila_dimna-012", "kalila_dimna-013",
+             "kalila_dimna-014", "kalila_dimna-017"}
+VALIDATION_IDS = {"kalila_dimna-015", "kalila_dimna-016", "kalila_dimna-018"}
+TEST_IDS = {"kalila_dimna-019", "kalila_dimna-020"}
+EXCLUDED_IDS = {"arabian_nights-005"}  # Sinbad likely overlaps the 4 anthology parts.
+
+def load_verified_corpus():
+    """Load a frozen historical text corpus; verify bytes, IDs and page-level groups."""
+    req=Request(CORPUS_URL,headers={
+        "User-Agent":"ANSGResearchPilot/0.3 (https://github.com/Mossab82/ANSG)",
+        "Accept":"text/plain"})
+    with urlopen(req,timeout=90) as res:
+        raw=res.read()
+    rows=[json.loads(line) for line in raw.decode("utf-8").splitlines() if line.strip()]
+    expected=TRAIN_IDS|VALIDATION_IDS|TEST_IDS|EXCLUDED_IDS
+    if {r["id"] for r in rows}!=expected or len(rows)!=len(expected):
+        raise ValueError("Source corpus ids changed or duplicates detected")
+    if sum(r["word_count"] for r in rows)!=195197:
+        raise ValueError("Corpus is not the reviewed 195197-word revision")
+    for r in rows:
+        if sha(r["text"])!=r["sha256"]:
+            raise ValueError("Source SHA mismatch: "+r["id"])
+    splits={"train":[r for r in rows if r["id"] in TRAIN_IDS],
+            "validation":[r for r in rows if r["id"] in VALIDATION_IDS],
+            "test":[r for r in rows if r["id"] in TEST_IDS]}
+    if min(len(x) for x in splits.values())<2:
+        raise ValueError("Insufficient distinct chapter/cycle groups")
+    save_json("source_manifest.json",{
+        "corpus_source":CORPUS_URL,
+        "source_git_commit":CORPUS_COMMIT,
+        "record_count":len(rows),
+        "source_ids":{k:[r["id"] for r in v] for k,v in splits.items()},
+        "excluded":sorted(EXCLUDED_IDS),
+        "pages":[{k:v for k,v in r.items() if k!="text"} for r in rows],
+        "download_utc":datetime.now(timezone.utc).isoformat(),
+        "license_notice":"Only ancient narratives and Wikisource editions; verify exact page licenses and jurisdiction prior to reuse/publication",
+        "research_scope":"Experimental heritage-text LoRA pilot only, NOT dissertation ANHC/CKG/CSAM/DAL."
+    })
+    return splits
 
 def byte_arabic_ratio(s):
     letters=[c for c in s if c.isalpha()]
@@ -147,33 +145,25 @@ def main():
     device_name=torch.cuda.get_device_name(0)
     if MAX_STEPS<1 or MAX_STEPS>300:
         raise ValueError("ANSG_MAX_STEPS must be 1..300")
-    sources=[]
-    for n in TRAIN_NIGHTS+EVAL_NIGHTS:
-        sources.append(fetch_night(n))
-        save_json("source_fetch_progress.json", [{"night":r["night"],"sha256":r["sha256"],"characters":r["characters"],"arabic_characters":r["arabic_characters"]} for r in sources])
-    train_src=[r for r in sources if r["night"] in TRAIN_NIGHTS]
-    eval_src=[r for r in sources if r["night"] in EVAL_NIGHTS]
-    assert set(r["sha256"] for r in train_src).isdisjoint(set(r["sha256"] for r in eval_src))
-    save_json("source_manifest.json",{
-        "collection":"One Thousand and One Nights, Hindawi 2022 digital text on Arabic Wikisource",
-        "license_notes":"Underlying original text described as public domain; attribute Hindawi edition/Wikisource, obey platform and edition terms",
-        "source_api":SOURCE,"train_nights":TRAIN_NIGHTS,"heldout_nights":EVAL_NIGHTS,
-        "pages":[{k:v for k,v in r.items() if k!="text"} for r in sources],
-        "download_utc":datetime.now(timezone.utc).isoformat()
-    })
+    splits=load_verified_corpus()
+    train_src=splits["train"]
+    eval_src=splits["validation"]
+    test_src=splits["test"]
     tokenizer=AutoTokenizer.from_pretrained(MODEL,trust_remote_code=False)
     if tokenizer.pad_token_id is None:
         tokenizer.pad_token=tokenizer.eos_token
     train=chunks(train_src,tokenizer)
     heldout=chunks(eval_src,tokenizer)
-    if len(train)<30 or len(heldout)<5:
+    test_chunks=chunks(test_src,tokenizer)
+    if len(train)<30 or len(heldout)<3 or len(test_chunks)<2:
         raise RuntimeError("Not enough train and later-night diagnostic chunks")
     save_json("data_report.json",{
         "train_chunks":len(train),"heldout_chunks":len(heldout),
-        "train_nights":TRAIN_NIGHTS,"heldout_nights":EVAL_NIGHTS,
+        "train_source_ids":sorted(TRAIN_IDS),"validation_source_ids":sorted(VALIDATION_IDS),
+        "test_source_ids":sorted(TEST_IDS),"excluded_source_ids":sorted(EXCLUDED_IDS),
         "tokenizer":MODEL,"context_tokens":MAX_LENGTH,
-        "note":"Only heritage narrative text; no gold event/dialect labels. Night-split continuation diagnostic; story-level leakage risk. No quality claims.",
-        "split_integrity":"NOT_VERIFIED_INDEPENDENT_STORIES",
+        "note":"Real Arabic historical text; chapters/cycles grouped by source, no gold event/dialect labels. Holdout genre differs from main Nights training distribution.",
+        "split_integrity":"PAGE_CYCLE_GROUPED_NOT_FULLY_NESTED_STORY_AUDITED",
     })
     model=AutoModelForCausalLM.from_pretrained(
         MODEL,torch_dtype=torch.float16,device_map={"":0},trust_remote_code=False)
@@ -205,8 +195,8 @@ def main():
 
     baseline_loss=eval_loss()
     save_json("baseline_metrics.json",{"heldout_ce_loss":baseline_loss,
-        "heldout_selection":"first 24 chunks of later nights; NOT story-independent",
-        "evaluation_warning":"Same nested tale may span train and heldout nights; CE is a CONTAMINATED continuation diagnostic, not generalization.",
+        "heldout_selection":"first 24 chunks of Kalila validation chapter groups",
+        "evaluation_warning":"Grouped by source chapter/cycle; nested sub-story overlaps and shared frame formulae not independently audited. Domain differs from Arabian Nights.",
         "sample_prompts":list(PROMPTS),"performance_claim":"none"})
     rng=random.Random(SEED)
     started=time.monotonic()
@@ -261,12 +251,14 @@ def main():
         "trained_neuro_symbolic_ANSG":False,
         "trained_CSAM_DAL":False,"trained_dialect_data":False,
         "dataset_kind":"real_heritage_text_no_gold_event_dialect_labels",
-        "evaluation_split":"night-based continuation diagnostic; cross-night story leakage likely; NOT a story-independent held-out evaluation",
+        "evaluation_split":"source-page/cycle grouped Kalila validation; separate untouched Kalila test; nested overlap not fully audited",
         "steps_finished":len(history),"minutes_elapsed":round((time.monotonic()-started)/60,2),
         "baseline_heldout_loss":round(baseline_loss,5),
         "best_heldout_loss":round(best,5),
         "last_heldout_loss":next((x["heldout_ce_loss"] for x in reversed(history) if "heldout_ce_loss" in x),None),
         "gpu":device_name,"train_chunks":len(train),"heldout_chunks":len(heldout),
+        "test_chunks_reserved_not_used_for_selection":len(test_chunks),
+        "source_git_commit":CORPUS_COMMIT,
         "quality_validation":"Not validated. Human evaluation of Arabic fluency, culture, dialect and plot required.",
         "automated_quality_checks":"Arabic letter ratio, trigram repetition only; NOT equivalent to CRAFT.",
         "sample_count_before":len(before),"sample_count_after":len(after),
