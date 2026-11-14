@@ -1,0 +1,67 @@
+name: OpenITI metadata evidence (metadata only)
+
+# Collects OpenITI catalogue/release metadata and text fingerprints for the
+# thesis's classical adab works (Maqamat al-Hariri, Kitab al-Aghani, al-Jahiz).
+# CPU only. No release archive is downloaded, no text is written or committed,
+# no training runs. The evidence JSON is committed back to this branch.
+
+on:
+  push:
+    branches: [data/openiti-heritage-audit]
+    paths:
+      - scripts/openiti/collect_openiti_metadata.py
+      - .github/workflows/openiti-metadata-evidence.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Collect metadata and fingerprints (stdlib only)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/openiti/collect_openiti_metadata.py --out data/sources/openiti/openiti_metadata_evidence.json
+      - name: Show summary
+        run: |
+          python - <<'EOF'
+          import json
+          e = json.load(open("data/sources/openiti/openiti_metadata_evidence.json", encoding="utf-8"))
+          z = e["zenodo"]
+          print("zenodo ok:", z["ok"], z.get("error", ""))
+          if z["ok"]:
+              for r in z["value"]["releases"][:5]:
+                  print(" ", r["version"], r["doi"], r["publication_date"], r["license"], [(f["key"], f["size"]) for f in r["files"]][:3])
+          rr = e["release_repository"]
+          print("release repo ok:", rr["ok"], rr.get("error", ""))
+          if rr["ok"]:
+              for i in rr["value"]["inspected"]:
+                  print(" ", i["tag"], [m["name"] for m in i.get("metadata_files", [])], (i.get("metadata_csv") or {}).get("rows"))
+          k = e["kitab_catalogue"]
+          print("kitab:", k.get("commit"), k.get("sha256"), len(k.get("target_rows", [])))
+          for b, v in e.get("books", {}).items():
+              if not v["ok"]:
+                  print("FAILED", b, v["error"])
+          EOF
+      - name: Commit evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/sources/openiti/openiti_metadata_evidence.json
+          if git diff --cached --quiet; then echo "no change"; exit 0; fi
+          git commit -m "Record OpenITI metadata evidence (CI run ${GITHUB_RUN_ID})"
+          for i in 1 2 3; do git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 5; done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: openiti-metadata-evidence
+          path: data/sources/openiti/openiti_metadata_evidence.json
