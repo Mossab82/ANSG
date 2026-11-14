@@ -10,9 +10,10 @@ sources:
     official_url: https://camel.abudhabi.nyu.edu/madar-parallel-corpus/
     thesis_role:
       - positioned_as_a_large_dialectal_resource_in_chapter_3_table_3_1
+      - CNN_DIA_classifier_reported_at_94.3_percent_accuracy_on_MADAR_benchmark_in_Chapter_5_section_5_4_1
       - cited_for_dialectal_adaptation_and_DIA_support
       - relevant_to_the_multisource_dialect_design_of_ANHC
-    direct_build_role: dialectal_parallel_supervision_or_reference_after_access_and_terms_review
+    direct_build_role: reproduce_DIA_benchmark_or_dialectal_supervision_after_access_and_terms_review
     coverage: 25 city dialects plus MSA; includes Amman and Salt
     source_domain: translated Basic Traveling Expression Corpus travel sentences
     releases:
