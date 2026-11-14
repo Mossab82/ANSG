@@ -12,6 +12,7 @@ import re
 import sys
 
 import yaml
+from training_authorization import validate_real_data_authorization
 
 
 ALLOWED_DECISIONS = {
@@ -108,6 +109,29 @@ def check_plan(plan_path, profile_path):
         if item.get("training_allowed") is not True:
             blockers.append(f"Training permission is not approved for role {role}.")
 
+    data_kind = plan.get("data_kind")
+    if data_kind not in {"synthetic", "real"}:
+        blockers.append("data_kind must explicitly be synthetic or real.")
+    elif data_kind == "real":
+        by_role = {item.get("role"): item for item in artifacts if isinstance(item, dict)}
+        examples = by_role.get("licensed_training_examples", {}).get("path")
+        vocabulary = by_role.get("schema_vocabulary", {}).get("path")
+        manifest_path = plan.get("authorization_manifest")
+        manifest_hash = plan.get("authorization_manifest_sha256")
+        if not manifest_path or not os.path.isfile(manifest_path):
+            blockers.append("Real-data training requires an existing authorization_manifest.")
+        if not isinstance(manifest_hash, str) or not re.fullmatch(r"[0-9a-fA-F]{64}", manifest_hash):
+            blockers.append("Real-data training requires authorization_manifest_sha256.")
+        elif manifest_path and os.path.isfile(manifest_path):
+            try:
+                actual_manifest_hash = sha256_file(manifest_path)
+                if actual_manifest_hash != manifest_hash.lower():
+                    blockers.append("Authorization manifest SHA-256 does not match the run plan.")
+                if examples and vocabulary:
+                    validate_real_data_authorization(manifest_path, examples, vocabulary)
+            except (OSError, ValueError) as exc:
+                blockers.append(f"Real-data authorization check failed: {exc}.")
+
     # A successful preflight is not sufficient to start the thesis's three-stage run.
     # Current code has isolated update primitives and a stage-1 cultural fine-tuner only.
     runner_scope = plan.get("runner_scope")
@@ -134,6 +158,7 @@ def check_plan(plan_path, profile_path):
         "status": "blocked" if blockers else "preflight_ready_for_cultural_modules_sft",
         "run_kind": plan.get("run_kind"),
         "runner_scope": runner_scope,
+        "data_kind": data_kind,
         "decisions_checked": sorted(ALLOWED_DECISIONS),
         "artifact_roles_checked": sorted(roles),
         "blockers": blockers,
