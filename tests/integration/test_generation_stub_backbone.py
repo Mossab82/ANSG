@@ -158,9 +158,30 @@ def test_backbone_only_label_on_declared_real_stub(declared_real, tmp_path, caps
 
 
 # ----------------------------------------------------------------- cultural modules
+def test_untrained_bridge_reproduces_the_backbone_exactly(declared_real, schema):
+    """Bridge v2: attaching untrained CSAM/DAL must not change the pretrained distribution."""
+    bb = load_backbone(declared_real, device=CPU, dtype=torch.float32)
+    cult = build_cultural(bb, schema_vocabulary=schema["vocab"], checkpoint=None, init_seed=3)
+    ids = torch.tensor([bb.tokenizer(PROMPT)["input_ids"]])
+    with torch.no_grad():
+        plain = bb.model(ids).logits
+        for sid, dia in ((torch.tensor([[schema["node_id"]]]), torch.tensor([1])),
+                         (torch.tensor([[0]]), None)):
+            bridged = cult.model(ids, sid, dia)["logits"]
+            assert torch.equal(bridged, plain)
+
+
+def _activate(cult):
+    """Give the modules non-trivial weights (as training would) so the bridge is not a no-op."""
+    with torch.no_grad():
+        cult.model.cultural_gate.fill_(0.5)
+        cult.model.dal.up.normal_(std=0.05)
+
+
 def test_kv_cache_matches_full_forward(declared_real, schema):
     bb = load_backbone(declared_real, device=CPU, dtype=torch.float32)
     cult = build_cultural(bb, schema_vocabulary=schema["vocab"], checkpoint=None, init_seed=3)
+    _activate(cult)
     ids = torch.tensor([bb.tokenizer(PROMPT)["input_ids"]])
     sid = torch.tensor([[schema["node_id"]]])
     dia = torch.tensor([1])
@@ -170,7 +191,17 @@ def test_kv_cache_matches_full_forward(declared_real, schema):
         step = cult.model(ids[:, -1:], sid, dia, past_key_values=first["past_key_values"], use_cache=True)
         plain = bb.model(ids).logits[0, -1]
     torch.testing.assert_close(step["logits"][0, -1], full, rtol=1e-4, atol=1e-4)
-    assert not torch.allclose(full, plain)  # untrained modules change the output: they are not a no-op
+    assert not torch.allclose(full, plain)  # active modules do change the distribution
+
+
+def test_cultural_gate_receives_gradient_at_initialisation(declared_real, schema):
+    bb = load_backbone(declared_real, device=CPU, dtype=torch.float32)
+    cult = build_cultural(bb, schema_vocabulary=schema["vocab"], checkpoint=None, init_seed=3)
+    ids = torch.tensor([bb.tokenizer(PROMPT)["input_ids"]])
+    out = cult.model(ids, torch.tensor([[schema["node_id"]]]), torch.tensor([2]), labels=ids)
+    out["loss"].backward()
+    assert cult.model.cultural_gate.grad is not None and cult.model.cultural_gate.grad.abs() > 0
+    assert cult.model.dal.up.grad.abs().sum() > 0
 
 
 def test_untrained_cultural_modules_are_labelled_untrained(declared_real, schema, tmp_path, capsys):
@@ -269,3 +300,52 @@ def test_generation_opens_no_network_connection(stub, tmp_path):
                          env={k: v for k, v in __import__("os").environ.items() if not k.startswith("HF_")})
     result = json.loads(out.stdout.strip().splitlines()[-1])
     assert result == {"rc": 0, "events": []}
+
+
+# ----------------------------------------------------------------- plans and chat templates
+def _plan_file(tmp_path, *, coherent=True):
+    from ansg.narrative.events import Entity, EntityKind, Event, EventGraph, Modality, Participant, Proposition, \
+        Relation, RelationKind
+    from ansg.narrative.plan import StoryPlan
+    ents = [Entity("a", "سالم", EntityKind.CHARACTER, "protagonist"), Entity("box", "صندوق", EntityKind.OBJECT)]
+    evs = [Event("p1", "وجد", None, 0, [Participant("Agent", "a"), Participant("Theme", "box")], Modality.PLANNED,
+                 gloss="سالم يجد صندوقًا", effects=[Proposition("has", ("a", "box"))]),
+           Event("p2", "فتح", None, 1, [Participant("Agent", "a"), Participant("Patient", "box")], Modality.PLANNED,
+                 gloss="سالم يفتح الصندوق", preconditions=[Proposition("has", ("a", "box"))])]
+    rels = [Relation(RelationKind.ENABLES, "p1", "p2") if coherent else Relation(RelationKind.BEFORE, "p2", "p1")]
+    path = tmp_path / ("plan.json" if coherent else "bad_plan.json")
+    path.write_text(json.dumps(StoryPlan("aqaba", "الصندوق", EventGraph("plan", None, ents, evs, rels)).to_dict(),
+                               ensure_ascii=False), encoding="utf-8")
+    return path
+
+
+def test_generation_from_a_validated_plan(tmp_path, capsys):
+    stub = tmp_path / "long_stub"
+    make_stub_backbone(stub, seed=0, context=1024)   # the rendered plan prompt is long in byte-level BPE
+    out = tmp_path / "plan_gen.json"
+    rc, _, err = run(["--backbone", str(stub), "--plan", str(_plan_file(tmp_path)), "--max-new-tokens", "4",
+                      "--device", "cpu", "--output", str(out)], capsys)
+    assert rc == 0, err
+    rec = json.loads(out.read_text(encoding="utf-8"))
+    assert rec["plan"]["setting"] == "aqaba" and rec["plan"]["validation"]["errors"] == 0
+    assert "العقبة" in rec["prompt"]["text"] and rec["label"]["mode"] == "synthetic_stub"
+    rc, _, err = run(["--backbone", str(stub), "--plan", str(_plan_file(tmp_path, coherent=False)),
+                      "--max-new-tokens", "4", "--device", "cpu"], capsys)
+    assert rc == 2 and "E-PRECONDITION-NOT-ESTABLISHED" in err   # opens the box before finding it
+
+
+def test_chat_template_is_explicit_and_recorded(stub, tmp_path, capsys):
+    rc, _, err = run(["--backbone", str(stub), "--prompt", PROMPT, "--chat-template", "--device", "cpu"], capsys)
+    assert rc == 2 and "no chat template" in err
+    rc, _, err = run(["--backbone", str(stub), "--prompt", PROMPT, "--system-prompt", "x", "--device", "cpu",
+                      "--max-new-tokens", "3"], capsys)
+    assert rc == 2 and "requires --chat-template" in err
+    copy = tmp_path / "chat_stub"
+    shutil.copytree(stub, copy)
+    cfg = json.loads((copy / "tokenizer_config.json").read_text(encoding="utf-8"))
+    cfg["chat_template"] = "{% for m in messages %}[{{ m['role'] }}] {{ m['content'] }}\n{% endfor %}[assistant] "
+    (copy / "tokenizer_config.json").write_text(json.dumps(cfg, ensure_ascii=False), encoding="utf-8")
+    rec, _ = gen(copy, tmp_path, capsys, "--chat-template", "--system-prompt", "أنت راوٍ عربي",
+                 "--backbone-sha256", digest_of(file_inventory(copy)), "--max-new-tokens", "4", name="chat.json")
+    assert rec["prompt"]["chat_template"] is True and rec["prompt"]["system_prompt"] == "أنت راوٍ عربي"
+    assert rec["prompt"]["tokenizer_roundtrip_exact"] is True

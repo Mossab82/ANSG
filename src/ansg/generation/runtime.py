@@ -360,6 +360,9 @@ class GenerationRequest:
     schema_vocabulary: str | None = None
     schema_nodes: tuple[str, ...] = ()
     dialect: str | None = None
+    chat_template: bool = False          # wrap the prompt with the tokenizer's chat template (instruct models)
+    system_prompt: str | None = None
+    plan: dict | None = None             # provenance block of a story plan the prompt was built from
 
 
 def _software() -> dict:
@@ -388,11 +391,25 @@ def run_generation(req: GenerationRequest) -> dict:
     backbone = load_backbone(req.backbone, expected_digest=req.backbone_sha256,
                              allow_unverified=req.allow_unverified_backbone, device=device, dtype=dtype)
     tok = backbone.tokenizer
-    prompt_ids = tok(prompt, add_special_tokens=True)["input_ids"]
+    model_input = prompt
+    if req.chat_template:
+        if not getattr(tok, "chat_template", None):
+            raise GenerationError("--chat-template requested but the tokenizer defines no chat template")
+        messages = ([{"role": "system", "content": req.system_prompt}] if req.system_prompt else []) + \
+            [{"role": "user", "content": prompt}]
+        model_input = tok.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+        prompt_ids = tok(model_input, add_special_tokens=False)["input_ids"]
+        prompt_info.update(chat_template=True, system_prompt=req.system_prompt,
+                           model_input_sha256=sha256_text(model_input))
+    elif req.system_prompt:
+        raise GenerationError("--system-prompt requires --chat-template")
+    else:
+        prompt_ids = tok(prompt, add_special_tokens=True)["input_ids"]
+        prompt_info.update(chat_template=False)
     if not prompt_ids:
         raise GenerationError("prompt produced no tokens")
-    roundtrip = tok.decode(prompt_ids, skip_special_tokens=True, clean_up_tokenization_spaces=False)
-    prompt_info.update(n_tokens=len(prompt_ids), tokenizer_roundtrip_exact=(roundtrip == prompt))
+    roundtrip = tok.decode(prompt_ids, skip_special_tokens=not req.chat_template, clean_up_tokenization_spaces=False)
+    prompt_info.update(n_tokens=len(prompt_ids), tokenizer_roundtrip_exact=(roundtrip == model_input))
     max_pos = backbone.info["config"].get("max_positions")
     if max_pos and len(prompt_ids) + cfg.max_new_tokens > max_pos:
         raise GenerationError(f"prompt ({len(prompt_ids)} tokens) + max_new_tokens ({cfg.max_new_tokens}) "
@@ -486,6 +503,7 @@ def run_generation(req: GenerationRequest) -> dict:
                       "eos_token_id": eos},
         "cultural_modules": cultural_block,
         "prompt": prompt_info,
+        "plan": req.plan,
         "samples": samples,
         "timing_seconds": {"load": round(backbone.load_seconds, 3), "generate": round(gen_seconds, 3)},
         "notice": "Generated text only. No CRAFT/CMPI metric is computed and nothing here reproduces "
