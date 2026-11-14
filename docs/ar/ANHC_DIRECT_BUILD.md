@@ -6,6 +6,10 @@ This workstream collects narrative texts and annotations directly from identifie
 
 The dissertation reports 70.4 million tokens, 23 million tri-layer-annotated tokens, five Arabic varieties, and period totals of 24.6M / 18.3M / 27.5M. Those figures are recorded as validation targets only. The build reports measured totals from pinned source files and a pinned tokenizer; it never pads, trims, or fabricates text to hit the targets.
 
+## Counting, annotation and splits
+
+The operational target protocol is documented in [ANHC_RELEASE_PROTOCOL.md](ANHC_RELEASE_PROTOCOL.md), with the machine-readable rules in [`anhc_release_protocol.yaml`](../../configs/data/anhc_release_protocol.yaml) and the span-level record contract in [`anhc_annotation.schema.json`](../../configs/data/anhc_annotation.schema.json). The dissertation contains conflicts in tokenizer identity, narrative totals, annotation inventories, and split parameters; these remain visible in the conflict register and are not silently resolved as historical facts.
+
 ## Intake groups
 
 1. **Classical stories and animal fables:** begin with identified editions of *Alf Layla wa-Layla* and *Kalila wa-Dimna*. Discover page order from the source index and pin every page revision. Page availability alone does not establish the edition's training or redistribution rights; human review is required before either use.
