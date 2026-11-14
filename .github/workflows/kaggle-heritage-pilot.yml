@@ -5,8 +5,7 @@ on:
   push:
     branches: [master]
     paths:
-      - 'kaggle/heritage/**'
-      - '.github/workflows/kaggle-heritage-pilot.yml'
+      - 'kaggle/heritage/TRIGGER_20261114.txt'
 
 permissions:
   contents: read

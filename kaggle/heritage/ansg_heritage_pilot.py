@@ -44,31 +44,54 @@ def sha(text):
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 def fetch_night(n):
+    """Fetch *rendered* MediaWiki text; wikitext contains transclusion tags, not story prose."""
+    from bs4 import BeautifulSoup
+    from urllib.parse import quote
     page = TITLE_PREFIX + str(n)
-    params = urlencode({"action":"parse","page":page,"prop":"wikitext",
-                        "format":"json","formatversion":2})
+    params = urlencode({"action": "parse", "page": page, "prop": "text",
+                        "format": "json", "formatversion": 2, "redirects": 1})
     req = Request(SOURCE + "?" + params, headers={
-        "User-Agent": "ANSGResearchPilot/0.1 (research; https://github.com/Mossab82/ANSG)",
+        "User-Agent": "ANSGResearchPilot/0.2 (research; https://github.com/Mossab82/ANSG)",
         "Accept": "application/json"})
     for attempt in range(3):
         try:
             with urlopen(req, timeout=35) as response:
-                item=json.load(response)
+                item = json.load(response)
             if "error" in item:
-                raise RuntimeError(str(item["error"]))
-            markup=item["parse"]["wikitext"]
-            if isinstance(markup,dict):
-                markup=markup["*"]
-            import mwparserfromhell
-            text=mwparserfromhell.parse(markup).strip_code(normalize=True,collapse=True)
-            text=re.sub(r"\s+", " ", text).strip()
-            if len(text)<200 or sum('\u0600'<=c<='\u06ff' for c in text)<100:
-                raise ValueError("Page has insufficient Arabic narrative text")
-            return {"night":n,"title":page,"url":"https://ar.wikisource.org/wiki/"+page.replace(" ","_"),
-                    "text":text,"sha256":sha(text),"characters":len(text)}
-        except Exception:
-            if attempt==2: raise
-            time.sleep(2*(attempt+1))
+                raise RuntimeError(f"MediaWiki error for night {n} ({page}): {item['error']}")
+            rendered = item["parse"]["text"]
+            if isinstance(rendered, dict):
+                rendered = rendered["*"]
+            soup = BeautifulSoup(rendered, "html.parser")
+            root = soup.select_one(".mw-parser-output") or soup
+            # Remove interface/chapter navigation and citation notes; retain actual text.
+            for tag in root.select("script, style, .mw-editsection, .reference, .noprint, .ws-noexport, .toc"):
+                tag.decompose()
+            paragraphs = [p.get_text(" ", strip=True) for p in root.select("p")]
+            paragraphs = [p for p in paragraphs if len(p) >= 30]
+            text = " ".join(paragraphs) if paragraphs else root.get_text(" ", strip=True)
+            text = re.sub(r"\s+", " ", text).strip()
+            arabic_count = sum('\u0600' <= c <= '\u06ff' for c in text)
+            diagnostics = {"night": n, "characters": len(text),
+                           "arabic_characters": arabic_count, "paragraphs": len(paragraphs),
+                           "page": page, "parse_method": "MediaWiki_rendered_html"}
+            print("Source validation:", json.dumps(diagnostics, ensure_ascii=False), flush=True)
+            if len(text) < 200 or arabic_count < 100:
+                raise ValueError(f"night {n}: rendered source too short: "
+                                 f"characters={len(text)}, Arabic={arabic_count}, page={page}")
+            return {"night": n, "title": page,
+                    "url": "https://ar.wikisource.org/wiki/" + quote(page.replace(" ", "_"), safe="/"),
+                    "text": text, "sha256": sha(text), "characters": len(text),
+                    "parse_method": "MediaWiki_rendered_html", "arabic_characters": arabic_count}
+        except (ValueError, RuntimeError):
+            # Deterministic page and content errors do not improve on retry.
+            raise
+        except Exception as exc:
+            print(f"night {n} download attempt {attempt+1} failed: {type(exc).__name__}: {exc}",
+                  flush=True)
+            if attempt == 2:
+                raise RuntimeError(f"night {n} source request failed after 3 attempts: {exc}") from exc
+            time.sleep(2 * (attempt + 1))
 
 def byte_arabic_ratio(s):
     letters=[c for c in s if c.isalpha()]
@@ -112,7 +135,7 @@ def main():
     # Kaggle notebooks may lack PEFT and MediaWiki parsing packages by default.
     subprocess.run([sys.executable, "-m", "pip", "install", "-q",
         "peft==0.15.2", "transformers==4.51.3", "accelerate==1.7.0",
-        "mwparserfromhell==0.7.2"], check=True, timeout=300)
+        "mwparserfromhell==0.7.2", "beautifulsoup4==4.13.4"], check=True, timeout=300)
     import torch
     from peft import LoraConfig, get_peft_model
     from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -124,7 +147,10 @@ def main():
     device_name=torch.cuda.get_device_name(0)
     if MAX_STEPS<1 or MAX_STEPS>300:
         raise ValueError("ANSG_MAX_STEPS must be 1..300")
-    sources=[fetch_night(n) for n in TRAIN_NIGHTS+EVAL_NIGHTS]
+    sources=[]
+    for n in TRAIN_NIGHTS+EVAL_NIGHTS:
+        sources.append(fetch_night(n))
+        save_json("source_fetch_progress.json", [{"night":r["night"],"sha256":r["sha256"],"characters":r["characters"],"arabic_characters":r["arabic_characters"]} for r in sources])
     train_src=[r for r in sources if r["night"] in TRAIN_NIGHTS]
     eval_src=[r for r in sources if r["night"] in EVAL_NIGHTS]
     assert set(r["sha256"] for r in train_src).isdisjoint(set(r["sha256"] for r in eval_src))
@@ -141,12 +167,13 @@ def main():
     train=chunks(train_src,tokenizer)
     heldout=chunks(eval_src,tokenizer)
     if len(train)<30 or len(heldout)<5:
-        raise RuntimeError("Not enough independent train and held-out chunks")
+        raise RuntimeError("Not enough train and later-night diagnostic chunks")
     save_json("data_report.json",{
         "train_chunks":len(train),"heldout_chunks":len(heldout),
         "train_nights":TRAIN_NIGHTS,"heldout_nights":EVAL_NIGHTS,
         "tokenizer":MODEL,"context_tokens":MAX_LENGTH,
-        "note":"Only heritage narrative text; no gold event/dialect labels. No quality claims."
+        "note":"Only heritage narrative text; no gold event/dialect labels. Night-split continuation diagnostic; story-level leakage risk. No quality claims.",
+        "split_integrity":"NOT_VERIFIED_INDEPENDENT_STORIES",
     })
     model=AutoModelForCausalLM.from_pretrained(
         MODEL,torch_dtype=torch.float16,device_map={"":0},trust_remote_code=False)
@@ -178,7 +205,8 @@ def main():
 
     baseline_loss=eval_loss()
     save_json("baseline_metrics.json",{"heldout_ce_loss":baseline_loss,
-        "heldout_selection":"first 24 chunks in distinct held-out nights",
+        "heldout_selection":"first 24 chunks of later nights; NOT story-independent",
+        "evaluation_warning":"Same nested tale may span train and heldout nights; CE is a CONTAMINATED continuation diagnostic, not generalization.",
         "sample_prompts":list(PROMPTS),"performance_claim":"none"})
     rng=random.Random(SEED)
     started=time.monotonic()
@@ -233,6 +261,7 @@ def main():
         "trained_neuro_symbolic_ANSG":False,
         "trained_CSAM_DAL":False,"trained_dialect_data":False,
         "dataset_kind":"real_heritage_text_no_gold_event_dialect_labels",
+        "evaluation_split":"night-based continuation diagnostic; cross-night story leakage likely; NOT a story-independent held-out evaluation",
         "steps_finished":len(history),"minutes_elapsed":round((time.monotonic()-started)/60,2),
         "baseline_heldout_loss":round(baseline_loss,5),
         "best_heldout_loss":round(best,5),
