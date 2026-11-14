@@ -2,21 +2,18 @@
 
 ## Batch 1 — Kalila wa Dimna (1816)
 
-- Source index: [كليلة ودمنة (1816)](https://ar.wikisource.org/wiki/كليلة_ودمنة_(1816)), Paris, 1816; edition associated with Sylvestre de Sacy.
-- Source pages: 10 chapter records, each pinned to its own Wikisource revision in the JSONL records.
-- Extracted amount: 30,115 whitespace-delimited words. This is **not** a tokenizer count.
-- Six linked chapter pages currently return `missingtitle`; one front-matter page was excluded. The build report records each case.
-- The records are chapter-level. Nested stories have not yet been segmented or annotated. All splits remain unassigned.
-- The text pages identify CC BY-SA 4.0. Reuse must retain attribution, link the license, indicate extraction changes, and preserve share-alike terms.
+This is the first collected source batch for the direct ANHC build. It contains ten chapter-level records from the Arabic Wikisource transcription of the Paris 1816 edition of *Kalila wa Dimna*, associated with Sylvestre de Sacy. The records preserve the source transcription; no OCR or spelling correction has been applied.
+
+- Source index: [كليلة ودمنة (1816)](https://ar.wikisource.org/wiki/كليلة_ودمنة_(1816)); index revision 638949.
+- Each record pins its own source page revision and permanent URL, and includes source-text SHA-256, extraction note, whitespace word count, and attribution.
+- Source license: CC BY-SA 4.0 as shown on the Wikisource page. Reuse requires attribution and share-alike; see <https://creativecommons.org/licenses/by-sa/4.0/>.
+- 17 narrative chapter links were requested; 10 pages were available and collected, six linked pages were missing, and one front-matter page was excluded.
+- Collected size: 30,115 whitespace-delimited words. No tokenizer-based token count is claimed.
+- Records are source chapters, and may contain nested tales. They are not segmented into story units, annotated, or split for training/evaluation.
+- This is a small pilot batch in the new direct build. It is not the historical thesis ANHC and does not establish or reproduce its reported 70.4M/23M counts or experimental results.
 
 ## Files
 
-- `kalila_1816.jsonl.gz`: directly fetched chapter texts with source revision, attribution, checksum, counts, and empty annotation fields.
-- `build_report.json`: exact retrieval totals, missing pages, and exclusions.
-- `build_kalila_1816.py`: standard-library fetch and extraction program.
-
-## Attribution
-
-“كليلة ودمنة (1816),” transcribed by Wikisource contributors from the 1816 Paris edition associated with Sylvestre de Sacy. Page-specific revision URLs and SHA-256 checksums are in each record. The collection release of these extracted texts is made available under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Changes: rendered HTML was converted to text and whitespace was separated; source wording was not editorially corrected.
-
-This is a new, directly collected source batch. It is not the thesis-era ANHC, does not establish the thesis corpus counts, and is not ready for model training until the annotation, segmentation, and split work is completed.
+- `build_report.json`: collection counts, missing pages, and limitations.
+- `records/kalila-1816-XX.jsonl`: one UTF-8 JSONL source record per available chapter, in source order. Files are plain text and can be concatenated for ingestion.
+- `../../../../scripts/build_kalila_1816.py`: reproducible MediaWiki API fetcher; stores both plain JSONL and compressed local outputs.
