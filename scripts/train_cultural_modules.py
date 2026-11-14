@@ -96,6 +96,8 @@ def main(argv=None):
             authorization_hash = validate_real_data_authorization(
                 args.authorization_manifest, args.examples, args.schema_vocabulary
             )
+            if authorization_hash != manifest_hash.lower():
+                raise ValueError("authorization manifest changed during preflight")
             if sha256_file(args.run_plan) != run_plan_hash or sha256_file(args.profile) != profile_hash:
                 raise ValueError("run plan or operational profile changed during preflight")
         except (OSError, ValueError, KeyError, TypeError) as exc:
