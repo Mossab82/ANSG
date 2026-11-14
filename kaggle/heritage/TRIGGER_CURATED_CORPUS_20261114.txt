@@ -1,0 +1,1 @@
+One-time approved GPU test after successful on-GitHub 195197-word corpus extraction and CPU SHA256 preflight; no automatic retries.
