@@ -5,7 +5,7 @@ This command creates a new, explicitly direct-build release profile. It never
 claims historical thesis counts or manufactures human annotations.
 """
 from __future__ import annotations
-import argparse, gzip, hashlib, json, unicodedata
+import argparse, gzip, hashlib, io, json, unicodedata
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -69,6 +69,7 @@ def main():
     ap.add_argument("--kalila-jsonl", type=Path, help="Optional extracted Kalila wa-Dimna chapter corpus (JSONL or JSONL.GZ)")
     ap.add_argument("--dialect-audit-report", type=Path, help="Optional privacy-safe count report for user-provided dialect support text")
     ap.add_argument("--output", type=Path, required=True)
+    ap.add_argument("--metadata-only", action="store_true", help="Write manifests and ID lists without materializing text splits")
     ap.add_argument("--seed", default="ANHC-direct-v1")
     ap.add_argument("--train-ratio", type=float, default=0.80)
     ap.add_argument("--validation-ratio", type=float, default=0.10)
@@ -87,6 +88,8 @@ def main():
         raise SystemExit("Candidate manifest is empty")
     records, token_words_by_id = {}, {}
     source_metadata = {}
+    text_paths = {}
+    kalila_text_by_id = {}
     count_by_scope = Counter()
     words_by_scope = Counter()
     tokens_by_scope = Counter()
@@ -117,6 +120,7 @@ def main():
         lock = work_lock(full)
         scope = row.get("narrative", {}).get("candidate_scope", "unspecified")
         source_metadata[rid] = row
+        text_paths[rid] = path
         records[rid] = {
             "record_id": rid,
             "title": src.get("title"),
@@ -129,6 +133,9 @@ def main():
             "text_file": rel,
             "license": src.get("license"),
             "attribution": src.get("attribution"),
+            "publisher_categories": row.get("narrative", {}).get("publisher_categories", []),
+            "period": row.get("narrative", {}).get("period", "unknown"),
+            "translation": bool(src.get("translation", False)),
         }
         token_words_by_id[rid] = (words, tokens)
         count_by_scope[scope] += 1
@@ -152,6 +159,8 @@ def main():
                 raise ValueError(f"{rid}: Kalila text SHA-256 mismatch")
             words = len(text.split())
             tokens = len(sp.encode(text, out_type=int))
+            kalila_text_by_id[rid] = text
+            text_paths[rid] = args.kalila_jsonl
             src = chapter.get("source", {})
             records[rid] = {
                 "record_id": rid, "title": chapter.get("narrative", {}).get("chapter_title"),
@@ -159,7 +168,8 @@ def main():
                 "candidate_scope": "classical_narrative", "observed_whitespace_words": words,
                 "sentencepiece_tokens": tokens, "work_group": "kalila_1816_frame_cycle",
                 "text_file": str(args.kalila_jsonl), "license": src.get("license"),
-                "attribution": src.get("attribution"), "source_family": "kalila_1816_chapter"
+                "attribution": src.get("attribution"), "source_family": "kalila_1816_chapter",
+                "publisher_categories": [], "period": "classical_pre_1800", "translation": False
             }
             source_metadata[rid] = {"source": src, "narrative": chapter.get("narrative", {}), "whole_book_unit": False}
             token_words_by_id[rid] = (words, tokens)
@@ -249,6 +259,60 @@ def main():
                             "story_unit_rows": units_by_split[split],
                             "observed_whitespace_words": group_words[split],
                             "sentencepiece_tokens": group_tokens[split]} for split in SPLITS}
+
+    corpus_artifacts = {}
+    if not args.metadata_only:
+        corpus_root = args.output / "corpora"
+        for corpus_kind in ("pretraining", "narrative_candidates"):
+            (corpus_root / corpus_kind).mkdir(parents=True, exist_ok=True)
+        writers = {}
+        raw_handles = {}
+        for corpus_kind in ("pretraining", "narrative_candidates"):
+            for split in SPLITS:
+                path = corpus_root / corpus_kind / f"{split}.jsonl.gz"
+                raw = path.open("wb")
+                raw_handles[(corpus_kind, split)] = raw
+                gz = gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0, compresslevel=6)
+                writers[(corpus_kind, split)] = io.TextIOWrapper(gz, encoding="utf-8", newline="\n")
+        emitted = Counter()
+        for rid, summary in records.items():
+            path = text_paths[rid]
+            text = kalila_text_by_id.get(rid)
+            if text is None:
+                materialized = next(read_jsonl(path), None)
+                if not materialized or materialized.get("record_id") != rid:
+                    raise ValueError(f"{rid}: source record changed before corpus emission")
+                text = materialized.get("text")
+            if not isinstance(text, str) or digest_text(text) != summary["source_text_sha256"]:
+                raise ValueError(f"{rid}: source text hash changed before corpus emission")
+            split = group_to_split[summary["work_group"]]
+            item = {"schema": "ansg.training_text_record/1", "record_id": rid, "text": text,
+                    "split": split, "work_group": summary["work_group"],
+                    "candidate_scope": summary["candidate_scope"],
+                    "source_text_sha256": summary["source_text_sha256"],
+                    "tokenizer_profile": "ANHC-direct-SPM32-v1",
+                    "metadata": {"title": summary.get("title"), "author": summary.get("author"),
+                                 "period": summary.get("period"),
+                                 "publisher_categories": summary.get("publisher_categories", []),
+                                 "translation": summary.get("translation", False)},
+                    "license": summary.get("license"), "attribution": summary.get("attribution")}
+            writers[("pretraining", split)].write(json.dumps(item, ensure_ascii=False, separators=(",", ":")) + "\n")
+            emitted[("pretraining", split)] += 1
+            if summary["candidate_scope"] in {"narrative_core", "classical_narrative"}:
+                writers[("narrative_candidates", split)].write(json.dumps(item, ensure_ascii=False, separators=(",", ":")) + "\n")
+                emitted[("narrative_candidates", split)] += 1
+        for key, writer in writers.items():
+            writer.flush()
+            writer.close()
+            raw_handles[key].close()
+        for corpus_kind in ("pretraining", "narrative_candidates"):
+            corpus_artifacts[corpus_kind] = {}
+            for split in SPLITS:
+                path = corpus_root / corpus_kind / f"{split}.jsonl.gz"
+                corpus_artifacts[corpus_kind][split] = {"path": str(path.relative_to(args.output)),
+                    "records": emitted[(corpus_kind, split)], "bytes": path.stat().st_size,
+                    "sha256": hashlib.sha256(path.read_bytes()).hexdigest()}
+
     dialect_support = None
     if args.dialect_audit_report:
         if not args.dialect_audit_report.is_file():
@@ -282,6 +346,7 @@ def main():
                                        if dialect_support else None),
         "story_unit_rows": len(units),
         "story_units_by_split": dict(units_by_split),
+        "materialized_training_corpora": corpus_artifacts if not args.metadata_only else None,
         "annotation_layers": {layer: {"rows": 0, "adjudicated": False, "status": "empty_template_only"} for layer in LAYERS},
         "triple_covered_tokens": 0,
         "thesis_comparison": {
