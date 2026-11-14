@@ -1,0 +1,198 @@
+{
+  "schema": "ansg.hnc_plan/1",
+  "setting": "fes",
+  "title": "من يرث الصنعة",
+  "register": {
+    "narration": "msa",
+    "dialogue": "dialect"
+  },
+  "target_words": 700,
+  "notes": "depth-1 control derived from the nested scenario",
+  "frames": [
+    {
+      "id": "fs-frame",
+      "parent": null,
+      "narrator": null,
+      "audience": [],
+      "perspective": "third_person",
+      "narrator_in_frame": null,
+      "time_context": "",
+      "function": "",
+      "opened_by": null,
+      "resumed_by": null,
+      "setting_note": "",
+      "conveys": [],
+      "graph": {
+        "schema": "ansg.event_graph/1",
+        "record_id": "plan:fs-frame",
+        "text_sha256": null,
+        "entities": [
+          {
+            "id": "khadija",
+            "name": "خديجة",
+            "kind": "character",
+            "narrative_role": "protagonist",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "idriss",
+            "name": "إدريس",
+            "kind": "character",
+            "narrative_role": "uncle",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "chouara",
+            "name": "دار الدباغة شوارة",
+            "kind": "place",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "bab",
+            "name": "باب بوجلود",
+            "kind": "place",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          }
+        ],
+        "events": [
+          {
+            "id": "fs1",
+            "trigger": "قررت",
+            "evidence": null,
+            "discourse_index": 0,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "khadija",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Location",
+                "entity": "chouara",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [
+              {
+                "predicate": "wants_to_leave",
+                "args": [
+                  "khadija"
+                ],
+                "negated": false
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "خديجة تقرر ترك عملها في دار الدباغة شوارة والرحيل عن فاس"
+          },
+          {
+            "id": "fs2",
+            "trigger": "دعا",
+            "evidence": null,
+            "discourse_index": 1,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "idriss",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Recipient",
+                "entity": "khadija",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Location",
+                "entity": "bab",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "عمها إدريس يدعوها إلى كأس شاي قرب باب بوجلود"
+          },
+          {
+            "id": "fs3",
+            "trigger": "بقيت",
+            "evidence": null,
+            "discourse_index": 2,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "khadija",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [
+              {
+                "predicate": "wants_to_leave",
+                "args": [
+                  "khadija"
+                ],
+                "negated": true
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "خديجة تقرر البقاء وتعلُّم الصنعة كي تعلّمها لغيرها"
+          }
+        ],
+        "relations": [
+          {
+            "kind": "BEFORE",
+            "source": "fs1",
+            "target": "fs2",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          },
+          {
+            "kind": "BEFORE",
+            "source": "fs2",
+            "target": "fs3",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          }
+        ],
+        "initial_state": [],
+        "initial_knowledge": [],
+        "metadata": {}
+      }
+    }
+  ]
+}

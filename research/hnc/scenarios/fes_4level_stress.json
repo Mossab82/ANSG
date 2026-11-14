@@ -1,0 +1,646 @@
+{
+  "schema": "ansg.hnc_plan/1",
+  "setting": "fes",
+  "title": "سلسلة من 4 مستويات",
+  "register": {
+    "narration": "msa",
+    "dialogue": "dialect"
+  },
+  "target_words": 700,
+  "notes": "",
+  "frames": [
+    {
+      "id": "ch1",
+      "parent": null,
+      "narrator": null,
+      "audience": [],
+      "perspective": "third_person",
+      "narrator_in_frame": null,
+      "time_context": "",
+      "function": "",
+      "opened_by": null,
+      "resumed_by": null,
+      "setting_note": "",
+      "conveys": [],
+      "graph": {
+        "schema": "ansg.event_graph/1",
+        "record_id": "plan:ch1",
+        "text_sha256": null,
+        "entities": [
+          {
+            "id": "l1",
+            "name": "السامع 1",
+            "kind": "character",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "t1",
+            "name": "الراوي 1",
+            "kind": "character",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          }
+        ],
+        "events": [
+          {
+            "id": "ch1a",
+            "trigger": "سأل",
+            "evidence": null,
+            "discourse_index": 0,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "l1",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "السامع 1 يسأل عن أمر يحيّره"
+          },
+          {
+            "id": "ch1b",
+            "trigger": "جلس",
+            "evidence": null,
+            "discourse_index": 1,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "t1",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Recipient",
+                "entity": "l1",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "الراوي 1 يجلس ليحكي"
+          },
+          {
+            "id": "ch1c",
+            "trigger": "فهم",
+            "evidence": null,
+            "discourse_index": 2,
+            "participants": [
+              {
+                "role": "Experiencer",
+                "entity": "l1",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [],
+            "knowledge_required": [
+              {
+                "entity": "l1",
+                "proposition": {
+                  "predicate": "lesson",
+                  "args": [
+                    "level2"
+                  ],
+                  "negated": false
+                },
+                "channel": "perception",
+                "source_entity": null
+              }
+            ],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "السامع 1 يفهم ما كان يحيّره"
+          }
+        ],
+        "relations": [
+          {
+            "kind": "BEFORE",
+            "source": "ch1a",
+            "target": "ch1b",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          },
+          {
+            "kind": "BEFORE",
+            "source": "ch1b",
+            "target": "ch1c",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          }
+        ],
+        "initial_state": [],
+        "initial_knowledge": [],
+        "metadata": {}
+      }
+    },
+    {
+      "id": "ch2",
+      "parent": "ch1",
+      "narrator": "t1",
+      "audience": [
+        "l1"
+      ],
+      "perspective": "third_person",
+      "narrator_in_frame": null,
+      "time_context": "زمن أقدم من المستوى 1",
+      "function": "جواب حيرة السامع 1",
+      "opened_by": "ch1b",
+      "resumed_by": "ch1c",
+      "setting_note": "",
+      "conveys": [
+        {
+          "predicate": "lesson",
+          "args": [
+            "level2"
+          ],
+          "negated": false
+        }
+      ],
+      "graph": {
+        "schema": "ansg.event_graph/1",
+        "record_id": "plan:ch2",
+        "text_sha256": null,
+        "entities": [
+          {
+            "id": "l2",
+            "name": "السامع 2",
+            "kind": "character",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "t2",
+            "name": "الراوي 2",
+            "kind": "character",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          }
+        ],
+        "events": [
+          {
+            "id": "ch2a",
+            "trigger": "سأل",
+            "evidence": null,
+            "discourse_index": 0,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "l2",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "السامع 2 يسأل عن أمر يحيّره"
+          },
+          {
+            "id": "ch2b",
+            "trigger": "جلس",
+            "evidence": null,
+            "discourse_index": 1,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "t2",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Recipient",
+                "entity": "l2",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "الراوي 2 يجلس ليحكي"
+          },
+          {
+            "id": "ch2c",
+            "trigger": "فهم",
+            "evidence": null,
+            "discourse_index": 2,
+            "participants": [
+              {
+                "role": "Experiencer",
+                "entity": "l2",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [],
+            "knowledge_required": [
+              {
+                "entity": "l2",
+                "proposition": {
+                  "predicate": "lesson",
+                  "args": [
+                    "level3"
+                  ],
+                  "negated": false
+                },
+                "channel": "perception",
+                "source_entity": null
+              }
+            ],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "السامع 2 يفهم ما كان يحيّره"
+          }
+        ],
+        "relations": [
+          {
+            "kind": "BEFORE",
+            "source": "ch2a",
+            "target": "ch2b",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          },
+          {
+            "kind": "BEFORE",
+            "source": "ch2b",
+            "target": "ch2c",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          }
+        ],
+        "initial_state": [],
+        "initial_knowledge": [],
+        "metadata": {}
+      }
+    },
+    {
+      "id": "ch3",
+      "parent": "ch2",
+      "narrator": "t2",
+      "audience": [
+        "l2"
+      ],
+      "perspective": "third_person",
+      "narrator_in_frame": null,
+      "time_context": "زمن أقدم من المستوى 2",
+      "function": "جواب حيرة السامع 2",
+      "opened_by": "ch2b",
+      "resumed_by": "ch2c",
+      "setting_note": "",
+      "conveys": [
+        {
+          "predicate": "lesson",
+          "args": [
+            "level3"
+          ],
+          "negated": false
+        }
+      ],
+      "graph": {
+        "schema": "ansg.event_graph/1",
+        "record_id": "plan:ch3",
+        "text_sha256": null,
+        "entities": [
+          {
+            "id": "l3",
+            "name": "السامع 3",
+            "kind": "character",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "t3",
+            "name": "الراوي 3",
+            "kind": "character",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          }
+        ],
+        "events": [
+          {
+            "id": "ch3a",
+            "trigger": "سأل",
+            "evidence": null,
+            "discourse_index": 0,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "l3",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "السامع 3 يسأل عن أمر يحيّره"
+          },
+          {
+            "id": "ch3b",
+            "trigger": "جلس",
+            "evidence": null,
+            "discourse_index": 1,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "t3",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Recipient",
+                "entity": "l3",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "الراوي 3 يجلس ليحكي"
+          },
+          {
+            "id": "ch3c",
+            "trigger": "فهم",
+            "evidence": null,
+            "discourse_index": 2,
+            "participants": [
+              {
+                "role": "Experiencer",
+                "entity": "l3",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [],
+            "knowledge_required": [
+              {
+                "entity": "l3",
+                "proposition": {
+                  "predicate": "lesson",
+                  "args": [
+                    "level4"
+                  ],
+                  "negated": false
+                },
+                "channel": "perception",
+                "source_entity": null
+              }
+            ],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "السامع 3 يفهم ما كان يحيّره"
+          }
+        ],
+        "relations": [
+          {
+            "kind": "BEFORE",
+            "source": "ch3a",
+            "target": "ch3b",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          },
+          {
+            "kind": "BEFORE",
+            "source": "ch3b",
+            "target": "ch3c",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          }
+        ],
+        "initial_state": [],
+        "initial_knowledge": [],
+        "metadata": {}
+      }
+    },
+    {
+      "id": "ch4",
+      "parent": "ch3",
+      "narrator": "t3",
+      "audience": [
+        "l3"
+      ],
+      "perspective": "third_person",
+      "narrator_in_frame": null,
+      "time_context": "زمن أقدم من المستوى 3",
+      "function": "جواب حيرة السامع 3",
+      "opened_by": "ch3b",
+      "resumed_by": "ch3c",
+      "setting_note": "",
+      "conveys": [
+        {
+          "predicate": "lesson",
+          "args": [
+            "level4"
+          ],
+          "negated": false
+        }
+      ],
+      "graph": {
+        "schema": "ansg.event_graph/1",
+        "record_id": "plan:ch4",
+        "text_sha256": null,
+        "entities": [
+          {
+            "id": "l4",
+            "name": "السامع 4",
+            "kind": "character",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "t4",
+            "name": "الراوي 4",
+            "kind": "character",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          }
+        ],
+        "events": [
+          {
+            "id": "ch4a",
+            "trigger": "سأل",
+            "evidence": null,
+            "discourse_index": 0,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "l4",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "السامع 4 يسأل عن أمر يحيّره"
+          },
+          {
+            "id": "ch4b",
+            "trigger": "جلس",
+            "evidence": null,
+            "discourse_index": 1,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "t4",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Recipient",
+                "entity": "l4",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "الراوي 4 يجلس ليحكي"
+          },
+          {
+            "id": "ch4c",
+            "trigger": "فهم",
+            "evidence": null,
+            "discourse_index": 2,
+            "participants": [
+              {
+                "role": "Experiencer",
+                "entity": "l4",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "السامع 4 يفهم ما كان يحيّره"
+          }
+        ],
+        "relations": [
+          {
+            "kind": "BEFORE",
+            "source": "ch4a",
+            "target": "ch4b",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          },
+          {
+            "kind": "BEFORE",
+            "source": "ch4b",
+            "target": "ch4c",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          }
+        ],
+        "initial_state": [],
+        "initial_knowledge": [],
+        "metadata": {}
+      }
+    }
+  ]
+}

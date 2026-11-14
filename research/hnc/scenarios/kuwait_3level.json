@@ -1,0 +1,688 @@
+{
+  "schema": "ansg.hnc_plan/1",
+  "setting": "kuwait",
+  "title": "اللؤلؤة الموعودة",
+  "register": {
+    "narration": "msa",
+    "dialogue": "dialect"
+  },
+  "target_words": 700,
+  "notes": "",
+  "frames": [
+    {
+      "id": "kw-frame",
+      "parent": null,
+      "narrator": null,
+      "audience": [],
+      "perspective": "third_person",
+      "narrator_in_frame": null,
+      "time_context": "",
+      "function": "",
+      "opened_by": null,
+      "resumed_by": null,
+      "setting_note": "",
+      "conveys": [],
+      "graph": {
+        "schema": "ansg.event_graph/1",
+        "record_id": "plan:kw-frame",
+        "text_sha256": null,
+        "entities": [
+          {
+            "id": "fahad",
+            "name": "فهد",
+            "kind": "character",
+            "narrative_role": "protagonist",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "latifa",
+            "name": "لطيفة",
+            "kind": "character",
+            "narrative_role": "mother",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "abdullah",
+            "name": "عبد الله",
+            "kind": "character",
+            "narrative_role": "partner",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "market",
+            "name": "سوق المباركية",
+            "kind": "place",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          }
+        ],
+        "events": [
+          {
+            "id": "kf1",
+            "trigger": "وعد",
+            "evidence": null,
+            "discourse_index": 0,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "fahad",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Recipient",
+                "entity": "abdullah",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Location",
+                "entity": "market",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [
+              {
+                "predicate": "promised",
+                "args": [
+                  "fahad"
+                ],
+                "negated": false
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "فهد يعد شريكه عبد الله بتسليم البضاعة في موعدها"
+          },
+          {
+            "id": "kf2",
+            "trigger": "تردد",
+            "evidence": null,
+            "discourse_index": 1,
+            "participants": [
+              {
+                "role": "Experiencer",
+                "entity": "fahad",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [
+              {
+                "predicate": "tempted",
+                "args": [
+                  "fahad"
+                ],
+                "negated": false
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "يعرض تاجر آخر على فهد ثمنًا أعلى فيتردد"
+          },
+          {
+            "id": "kf3",
+            "trigger": "جلست",
+            "evidence": null,
+            "discourse_index": 2,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "latifa",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Recipient",
+                "entity": "fahad",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "أمه لطيفة تلاحظ تردده وتجلس معه في البيت"
+          },
+          {
+            "id": "kf4",
+            "trigger": "سلّم",
+            "evidence": null,
+            "discourse_index": 3,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "fahad",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Recipient",
+                "entity": "abdullah",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [
+              {
+                "predicate": "promised",
+                "args": [
+                  "fahad"
+                ],
+                "negated": false
+              }
+            ],
+            "effects": [],
+            "knowledge_required": [
+              {
+                "entity": "fahad",
+                "proposition": {
+                  "predicate": "family_keeps_word",
+                  "args": [
+                    "family"
+                  ],
+                  "negated": false
+                },
+                "channel": "perception",
+                "source_entity": null
+              }
+            ],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "فهد يسلّم البضاعة لعبد الله كما وعد"
+          }
+        ],
+        "relations": [
+          {
+            "kind": "BEFORE",
+            "source": "kf1",
+            "target": "kf2",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          },
+          {
+            "kind": "BEFORE",
+            "source": "kf2",
+            "target": "kf3",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          },
+          {
+            "kind": "BEFORE",
+            "source": "kf3",
+            "target": "kf4",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          }
+        ],
+        "initial_state": [],
+        "initial_knowledge": [],
+        "metadata": {}
+      }
+    },
+    {
+      "id": "kw-grand",
+      "parent": "kw-frame",
+      "narrator": "latifa",
+      "audience": [
+        "fahad"
+      ],
+      "perspective": "third_person",
+      "narrator_in_frame": null,
+      "time_context": "أيام الغوص على اللؤلؤ في زمن الجد جاسم",
+      "function": "تذكير فهد بأن العائلة تفي بوعدها مهما كان الإغراء",
+      "opened_by": "kf3",
+      "resumed_by": "kf4",
+      "setting_note": "",
+      "conveys": [
+        {
+          "predicate": "family_keeps_word",
+          "args": [
+            "family"
+          ],
+          "negated": false
+        }
+      ],
+      "graph": {
+        "schema": "ansg.event_graph/1",
+        "record_id": "plan:kw-grand",
+        "text_sha256": null,
+        "entities": [
+          {
+            "id": "jassim",
+            "name": "جاسم",
+            "kind": "character",
+            "narrative_role": "grandfather",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "buyer",
+            "name": "تاجر اللؤلؤ",
+            "kind": "character",
+            "narrative_role": "buyer",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "nokhada",
+            "name": "يوسف",
+            "kind": "character",
+            "narrative_role": "ship captain",
+            "aliases": [],
+            "mentions": []
+          }
+        ],
+        "events": [
+          {
+            "id": "kg1",
+            "trigger": "وعد",
+            "evidence": null,
+            "discourse_index": 0,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "jassim",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Recipient",
+                "entity": "buyer",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [
+              {
+                "predicate": "promised",
+                "args": [
+                  "jassim"
+                ],
+                "negated": false
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "الجد جاسم يعد تاجر اللؤلؤ بلؤلؤة نادرة من موسم الغوص"
+          },
+          {
+            "id": "kg2",
+            "trigger": "تردد",
+            "evidence": null,
+            "discourse_index": 1,
+            "participants": [
+              {
+                "role": "Experiencer",
+                "entity": "jassim",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [
+              {
+                "predicate": "tempted",
+                "args": [
+                  "jassim"
+                ],
+                "negated": false
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "يعرض غريب على جاسم ثمنًا أعلى فيتردد"
+          },
+          {
+            "id": "kg3",
+            "trigger": "جمع",
+            "evidence": null,
+            "discourse_index": 2,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "nokhada",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Recipient",
+                "entity": "jassim",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "النوخذة يوسف يجمع البحارة ليلًا على ظهر السفينة"
+          },
+          {
+            "id": "kg4",
+            "trigger": "وفى",
+            "evidence": null,
+            "discourse_index": 3,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "jassim",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Recipient",
+                "entity": "buyer",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [
+              {
+                "predicate": "promised",
+                "args": [
+                  "jassim"
+                ],
+                "negated": false
+              }
+            ],
+            "effects": [],
+            "knowledge_required": [
+              {
+                "entity": "jassim",
+                "proposition": {
+                  "predicate": "word_saves",
+                  "args": [
+                    "keeping_promises"
+                  ],
+                  "negated": false
+                },
+                "channel": "perception",
+                "source_entity": null
+              }
+            ],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "جاسم يفي بوعده للتاجر الأول"
+          }
+        ],
+        "relations": [
+          {
+            "kind": "BEFORE",
+            "source": "kg1",
+            "target": "kg2",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          },
+          {
+            "kind": "BEFORE",
+            "source": "kg2",
+            "target": "kg3",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          },
+          {
+            "kind": "BEFORE",
+            "source": "kg3",
+            "target": "kg4",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          }
+        ],
+        "initial_state": [],
+        "initial_knowledge": [],
+        "metadata": {}
+      }
+    },
+    {
+      "id": "kw-diver",
+      "parent": "kw-grand",
+      "narrator": "nokhada",
+      "audience": [
+        "jassim"
+      ],
+      "perspective": "third_person",
+      "narrator_in_frame": null,
+      "time_context": "زمن أقدم من زمن جاسم",
+      "function": "بيان أن الوفاء بالعهد أنقذ طاقمًا كاملًا",
+      "opened_by": "kg3",
+      "resumed_by": "kg4",
+      "setting_note": "",
+      "conveys": [
+        {
+          "predicate": "word_saves",
+          "args": [
+            "keeping_promises"
+          ],
+          "negated": false
+        }
+      ],
+      "graph": {
+        "schema": "ansg.event_graph/1",
+        "record_id": "plan:kw-diver",
+        "text_sha256": null,
+        "entities": [
+          {
+            "id": "diver",
+            "name": "غواص شاب",
+            "kind": "character",
+            "narrative_role": "diver",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "crew",
+            "name": "الطاقم",
+            "kind": "group",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          }
+        ],
+        "events": [
+          {
+            "id": "kd1",
+            "trigger": "وعد",
+            "evidence": null,
+            "discourse_index": 0,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "diver",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Recipient",
+                "entity": "crew",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [
+              {
+                "predicate": "promised",
+                "args": [
+                  "diver"
+                ],
+                "negated": false
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "غواص شاب يعد الطاقم بأن يعود قبل الغروب"
+          },
+          {
+            "id": "kd2",
+            "trigger": "وجد",
+            "evidence": null,
+            "discourse_index": 1,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "diver",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [
+              {
+                "predicate": "tempted",
+                "args": [
+                  "diver"
+                ],
+                "negated": false
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "يجد الغواص محارًا كثيرًا يغريه بالبقاء"
+          },
+          {
+            "id": "kd3",
+            "trigger": "عاد",
+            "evidence": null,
+            "discourse_index": 2,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "diver",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Recipient",
+                "entity": "crew",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [
+              {
+                "predicate": "promised",
+                "args": [
+                  "diver"
+                ],
+                "negated": false
+              }
+            ],
+            "effects": [
+              {
+                "predicate": "safe",
+                "args": [
+                  "crew"
+                ],
+                "negated": false
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "يعود في موعده فيرى الطاقم العاصفة قادمة ويبحرون قبلها"
+          }
+        ],
+        "relations": [
+          {
+            "kind": "BEFORE",
+            "source": "kd1",
+            "target": "kd2",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          },
+          {
+            "kind": "BEFORE",
+            "source": "kd2",
+            "target": "kd3",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          }
+        ],
+        "initial_state": [],
+        "initial_knowledge": [],
+        "metadata": {}
+      }
+    }
+  ]
+}

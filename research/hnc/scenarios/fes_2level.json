@@ -1,0 +1,421 @@
+{
+  "schema": "ansg.hnc_plan/1",
+  "setting": "fes",
+  "title": "من يرث الصنعة",
+  "register": {
+    "narration": "msa",
+    "dialogue": "dialect"
+  },
+  "target_words": 700,
+  "notes": "",
+  "frames": [
+    {
+      "id": "fs-frame",
+      "parent": null,
+      "narrator": null,
+      "audience": [],
+      "perspective": "third_person",
+      "narrator_in_frame": null,
+      "time_context": "",
+      "function": "",
+      "opened_by": null,
+      "resumed_by": null,
+      "setting_note": "",
+      "conveys": [],
+      "graph": {
+        "schema": "ansg.event_graph/1",
+        "record_id": "plan:fs-frame",
+        "text_sha256": null,
+        "entities": [
+          {
+            "id": "khadija",
+            "name": "خديجة",
+            "kind": "character",
+            "narrative_role": "protagonist",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "idriss",
+            "name": "إدريس",
+            "kind": "character",
+            "narrative_role": "uncle",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "chouara",
+            "name": "دار الدباغة شوارة",
+            "kind": "place",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "bab",
+            "name": "باب بوجلود",
+            "kind": "place",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          }
+        ],
+        "events": [
+          {
+            "id": "fs1",
+            "trigger": "قررت",
+            "evidence": null,
+            "discourse_index": 0,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "khadija",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Location",
+                "entity": "chouara",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [
+              {
+                "predicate": "wants_to_leave",
+                "args": [
+                  "khadija"
+                ],
+                "negated": false
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "خديجة تقرر ترك عملها في دار الدباغة شوارة والرحيل عن فاس"
+          },
+          {
+            "id": "fs2",
+            "trigger": "دعا",
+            "evidence": null,
+            "discourse_index": 1,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "idriss",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Recipient",
+                "entity": "khadija",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Location",
+                "entity": "bab",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "عمها إدريس يدعوها إلى كأس شاي قرب باب بوجلود"
+          },
+          {
+            "id": "fs3",
+            "trigger": "بقيت",
+            "evidence": null,
+            "discourse_index": 2,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "khadija",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [
+              {
+                "predicate": "wants_to_leave",
+                "args": [
+                  "khadija"
+                ],
+                "negated": true
+              }
+            ],
+            "knowledge_required": [
+              {
+                "entity": "khadija",
+                "proposition": {
+                  "predicate": "craft_needs_heirs",
+                  "args": [
+                    "craft"
+                  ],
+                  "negated": false
+                },
+                "channel": "perception",
+                "source_entity": null
+              }
+            ],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "خديجة تقرر البقاء وتعلُّم الصنعة كي تعلّمها لغيرها"
+          }
+        ],
+        "relations": [
+          {
+            "kind": "BEFORE",
+            "source": "fs1",
+            "target": "fs2",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          },
+          {
+            "kind": "BEFORE",
+            "source": "fs2",
+            "target": "fs3",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          }
+        ],
+        "initial_state": [],
+        "initial_knowledge": [],
+        "metadata": {}
+      }
+    },
+    {
+      "id": "fs-weaver",
+      "parent": "fs-frame",
+      "narrator": "idriss",
+      "audience": [
+        "khadija"
+      ],
+      "perspective": "first_person",
+      "narrator_in_frame": "idriss_young",
+      "time_context": "شباب إدريس",
+      "function": "إقناع خديجة بأن الصنعة تحتاج من يرثها",
+      "opened_by": "fs2",
+      "resumed_by": "fs3",
+      "setting_note": "",
+      "conveys": [
+        {
+          "predicate": "craft_needs_heirs",
+          "args": [
+            "craft"
+          ],
+          "negated": false
+        }
+      ],
+      "graph": {
+        "schema": "ansg.event_graph/1",
+        "record_id": "plan:fs-weaver",
+        "text_sha256": null,
+        "entities": [
+          {
+            "id": "idriss_young",
+            "name": "إدريس",
+            "kind": "character",
+            "narrative_role": "narrator as young man",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "hamid",
+            "name": "حميد",
+            "kind": "character",
+            "narrative_role": "master weaver",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "workshop",
+            "name": "الورشة",
+            "kind": "object",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          }
+        ],
+        "events": [
+          {
+            "id": "fw1",
+            "trigger": "رحل",
+            "evidence": null,
+            "discourse_index": 0,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "idriss_young",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Source",
+                "entity": "workshop",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [
+              {
+                "predicate": "away",
+                "args": [
+                  "idriss_young"
+                ],
+                "negated": false
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "إدريس الشاب يترك ورشة النسيج ويرحل"
+          },
+          {
+            "id": "fw2",
+            "trigger": "أغلق",
+            "evidence": null,
+            "discourse_index": 1,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "hamid",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Patient",
+                "entity": "workshop",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [
+              {
+                "predicate": "closed",
+                "args": [
+                  "workshop"
+                ],
+                "negated": false
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "المعلم حميد يغلق الورشة لأنه لم يجد من يخلفه"
+          },
+          {
+            "id": "fw3",
+            "trigger": "عاد",
+            "evidence": null,
+            "discourse_index": 2,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "idriss_young",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Theme",
+                "entity": "workshop",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [
+              {
+                "predicate": "closed",
+                "args": [
+                  "workshop"
+                ],
+                "negated": false
+              }
+            ],
+            "effects": [
+              {
+                "predicate": "closed",
+                "args": [
+                  "workshop"
+                ],
+                "negated": true
+              },
+              {
+                "predicate": "away",
+                "args": [
+                  "idriss_young"
+                ],
+                "negated": true
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "يعود إدريس فيعيد فتح الورشة ويعلّم الصغار"
+          }
+        ],
+        "relations": [
+          {
+            "kind": "BEFORE",
+            "source": "fw1",
+            "target": "fw2",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          },
+          {
+            "kind": "ENABLES",
+            "source": "fw2",
+            "target": "fw3",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          }
+        ],
+        "initial_state": [],
+        "initial_knowledge": [],
+        "metadata": {}
+      }
+    }
+  ]
+}

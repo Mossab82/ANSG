@@ -1,0 +1,245 @@
+{
+  "schema": "ansg.hnc_plan/1",
+  "setting": "kuwait",
+  "title": "اللؤلؤة الموعودة",
+  "register": {
+    "narration": "msa",
+    "dialogue": "dialect"
+  },
+  "target_words": 700,
+  "notes": "depth-1 control derived from the nested scenario",
+  "frames": [
+    {
+      "id": "kw-frame",
+      "parent": null,
+      "narrator": null,
+      "audience": [],
+      "perspective": "third_person",
+      "narrator_in_frame": null,
+      "time_context": "",
+      "function": "",
+      "opened_by": null,
+      "resumed_by": null,
+      "setting_note": "",
+      "conveys": [],
+      "graph": {
+        "schema": "ansg.event_graph/1",
+        "record_id": "plan:kw-frame",
+        "text_sha256": null,
+        "entities": [
+          {
+            "id": "fahad",
+            "name": "فهد",
+            "kind": "character",
+            "narrative_role": "protagonist",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "latifa",
+            "name": "لطيفة",
+            "kind": "character",
+            "narrative_role": "mother",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "abdullah",
+            "name": "عبد الله",
+            "kind": "character",
+            "narrative_role": "partner",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "market",
+            "name": "سوق المباركية",
+            "kind": "place",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          }
+        ],
+        "events": [
+          {
+            "id": "kf1",
+            "trigger": "وعد",
+            "evidence": null,
+            "discourse_index": 0,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "fahad",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Recipient",
+                "entity": "abdullah",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Location",
+                "entity": "market",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [
+              {
+                "predicate": "promised",
+                "args": [
+                  "fahad"
+                ],
+                "negated": false
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "فهد يعد شريكه عبد الله بتسليم البضاعة في موعدها"
+          },
+          {
+            "id": "kf2",
+            "trigger": "تردد",
+            "evidence": null,
+            "discourse_index": 1,
+            "participants": [
+              {
+                "role": "Experiencer",
+                "entity": "fahad",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [
+              {
+                "predicate": "tempted",
+                "args": [
+                  "fahad"
+                ],
+                "negated": false
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "يعرض تاجر آخر على فهد ثمنًا أعلى فيتردد"
+          },
+          {
+            "id": "kf3",
+            "trigger": "جلست",
+            "evidence": null,
+            "discourse_index": 2,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "latifa",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Recipient",
+                "entity": "fahad",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "أمه لطيفة تلاحظ تردده وتجلس معه في البيت"
+          },
+          {
+            "id": "kf4",
+            "trigger": "سلّم",
+            "evidence": null,
+            "discourse_index": 3,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "fahad",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Recipient",
+                "entity": "abdullah",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [
+              {
+                "predicate": "promised",
+                "args": [
+                  "fahad"
+                ],
+                "negated": false
+              }
+            ],
+            "effects": [],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "فهد يسلّم البضاعة لعبد الله كما وعد"
+          }
+        ],
+        "relations": [
+          {
+            "kind": "BEFORE",
+            "source": "kf1",
+            "target": "kf2",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          },
+          {
+            "kind": "BEFORE",
+            "source": "kf2",
+            "target": "kf3",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          },
+          {
+            "kind": "BEFORE",
+            "source": "kf3",
+            "target": "kf4",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          }
+        ],
+        "initial_state": [],
+        "initial_knowledge": [],
+        "metadata": {}
+      }
+    }
+  ]
+}
