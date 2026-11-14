@@ -19,3 +19,7 @@ This is the first collected source batch for the direct ANHC build. It contains 
 - `records/segments/kalila-1816-XX/part-NNN.jsonl`: UTF-8 text segments. Concatenate each segment’s `text` field in ascending `segment_index` to reconstruct the exact extracted source text; verify it against the manifest’s `source_text_sha256`.
 - `kalila_1816.jsonl.gz`: complete local build output, not required for repository ingestion.
 - `../../../../scripts/build_kalila_1816.py`: reproducible MediaWiki API fetcher; stores both plain JSONL and compressed local outputs.
+
+## Embedded-tale opening markers
+
+`scripts/mark_kalila_nested_story_openings.py` indexes 39 reported-tale opening cues across nine chapters. These are review markers only: tale endings, nesting depth, and annotation labels remain unset. The offset inventory and count report are in `reported_tale_openings.jsonl` and `reported_tale_openings_report.json`; see [`KALILA_NESTED_STORY_OPENINGS.md`](../../../../docs/ar/KALILA_NESTED_STORY_OPENINGS.md).
