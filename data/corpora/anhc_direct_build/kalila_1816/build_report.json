@@ -46,5 +46,8 @@
   "story_level_segmentation_complete": false,
   "split": "unassigned",
   "tokenizer": "not selected; whitespace-word counts only",
-  "note": "Directly fetched source chapters; not the historical thesis ANHC and not a thesis-metric reproduction."
+  "note": "Directly fetched source chapters; raw text is losslessly split into transport-safe segments and tied to each pinned source revision/hash; not the historical thesis ANHC and not a thesis-metric reproduction.",
+  "record_shards": 10,
+  "text_segments": 56,
+  "storage_format": "chapter manifests plus ordered UTF-8 JSONL text segments; concatenate segment text in ascending segment_index to recover the source text exactly"
 }
