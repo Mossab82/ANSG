@@ -18,7 +18,7 @@ EXPECTED_ANNOTATIONS = {"DIA": None, "MOTIF": None, "MORAL": None}
 
 def git_blob_sha1(data: bytes) -> str:
     """Return the Git object id for a blob containing exactly data."""
-    header = f"blob {len(data)}\\0".encode("ascii")
+    header = b"blob " + str(len(data)).encode("ascii") + bytes([0])
     return hashlib.sha1(header + data).hexdigest()
 
 
