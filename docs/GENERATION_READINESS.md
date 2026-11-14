@@ -111,7 +111,7 @@ memory. Long generations on CPU are slow.
    ansg-build-examples --records-dir data/processed/nights --ckg data/private/ckg.json \
        --output data/processed/examples
    python scripts/train_cultural_modules.py --backbone /models/aragpt2-large \
-       --backbone-sha256 <digest-from-step-3> \\
+       --backbone-sha256 <digest-from-step-3> \
        --examples data/processed/examples/train.examples.jsonl \
        --schema-vocabulary data/processed/examples/schema_vocabulary.json \
        --data-kind real --authorization-manifest data/private/training_authorization.json \
