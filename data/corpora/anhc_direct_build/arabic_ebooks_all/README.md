@@ -6,7 +6,7 @@ This is the broad, licensed text pool for Arabic language-model pretraining. It 
 
 - 1,745/1,745 source files materialized; no archive files missing.
 - 66,081,654 observed whitespace-delimited words from extracted source text.
-- The provider metadata reports 80,587,361 words for these books. The 14.5M difference is retained for investigation; neither figure is substituted for the other.
+- The provider metadata reports 80,587,361 words for these books. Språkbanken's separate 2025-09-12 distribution reports 76,486,597 provider-native tokens and 3,629,107 sentences. These are three distinct counters; retain each with its source and do not substitute them for the pinned ANSG tokenizer count.
 - 49,805,829 observed words are from Arabic-original books; 16,275,825 from translations.
 - Direct-build SentencePiece Unigram profile (32K, version 0.2.0, non-root-aware): 107,029,217 pieces across all books and 82,705,621 pieces over the unique 1,388 narrative candidates. These were counted over full texts; vocabulary fitting used a deterministic 200,000-line sample. This count is independent of the thesis's historical 70,404,829-token claim and is not represented as a reproduction. See `../tokenizer_spm32/token_count_report.json` for hashes and detailed scope. Språkbanken reports its own corpus count separately; do not substitute it for our tokenizer count.
 - All records have source-book attribution and text SHA-256 in the reproducible materializer output.
