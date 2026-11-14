@@ -1,6 +1,6 @@
 {
-  "id": "mossabibrahim/ansg-heritage-lora-pilot",
-  "title": "ANSG Arabic heritage LoRA pilot (experimental)",
+  "id": "mossabibrahim/ansg-arabic-heritage-lora-pilot-experimental",
+  "title": "ansg-arabic-heritage-lora-pilot-experimental",
   "code_file": "ansg_heritage_pilot.py",
   "language": "python",
   "kernel_type": "script",

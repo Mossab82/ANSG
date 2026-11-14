@@ -5,7 +5,7 @@ import sys
 import time
 from pathlib import Path
 
-REF = "mossabibrahim/ansg-heritage-lora-pilot"
+REF = "mossabibrahim/ansg-arabic-heritage-lora-pilot-experimental"
 OUTPUT = Path("kaggle-heritage-output")
 DEADLINE = time.monotonic() + 7800
 
@@ -16,7 +16,7 @@ while time.monotonic() < DEADLINE:
     response=cli("status",REF)
     line=(response.stdout+"\n"+response.stderr).strip()
     if response.returncode:
-        print("Kaggle status unavailable, retrying.",flush=True)
+        print("Kaggle status error:",(response.stderr or response.stdout)[-800:],flush=True)
     else:
         state=next((x for x in ["COMPLETE","ERROR","CANCELLED","RUNNING","QUEUED"]
                     if "KernelWorkerStatus."+x in line),None)
