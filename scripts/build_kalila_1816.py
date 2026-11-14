@@ -142,13 +142,38 @@ def main():
     with (out / "kalila_1816.jsonl.gz").open("wb") as target:
         target.write(gzip.compress(jsonl.encode("utf-8"), compresslevel=9, mtime=0))
     shards = out / "records"
+    segments_root = shards / "segments"
     shards.mkdir(exist_ok=True)
+    segment_count = 0
     for row in records:
         payload = (json.dumps(row, ensure_ascii=False, separators=(",", ":")) + "\n").encode("utf-8")
-        shard = shards / f"{row['record_id']}.jsonl"
-        shard.write_bytes(payload)
         compressed_shard = shards / f"{row['record_id']}.jsonl.gz"
         compressed_shard.write_bytes(gzip.compress(payload, compresslevel=9, mtime=0))
+        parts = [row["text"][i:i + 3000] for i in range(0, len(row["text"]), 3000)]
+        segment_dir = segments_root / row["record_id"]
+        segment_dir.mkdir(parents=True, exist_ok=True)
+        segment_paths = []
+        for part_number, part_text in enumerate(parts, 1):
+            part_name = f"part-{part_number:03d}.jsonl"
+            part_row = {
+                "schema": "ansg.narrative_text_segment/1", "record_id": row["record_id"],
+                "segment_index": part_number, "segment_count": len(parts),
+                "source_text_sha256": row["source_text_sha256"], "text": part_text
+            }
+            (segment_dir / part_name).write_text(
+                json.dumps(part_row, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+            segment_paths.append(f"segments/{row['record_id']}/{part_name}")
+        segment_count += len(parts)
+        manifest = {
+            "schema": "ansg.narrative_record_manifest/1", "record_id": row["record_id"],
+            "source": row["source"], "narrative": row["narrative"],
+            "annotations": row["annotations"], "split": row["split"], "counts": row["counts"],
+            "source_text_sha256": row["source_text_sha256"],
+            "text_storage": {"format": "ordered_utf8_jsonl_segments", "concatenate_field": "text",
+                             "segments": segment_paths}
+        }
+        (shards / f"{row['record_id']}.jsonl").write_text(
+            json.dumps(manifest, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     report = {
         "schema": "ansg.anhc_direct_build_report/1",
         "built_utc": datetime.now(timezone.utc).isoformat(),
@@ -156,7 +181,9 @@ def main():
         "edition": "Paris, 1816; associated with editor Sylvestre de Sacy",
         "source_license": "CC BY-SA 4.0 (Wikisource page footer; attribution and share-alike apply)",
         "requested_chapters": len(titles), "accepted_chapters": len(records), "excluded_paratext": excluded,
-        "record_shards": len(records), "failures": failures,
+        "record_shards": len(records), "text_segments": segment_count,
+        "storage_format": "chapter manifests plus ordered UTF-8 JSONL text segments; concatenate segment text in ascending segment_index to recover the source text exactly",
+        "failures": failures,
         "whitespace_words": sum(row["counts"]["whitespace_words"] for row in records),
         "annotations_complete": False, "story_level_segmentation_complete": False,
         "split": "unassigned", "tokenizer": "not selected; whitespace-word counts only",
