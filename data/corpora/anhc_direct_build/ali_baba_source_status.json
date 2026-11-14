@@ -1,0 +1,31 @@
+{
+  "schema": "ansg.classical_source_review/1",
+  "work": "Ali Baba and the Forty Thieves",
+  "arabic_source_description": "Arabic text reported from a Bodleian manuscript",
+  "manuscript_shelfmark": "Bodleian Oriental 633",
+  "evidence": [
+    {
+      "type": "primary scholarly edition",
+      "citation": "Duncan B. Macdonald, “Ali Baba and the Forty Thieves in Arabic from a Bodleian MS,” Journal of the Royal Asiatic Society 42(2), 1910, pp. 327–386.",
+      "doi": "10.1017/S0035869X00039575",
+      "url": "https://www.cambridge.org/core/journals/journal-of-the-royal-asiatic-society/article/abs/ix-ali-baba-and-the-forty-thieves-in-arabic-from-a-bodleian-ms/E643039A9A2BBA4A6C3F1E64BE6CB4DA",
+      "publisher_record": "The record identifies an Arabic text from a Bodleian manuscript, provides the 1910 issue/pages, displays copyright © The Royal Asiatic Society 1910, and marks the full text as requiring access."
+    },
+    {
+      "type": "historical source note",
+      "citation": "W. R. Halliday, “The Story of Ali Baba and the Forty Thieves,” Folklore 31(4), 1920, pp. 321–323.",
+      "url": "https://ignca.gov.in/Asi_data/12250.pdf",
+      "note": "Identifies the manuscript as Bodl. Orient. 633 and discusses its discovery and provenance."
+    }
+  ],
+  "release_decision": {
+    "include_text": false,
+    "status": "source identified; full text and redistribution basis not verified",
+    "reason": "The complete article text was not obtained from an accessible verified source in this task. The Cambridge record exposes metadata and an extract but requires access for the full article. No modern transcription has been copied into this repository.",
+    "next_step": "Obtain a legally accessible scan or transcription, verify its provenance and reuse terms, then assess manuscript-text transcription separately from the 1910 scholarly apparatus."
+  },
+  "notes": [
+    "Do not describe Ali Baba as an independently verified early Arabian Nights manuscript; the source record identifies this specific Bodleian manuscript text.",
+    "This metadata record is not a substitute for the story text and is not a license grant."
+  ]
+}
