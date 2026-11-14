@@ -56,9 +56,16 @@ def validate_real_data_authorization(manifest_path, examples_path, vocabulary_pa
     if not isinstance(sources, list) or not sources:
         raise ValueError("authorization manifest must list source works")
     for source in sources:
+        if not isinstance(source, dict):
+            raise ValueError("each source authorization entry must be an object")
+        source_path = source.get("path")
+        source_hash = source.get("sha256", "")
         if (source.get("training_allowed") is not True or not source.get("license")
-                or not source.get("sha256") or len(source["sha256"]) != 64):
-            raise ValueError("each source must record license, SHA-256, and training_allowed=true")
+                or len(source_hash) != 64 or any(ch not in "0123456789abcdef" for ch in source_hash.lower())
+                or not source_path or not os.path.isfile(source_path)):
+            raise ValueError("each source must record an existing file path, license, SHA-256, and training_allowed=true")
+        if _sha256(source_path) != source_hash.lower():
+            raise ValueError(f"source SHA-256 does not match: {source_path}")
 
     derived = manifest.get("derived_files")
     if not isinstance(derived, list):
