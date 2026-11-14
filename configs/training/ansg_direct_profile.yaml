@@ -37,7 +37,9 @@ corpus_claims:
     historical_reproduction: false
 
 data_use_conflict:
-  status: unresolved_in_thesis
+  # The conflict exists in the dissertation itself and stays documented here.
+  status: conflict_in_thesis_reconstruction_choice_recorded
+  thesis_conflict: "Chapter 3 (§3.1.2) stages the 70.4M and 23M data in two phases; Chapter 5 (§5.1.3 p.133) uses both in stage 1."
   chapter_3_interpretation:
     stage_1: "Pretrain on the full 70.4M-token corpus."
     stage_2: "Fine-tune on the 23M-token triple-annotated portion."
@@ -45,7 +47,8 @@ data_use_conflict:
     stage_1_epochs_1_to_30: "Supervised pretraining using the full 70.4M plus the 23M annotated data (as stated in §5.1.3)."
   selected_reconstruction:
     training_schedule_follows: "Chapter 5 three-stage execution schedule"
-    stage_1_data_mapping: "Unresolved; preserve both statements and require an explicit run-time choice after the thesis owner reconciles them."
+    stage_1_data_mapping: "Full ANHC 70.4M tokens plus the 23M annotated portion in stage 1 (epochs 1-30), following Chapter 5 §5.1.3 / §5.6."
+    decision: "D10 (configs/specification/owner_decisions.yaml, 2026-11-14); reconstruction choice for this work, not a resolution of the dissertation's text"
     do_not_silently_sum_or_deduplicate: true
 
 model:
@@ -106,7 +109,7 @@ training:
       epochs: [1, 30]
       duration_hours_reported: 24
       objective_reference: "Chapter 4 Eq. 4.16–4.19"
-      data_mapping: "unresolved_data_use_conflict"
+      data_mapping: "full_anhc_70.4M_plus_annotated_23M (decision D10; Chapter 5 §5.1.3)"
     - id: adversarial_refinement
       epochs: [31, 65]
       duration_hours_reported: 28
@@ -143,11 +146,11 @@ training:
 
 training_gate:
   required_before_any_run:
-    - "Resolve chapter 3 vs chapter 5 corpus-use staging."
-    - "Provide legally authorized, versioned corpus files and a manifest."
+    - "Provide the full ANHC corpus (70.4M tokens) and its 23M annotated portion as legally authorized, versioned files with a manifest and documented usage rights (stage-1 mapping fixed by D10)."
+    - "Apply the defined data split (direct_build: deterministic work-group assignment, seed ANHC-direct-v1, 80/10/10) before any run."
     - "Provide the historical root-aware tokenizer or explicitly label a new run."
     - "Provide model checkpoint/config and verify parameter count."
-    - "Define missing loss, CMPI, reward normalization, CSAM rhetoric-bias, and DAL fused-QKV mappings."
+    - "Define missing loss, reward normalization, CSAM rhetoric-bias, and DAL fused-QKV mappings, and supply CMPI dimension scores (the CMPI equation itself is defined, D1)."
     - "Use actual annotation records only; synthetic/demo labels contribute zero historical annotation coverage."
     - "Record seed, code commit, dependencies, data/tokenizer hashes, logs, and checkpoints."
   default_action: "refuse_to_start_without_explicitly_complete_artifacts"

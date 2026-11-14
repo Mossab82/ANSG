@@ -123,7 +123,7 @@ def run(output_dir: str | Path, seed: int = 42) -> dict:
         refused = False
     except MetricNotSpecifiedError:
         refused = True
-    check("evaluation_separate", refused, craft_cmpi="refused (undefined in dissertation, C-EVAL-2)")
+    check("evaluation_separate", refused, craft_cmpi="refused: CMPI equation defined (§5.1 p.131) but its dimension scorers are unspecified (C-EVAL-2)")
 
     report = {
         "synthetic": True,

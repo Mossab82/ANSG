@@ -1,0 +1,230 @@
+# Reward and reinforcement-learning specifications of the dissertation, as
+# machine-checkable variants. Each variant is transcribed from ONE place in the
+# thesis, with section, equation and page (page = PDF footer in the supplied
+# Markdown export). Nothing is merged, resolved or selected.
+#
+# Loaded and validated by src/ansg/reward_spec.py; audited by
+# scripts/audit_reward_rl_spec.py. Coarser transcription of the same variants:
+# configs/specification/thesis_variants.yaml#reward_variants (a test keeps the
+# two consistent). Conflict ids: docs/SPECIFICATION_CONFLICTS.md (C-REWARD-*).
+
+schema: ansg.reward_rl_variants/1
+
+# Selections follow the owner's decisions of 2026-11-14
+# (configs/specification/owner_decisions.yaml, D6 and D7). The other variants stay
+# recorded as conflicting alternatives; none is merged into the reference.
+selected_variant: ch4_eq_4_26_to_4_29
+selected_ppo_variant: ch5_s5_6_3_table_5_9
+selection:
+  reward:
+    variant: ch4_eq_4_26_to_4_29
+    basis: "owner decision D6: Eq. 4.26-4.29 (§4.5, p.115-118) are the detailed reference formula"
+    conflicting_alternatives: [ch4_table_4_1_and_s4_1_1, ch5_eq_5_1_s5_6_3, appendix_a3_a11, ch5_s5_5_3_table_5_9_cultural_subweights, appendix_a21]
+  ppo:
+    variant: ch5_s5_6_3_table_5_9
+    basis: "owner decision D7: values stated in §5.6.3 (p.151) and Table 5.9 (p.148)"
+    conflicts:
+      - {source: appendix_a3_listing_a2, setting: learning_rate, value: 1.0e-6, body_value: 1.0e-5, reference: "A.3 Listing A.2 p.271 vs §5.6.3 p.151 / Table 5.9 (C-TRAIN-3)", resolution: "body value adopted by D7; appendix value kept as a recorded conflict"}
+
+# Operational gaps: not questions to the author. They must be supplied or pinned
+# before a real training run, and are not raised again until an implementation is
+# put forward for approval (owner decision D8).
+operational_gaps:
+  perplexity_normalisation:
+    status: required_input
+    note: "The dissertation gives no rule mapping perplexity to [0,1]; the Eq. 4.30 example (perplexity 15.3 -> 1/15.3 = 0.065 'normalized to [0,1]: 0.82', p.119) does not determine one."
+  bleu_normalisation:
+    status: required_input
+    note: "BLEU scale and normalisation for the reward are not stated (Table 4.1 example uses 0.34)."
+  kl_placement:
+    status: implementation_choice_to_pin_before_training
+    coefficient: 0.01
+    reference: "§5.6.3 p.151"
+    note: "Coefficient stated; placement (reward-side penalty or loss-side term) not stated."
+
+# Status of every quantity a variant refers to.
+#   thesis_defined_composite  defined in the thesis as a weighted composite of other components
+#   undefined                 named in the thesis, no operational definition
+#   underspecified            described in words; method/model/parameters missing
+#   normalisation_unspecified the raw quantity is standard, its [0,1] mapping is not given
+#   standard_metric           a standard metric; inputs may still be unavailable (see note)
+components:
+  CMPI:
+    status: thesis_defined_composite
+    definition_variant: cmpi_definition_s5_1_s8_7_4
+    implementation: ansg.evaluation.cmpi.ansg_cmpi
+    reference: "Defined as an AHP-weighted composite: §5.1 p.131 and §8.7.4 p.223 (0.35 rhetorical devices, 0.25 dialectal appropriateness, 0.25 narrative structure, 0.15 moral framing); 'composite metric (0-1 scale)', Table A.2 p.268. Its dimension scorers are not specified. CULTURA/CST-Onto/MM-GTA metrics of the same name are different metrics (configs/evaluation/cmpi_variants.yaml)."
+  virtue_coherence: {status: undefined, reference: "§4.5.1 p.115-116; C-REWARD-5"}
+  rhetorical_devices: {status: undefined, reference: "§4.5.1 p.116; §5.5.3 / Table 5.9 p.148"}
+  register: {status: undefined, reference: "§4.5.1 p.116"}
+  narrative_structure: {status: undefined, reference: "Table 5.9 justification p.148; §5.1 p.131"}
+  dialectal_appropriateness: {status: undefined, reference: "§5.1 p.131"}
+  moral_framing: {status: undefined, reference: "§5.1 p.131"}
+  inverse_perplexity_normalised:
+    status: normalisation_unspecified
+    reference: "Eq. 4.27 p.116; §4.5.4 p.119: perplexity 15.3 -> 1/15.3 = 0.065 'normalized to [0,1]: 0.82' (rule not given, C-REWARD-5)"
+  perplexity_normalised: {status: normalisation_unspecified, reference: "Eq. 5.1 §5.6.3 p.151"}
+  BLEU:
+    status: standard_metric
+    reference: "Eq. 4.27 p.116; Table 4.1 p.83"
+    note: "References are 'reference narratives from ANHC classical stratum' (p.116), which are unavailable; tokenisation and smoothing unstated. Conflicts with the 'no ground-truth references' claim (C-REWARD-3)."
+  BLEU4_normalised: {status: normalisation_unspecified, reference: "Eq. 5.1 §5.6.3 p.151"}
+  BERTScore:
+    status: underspecified
+    reference: "Eq. 4.27 p.116"
+    note: "'using AraBERT embeddings'; checkpoint, layer and baseline rescaling unstated."
+  coreference: {status: undefined, reference: "Eq. 4.28 p.117; C-REWARD-5"}
+  temporal: {status: undefined, reference: "Eq. 4.28 p.117; C-REWARD-5"}
+  causal: {status: undefined, reference: "Eq. 4.28 p.117; C-REWARD-5"}
+  PCI: {status: undefined, reference: "Table 4.1 p.83, §4.1.1 p.81; glossary: 'Plot Coherence Index (Ch.6)'; no formula located"}
+  embedding_coherence:
+    status: underspecified
+    reference: "Eq. 5.1 §5.6.3 p.151: 'Sentence-level embedding coherence via cosine similarity'"
+    note: "encoder and aggregation over sentence pairs unstated"
+  cultural: {status: undefined, reference: "A.3 Listing A.2 p.271; A.11 p.280 (criterion names only)"}
+  linguistic: {status: undefined, reference: "A.3 Listing A.2 p.271; A.11 p.280"}
+  coherence: {status: undefined, reference: "A.3 Listing A.2 p.271; A.11 p.280"}
+  diversity: {status: undefined, reference: "A.3 Listing A.2 p.271; A.11 p.280 ('output diversity')"}
+  cultural_fidelity: {status: undefined, reference: "A.21.3 p.291"}
+  fluency: {status: undefined, reference: "A.21.3 p.291"}
+  coherence_penalty:
+    status: underspecified
+    reference: "Eq. 5.2 p.152: 'measures semantic drift via embedding similarity'"
+  proverb_repetition:
+    status: underspecified
+    reference: "Eq. 5.3 p.153: 'counts proverbs exceeding 4 per 500 tokens'"
+    note: "proverb detector unspecified; whether the term is a count or an excess count is not stated"
+
+# A variant's formula maps a node name to a weighted sum of terms. A term is a
+# component or another node of the same formula. `normalised: false` marks a sum
+# whose weights are not a convex combination as printed.
+# kind: full      -> defines R_total from components
+#       fragment  -> defines only the nodes listed in `defines`
+#       ratio     -> a stated weight ratio between abstract criteria
+variants:
+  ch4_eq_4_26_to_4_29:
+    role: reference
+    kind: full
+    reference: {section: "§4.5.1-§4.5.3", equations: ["4.26", "4.27", "4.28", "4.29"], pages: [115, 116, 117, 118]}
+    output: R_total
+    formula:
+      R_total: {sum: {R_cult: 0.45, R_ling: 0.35, R_coh: 0.20}}
+      R_cult: {sum: {CMPI: 0.35, virtue_coherence: 0.30, rhetorical_devices: 0.25, register: 0.10}}
+      R_ling: {sum: {inverse_perplexity_normalised: 0.40, BLEU: 0.35, BERTScore: 0.25}}
+      R_coh: {sum: {coreference: 0.50, temporal: 0.30, causal: 0.20}}
+    weight_derivation: {method: AHP, panel: 12, delphi_rounds: 3, stated_CR: 0.02, reference: "§4.5.2 p.117-118"}
+    observations:
+      - "R_cult weights CMPI (0.35) and rhetorical devices (0.25) separately, while CMPI itself contains rhetorical devices (0.35, §5.1 p.131): rhetorical devices enter R_cult twice (effective 0.35*0.35 + 0.25 = 0.3725 of R_cult)."
+
+  ch4_table_4_1_and_s4_1_1:
+    role: conflicting_alternative
+    kind: full
+    reference: {section: "Table 4.1 (RL row); §4.1.1 step 9", equations: [], pages: [81, 83]}
+    output: R_total
+    formula:
+      R_total: {sum: {CMPI: 0.45, BLEU: 0.35, PCI: 0.20}}
+
+  ch5_eq_5_1_s5_6_3:
+    role: conflicting_alternative
+    kind: full
+    reference: {section: "§5.6.3; Table 5.9", equations: ["5.1", "5.2", "5.3"], pages: [148, 150, 151, 152, 153]}
+    output: R_total
+    formula:
+      R_total: {sum: {R_cult: 0.45, R_ling: 0.35, R_coh: 0.20}}
+      R_cult: {sum: {CMPI: 1.0}}
+      R_ling:
+        normalised: false            # printed as an unweighted sum: range [0, 2]
+        sum:
+          BLEU4_normalised: 1.0
+          perplexity_normalised: {weight: 1.0, transform: one_minus}
+      R_coh: {sum: {embedding_coherence: 1.0}}
+    penalties:                       # R'_node = R_node - coefficient * component
+      - {applies_to: R_cult, coefficient: 0.10, component: proverb_repetition, equation: "5.3", page: 153}
+      - {applies_to: R_total, coefficient: 0.15, component: coherence_penalty, equation: "5.2", page: 152}
+    kl_penalty: {coefficient: 0.01, page: 151, placement: unspecified}   # reward-side or loss-side is not stated
+    weight_derivation: {method: AHP, reference: "Eq. 5.1 p.151; Table 5.9 p.148 ('AHP expert consensus (Chapter 4)')"}
+
+  ch5_s5_5_3_table_5_9_cultural_subweights:
+    role: conflicting_alternative
+    kind: fragment
+    defines: [R_cult]
+    reference: {section: "§5.5.3; Table 5.9 justification text", equations: [], pages: [148]}
+    formula:
+      R_cult: {sum: {rhetorical_devices: 0.35, virtue_coherence: 0.30, narrative_structure: 0.25, register: 0.10}}
+
+  cmpi_definition_s5_1_s8_7_4:
+    role: definition
+    kind: fragment
+    defines: [CMPI]
+    reference: {section: "§5.1; §8.7.4; App. A.1 Table A.2", equations: [], pages: [131, 223, 268]}
+    note: "The dissertation's CMPI definition (printed in prose, AHP-derived weights); implementation reference ansg.evaluation.cmpi. The four dimension scorers are not specified."
+    formula:
+      CMPI: {sum: {rhetorical_devices: 0.35, dialectal_appropriateness: 0.25, narrative_structure: 0.25, moral_framing: 0.15}}
+
+  appendix_a3_a11:
+    role: conflicting_alternative
+    kind: full
+    reference: {section: "A.3 Listing A.2; A.11", equations: [], pages: [271, 280, 281]}
+    output: R_total
+    formula:
+      R_total: {sum: {cultural: 0.35, linguistic: 0.30, coherence: 0.25, diversity: 0.10}}
+    weight_derivation:
+      method: AHP
+      panel: 5
+      stated_CR: 0.023
+      matrix_table: "Table A.10 p.280"
+      recomputed: "eigenvector 0.350/0.300/0.249/0.100, CR ~ 0.0001 (C-REWARD-4; ansg.evaluation.ahp)"
+
+  appendix_a21:
+    role: conflicting_alternative
+    kind: ratio
+    reference: {section: "A.21.3", equations: [], pages: [291, 292]}
+    formula:
+      cultural_vs_fluency: {sum: {cultural_fidelity: 0.63, fluency: 0.37}}
+    stated_elsewhere_in_same_section: "cultural components 'collectively receive 65% weight versus linguistic quality ... at 35%' (p.291-292), which matches neither 0.63 nor 0.45"
+
+# Worked examples printed in the thesis. `inputs` are the printed component
+# values; `printed` are the printed results. The audit recomputes them; values
+# are transcribed, never adjusted.
+worked_examples:
+  - id: eq_4_30
+    variant: ch4_eq_4_26_to_4_29
+    reference: "§4.5.4, Eq. 4.30, p.118-119"
+    inputs: {CMPI: 0.91, virtue_coherence: 0.88, rhetorical_devices: 0.73, register: 0.95,
+             inverse_perplexity_normalised: 0.82, BLEU: 0.67, BERTScore: 0.89,
+             coreference: 0.92, temporal: 1.00, causal: 0.95}
+    printed: {R_cult: 0.867, R_ling: 0.784, R_coh: 0.950, R_total: 0.854}
+    printed_total_uses_printed_partials: true
+  - id: s4_1_1_step_9
+    variant: ch4_table_4_1_and_s4_1_1
+    reference: "§4.1.1 step 9, p.81"
+    inputs: {CMPI: 0.91, BLEU: 0.34, PCI: 0.88}
+    printed: {R_total: 0.704}
+
+# PPO / RL-phase hyperparameters, per location.
+ppo_variants:
+  ch5_s5_6_3_table_5_9:
+    reference: {section: "§5.6.3; Table 5.9", pages: [148, 151]}
+    clip_range: 0.20
+    value_coef: 0.50
+    entropy_coef: 0.01
+    gae_lambda: 0.95
+    rollout_batch: 128
+    ppo_epochs: 4
+    minibatch: 32
+    kl_coef: 0.01
+    max_grad_norm: 0.5
+    learning_rate: 1.0e-5
+  ch4_table_4_1:
+    reference: {section: "Table 4.1 (RL row)", pages: [83]}
+    learning_rate: 1.0e-5
+    clip_range: 0.20
+    steps: 10000
+    data: "50K generated samples"
+  ch4_s4_1_6:
+    reference: {section: "§4.1.6 Phase 3", pages: [90]}
+    steps: 20000
+  appendix_a3_listing_a2:
+    reference: {section: "A.3 Listing A.2", pages: [271]}
+    learning_rate: 1.0e-6
+    ppo_epochs: 4

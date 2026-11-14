@@ -170,6 +170,14 @@ class CulturalKnowledgeGraph:
                 problems.append(f"edge source {e.source!r} is not a node")
             if e.target not in self.nodes:
                 problems.append(f"edge target {e.target!r} is not a node")
+        seen_edges: set[tuple[str, str, str]] = set()
+        for e in self.edges:
+            key = (e.source, e.relation, e.target)
+            if key in seen_edges:
+                problems.append(f"duplicate edge {e.source!r} -{e.relation}-> {e.target!r}")
+            seen_edges.add(key)
+            if e.weight is not None and not (e.weight == e.weight and abs(e.weight) != float("inf")):
+                problems.append(f"edge {e.source!r} -{e.relation}-> {e.target!r}: non-finite weight")
         if self.ontology:
             for n in self.nodes.values():
                 if n.ontology_class and n.ontology_class not in self.ontology:
@@ -178,6 +186,8 @@ class CulturalKnowledgeGraph:
                 for p in c.parents:
                     if p not in self.ontology:
                         problems.append(f"ontology class {c.iri!r}: parent {p!r} not loaded")
+            for cycle in subclass_cycles(self.ontology.values()):
+                problems.append("ontology subclass cycle: " + " -> ".join(cycle))
         if declared is not None:
             if declared.relation_types is not None:
                 for e in self.edges:
@@ -212,6 +222,19 @@ class CulturalKnowledgeGraph:
             },
             "edges_supplied": len(self.edges),
         }
+
+    def provenance(self) -> dict[str, Any]:
+        """Metadata needed before a supplied graph may be treated as the thesis CKG.
+
+        Never asserts identity with the dissertation's CKG: at best it reports that
+        the required provenance fields are present and the graph is not marked as
+        synthetic, test or demo data."""
+        md = self.metadata or {}
+        missing = [k for k in PROVENANCE_FIELDS if not str(md.get(k) or "").strip()]
+        text = " ".join(str(md.get(k) or "") for k in ("name", "source", "version", "description")).lower()
+        synthetic = any(marker in text for marker in SYNTHETIC_MARKERS)
+        return {"missing_fields": missing, "marked_synthetic_or_demo": synthetic,
+                "eligible_for_thesis_identity_review": not missing and not synthetic}
 
     # ------------------------------------------------------------ CSAM view
     def index(self, kinds: Sequence[str] | None = None) -> dict[str, int]:
@@ -336,6 +359,100 @@ class CosineThresholdActivator:
             keep = sorted(scores, key=lambda k: (-scores[k], k))[: self.max_active]
             scores = {k: scores[k] for k in keep}
         return ActivationScores(scores=scores, method=self.method)
+
+
+PROVENANCE_FIELDS = ("name", "version", "source", "license")
+SYNTHETIC_MARKERS = ("synthetic", "test fixture", "hand-written fixture", "demo", "example", "placeholder")
+
+
+def subclass_cycles(classes: Iterable[OntologyClass]) -> list[list[str]]:
+    """Cycles in the ``parents`` (rdfs:subClassOf) relation, each reported once."""
+    parents = {c.iri: list(c.parents) for c in classes}
+    state: dict[str, int] = {}
+    stack: list[str] = []
+    cycles: list[list[str]] = []
+    seen: set[frozenset[str]] = set()
+
+    def visit(n: str) -> None:
+        state[n] = 1
+        stack.append(n)
+        for p in parents.get(n, []):
+            if state.get(p) == 1:
+                cyc = stack[stack.index(p):] + [p]
+                key = frozenset(cyc)
+                if key not in seen:
+                    seen.add(key)
+                    cycles.append(cyc)
+            elif state.get(p) is None and p in parents:
+                visit(p)
+        stack.pop()
+        state[n] = 2
+
+    for n in sorted(parents):
+        if state.get(n) is None:
+            visit(n)
+    return cycles
+
+
+# Ontology inventory keys that map one-to-one onto OWL/SWRL vocabulary, and the
+# declared-count keys (configs/knowledge/ckg.yaml) they can be compared with.
+# Thesis categories without an unambiguous OWL counterpart ("annotation
+# instances", "total entities", "specialized concepts", corpus segment counts)
+# are reported as not comparable rather than guessed.
+INVENTORY_TO_DECLARED = {
+    "owl_classes": "ontology_class_count",
+    "object_properties": "object_properties",
+    "datatype_properties": "datatype_properties",
+    "swrl_rules": "swrl_rules",
+}
+
+
+def ontology_inventory(path: str | os.PathLike[str], fmt: str | None = None) -> dict[str, Any]:
+    """Count OWL/SWRL entity types in an RDF file (requires ``rdflib``).
+
+    Counts only what is explicitly typed in the file; nothing is inferred."""
+    try:
+        import rdflib  # type: ignore[import-not-found]
+        from rdflib.namespace import OWL, RDF, RDFS  # type: ignore[import-not-found]
+    except ImportError as exc:  # pragma: no cover - depends on environment
+        raise ImportError("ontology_inventory requires rdflib: pip install '.[ontology]'") from exc
+    g = rdflib.Graph()
+    g.parse(str(Path(path)), format=fmt)
+    swrl_imp = rdflib.URIRef("http://www.w3.org/2003/11/swrl#Imp")
+
+    def typed(t):
+        return {s for s in g.subjects(RDF.type, t)}
+
+    classes = {s for s in typed(OWL.Class) | typed(RDFS.Class) if isinstance(s, rdflib.URIRef)}
+    ontologies = sorted(str(s) for s in typed(OWL.Ontology))
+    version = {str(o) for s in typed(OWL.Ontology) for o in g.objects(s, OWL.versionIRI)} | \
+              {str(o) for s in typed(OWL.Ontology) for o in g.objects(s, OWL.versionInfo)}
+    class_objs = load_ontology_rdf(path, fmt)
+    return {
+        "triples": len(g),
+        "ontology_iris": ontologies,
+        "version_info": sorted(version),
+        "owl_classes": len(classes),
+        "object_properties": len(typed(OWL.ObjectProperty)),
+        "datatype_properties": len(typed(OWL.DatatypeProperty)),
+        "annotation_properties": len(typed(OWL.AnnotationProperty)),
+        "named_individuals": len(typed(OWL.NamedIndividual)),
+        "swrl_rules": len(typed(swrl_imp)),
+        "classes_without_label": sum(1 for c in class_objs if not c.label),
+        "subclass_cycles": subclass_cycles(class_objs),
+    }
+
+
+def compare_inventory(inventory: Mapping[str, Any], declared: "DeclaredStructure") -> dict[str, Any]:
+    """Compare an ontology inventory with one declared variant. Never fills gaps."""
+    rows: dict[str, Any] = {}
+    for inv_key, decl_key in INVENTORY_TO_DECLARED.items():
+        stated = declared.ontology_class_count if decl_key == "ontology_class_count" else declared.other_counts.get(decl_key)
+        found = inventory.get(inv_key)
+        rows[decl_key] = {"declared": stated, "found": found,
+                          "status": "undeclared" if stated is None else ("match" if stated == found else "mismatch")}
+    not_comparable = sorted(k for k in declared.other_counts if k not in INVENTORY_TO_DECLARED.values())
+    return {"source_reference": declared.source_reference, "rows": rows, "not_comparable_declared_counts": not_comparable}
 
 
 def load_declared_variants(items: Iterable[Mapping[str, Any]] | None) -> dict[str, DeclaredStructure]:
