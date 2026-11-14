@@ -1,6 +1,8 @@
 schema: ansg.anhc_direct_build/1
 build_name: ANHC-direct-build
 status: source_intake_started
+release_protocol: configs/data/anhc_release_protocol.yaml
+annotation_schema: configs/data/anhc_annotation.schema.json
 principle: collect_and_annotate_primary_texts_directly
 do_not:
   - reconstruct_missing_historical_records
@@ -23,7 +25,9 @@ thesis_targets_for_validation_only:
     content to make the observed totals equal these targets.
 
 counting:
-  tokenizer: unresolved
+  tokenizer: unresolved_original_profile
+  report_profiles: [thesis_sentencepiece32k_root_aware, model_native_bpe]
+  protocol: docs/ar/ANHC_RELEASE_PROTOCOL.md
   tokenizer_must_be_pinned_before_any_claimed_token_total: true
   normalization_profile: versioned_and_non_destructive
   report_word_count_and_token_count_separately: true
