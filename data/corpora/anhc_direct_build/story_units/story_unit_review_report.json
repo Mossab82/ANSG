@@ -1,0 +1,110 @@
+{
+  "schema": "ansg.story_unit_review_manifest/1",
+  "boundary_policy": "retain source offsets; heading-delimited spans are provisional and never treated as gold story boundaries",
+  "nested_story_policy": "do not infer parent-child links; keep every unit from the same work-cycle in one split when splitting is later assigned",
+  "sources": {
+    "hindawi-27482482": {
+      "cycle_id": "alf_layla_work_cycle",
+      "candidate_markers": 25,
+      "source_text_sha256": "008a5c1c85ec17c1874a6fe53edc424c1645562496bed5305195314396bd519d",
+      "edition_title": "ألف ليلة وليلة (الجزء السادس)",
+      "translation": false,
+      "source_license": "CC BY 4.0 (dataset; the dataset README states included works/translations are public domain or CC BY 4.0)",
+      "source_attribution": "Hallberg, A. (2024). The Arabic E-Book Corpus (Version 1). University of Gothenburg. DOI: 10.5878/7rbh-gy93; original book metadata retained.",
+      "split_lock": "all volumes and candidate tales of Alf Layla wa-Layla stay together pending a deliberate cycle-level split"
+    },
+    "hindawi-36973840": {
+      "cycle_id": "alf_layla_work_cycle",
+      "candidate_markers": 32,
+      "source_text_sha256": "4e64e3a22f4faccd735c63e98bdd5c8b82c207bc0d86bb4e506dd6ac0b802ea7",
+      "edition_title": "ألف ليلة وليلة (الجزء الثاني)",
+      "translation": false,
+      "source_license": "CC BY 4.0 (dataset; the dataset README states included works/translations are public domain or CC BY 4.0)",
+      "source_attribution": "Hallberg, A. (2024). The Arabic E-Book Corpus (Version 1). University of Gothenburg. DOI: 10.5878/7rbh-gy93; original book metadata retained.",
+      "split_lock": "all volumes and candidate tales of Alf Layla wa-Layla stay together pending a deliberate cycle-level split"
+    },
+    "hindawi-39419251": {
+      "cycle_id": "alf_layla_work_cycle",
+      "candidate_markers": 44,
+      "source_text_sha256": "185852e36b87c20f1452e8e13df72ac01e15a66b4ca9d9110023b9b2dac64d4a",
+      "edition_title": "ألف ليلة وليلة (الجزء الرابع)",
+      "translation": false,
+      "source_license": "CC BY 4.0 (dataset; the dataset README states included works/translations are public domain or CC BY 4.0)",
+      "source_attribution": "Hallberg, A. (2024). The Arabic E-Book Corpus (Version 1). University of Gothenburg. DOI: 10.5878/7rbh-gy93; original book metadata retained.",
+      "split_lock": "all volumes and candidate tales of Alf Layla wa-Layla stay together pending a deliberate cycle-level split"
+    },
+    "hindawi-61961973": {
+      "cycle_id": "alf_layla_work_cycle",
+      "candidate_markers": 42,
+      "source_text_sha256": "ff31ee5ab6e491b998bc3de4438264d195bd9cf4a32819d03d160047d056f2b0",
+      "edition_title": "ألف ليلة وليلة (الجزء الأول)",
+      "translation": false,
+      "source_license": "CC BY 4.0 (dataset; the dataset README states included works/translations are public domain or CC BY 4.0)",
+      "source_attribution": "Hallberg, A. (2024). The Arabic E-Book Corpus (Version 1). University of Gothenburg. DOI: 10.5878/7rbh-gy93; original book metadata retained.",
+      "split_lock": "all volumes and candidate tales of Alf Layla wa-Layla stay together pending a deliberate cycle-level split"
+    },
+    "hindawi-75264279": {
+      "cycle_id": "alf_layla_work_cycle",
+      "candidate_markers": 4,
+      "source_text_sha256": "3541af86f80e1aa4a0d981cfe53eff0ee99d54b6b995fb62d24ebba5331af660",
+      "edition_title": "ألف ليلة وليلة (الجزء الخامس)",
+      "translation": false,
+      "source_license": "CC BY 4.0 (dataset; the dataset README states included works/translations are public domain or CC BY 4.0)",
+      "source_attribution": "Hallberg, A. (2024). The Arabic E-Book Corpus (Version 1). University of Gothenburg. DOI: 10.5878/7rbh-gy93; original book metadata retained.",
+      "split_lock": "all volumes and candidate tales of Alf Layla wa-Layla stay together pending a deliberate cycle-level split"
+    },
+    "hindawi-85931905": {
+      "cycle_id": "alf_layla_work_cycle",
+      "candidate_markers": 89,
+      "source_text_sha256": "c0e48fa7fba518da061c6df1bdb2aee2aaa85b83ae32e1e06da9b4c24890ca91",
+      "edition_title": "ألف ليلة وليلة (الجزء الثالث)",
+      "translation": false,
+      "source_license": "CC BY 4.0 (dataset; the dataset README states included works/translations are public domain or CC BY 4.0)",
+      "source_attribution": "Hallberg, A. (2024). The Arabic E-Book Corpus (Version 1). University of Gothenburg. DOI: 10.5878/7rbh-gy93; original book metadata retained.",
+      "split_lock": "all volumes and candidate tales of Alf Layla wa-Layla stay together pending a deliberate cycle-level split"
+    }
+  },
+  "counts": {
+    "alf_layla_provisional_spans": 236,
+    "kalila_chapter_containers": 10,
+    "total_provisional_units": 246
+  },
+  "unsegmented_prefixes": [
+    {
+      "record_id": "hindawi-27482482",
+      "char_start": 0,
+      "char_end": 93522,
+      "reason": "text_before_first_heading_candidate_not_assigned_to_a_story"
+    },
+    {
+      "record_id": "hindawi-36973840",
+      "char_start": 0,
+      "char_end": 53,
+      "reason": "text_before_first_heading_candidate_not_assigned_to_a_story"
+    },
+    {
+      "record_id": "hindawi-39419251",
+      "char_start": 0,
+      "char_end": 952,
+      "reason": "text_before_first_heading_candidate_not_assigned_to_a_story"
+    },
+    {
+      "record_id": "hindawi-61961973",
+      "char_start": 0,
+      "char_end": 489,
+      "reason": "text_before_first_heading_candidate_not_assigned_to_a_story"
+    },
+    {
+      "record_id": "hindawi-75264279",
+      "char_start": 0,
+      "char_end": 65710,
+      "reason": "text_before_first_heading_candidate_not_assigned_to_a_story"
+    },
+    {
+      "record_id": "hindawi-85931905",
+      "char_start": 0,
+      "char_end": 47281,
+      "reason": "text_before_first_heading_candidate_not_assigned_to_a_story"
+    }
+  ]
+}
