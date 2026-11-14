@@ -49,6 +49,8 @@ def main():
     ap.add_argument('--report', type=Path, required=True)
     args = ap.parse_args()
     existing = list(read_jsonl(args.existing_units))
+    for unit in existing:
+        unit.setdefault('annotations', {'DIA': None, 'MOTIF': None, 'MORAL': None})
     existing_ids = {u['unit_id'] for u in existing}
     out = list(existing)
     rows = list(read_jsonl(args.candidate_manifest))
