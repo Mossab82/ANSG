@@ -370,7 +370,7 @@ def main():
                         "DIA/MOTIF/MORAL outputs are empty templates; no labels or human adjudication are fabricated.",
                         "Alf Layla volumes are already among the Arabic E-Book Corpus candidates and are counted once; story-span rows add no duplicate text tokens.",
                         "Optional user-provided dialect support counts are auxiliary and excluded from story-token and split totals.",
-                        "The script emits source-record ID lists and metadata; source text remains in its attributed input files."]
+                        "When metadata-only is false, the script writes compressed local copies of attributed source texts under corpora/; do not redistribute or commit those files without preserving source terms."]
     }
     (args.output / "release_report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (ann_dir / "README.md").write_text("# Annotation templates\n\nDIA.jsonl, MOTIF.jsonl, and MORAL.jsonl are intentionally empty. The direct-build command creates schema-ready empty files; it does not infer or fabricate human labels. The 23M triple-covered-token thesis figure is not reproduced by this release.\n", encoding="utf-8")
