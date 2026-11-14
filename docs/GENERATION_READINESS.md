@@ -105,13 +105,19 @@ memory. Long generations on CPU are slow.
 5. **Optional: cultural modules.** Steps 5 and 6 require the licensed corpus and a real CKG export:
 
    ```bash
+   # Only after the owner has resolved the run-plan choices and approved all data rights.
+   # Keep the checked-in default profile blocked; create this approved profile separately.
    ansg-ingest --config configs/data/nights.yaml
    ansg-build-examples --records-dir data/processed/nights --ckg data/private/ckg.json \
        --output data/processed/examples
    python scripts/train_cultural_modules.py --backbone /models/aragpt2-large \
+       --backbone-sha256 <digest-from-step-3> \
        --examples data/processed/examples/train.examples.jsonl \
        --schema-vocabulary data/processed/examples/schema_vocabulary.json \
-       --data-kind real --steps <N> --device cuda --output checkpoints/cultural.pt
+       --data-kind real --authorization-manifest data/private/training_authorization.json \
+       --run-plan configs/training/training_run_plan.json \
+       --profile configs/training/approved_reconstruction_profile.yaml \
+       --steps <N> --device cuda --output checkpoints/cultural.pt
    ansg-generate --backbone /models/aragpt2-large --cultural-checkpoint checkpoints/cultural.pt \
        --schema-vocabulary data/processed/examples/schema_vocabulary.json \
        --schema-node <CKG node id> --dialect Egyptian --prompt "..." --output runs/committee/ansg.json
