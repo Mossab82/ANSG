@@ -101,6 +101,9 @@ checks:
     tolerance: 0
     note: "C-EVAL-12: 900 per-dialect samples vs a 500-narrative test set"
 
+  - {id: A12-TEST-SET-SUM, ref: "App. A.14 Table A.12, p. 283", claim: "test set total 500 (100+100+100+75+75+50)", inputs: {a: 100, b: 100, c: 100, d: 75, e: 75, f: 50}, formula: "a+b+c+d+e+f", reported: 500, tolerance: 0}
+  - {id: A12-VS-T6.6-GULF-N, ref: "Table A.12 p. 283 (Gulf 75) vs Table 6.6 p. 173 (Gulf n = 150)", claim: "Gulf test narratives", inputs: {a12: 75}, formula: "a12", reported: 150, tolerance: 0, note: "per-dialect n in Table 6.6 does not match the test-set composition in Table A.12"}
+
   # ---------------------------------------------------------------- Ch. 4 reward
   - {id: EQ4.30, ref: "§4.5.4, Eq. 4.30, p. 119", claim: "R_total = 0.854", inputs: {c: 0.867, l: 0.784, h: 0.950}, formula: "0.45*c+0.35*l+0.20*h", reported: 0.854, tolerance: 0.001, note: "exact 0.85455; printed value truncated"}
 

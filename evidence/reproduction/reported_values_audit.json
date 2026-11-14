@@ -1,12 +1,12 @@
 {
   "schema": "ansg.reported_values_audit/1",
   "source": "configs/reproduction/thesis_reported_values.yaml",
-  "source_sha256": "b43aff528cb8d4ec39a7cb6a33e9bef11d670b53c5db1923348e41426bbb2761",
+  "source_sha256": "0b7d47d65a60756bf8ff34873eb19601b7f8b6547f62640f145c2e8322716b6a",
   "nature": "arithmetic consistency of values REPORTED in the thesis; no experiment is reproduced",
   "summary": {
-    "checks": 44,
-    "consistent": 27,
-    "inconsistent": 17
+    "checks": 46,
+    "consistent": 28,
+    "inconsistent": 18
   },
   "results": [
     {
@@ -371,6 +371,28 @@
       "tolerance": 0,
       "status": "INCONSISTENT",
       "note": "C-EVAL-12: 900 per-dialect samples vs a 500-narrative test set"
+    },
+    {
+      "id": "A12-TEST-SET-SUM",
+      "ref": "App. A.14 Table A.12, p. 283",
+      "claim": "test set total 500 (100+100+100+75+75+50)",
+      "reported": 500,
+      "recomputed_from_reported_inputs": 500,
+      "difference": 0,
+      "tolerance": 0,
+      "status": "CONSISTENT",
+      "note": null
+    },
+    {
+      "id": "A12-VS-T6.6-GULF-N",
+      "ref": "Table A.12 p. 283 (Gulf 75) vs Table 6.6 p. 173 (Gulf n = 150)",
+      "claim": "Gulf test narratives",
+      "reported": 150,
+      "recomputed_from_reported_inputs": 75,
+      "difference": -75,
+      "tolerance": 0,
+      "status": "INCONSISTENT",
+      "note": "per-dialect n in Table 6.6 does not match the test-set composition in Table A.12"
     },
     {
       "id": "EQ4.30",
