@@ -1,0 +1,521 @@
+{
+  "schema": "ansg.hnc_plan/1",
+  "setting": "alexandria",
+  "title": "المفتاح الضائع",
+  "register": {
+    "narration": "msa",
+    "dialogue": "dialect"
+  },
+  "target_words": 700,
+  "notes": "",
+  "frames": [
+    {
+      "id": "alx-frame",
+      "parent": null,
+      "narrator": null,
+      "audience": [],
+      "perspective": "third_person",
+      "narrator_in_frame": null,
+      "time_context": "",
+      "function": "",
+      "opened_by": null,
+      "resumed_by": null,
+      "setting_note": "",
+      "conveys": [],
+      "graph": {
+        "schema": "ansg.event_graph/1",
+        "record_id": "plan:alx-frame",
+        "text_sha256": null,
+        "entities": [
+          {
+            "id": "zeinab",
+            "name": "زينب",
+            "kind": "character",
+            "narrative_role": "bakery owner",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "hassan",
+            "name": "حسن",
+            "kind": "character",
+            "narrative_role": "apprentice",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "mahmoud",
+            "name": "محمود",
+            "kind": "character",
+            "narrative_role": "neighbour",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "nadia",
+            "name": "نادية",
+            "kind": "character",
+            "narrative_role": "elder",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "ledger",
+            "name": "دفتر الحسابات",
+            "kind": "object",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "bahari",
+            "name": "بحري",
+            "kind": "place",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          }
+        ],
+        "events": [
+          {
+            "id": "al1",
+            "trigger": "اتهم",
+            "evidence": null,
+            "discourse_index": 0,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "mahmoud",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Patient",
+                "entity": "hassan",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Location",
+                "entity": "bahari",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [
+              {
+                "predicate": "accused",
+                "args": [
+                  "hassan"
+                ],
+                "negated": false
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "محمود يتهم حسن بأخذ نقود من صندوق مخبز زينب في بحري"
+          },
+          {
+            "id": "al2",
+            "trigger": "طلبت",
+            "evidence": null,
+            "discourse_index": 1,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "nadia",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Recipient",
+                "entity": "mahmoud",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "نادية تطلب من الجميع أن يسمعوا حكاية قبل أن يحكموا"
+          },
+          {
+            "id": "al3",
+            "trigger": "راجع",
+            "evidence": null,
+            "discourse_index": 2,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "mahmoud",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Theme",
+                "entity": "ledger",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [
+              {
+                "predicate": "checked",
+                "args": [
+                  "ledger"
+                ],
+                "negated": false
+              }
+            ],
+            "knowledge_required": [
+              {
+                "entity": "mahmoud",
+                "proposition": {
+                  "predicate": "hasty_accusation_wrongs",
+                  "args": [
+                    "innocents"
+                  ],
+                  "negated": false
+                },
+                "channel": "perception",
+                "source_entity": null
+              }
+            ],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "محمود يوافق على مراجعة دفتر الحسابات قبل الحكم"
+          },
+          {
+            "id": "al4",
+            "trigger": "اعتذر",
+            "evidence": null,
+            "discourse_index": 3,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "mahmoud",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Recipient",
+                "entity": "hassan",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [
+              {
+                "predicate": "checked",
+                "args": [
+                  "ledger"
+                ],
+                "negated": false
+              },
+              {
+                "predicate": "accused",
+                "args": [
+                  "hassan"
+                ],
+                "negated": false
+              }
+            ],
+            "effects": [
+              {
+                "predicate": "accused",
+                "args": [
+                  "hassan"
+                ],
+                "negated": true
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "يظهر الدفتر أن محمود أخطأ في العد فيعتذر لحسن"
+          }
+        ],
+        "relations": [
+          {
+            "kind": "BEFORE",
+            "source": "al1",
+            "target": "al2",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          },
+          {
+            "kind": "BEFORE",
+            "source": "al2",
+            "target": "al3",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          },
+          {
+            "kind": "ENABLES",
+            "source": "al3",
+            "target": "al4",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          }
+        ],
+        "initial_state": [],
+        "initial_knowledge": [],
+        "metadata": {}
+      }
+    },
+    {
+      "id": "alx-key",
+      "parent": "alx-frame",
+      "narrator": "nadia",
+      "audience": [
+        "mahmoud",
+        "zeinab"
+      ],
+      "perspective": "third_person",
+      "narrator_in_frame": null,
+      "time_context": "قبل ثلاثين عامًا في حي الأنفوشي",
+      "function": "تحذير من التسرع في الاتهام",
+      "opened_by": "al2",
+      "resumed_by": "al3",
+      "setting_note": "",
+      "conveys": [
+        {
+          "predicate": "hasty_accusation_wrongs",
+          "args": [
+            "innocents"
+          ],
+          "negated": false
+        }
+      ],
+      "graph": {
+        "schema": "ansg.event_graph/1",
+        "record_id": "plan:alx-key",
+        "text_sha256": null,
+        "entities": [
+          {
+            "id": "sayed",
+            "name": "سيد",
+            "kind": "character",
+            "narrative_role": "fisherman",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "youth",
+            "name": "عبد الرحمن",
+            "kind": "character",
+            "narrative_role": "accused youth",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "key",
+            "name": "المفتاح",
+            "kind": "object",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "anfoushi",
+            "name": "الأنفوشي",
+            "kind": "place",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          }
+        ],
+        "events": [
+          {
+            "id": "ky1",
+            "trigger": "فقد",
+            "evidence": null,
+            "discourse_index": 0,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "sayed",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Theme",
+                "entity": "key",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Location",
+                "entity": "anfoushi",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [
+              {
+                "predicate": "lost",
+                "args": [
+                  "key"
+                ],
+                "negated": false
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "صياد اسمه سيد يفقد مفتاح قاربه في الأنفوشي"
+          },
+          {
+            "id": "ky2",
+            "trigger": "اتهم",
+            "evidence": null,
+            "discourse_index": 1,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "sayed",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Patient",
+                "entity": "youth",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [
+              {
+                "predicate": "lost",
+                "args": [
+                  "key"
+                ],
+                "negated": false
+              }
+            ],
+            "effects": [
+              {
+                "predicate": "accused",
+                "args": [
+                  "youth"
+                ],
+                "negated": false
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "سيد يتهم جاره الشاب عبد الرحمن بسرقته أمام الناس"
+          },
+          {
+            "id": "ky3",
+            "trigger": "وجد",
+            "evidence": null,
+            "discourse_index": 2,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "sayed",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Theme",
+                "entity": "key",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [
+              {
+                "predicate": "lost",
+                "args": [
+                  "key"
+                ],
+                "negated": false
+              }
+            ],
+            "effects": [
+              {
+                "predicate": "lost",
+                "args": [
+                  "key"
+                ],
+                "negated": true
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "بعد أيام يجد سيد المفتاح في جيب معطفه، وقد ترك الشاب الحي حزينًا"
+          }
+        ],
+        "relations": [
+          {
+            "kind": "BEFORE",
+            "source": "ky1",
+            "target": "ky2",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          },
+          {
+            "kind": "BEFORE",
+            "source": "ky2",
+            "target": "ky3",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          }
+        ],
+        "initial_state": [],
+        "initial_knowledge": [],
+        "metadata": {}
+      }
+    }
+  ]
+}

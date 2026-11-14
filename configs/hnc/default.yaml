@@ -1,0 +1,7 @@
+# Hierarchical Narrative Controller (ANSG-HNC research extension). OFF by default:
+# with hnc_enabled: false the original generation path runs unchanged.
+hnc_enabled: false
+level_tracking: true      # narrative stack, entry/closure/resumption control
+epistemic_checks: true    # cross-level character-knowledge validation of the plan
+max_depth: 8
+context_chars: 600

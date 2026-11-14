@@ -1,0 +1,517 @@
+{
+  "schema": "ansg.hnc_plan/1",
+  "setting": "aqaba",
+  "title": "قارب الجد",
+  "register": {
+    "narration": "msa",
+    "dialogue": "dialect"
+  },
+  "target_words": 700,
+  "notes": "",
+  "frames": [
+    {
+      "id": "aq-frame",
+      "parent": null,
+      "narrator": null,
+      "audience": [],
+      "perspective": "third_person",
+      "narrator_in_frame": null,
+      "time_context": "",
+      "function": "",
+      "opened_by": null,
+      "resumed_by": null,
+      "setting_note": "",
+      "conveys": [],
+      "graph": {
+        "schema": "ansg.event_graph/1",
+        "record_id": "plan:aq-frame",
+        "text_sha256": null,
+        "entities": [
+          {
+            "id": "odeh",
+            "name": "عودة",
+            "kind": "character",
+            "narrative_role": "protagonist",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "eid",
+            "name": "عيد",
+            "kind": "character",
+            "narrative_role": "grandfather",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "boat",
+            "name": "القارب",
+            "kind": "object",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "gulf",
+            "name": "خليج العقبة",
+            "kind": "place",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          }
+        ],
+        "events": [
+          {
+            "id": "aq1",
+            "trigger": "قرر",
+            "evidence": null,
+            "discourse_index": 0,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "odeh",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Theme",
+                "entity": "boat",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [
+              {
+                "predicate": "has",
+                "args": [
+                  "odeh",
+                  "boat"
+                ],
+                "negated": false
+              }
+            ],
+            "effects": [
+              {
+                "predicate": "wants_to_sell",
+                "args": [
+                  "odeh",
+                  "boat"
+                ],
+                "negated": false
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "عودة يقرر بيع قارب أبيه القديم ليشتري سيارة"
+          },
+          {
+            "id": "aq2",
+            "trigger": "جلس",
+            "evidence": null,
+            "discourse_index": 1,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "eid",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Recipient",
+                "entity": "odeh",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Location",
+                "entity": "gulf",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "الجد عيد يجلس مع حفيده عودة على شاطئ خليج العقبة عند الغروب"
+          },
+          {
+            "id": "aq3",
+            "trigger": "تراجع",
+            "evidence": null,
+            "discourse_index": 2,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "odeh",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Theme",
+                "entity": "boat",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [
+              {
+                "predicate": "wants_to_sell",
+                "args": [
+                  "odeh",
+                  "boat"
+                ],
+                "negated": true
+              }
+            ],
+            "knowledge_required": [
+              {
+                "entity": "odeh",
+                "proposition": {
+                  "predicate": "saved_lives",
+                  "args": [
+                    "boat"
+                  ],
+                  "negated": false
+                },
+                "channel": "perception",
+                "source_entity": null
+              }
+            ],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "عودة يتراجع عن بيع القارب ويقرر إصلاحه"
+          },
+          {
+            "id": "aq4",
+            "trigger": "أصلح",
+            "evidence": null,
+            "discourse_index": 3,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "odeh",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Theme",
+                "entity": "boat",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [
+              {
+                "predicate": "has",
+                "args": [
+                  "odeh",
+                  "boat"
+                ],
+                "negated": false
+              }
+            ],
+            "effects": [],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "عودة وجده يصلحان القارب ويخرجان به للصيد معًا"
+          }
+        ],
+        "relations": [
+          {
+            "kind": "BEFORE",
+            "source": "aq1",
+            "target": "aq2",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          },
+          {
+            "kind": "BEFORE",
+            "source": "aq2",
+            "target": "aq3",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          },
+          {
+            "kind": "BEFORE",
+            "source": "aq3",
+            "target": "aq4",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          }
+        ],
+        "initial_state": [
+          {
+            "predicate": "has",
+            "args": [
+              "odeh",
+              "boat"
+            ],
+            "negated": false
+          }
+        ],
+        "initial_knowledge": [],
+        "metadata": {}
+      }
+    },
+    {
+      "id": "aq-storm",
+      "parent": "aq-frame",
+      "narrator": "eid",
+      "audience": [
+        "odeh"
+      ],
+      "perspective": "first_person",
+      "narrator_in_frame": "eid_young",
+      "time_context": "شباب الجد عيد قبل عقود",
+      "function": "إقناع الحفيد بقيمة القارب ووفاء أهل البحر بعضهم لبعض",
+      "opened_by": "aq2",
+      "resumed_by": "aq3",
+      "setting_note": "",
+      "conveys": [
+        {
+          "predicate": "saved_lives",
+          "args": [
+            "boat"
+          ],
+          "negated": false
+        }
+      ],
+      "graph": {
+        "schema": "ansg.event_graph/1",
+        "record_id": "plan:aq-storm",
+        "text_sha256": null,
+        "entities": [
+          {
+            "id": "eid_young",
+            "name": "عيد",
+            "kind": "character",
+            "narrative_role": "narrator as young man",
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "fishers",
+            "name": "الصيادون",
+            "kind": "group",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "storm",
+            "name": "العاصفة",
+            "kind": "abstract",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          },
+          {
+            "id": "old_boat",
+            "name": "القارب",
+            "kind": "object",
+            "narrative_role": null,
+            "aliases": [],
+            "mentions": []
+          }
+        ],
+        "events": [
+          {
+            "id": "st1",
+            "trigger": "خرج",
+            "evidence": null,
+            "discourse_index": 0,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "eid_young",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Theme",
+                "entity": "old_boat",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [],
+            "effects": [
+              {
+                "predicate": "at_sea",
+                "args": [
+                  "eid_young"
+                ],
+                "negated": false
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "عيد الشاب يخرج للصيد بالقارب في ليلة هادئة"
+          },
+          {
+            "id": "st2",
+            "trigger": "هبت",
+            "evidence": null,
+            "discourse_index": 1,
+            "participants": [
+              {
+                "role": "Theme",
+                "entity": "storm",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Patient",
+                "entity": "fishers",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [
+              {
+                "predicate": "at_sea",
+                "args": [
+                  "eid_young"
+                ],
+                "negated": false
+              }
+            ],
+            "effects": [
+              {
+                "predicate": "in_danger",
+                "args": [
+                  "fishers"
+                ],
+                "negated": false
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "تهب عاصفة مفاجئة فتنقلب قوارب الصيادين الآخرين"
+          },
+          {
+            "id": "st3",
+            "trigger": "أنقذ",
+            "evidence": null,
+            "discourse_index": 2,
+            "participants": [
+              {
+                "role": "Agent",
+                "entity": "eid_young",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Patient",
+                "entity": "fishers",
+                "evidence": null,
+                "implicit_reason": null
+              },
+              {
+                "role": "Instrument",
+                "entity": "old_boat",
+                "evidence": null,
+                "implicit_reason": null
+              }
+            ],
+            "modality": "planned",
+            "story_time": null,
+            "verbnet_class": null,
+            "preconditions": [
+              {
+                "predicate": "in_danger",
+                "args": [
+                  "fishers"
+                ],
+                "negated": false
+              }
+            ],
+            "effects": [
+              {
+                "predicate": "in_danger",
+                "args": [
+                  "fishers"
+                ],
+                "negated": true
+              },
+              {
+                "predicate": "rescued",
+                "args": [
+                  "fishers"
+                ],
+                "negated": false
+              }
+            ],
+            "knowledge_required": [],
+            "knowledge_gained": [],
+            "values": [],
+            "status": "automatic",
+            "source": "automatic",
+            "gloss": "عيد يجدّف نحوهم في الظلام وينقذهم جميعًا بقاربه الصغير"
+          }
+        ],
+        "relations": [
+          {
+            "kind": "BEFORE",
+            "source": "st1",
+            "target": "st2",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          },
+          {
+            "kind": "ENABLES",
+            "source": "st2",
+            "target": "st3",
+            "cue": null,
+            "status": "silver",
+            "annotation_source": "automatic"
+          }
+        ],
+        "initial_state": [],
+        "initial_knowledge": [],
+        "metadata": {}
+      }
+    }
+  ]
+}
