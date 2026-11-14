@@ -174,6 +174,7 @@ def main():
         "kalila_1816": {"observed_whitespace_words": kalila_words, "sentencepiece_tokens": kalila_tokens},
         "thesis_comparison": {
             "claimed_tokens": 70400000,
+            "claimed_tokens_exact": 70404829,
             "exact_reproduction": False,
             "reason": "The thesis's original root-aware SentencePiece model and preprocessing artifact are not available; this direct profile is reproducible but not the historical tokenizer."
         },
