@@ -1,7 +1,10 @@
 # Exact versions of the environment in which the full test suite (348+ tests, 0 skipped),
 # scripts/generation_smoke.py and the reproduction audits were verified (Python 3.11.18, 2026-11-14).
 # Use as a CONSTRAINTS file:  pip install -c requirements/constraints-py311.txt -e ".[test,model,pretrained,ontology,splits]"
-# torch from the CPU index:  pip install -c requirements/constraints-py311.txt --index-url https://download.pytorch.org/whl/cpu torch
+# torch: verified with PyPI's 2.15.0+cu132 wheel run on CPU. For a CPU-only install, narrow the pin to the +cpu build
+# of the same release and keep PyPI as the primary index (the CPU index lacks some pinned dependencies):
+#   sed 's/^torch==2\.15\.0$/torch==2.15.0+cpu/' requirements/constraints-py311.txt > constraints-cpu.txt
+#   pip install -c constraints-cpu.txt --extra-index-url https://download.pytorch.org/whl/cpu torch
 annotated-doc==0.0.6
 annotated-types==0.8.0
 anyio==4.16.0

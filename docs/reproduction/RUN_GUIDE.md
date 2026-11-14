@@ -18,13 +18,21 @@ cd ANSG
 python3.11 -m venv .venv && . .venv/bin/activate
 ```
 
+CPU-only PyTorch: narrow the torch pin to the `+cpu` build of the same release. PyPI stays the primary index because the CPU wheel index does not mirror every pinned dependency (for example `filelock==4.2.10`).
+
 ```bash
-python -m pip install -c requirements/constraints-py311.txt --index-url https://download.pytorch.org/whl/cpu torch
+sed 's/^torch==2\.15\.0$/torch==2.15.0+cpu/' requirements/constraints-py311.txt > constraints-cpu.txt
 ```
 
 ```bash
-python -m pip install -c requirements/constraints-py311.txt -e ".[test,model,ontology,splits,pretrained]"
+python -m pip install -c constraints-cpu.txt --extra-index-url https://download.pytorch.org/whl/cpu torch
 ```
+
+```bash
+python -m pip install -c constraints-cpu.txt --extra-index-url https://download.pytorch.org/whl/cpu -e ".[test,model,ontology,splits,pretrained]"
+```
+
+- The pins were verified with PyPI's `torch 2.15.0+cu132` wheel running on CPU; CI (`full-stack-pinned`) runs the same release as `2.15.0+cpu`. On a CUDA machine, use `requirements/constraints-py311.txt` directly without the extra index.
 
 - The data/knowledge layer alone needs only `python -m pip install -e ".[test]"`, with no PyTorch.
 - The thesis's own environment (§5.2.1: Python 3.10.12, PyTorch 2.0.1, Transformers 4.30.2) is recorded in DISCREPANCY_REPORT D-RES-2. It is not what is pinned here.
