@@ -1,0 +1,21 @@
+{
+  "schema": "ansg.core_story_source_review_queue_report/1",
+  "status": "title_metadata_triage_not_story_classification",
+  "source_records": 941,
+  "title_cue_matched_records": 75,
+  "records_without_title_cues": 866,
+  "heading_sections_across_core_sources": 8838,
+  "sentencepiece_tokens_across_core_sources": 42150781,
+  "title_cue_counts_nonexclusive": {
+    "story_or_tale": 75
+  },
+  "source_text_embedded": false,
+  "content_classifications_prefilled": false,
+  "annotations_prefilled": false,
+  "priority_definition": "Rows with literal story/tale terms in Arabic or English title fields sort first; ties sort by descending direct-build SentencePiece count.",
+  "limitations": [
+    "A title cue does not establish that the book contains stories; human content review is required.",
+    "A book without a title cue can still contain stories and remains in the queue.",
+    "Source token counts are direct-build SentencePiece counts, not the thesis tokenizer's counts."
+  ]
+}

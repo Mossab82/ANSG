@@ -29,6 +29,34 @@ python scripts/segment_story_boundary_candidates.py \
 
 يحفظ JSONL إحداثيات المقطع والعنوان والصف المصدر وبصمته ومجموعة منع التسرب وتقسيم train/validation/test، مع علامات مراجعة المحتوى والحدود. افتراض حدّ فاصل عند كل عنوان بنيوي **خيار فرز مباشر** وليس طريقة TF-IDF/DBSCAN الواردة في الرسالة.
 
+## قائمة مراجعة المقاطع الأساسية
+
+أنشأنا قائمة CSV من بيانات وصفية فقط لكل مرشح من الـ8,838. تتضمن عنوان الكتاب والمؤلف والنطاق والعنوان البنيوي وإزاحتي البداية والنهاية وبصمة المصدر ومسار ملف النص وعدد الكلمات والقطع. تُترك قرارات صفة المحتوى وحدود القصة والتعشيش والوسوم الثلاثة فارغة. تُقسّم القائمة إلى ملفات صغيرة مع إبقاء جميع المقاطع التابعة للمصدر الواحد في الملف نفسه.
+
+```bash
+python scripts/build_narrative_section_review_queue.py \
+  --sections build/anhc/release_v1/story_boundary_candidates.jsonl \
+  --sources build/anhc/release_v1/source_records.jsonl \
+  --output build/anhc/release_v1/narrative_section_review_queue.csv \
+  --report build/anhc/release_v1/narrative_section_review_queue_report.json
+```
+
+الناتج الحالي 8,838 صفاً من 478 مصدراً، بإجمالي 27,639,186 قطعة مباشرة. هذه أرقام مقاطع مرشحة للمراجعة، وليست أعداد قصص أو وسوم معتمدة. يجب مطابقة SHA-256 قبل تفسير الإزاحات، ومراجعة التكرارات والترجمات والمجموعات قبل تثبيت أي تقسيم نهائي.
+
+## ترتيب مراجعة الكتب السردية الأساسية
+
+للبدء بالمصادر الأرجح صلةً بالقصص، أنشأنا قائمة مستقلة بكل سجلات الكتب الأساسية الـ941. تأتي أولاً العناوين التي تتضمن مفردات قصص/حكايات/روايات أو مقابلاتها الإنجليزية، ثم يرتب الحجم المتعادل تنازلياً. ظهرت إشارة عنوانية في 75 سجلاً؛ أما الـ866 الأخرى فتبقى في القائمة لأن غياب الكلمة من العنوان لا يعني غياب السرد. هذا **ترتيب للقراءة فقط**، ولا يقرر أن الكتاب قصة.
+
+```bash
+python scripts/build_core_story_source_review_queue.py \
+  --sources build/anhc/release_v1/source_records.jsonl \
+  --sections build/anhc/release_v1/story_boundary_candidates.jsonl \
+  --output build/anhc/release_v1/core_story_source_review_queue.csv \
+  --report build/anhc/release_v1/core_story_source_review_queue_report.json
+```
+
+يحفظ الصف بصمة الكتاب ومساره وفئته ورخصته وحجمه وعدد المقاطع ذات العناوين، مع حقول فارغة لمراجعة المحتوى وحدود القصة. لا ينسخ نصوص الكتب ولا يملأ أي وسم.
+
 ## المصدر
 
 - مصدر الكتب: [The Arabic E-Book Corpus, University of Gothenburg](https://doi.org/10.5878/7rbh-gy93).

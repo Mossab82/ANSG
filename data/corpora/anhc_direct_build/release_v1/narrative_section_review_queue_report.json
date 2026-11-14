@@ -1,0 +1,78 @@
+{
+  "schema": "ansg.narrative_section_review_queue_report/1",
+  "status": "metadata_only_heading_section_review_queue",
+  "candidate_scopes": [
+    "narrative_core"
+  ],
+  "candidate_rows": 8838,
+  "source_records": 478,
+  "rows_by_scope": {
+    "narrative_core": 8838
+  },
+  "source_records_by_scope": {
+    "narrative_core": 478
+  },
+  "direct_sentencepiece_tokens_by_scope": {
+    "narrative_core": 27639186
+  },
+  "missing_source_records": [],
+  "source_text_embedded": false,
+  "source_records_are_kept_within_one_shard": true,
+  "rows_per_shard_target": 1000,
+  "shards": [
+    {
+      "path": "narrative_section_review_queue-001.csv",
+      "rows": 983
+    },
+    {
+      "path": "narrative_section_review_queue-002.csv",
+      "rows": 995
+    },
+    {
+      "path": "narrative_section_review_queue-003.csv",
+      "rows": 970
+    },
+    {
+      "path": "narrative_section_review_queue-004.csv",
+      "rows": 966
+    },
+    {
+      "path": "narrative_section_review_queue-005.csv",
+      "rows": 924
+    },
+    {
+      "path": "narrative_section_review_queue-006.csv",
+      "rows": 949
+    },
+    {
+      "path": "narrative_section_review_queue-007.csv",
+      "rows": 989
+    },
+    {
+      "path": "narrative_section_review_queue-008.csv",
+      "rows": 915
+    },
+    {
+      "path": "narrative_section_review_queue-009.csv",
+      "rows": 933
+    },
+    {
+      "path": "narrative_section_review_queue-010.csv",
+      "rows": 214
+    }
+  ],
+  "headings_are_verified_story_boundaries": false,
+  "annotation_fields_prefilled": false,
+  "direct_build_split_is_thesis_split": false,
+  "review_policy": [
+    "Resolve each source file using the source record id and verify its SHA-256 before using offsets.",
+    "Review content and both span boundaries; a chapter or section heading may introduce non-narrative material.",
+    "Review duplicates, translations, and larger story cycles before assigning a final group-level split.",
+    "Populate DIA, MOTIF, and MORAL only from documented evidence under the annotation codebook."
+  ],
+  "limitations": [
+    "This is a navigation and review queue, not a story corpus or gold segmentation.",
+    "SentencePiece counts are direct-build counts and do not reproduce the thesis tokenizer count.",
+    "The existing split is a direct-build provisional split, not the thesis TF-IDF/DBSCAN stratified split."
+  ]
+}
