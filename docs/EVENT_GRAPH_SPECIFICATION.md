@@ -51,7 +51,8 @@ supplied.
   `status`. CAUSES, ENABLES and MOTIVATES also imply BEFORE in story time.
 
 JSON uses `ensure_ascii=False`. `EventGraph.from_dict(to_dict())` round-trips exactly
-(tested).
+(tested). `from_dict` raises `ValueError` for a `null` entity mention. A mention is
+always a span. Only participant `evidence` may be `null`, and that means implicit.
 
 ## 3. How a graph is made
 
@@ -60,6 +61,14 @@ JSON uses `ensure_ascii=False`. `EventGraph.from_dict(to_dict())` round-trips ex
    return status `automatic`, with spans and **no participants**. Inflected forms match
    only if the resource lists them, so recall is unknown. No morphological analyser is
    assumed.
+   - The و/ف stripping is applied to a folded *copy* of the token, for lookup only.
+     The candidate's `trigger` is the token as written, and its evidence is
+     `text[start:end]`. Neither the record text nor the VerbNet member list is
+     changed.
+   - A verb candidate's evidence is its whole sentence: from the previous `. ! ? ؟` or
+     line break to the next one, keeping the closing punctuation. Leading and trailing
+     whitespace and line breaks are excluded. A sentence can be wider than the event's
+     clause, so annotators narrow it.
 2. Annotators complete participants, preconditions and effects, knowledge, values and
    relations, and set the status:
    - `silver`: a single annotator;
@@ -72,8 +81,8 @@ JSON uses `ensure_ascii=False`. `EventGraph.from_dict(to_dict())` round-trips ex
 ## 4. Validation (error catalogue)
 
 Errors (`E-…`) mean the graph contradicts its text or itself. Warnings (`W-…`) mean a
-claim is not yet supported. Every error code listed below has at least one test that
-triggers it.
+claim is not yet supported. Every error code listed below, including the plan codes
+in §4.7, has at least one test that triggers it. A guard test checks this.
 
 ### 4.1 Grounding — "the event is in the text"
 
@@ -82,8 +91,27 @@ triggers it.
 | E-TEXT-HASH | the graph was annotated on a different text |
 | E-EVIDENCE-SPAN / E-EVIDENCE-TEXT | the span is out of range, or `text[start:end]` differs from the stored text |
 | E-EVIDENCE-MISSING | a non-planned event has no evidence |
-| E-TRIGGER-NOT-IN-EVIDENCE | the trigger does not occur in its clause (diacritic- and hamza-insensitive) |
-| E-MENTION-MISMATCH | an entity mention does not name the entity |
+| E-TRIGGER-NOT-IN-EVIDENCE | the trigger does not occur in its clause (diacritic- and hamza-insensitive), or the trigger is empty or only whitespace. "Occurs" is a substring test on folded text (§5) |
+| E-MENTION-MISMATCH | an entity mention does not name the entity (matching rule below) |
+| E-UNKNOWN-ENTITY | a participant, a knowledge item (required, gained or initial), the `source_entity` of a gained knowledge item, or a value holder refers to an entity id that is not in the graph |
+| E-DUPLICATE-ID | two entities or two events share an id |
+
+**How a mention is matched to a name** (`validation.mention_matches`, used by
+E-MENTION-MISMATCH and E-PARTICIPANT-MISMATCH):
+
+1. Both sides are folded for comparison only: diacritics, dagger alef and tatweel
+   removed; alef, alef maqsura and teh marbuta normalised. The record text and the
+   stored `Evidence.text` are never changed.
+2. Proclitics (و ف ب ل ك, at most two) are removed **only from the running-text
+   mention**, and only while at least three letters remain. Entity names and aliases
+   are citation forms, so their first letter is part of the word and is never removed.
+   So `وزير`, `كريم`, `فارس` and `لبنى` keep their first letter, and `ريم` does **not**
+   name `كريم`.
+3. The article `ال` is optional on both sides (`الوزير` names `وزير`, and `فارس` names
+   `الفارس`). Contracted `لل` is covered: `للصياد` names `الصياد`.
+4. Multi-word names match word by word and must have the same number of words.
+5. The rule changes neither the entity's names and aliases (the candidate forms) nor
+   the source text. It decides only whether a mention names one of them.
 
 ### 4.2 Participants — "the agent is the right one"
 
@@ -105,7 +133,7 @@ triggers it.
 | E-PREVENTED-EVENT-OCCURRED | an actual event prevents another actual event |
 | E-CAUSED-EVENT-DID-NOT-OCCUR | an event caused or enabled by another is negated |
 | E-RELATION-SELF / E-RELATION-UNKNOWN-EVENT | structural errors in a relation |
-| W-CAUSE-NO-CUE / W-ENABLES-WITHOUT-MECHANISM / W-CAUSE-FROM-NONACTUAL | a causal claim has no textual cue, no state or knowledge mechanism, or a non-actual cause |
+| W-CAUSE-NO-CUE / W-ENABLES-WITHOUT-MECHANISM / W-CAUSE-FROM-NONACTUAL | a causal claim has no textual cue, no state or knowledge mechanism, or a non-actual cause. W-CAUSE-NO-CUE is raised only for CAUSES/ENABLES without a cue whose status is neither `silver` nor `gold`, and only when text grounding is expected (`require_evidence=True`). Plans have no text, so they never receive it |
 
 ### 4.4 World state
 
@@ -129,6 +157,10 @@ hypothetical and negated events do not.
 | E-TOLD-BY-IGNORANT | the teller did not know what it tells |
 | E-TOLD-WITHOUT-SOURCE | a `told` item has no teller |
 
+A `told` item whose teller is not an entity of the graph is reported once, as
+E-UNKNOWN-ENTITY (§4.1). It is not reported as E-TOLD-BY-IGNORANT, because nothing can
+be said about what a missing entity knew.
+
 Animate participants in observer roles (Agent, Experiencer, Recipient, Patient,
 Beneficiary) learn the effects of events they take part in. This rule is configurable
 (`participants_observe_effects`).
@@ -141,6 +173,45 @@ Beneficiary) learn the effects of events they take part in. This rule is configu
 | E-VALUE-POLARITY | polarity is not ±1 |
 | E-UNKNOWN-ENTITY | the holder is not a known entity |
 
+### 4.7 Story plans (`plan.validate_plan`)
+
+A plan is validated in two steps:
+
+1. `validate_event_graph(graph, None, config=ValidationConfig(require_evidence=False,
+   closed_world=True))` runs. Grounding is skipped. W-NO-SOURCE-TEXT and
+   W-CAUSE-NO-CUE do not arise. All structural, relation, state and knowledge checks
+   apply. Under the closed world, a precondition that no earlier event or initial
+   state establishes is **E-PRECONDITION-NOT-ESTABLISHED**. Planned events change the
+   world, so a planned event that PREVENTS another planned event is
+   E-PREVENTED-EVENT-OCCURRED.
+2. Plan-level checks are added. An unknown setting does **not** stop them; only the
+   two setting-dependent warnings are skipped.
+
+| Code | Severity | Condition | Validator behaviour |
+| --- | --- | --- | --- |
+| E-PLAN-SETTING-UNKNOWN | error | `plan.setting` is not a key of the loaded settings (`configs/generation/settings.yaml`) | the other plan checks still run; W-PLAN-NAME/PLACE-OUTSIDE-SETTING are skipped |
+| E-PLAN-TARGET-WORDS | error | `target_words` is not a positive integer: 0, negative, `bool` or a string. `StoryPlan.from_dict` converts the JSON value with `int()`, so a numeric string there becomes an integer | blocks `build_prompt` |
+| E-PLAN-REGISTER | error | `register.narration` or `register.dialogue` is not `msa` or `dialect` | one issue per bad key |
+| E-PLAN-EMPTY | error | the plan has no events | — |
+| E-PLAN-MODALITY | error | an event's modality is not `planned` | one issue per event (`ref` = event id) |
+| E-PLAN-NO-CHARACTER | error | no entity of kind `character` or `group` | — |
+| W-PLAN-NO-GLOSS | warning | a planned event has no `gloss` | `build_prompt` falls back to the trigger |
+| W-PLAN-NAME-OUTSIDE-SETTING | warning | a `character` name matches none of the setting's `names` (§4.1 rule, with the plan name in the mention role) | only when the setting lists names |
+| W-PLAN-PLACE-OUTSIDE-SETTING | warning | a `place` name matches none of the setting's `places` | only when the setting lists places |
+
+The name and place lists are an `unreviewed_draft` (see the settings file). A warning
+here is a prompt for review. It says nothing about cultural authenticity.
+
+`build_prompt(plan, settings)` raises `ValueError` listing every error code when the
+plan has any error. Warnings do not block. Events are listed in the validator's
+story-time order, and relations (except BEFORE) are listed in Arabic.
+
+`build_prompt` does **not** list what each character knows. Knowledge items are
+propositions with Latin predicate and argument ids, such as `owner(box, b)`, and they
+are not rendered in Arabic. The prompt therefore gives only the general rule that no
+character acts on information before learning it. It adds no character knowledge or
+story facts beyond what the plan states.
+
 ## 5. Limits (stated, not hidden)
 
 - Grounding verifies that a mention *names* the entity. It does not verify the
@@ -151,3 +222,15 @@ Beneficiary) learn the effects of events they take part in. This rule is configu
 - Knowledge is propositional and binary (knows p / knows not-p). Degrees of belief,
   deception and nested beliefs (A knows that B knows) are not modelled yet.
 - The validator checks consistency, not plausibility or quality.
+- Mention matching is **approximate**. No morphological analysis is performed, and
+  none is claimed. Removing proclitics from the mention can still mis-segment a word
+  whose first letter is a root letter. For example, `كمال` in the text is accepted as
+  naming an entity called `مال`, because it is read as ك + `مال`. The reverse case is
+  avoided: names are never stripped, so `ريم` does not name `كريم`. Remaining
+  ambiguities need annotator review.
+- Trigger grounding (E-TRIGGER-NOT-IN-EVIDENCE) is a **substring** test on folded text.
+  A trigger contained inside a longer word of its clause, such as `قال` inside
+  `انتقال`, is accepted. The test proves only that the string occurs, not that the
+  verb is the clause's predicate.
+- `build_prompt` gives no per-character knowledge (§4.7) until propositions have an
+  Arabic rendering.

@@ -95,22 +95,33 @@ def fold(text: str) -> str:
     return normalize(text, FORMULA_MATCH_FOLDING).text.strip()
 
 
-def _strip_clitics(word: str) -> str:
-    w = word
+def _without_article(word: str) -> set[str]:
+    return {word, word[2:]} if len(word) > 3 and word.startswith("ال") else {word}
+
+
+def _mention_variants(word: str) -> set[str]:
+    """Readings of a running-text token: up to two proclitics removed, then the article."""
+    out, w = set(_without_article(word)), word
     for _ in range(2):
         if len(w) > 3 and w[0] in PROCLITICS:
             w = w[1:]
-    if len(w) > 3 and w.startswith("ال"):
-        w = w[2:]
-    return w
+            out |= _without_article(w)
+    return out
 
 
 def mention_matches(mention: str, forms: Iterable[str]) -> bool:
-    """True if ``mention`` names one of ``forms`` up to proclitics, article and diacritics."""
-    m = " ".join(_strip_clitics(t) for t in fold(mention).split())
+    """True if ``mention`` names one of ``forms`` up to proclitics, article and diacritics.
+
+    Proclitics (و ف ب ل ك) are removed from the *mention* only: a name or alias is a
+    citation form, so its first letter is part of the word (``وزير``, ``كريم``,
+    ``فارس``) and must not be stripped. The article is optional on both sides.
+    """
+    m = fold(mention).split()
+    if not m:
+        return False
     for form in forms:
-        f = " ".join(_strip_clitics(t) for t in fold(form).split())
-        if f and (m == f):
+        f = fold(form).split()
+        if f and len(f) == len(m) and all(_mention_variants(a) & _without_article(b) for a, b in zip(m, f)):
             return True
     return False
 
@@ -145,6 +156,10 @@ class _Checker:
             for k in ev.knowledge_required + ev.knowledge_gained:
                 if k.entity not in self.entities:
                     self.add("E-UNKNOWN-ENTITY", ERROR, f"knowledge item refers to unknown entity {k.entity!r}", ev.id)
+            for k in ev.knowledge_gained:
+                if k.source_entity is not None and k.source_entity not in self.entities:
+                    self.add("E-UNKNOWN-ENTITY", ERROR, f"knowledge source refers to unknown entity "
+                             f"{k.source_entity!r}", ev.id)
         for k in self.g.initial_knowledge:
             if k.entity not in self.entities:
                 self.add("E-UNKNOWN-ENTITY", ERROR, f"initial knowledge of unknown entity {k.entity!r}")
@@ -179,7 +194,8 @@ class _Checker:
                 continue
             if not self._span(ev.evidence, ev.id, "event evidence"):
                 continue
-            if fold(ev.trigger) not in fold(ev.evidence.text):
+            trigger = fold(ev.trigger)
+            if not trigger or trigger not in fold(ev.evidence.text):
                 self.add("E-TRIGGER-NOT-IN-EVIDENCE", ERROR, f"trigger {ev.trigger!r} not found in its evidence", ev.id)
             for p in ev.participants:
                 ent = self.entities.get(p.entity)
@@ -259,7 +275,8 @@ class _Checker:
                     self.add("E-CAUSED-EVENT-DID-NOT-OCCUR", ERROR, f"{tgt.id} is negated but is said to be caused", ref)
                 if src.modality not in STATE_CHANGING:
                     self.add("W-CAUSE-FROM-NONACTUAL", WARNING, f"cause {src.id} is {src.modality.value}", ref)
-                if r.cue is None and r.status.value not in ("gold", "silver"):
+                # plans (require_evidence=False) have no text, so a missing cue is not a review item there
+                if r.cue is None and self.cfg.require_evidence and r.status.value not in ("gold", "silver"):
                     self.add("W-CAUSE-NO-CUE", WARNING, "causal claim without a textual cue or human annotation", ref)
                 produced = {p.key() for p in src.effects} | {k.proposition.key() for k in src.knowledge_gained}
                 needed = {p.key() for p in tgt.preconditions} | {k.proposition.key() for k in tgt.knowledge_required}
@@ -354,6 +371,8 @@ class _Checker:
                 if k.channel is KnowledgeChannel.TOLD:
                     if k.source_entity is None:
                         self.add("E-TOLD-WITHOUT-SOURCE", ERROR, f"{k.entity} is told {k.proposition} by nobody", eid)
+                    elif k.source_entity not in self.entities:
+                        pass                                 # reported once as E-UNKNOWN-ENTITY by structure()
                     elif knows.get(k.source_entity, {}).get(k.proposition.key()) != (not k.proposition.negated):
                         self.add("E-TOLD-BY-IGNORANT", ERROR, f"{k.source_entity} tells {k.proposition} without "
                                  "knowing it", eid)

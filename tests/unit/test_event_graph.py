@@ -348,6 +348,55 @@ def test_every_documented_error_code_is_exercised():
     documented = set(re.findall(r"\bE-[A-Z-]+[A-Z]\b", spec))
     tests = "".join((root / "tests" / "unit" / n).read_text(encoding="utf-8")
                     for n in ("test_event_graph.py", "test_story_plan.py"))
-    code = (root / "src" / "ansg" / "narrative" / "validation.py").read_text(encoding="utf-8")
+    code = "".join((root / "src" / "ansg" / "narrative" / n).read_text(encoding="utf-8")
+                   for n in ("validation.py", "plan.py"))         # §4.7 plan codes live in plan.py
     assert documented and all(c in code for c in documented)
     assert sorted(c for c in documented if c not in tests) == []
+
+
+# ---------------------------------------------------------------- audit regressions (2026-11)
+def test_mention_matching_strips_clitics_from_the_mention_only():
+    # the first letter of a citation form is part of the name, not a proclitic
+    assert not mention_matches("ريم", ["كريم"])
+    assert not mention_matches("بنى", ["لبنى"])
+    # the article is optional on either side, also for names that begin with و/ف/ب/ل/ك
+    assert mention_matches("الوزير", ["وزير"]) and mention_matches("وزير", ["الوزير"])
+    assert mention_matches("فارس", ["الفارس"]) and mention_matches("والفارس", ["فارس"])
+    assert mention_matches("للصياد", ["الصياد"]) and mention_matches("وعبد الله", ["عبد الله"])
+    assert not mention_matches("", ["سالم"]) and not mention_matches("عبد", ["عبد الله"])
+
+
+def test_unknown_teller_is_reported_as_unknown_entity():
+    g = build()
+    g.event("e6").knowledge_gained[0].source_entity = "ghost"
+    rep = validate_event_graph(g, TEXT)
+    assert any(i.code == "E-UNKNOWN-ENTITY" and "ghost" in i.message for i in rep.errors)
+    assert "E-TOLD-BY-IGNORANT" not in rep.codes()     # not a claim about what "ghost" knew
+
+
+def test_empty_trigger_is_not_grounded():
+    g = build()
+    g.event("e3").trigger = " "
+    assert "E-TRIGGER-NOT-IN-EVIDENCE" in errors(g)
+
+
+def test_cue_warning_only_where_text_is_expected():
+    from ansg.narrative.validation import ValidationConfig
+    g = build()
+    g.relations.append(Relation(RelationKind.CAUSES, "e1", "e5"))
+    assert "W-CAUSE-NO-CUE" in codes(g)
+    assert "W-CAUSE-NO-CUE" not in validate_event_graph(g, None, config=ValidationConfig(require_evidence=False)).codes()
+
+
+def test_candidate_sentence_spans_exclude_line_breaks(verbnet):
+    text = "كتب الولد الرسالة\nثم سجل الموعد  "
+    cands = verb_trigger_candidates(text, verbnet)
+    assert [c.evidence.text for c in cands] == ["كتب الولد الرسالة", "ثم سجل الموعد"]
+    assert all(text[c.evidence.start:c.evidence.end] == c.evidence.text for c in cands)
+
+
+def test_from_dict_rejects_null_entity_mention():
+    d = build().to_dict()
+    d["entities"][0]["mentions"].append(None)
+    with pytest.raises(ValueError, match="mention"):
+        EventGraph.from_dict(d)

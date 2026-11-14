@@ -43,12 +43,15 @@ class CueCandidate:
 
 
 def _sentence_bounds(text: str, start: int, end: int) -> tuple[int, int]:
+    """Span of the sentence around ``[start, end)``: closing punctuation kept, whitespace and newlines not."""
     stops = ".!?؟\n"
     s = max((text.rfind(c, 0, start) for c in stops), default=-1) + 1
     ends = [i for i in (text.find(c, end) for c in stops) if i != -1]
     e = min(ends) + 1 if ends else len(text)
     while s < e and text[s].isspace():
         s += 1
+    while e > s and text[e - 1].isspace():
+        e -= 1
     return s, e
 
 
