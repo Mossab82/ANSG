@@ -2,6 +2,10 @@ name: ANSG heritage LoRA pilot (experimental)
 
 on:
   workflow_dispatch:
+  push:
+    branches: [master]
+    paths:
+      - 'kaggle/heritage/TRIGGER_20261114.txt'
 
 permissions:
   contents: read
