@@ -82,7 +82,7 @@ def main():
             vocab_size=args.vocab_size, character_coverage=0.9995,
             normalization_rule_name="nfkc", add_dummy_prefix=True,
             remove_extra_whitespaces=False, input_sentence_size=0,
-            shuffle_input_sentence=False, num_threads=4,
+            shuffle_input_sentence=False, num_threads=1,
             bos_id=1, eos_id=2, unk_id=0, pad_id=-1,
             hard_vocab_limit=False, max_sentence_length=16384,
         )
@@ -147,7 +147,7 @@ def main():
         "vocab_size_actual": sp.get_piece_size(),
         "normalization": "SentencePiece NFKC; source text preserved separately",
         "root_aware": False,
-        "training_corpus": "all 1,745 CC-BY Arabic E-Book Corpus books, source text only, deterministic booknr order",
+        "training_corpus": "all 1,745 CC-BY Arabic E-Book Corpus books, source text only, lexicographically sorted source filenames",
         "tokenizer_training_sample": {
             "algorithm": "reservoir sampling over non-empty source-text lines",
             "seed": args.sample_seed,
