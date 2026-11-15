@@ -203,6 +203,22 @@ Original checkpoints must never be relabelled or approximated by newly trained w
   `--deterministic` on GPU.
 - **Metrics.** No generation quality, cultural or dialect metric is computed.
 
+### Optional Arabic story seed pack
+
+A separate source-attributed seed pack can be checked locally with
+`python scripts/audit_story_seed_pack.py /path/ANSG_story_seed_pack_v1.zip`. The audit verifies
+archive paths, manifest hashes and byte counts, record counts, source-attribution fields, explicit
+unannotated DIA/MOTIF/MORAL fields, and that nested-story cues point to included source chapters.
+It does not adjudicate permissions, validate story boundaries, add annotations, or authorize a
+training run.
+
+The reviewed pack contains 236 candidate spans from *Alf Layla wa-Layla*, 10 source chapters from
+the 1816 *Kalila wa-Dimna* edition, and 39 nested-tale opening cues (3,929,854 text characters).
+The chapters and cues are not gold story segments; the pack is separate from historical ANHC and
+does not support a claim that a project-owned Arabic base model has been well trained. Keep the
+source licenses and attributions attached, and obtain the required approved training manifest
+before any real-data training.
+
 ## 8. Dissertation cross-reference
 
 | Topic | Dissertation | Code | Conflict register |
