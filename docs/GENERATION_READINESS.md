@@ -66,6 +66,12 @@ rejects any record whose label is stronger than its evidence.
 Dialect: a `--dialect` passed to any DAL that is not `ansg_trained` produces the warning *"no
 dialect adaptation is claimed"*, and `dialect_adaptation_claimed` stays `false`.
 
+When `--plan` is used, the setting's declared `dal_dialect` is passed to DAL automatically.
+An explicit `--dialect` may repeat that dialect (including its supported lowercase code), but a
+conflicting or unknown label is rejected before generation. This guarantees consistent routing;
+it does not make an unreviewed setting dialect-authentic or claim dialect adaptation without
+trained DAL weights.
+
 ## 4. Committee demonstration: local setup
 
 Prerequisites: `python -m pip install -e ".[model,pretrained]"` (PyTorch and transformers). A GPU
