@@ -73,9 +73,32 @@ def _prompt_from_plan(path: str, settings_path: str | None) -> tuple[str, dict]:
     prompt = build_prompt(plan, settings)          # raises ValueError on validation errors
     setting = settings[plan.setting]
     return prompt, {"path": str(path), "sha256": sha256_file(path), "setting": plan.setting,
-                    "setting_review_status": setting.review_status, "register": plan.register,
+                    "setting_review_status": setting.review_status, "dal_dialect": setting.dal_dialect,
+                    "register": plan.register,
                     "validation": {"errors": 0, "warnings": sorted(i.code for i in report.warnings)},
                     "conditioning": "plan rendered into the prompt (no trained planner)"}
+
+
+def _resolve_plan_dialect(plan: dict, requested: str | None) -> str:
+    """Use the plan setting's DAL label and reject a contradictory CLI override."""
+    from ..data.training_examples import dialect_code
+
+    plan_dialect = plan.get("dal_dialect")
+    if not plan_dialect:
+        raise ValueError("story plan setting has no DAL dialect")
+    try:
+        plan_code, _ = dialect_code(plan_dialect)
+        if requested is None:
+            return plan_dialect
+        requested_code, _ = dialect_code(requested)
+    except ValueError as exc:
+        raise ValueError(f"invalid story-plan/CLI dialect: {exc}") from exc
+    if requested_code != plan_code:
+        raise ValueError(
+            f"--dialect {requested!r} conflicts with story plan dialect "
+            f"{plan_dialect!r}; use the plan dialect or revise the plan setting"
+        )
+    return plan_dialect
 
 
 def _utf8_streams() -> None:
@@ -96,16 +119,19 @@ def main(argv: list[str] | None = None) -> int:
     if args.plan:
         try:
             prompt, plan_block = _prompt_from_plan(args.plan, args.settings)
+            dialect = _resolve_plan_dialect(plan_block, args.dialect)
         except (OSError, ValueError, KeyError) as exc:
             print(f"error: plan rejected: {exc}", file=sys.stderr)
             return 2
     elif args.prompt_file:
+        dialect = args.dialect
         try:
             prompt = Path(args.prompt_file).read_text(encoding="utf-8")
         except (OSError, UnicodeDecodeError) as exc:
             print(f"error: cannot read prompt file: {exc}", file=sys.stderr)
             return 2
     else:
+        dialect = args.dialect
         prompt = args.prompt
     try:
         from .runtime import GenerationError, GenerationRequest, SamplingConfig, run_generation
@@ -121,7 +147,7 @@ def main(argv: list[str] | None = None) -> int:
             allow_unverified_backbone=args.allow_unverified_backbone, device=args.device, dtype=args.dtype,
             deterministic=args.deterministic, sampling=sampling, cultural_checkpoint=args.cultural_checkpoint,
             untrained_cultural_modules=args.untrained_cultural_modules, schema_vocabulary=args.schema_vocabulary,
-            schema_nodes=tuple(args.schema_node), dialect=args.dialect, chat_template=args.chat_template,
+            schema_nodes=tuple(args.schema_node), dialect=dialect, chat_template=args.chat_template,
             system_prompt=args.system_prompt, plan=plan_block))
     except ImportError as exc:
         print(f"error: {exc}. Install the model extras: pip install -e '.[model,pretrained]'", file=sys.stderr)
