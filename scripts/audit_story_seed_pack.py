@@ -120,8 +120,10 @@ def audit_archive(archive_path: str) -> dict:
                         provenance_rows += 1
                     else:
                         errors.append(f"{rel}:{line_number}: missing source license or attribution")
-                    annotations = row.get("annotations") or {}
-                    if all(annotations.get(key) is None for key in ANNOTATION_KEYS):
+                    annotations = row.get("annotations")
+                    if not isinstance(annotations, dict) or not all(key in annotations for key in ANNOTATION_KEYS):
+                        errors.append(f"{rel}:{line_number}: explicit DIA/MOTIF/MORAL annotation fields are required")
+                    elif all(annotations[key] is None for key in ANNOTATION_KEYS):
                         unannotated_rows += 1
                     else:
                         errors.append(f"{rel}:{line_number}: unexpected DIA/MOTIF/MORAL annotation")
