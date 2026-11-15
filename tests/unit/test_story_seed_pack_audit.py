@@ -10,7 +10,7 @@ from zipfile import ZipFile
 from scripts.audit_story_seed_pack import audit_archive
 
 
-def _archive(path: Path, *, tamper=False, bad_parent=False):
+def _archive(path: Path, *, tamper=False, bad_parent=False, bad_annotations=False):
     root = "seedpack"
     rows = {
         "data/alf_layla_story_candidates.jsonl": [{
@@ -28,6 +28,9 @@ def _archive(path: Path, *, tamper=False, bad_parent=False):
             "annotations": {"DIA": None, "MOTIF": None, "MORAL": None},
         }],
     }
+    if bad_annotations:
+        rows["data/alf_layla_story_candidates.jsonl"][0].pop("annotations")
+
     payloads = {"README.md": b"test pack\n"}
     for name, records in rows.items():
         payloads[name] = ("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in records)
@@ -78,6 +81,15 @@ class StorySeedPackAuditTests(unittest.TestCase):
 
         self.assertEqual(result["status"], "fail")
         self.assertTrue(any("SHA-256 mismatch" in error for error in result["errors"]))
+
+    def test_rejects_missing_explicit_annotation_placeholders(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "seed.zip"
+            _archive(path, bad_annotations=True)
+            result = audit_archive(str(path))
+
+        self.assertEqual(result["status"], "fail")
+        self.assertTrue(any("explicit DIA/MOTIF/MORAL" in error for error in result["errors"]))
 
     def test_rejects_a_nested_cue_without_a_known_source_chapter(self):
         with tempfile.TemporaryDirectory() as tmp:
