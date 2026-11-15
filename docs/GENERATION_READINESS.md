@@ -66,6 +66,12 @@ rejects any record whose label is stronger than its evidence.
 Dialect: a `--dialect` passed to any DAL that is not `ansg_trained` produces the warning *"no
 dialect adaptation is claimed"*, and `dialect_adaptation_claimed` stays `false`.
 
+When `--plan` is used, the setting's declared `dal_dialect` is passed to DAL automatically.
+An explicit `--dialect` may repeat that dialect (including its supported lowercase code), but a
+conflicting or unknown label is rejected before generation. This guarantees consistent routing;
+it does not make an unreviewed setting dialect-authentic or claim dialect adaptation without
+trained DAL weights.
+
 ## 4. Committee demonstration: local setup
 
 Prerequisites: `python -m pip install -e ".[model,pretrained]"` (PyTorch and transformers). A GPU
@@ -105,13 +111,19 @@ memory. Long generations on CPU are slow.
 5. **Optional: cultural modules.** Steps 5 and 6 require the licensed corpus and a real CKG export:
 
    ```bash
+   # Only after the owner has resolved the run-plan choices and approved all data rights.
+   # Keep the checked-in default profile blocked; create this approved profile separately.
    ansg-ingest --config configs/data/nights.yaml
    ansg-build-examples --records-dir data/processed/nights --ckg data/private/ckg.json \
        --output data/processed/examples
    python scripts/train_cultural_modules.py --backbone /models/aragpt2-large \
+       --backbone-sha256 <digest-from-step-3> \
        --examples data/processed/examples/train.examples.jsonl \
        --schema-vocabulary data/processed/examples/schema_vocabulary.json \
-       --data-kind real --steps <N> --device cuda --output checkpoints/cultural.pt
+       --data-kind real --authorization-manifest data/private/training_authorization.json \
+       --run-plan configs/training/training_run_plan.json \
+       --profile configs/training/approved_reconstruction_profile.yaml \
+       --steps <N> --device cuda --output checkpoints/cultural.pt
    ansg-generate --backbone /models/aragpt2-large --cultural-checkpoint checkpoints/cultural.pt \
        --schema-vocabulary data/processed/examples/schema_vocabulary.json \
        --schema-node <CKG node id> --dialect Egyptian --prompt "..." --output runs/committee/ansg.json
@@ -190,6 +202,22 @@ Original checkpoints must never be relabelled or approximated by newly trained w
   stack. Sampling uses a CPU `torch.Generator` seeded with `seed + i` for sample `i`. Use
   `--deterministic` on GPU.
 - **Metrics.** No generation quality, cultural or dialect metric is computed.
+
+### Optional Arabic story seed pack
+
+A separate source-attributed seed pack can be checked locally with
+`python scripts/audit_story_seed_pack.py /path/ANSG_story_seed_pack_v1.zip`. The audit verifies
+archive paths, manifest hashes and byte counts, record counts, source-attribution fields, explicit
+unannotated DIA/MOTIF/MORAL fields, and that nested-story cues point to included source chapters.
+It does not adjudicate permissions, validate story boundaries, add annotations, or authorize a
+training run.
+
+The reviewed pack contains 236 candidate spans from *Alf Layla wa-Layla*, 10 source chapters from
+the 1816 *Kalila wa-Dimna* edition, and 39 nested-tale opening cues (3,929,854 text characters).
+The chapters and cues are not gold story segments; the pack is separate from historical ANHC and
+does not support a claim that a project-owned Arabic base model has been well trained. Keep the
+source licenses and attributions attached, and obtain the required approved training manifest
+before any real-data training.
 
 ## 8. Dissertation cross-reference
 

@@ -73,10 +73,15 @@ def test_dal_gate_learns_from_unknown_rows_only():
     dal = _dal()
     x, s = torch.randn(2, 5, 16), torch.randn(2, 8)
     dal(x, s, torch.tensor([1, 2])).sum().backward()
-    assert dal.gate[0].weight.grad is None or dal.gate[0].weight.grad.abs().sum() == 0
+    known_grad = dal.gate.weight.grad
+    assert known_grad is not None
+    torch.testing.assert_close(known_grad[0], torch.zeros_like(known_grad[0]))
+
     dal.zero_grad()
     dal(x, s, torch.tensor([-1, 2])).sum().backward()
-    assert dal.gate[0].weight.grad.abs().sum() > 0
+    unknown_grad = dal.gate.weight.grad
+    assert unknown_grad is not None
+    assert unknown_grad[0].abs().sum() > 0
 
 
 @pytest.mark.parametrize("bad", [[-2, 0], [0, len(DIALECTS)]])

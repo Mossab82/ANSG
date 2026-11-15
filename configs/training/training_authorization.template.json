@@ -1,0 +1,27 @@
+{
+  "schema": "ansg.training_authorization/1",
+  "review_status": "pending",
+  "training_authorized": false,
+  "approver": "",
+  "approved_at": "",
+  "sources": [
+    {
+      "path": "data/private/source.txt",
+      "sha256": "",
+      "license": "",
+      "training_allowed": false
+    }
+  ],
+  "derived_files": [
+    {
+      "role": "examples",
+      "path": "data/processed/examples/train.examples.jsonl",
+      "sha256": ""
+    },
+    {
+      "role": "schema_vocabulary",
+      "path": "data/processed/examples/schema_vocabulary.json",
+      "sha256": ""
+    }
+  ]
+}

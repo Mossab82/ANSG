@@ -1,0 +1,44 @@
+{
+  "schema": "ansg.training_run_plan/1",
+  "run_kind": "reconstruction",
+  "historical_reproduction": false,
+  "runner_scope": "cultural_modules_sft",
+  "data_kind": "pending",
+  "authorization_manifest": "",
+  "authorization_manifest_sha256": "",
+  "decisions": {
+    "corpus_stage_mapping": "pending",
+    "backbone_and_checkpoint": "pending",
+    "tokenizer": "pending",
+    "csam_variant": "pending",
+    "schema_activation_variant": "pending",
+    "dal_projection_mapping": "pending",
+    "training_schedule": "pending",
+    "reward_variant": "pending",
+    "cmpi_definition": "owner_supplied_original"
+  },
+  "artifacts": [
+    {
+      "role": "licensed_training_examples",
+      "path": "data/processed/examples/train.examples.jsonl",
+      "sha256": "",
+      "license": "",
+      "training_allowed": false
+    },
+    {
+      "role": "backbone_checkpoint",
+      "kind": "directory",
+      "path": "models/local-backbone",
+      "sha256": "",
+      "license": "",
+      "training_allowed": false
+    },
+    {
+      "role": "schema_vocabulary",
+      "path": "data/processed/examples/schema_vocabulary.json",
+      "sha256": "",
+      "license": "",
+      "training_allowed": false
+    }
+  ]
+}
