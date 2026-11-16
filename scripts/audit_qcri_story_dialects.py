@@ -79,13 +79,21 @@ def summarize(rows: list[dict[str, Any]], predictions: list[dict[str, Any]]) -> 
         fp = sum(target != label and pred == label for target, pred in scored)
         fn = sum(target == label and pred != label for target, pred in scored)
         denom = 2 * tp + fp + fn
-        f1_by_label[label] = (2 * tp / denom) if denom else 0.0
-    macro_f1 = (sum(f1_by_label.values()) / len(SUPPORTED_LABELS)) if scored else None
+        f1_by_label[label] = (2 * tp / denom) if denom else None
+    represented = [
+        label for label in SUPPORTED_LABELS
+        if counts.get(label, 0) or any(pred == label for _, pred in scored)
+    ]
+    macro_f1 = (
+        sum(f1_by_label[label] for label in represented) / len(represented)
+        if scored and represented else None
+    )
     return {
         "scored_story_count": len(scored),
         "accuracy": correct / len(scored) if scored else None,
         "macro_f1": macro_f1,
         "per_label_f1": f1_by_label if scored else None,
+        "macro_f1_labels": represented if scored else [],
         "target_counts": {label: counts.get(label, 0) for label in SUPPORTED_LABELS},
         "unsupported_target_count": sum(row["_target"] == "MSA" for row in rows),
         "unlabeled_story_count": sum(row["_target"] is None for row in rows),
