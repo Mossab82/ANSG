@@ -81,6 +81,7 @@ def test_summary_excludes_msa_from_four_way_metrics():
 
     assert metrics["scored_story_count"] == 1
     assert metrics["accuracy"] == 1.0
+    assert metrics["macro_f1"] == 1.0
     assert metrics["unsupported_target_count"] == 1
     assert metrics["unlabeled_story_count"] == 1
 
