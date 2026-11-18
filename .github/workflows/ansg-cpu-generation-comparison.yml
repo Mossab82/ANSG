@@ -1,0 +1,67 @@
+name: ANSG CPU generation comparison (no training)
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: GitHub Actions run containing the completed LoRA adapter artifact
+        required: true
+        default: "44121183855"
+        type: string
+  push:
+    branches:
+      - integration/qcri-story-dialect-audit
+    paths:
+      - .github/workflows/ansg-cpu-generation-comparison.yml
+      - kaggle/heritage/compare_generation.py
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  compare-generation:
+    name: Matched base vs LoRA inference on CPU
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Check out research code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Download completed pilot adapter artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ansg-heritage-training-evidence
+          run-id: ${{ inputs.source_run_id || '44121183855' }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: pilot_artifact
+
+      - name: Install CPU inference dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install transformers==4.51.3 peft==0.15.2 accelerate==1.7.0 safetensors
+
+      - name: Generate matched baseline and LoRA samples
+        run: |
+          python kaggle/heritage/compare_generation.py \
+            --adapter-path pilot_artifact/ansg_heritage_pilot/adapter_final \
+            --output-dir generation_review \
+            --device cpu
+
+      - name: Preserve matched samples and blinded human review sheet
+        uses: actions/upload-artifact@v4
+        with:
+          name: ansg-blind-generation-review
+          path: |
+            generation_review/matched_generation.json
+            generation_review/blind_human_review.csv
+            generation_review/blind_review_key.json
+          if-no-files-found: error
+          retention-days: 30
