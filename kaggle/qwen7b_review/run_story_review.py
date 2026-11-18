@@ -32,6 +32,7 @@ def fetch_ansg_source() -> Path:
     with zipfile.ZipFile(archive) as zf:
         zf.extractall(extracted)
     root = next(extracted.glob("ANSG-*"))
+    sys.path.insert(0, str(root))
     sys.path.insert(0, str(root / "src"))
     return root
 
