@@ -5,7 +5,7 @@ import sys
 import time
 from pathlib import Path
 
-REF = "mossabibrahim/ansg-qwen7b-plan-story-review"
+REF = "mossabibrahim/ansg-qwen-7b-plan-story-review"
 OUTPUT = Path("kaggle-qwen7b-output")
 DEADLINE = time.monotonic() + 7800
 
@@ -19,6 +19,10 @@ while time.monotonic() < DEADLINE:
     line = (response.stdout + "\n" + response.stderr).strip()
     if response.returncode:
         print("Kaggle status error:", line[-800:], flush=True)
+        if "kernels.get" in line and "denied" in line:
+            listing = cli("list", "--mine", "--page-size", "50")
+            print("Kaggle kernels owned by this account:", listing.stdout[-4000:], flush=True)
+            raise SystemExit("Kaggle denied status access; inspect the actual kernel ref above.")
     else:
         state = next((x for x in ["COMPLETE", "ERROR", "CANCELLED", "RUNNING", "QUEUED"]
                       if "KernelWorkerStatus." + x in line), None)
