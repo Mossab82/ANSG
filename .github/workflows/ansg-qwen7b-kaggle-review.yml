@@ -41,8 +41,10 @@ jobs:
           fi
       - name: Verify Kaggle API access
         run: kaggle kernels list --mine --page-size 5
-      - name: Push private Qwen 7B inference kernel
-        run: kaggle kernels push -p kaggle/qwen7b_review
+      - name: Push private Qwen 7B inference kernel and record Kaggle slug
+        run: |
+          kaggle kernels push -p kaggle/qwen7b_review
+          kaggle kernels list --mine --page-size 50
       - name: Wait for GPU inference and collect review files
         run: python kaggle/qwen7b_review/wait_and_download.py
       - name: Upload generated stories and blind review form
