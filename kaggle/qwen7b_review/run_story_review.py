@@ -86,8 +86,8 @@ def generate(model, tokenizer, prompt: str, torch, max_new_tokens: int) -> str:
 
 def arabic_seed(text: str) -> str:
     """Keep Arabic draft text while removing foreign-script contamination."""
-    kept = re.sub(r"[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF0-9\\s،؛؟.!…«»():\\-]", " ", text)
-    return re.sub(r"[ \\t]+", " ", kept).strip()
+    kept = re.sub(r"[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF0-9\s،؛؟.!…«»():\-]", " ", text)
+    return re.sub(r"[ \t]+", " ", kept).strip()
 
 
 def diagnostics(story: str, proxies: dict) -> dict:
