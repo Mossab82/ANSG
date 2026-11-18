@@ -108,7 +108,10 @@ def chunks(rows,tokenizer):
         ids=tokenizer(row["text"],add_special_tokens=False)["input_ids"]
         for start in range(0,len(ids)-MAX_LENGTH+1,MAX_LENGTH):
             chunk=ids[start:start+MAX_LENGTH]
-            if len(chunk)>=64:out.append({"ids":chunk,"night":row["night"]})
+            if len(chunk)>=64:
+                # The frozen corpus stores page/story records keyed by `id`;
+                # it has no per-night field. Keep the available provenance.
+                out.append({"ids":chunk,"source_id":row["id"]})
     return out
 
 def generate_samples(model, tokenizer, stage):
