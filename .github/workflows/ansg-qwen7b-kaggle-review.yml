@@ -2,6 +2,12 @@ name: ANSG Qwen 7B plan story review (Kaggle GPU)
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - experiment/anhc-stepwise-story-pilot-review
+    paths:
+      - .github/workflows/ansg-qwen7b-kaggle-review.yml
+      - kaggle/qwen7b_review/**
 
 permissions:
   contents: read
