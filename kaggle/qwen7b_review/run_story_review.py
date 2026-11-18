@@ -86,15 +86,15 @@ def generate(model, tokenizer, prompt: str, torch, max_new_tokens: int) -> str:
 
 def arabic_seed(text: str) -> str:
     """Keep Arabic draft text while removing foreign-script contamination."""
-    kept = re.sub(r"[^\\u0600-\\u06FF\\u0750-\\u077F\\u08A0-\\u08FF\\uFB50-\\uFDFF\\uFE70-\\uFEFF0-9\\s،؛؟.!…«»():\\-]", " ", text)
+    kept = re.sub(r"[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF0-9\\s،؛؟.!…«»():\\-]", " ", text)
     return re.sub(r"[ \\t]+", " ", kept).strip()
 
 
 def diagnostics(story: str, proxies: dict) -> dict:
     words = len(story.split())
-    arabic_letters = len(re.findall(r"[\\u0600-\\u06FF\\u0750-\\u077F\\u08A0-\\u08FF\\uFB50-\\uFDFF\\uFE70-\\uFEFF]", story))
+    arabic_letters = len(re.findall(r"[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]", story))
     latin_letters = len(re.findall(r"[A-Za-z]", story))
-    cjk_characters = len(re.findall(r"[\\u3400-\\u4DBF\\u4E00-\\u9FFF]", story))
+    cjk_characters = len(re.findall(r"[\u3400-\u4DBF\u4E00-\u9FFF]", story))
     punctuation = story.rstrip().endswith(("؟", "!", ".", "۔", "…", "»", '"'))
     return {
         "whitespace_word_count": words,
@@ -128,7 +128,7 @@ def main() -> None:
     if not validation.ok:
         raise RuntimeError("ANSG plan validation failed: " + repr(validation.to_dict()))
 
-    plan_prompt = build_prompt(plan, settings) + "\\n\\n" + COMMON_PLAN_STYLE
+    plan_prompt = build_prompt(plan, settings) + "\n\n" + COMMON_PLAN_STYLE
 
     if not torch.cuda.is_available():
         raise RuntimeError("Kaggle GPU unavailable")
@@ -148,10 +148,10 @@ def main() -> None:
     draft_seed = arabic_seed(plan_text)
     repair_prompt = (
         plan_prompt
-        + "\\n\\nأعد كتابة المسودة الأولية التالية لتصبح قصة عربية مكتملة ومتماسكة. "
+        + "\n\nأعد كتابة المسودة الأولية التالية لتصبح قصة عربية مكتملة ومتماسكة. "
         + "قد تكون المسودة مبتورة؛ لا تكرر أي نص أجنبي أو تعليق عن النموذج. "
         + "استخدم الخطة أعلاه لإكمال جميع الأحداث السبعة بالترتيب، واجعلها نحو 180 كلمة. "
-        + "أخرج القصة النهائية وحدها.\\n\\nالمسودة العربية المنقحة آليًا:\\n"
+        + "أخرج القصة النهائية وحدها.\n\nالمسودة العربية المنقحة آليًا:\n"
         + draft_seed
     )
     repaired_text = generate(model, tokenizer, repair_prompt, torch, MAX_NEW_TOKENS)
@@ -203,7 +203,7 @@ def main() -> None:
         ],
     }
     (OUT / "model_comparison.json").write_text(
-        json.dumps(report, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8"
+        json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
 
     rng = random.Random(42)
@@ -224,7 +224,7 @@ def main() -> None:
             "output_A": conditions[a]["text"], "output_B": conditions[b]["text"],
         })
     (OUT / "blind_review_key.json").write_text(
-        json.dumps({"aqaba-water-story": {"A": a, "B": b}}, indent=2) + "\\n",
+        json.dumps({"aqaba-water-story": {"A": a, "B": b}}, indent=2) + "\n",
         encoding="utf-8",
     )
     print(json.dumps({
