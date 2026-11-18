@@ -1,12 +1,12 @@
-"""Kaggle GPU inference comparison: direct prompt vs validated ANSG plan and repair.
-Uses a frozen Qwen2.5-7B-Instruct checkpoint; it does not train thesis components.
+"""Controlled Kaggle GPU comparison for direct vs ANSG-plan story realization.
+Uses frozen Qwen2.5-7B-Instruct. This is inference only, not thesis reproduction.
 """
 from __future__ import annotations
 
 import csv
 import json
-import os
 import random
+import re
 import sys
 import urllib.request
 import zipfile
@@ -16,7 +16,32 @@ OUT = Path("/kaggle/working/ansg_qwen7b_review")
 MODEL_ID = "Qwen/Qwen2.5-7B-Instruct"
 SOURCE_COMMIT = "6e0c8377679c1b0b80c7b6415fe5cea143be7285"
 ARCHIVE_URL = f"https://codeload.github.com/Mossab82/ANSG/zip/{SOURCE_COMMIT}"
-DIRECT_PROMPT = """اكتب قصة عربية أصلية قصيرة تدور في العقبة عن الملك سالم والوزير عودة وأهل الحي. يواجه أهل الحي مشكلة في وصول الماء، وتنتهي القصة بحل عادل يشارك فيه الناس. اجعل الحوار طبيعيًا بلهجة أهل العقبة والسرد بالفصحى. لا تنقل نصًا من أي قصة معروفة. اكتب القصة فقط."""
+TARGET_WORDS = 180
+MIN_TARGET_WORDS = 130
+MAX_TARGET_WORDS = 240
+MAX_NEW_TOKENS = 700
+
+SYSTEM_PROMPT = (
+    "أنت كاتب قصص باللغة العربية. أخرج قصة عربية فقط، بلا مقدمة أو شرح أو تعريف بنفسك. "
+    "لا تكتب بالصينية أو الإنجليزية أو أي لغة أخرى. اكتب نص القصة وحده، "
+    "بسرد فصيح وحوار طبيعي بلهجة أهل العقبة في جنوب الأردن."
+)
+
+DIRECT_PROMPT = """اكتب قصة أصلية بعنوان «القناة والعدل»، تقع في العقبة بالأردن، عن الملك سالم والوزير عودة وأهل العقبة. اجعل الحبكة والأحداث الآتية أساس القصة، مع الحفاظ على ترتيبها وعلاقاتها السببية:
+1. يلاحظ سالم ضعف الماء في القناة.
+2. يفحص سالم وعودة القناة ويكتشفان أن حجرًا يسدها.
+3. بعد اكتشاف السبب، يستشير سالم عودة.
+4. ينصح عودة بإزالة الحجر ثم توزيع الماء بالدور.
+5. يزيل أهل الحي الحجر فيعود الماء إلى المجرى.
+6. يوزع سالم وأهل الحي الماء بالدور بعدل.
+7. يتفق أهل الحي على جدول معلن لتوزيع الماء ومراجعته معًا.
+اجعل طول القصة نحو 180 كلمة. لا تنقل نصًا من قصة معروفة. أخرج القصة فقط."""
+
+COMMON_PLAN_STYLE = (
+    "اكتب قصة مكتملة ومتماسكة، لا قائمة أحداث. اجعل طولها نحو 180 كلمة. "
+    "التزم بالأحداث السبعة وترتيبها. لا تنقل نصًا من قصة معروفة. "
+    "أخرج القصة العربية النهائية فقط، بلا تعليق أو عناوين إضافية."
+)
 
 
 def fetch_ansg_source() -> Path:
@@ -38,7 +63,10 @@ def fetch_ansg_source() -> Path:
 
 
 def generate(model, tokenizer, prompt: str, torch, max_new_tokens: int) -> str:
-    messages = [{"role": "user", "content": prompt}]
+    messages = [
+        {"role": "system", "content": SYSTEM_PROMPT},
+        {"role": "user", "content": prompt},
+    ]
     inputs = tokenizer.apply_chat_template(
         messages, tokenize=True, add_generation_prompt=True,
         return_tensors="pt", return_dict=True,
@@ -56,6 +84,33 @@ def generate(model, tokenizer, prompt: str, torch, max_new_tokens: int) -> str:
     return tokenizer.decode(output[0, prompt_tokens:], skip_special_tokens=True).strip()
 
 
+def arabic_seed(text: str) -> str:
+    """Keep Arabic draft text while removing foreign-script contamination."""
+    kept = re.sub(r"[^\\u0600-\\u06FF\\u0750-\\u077F\\u08A0-\\u08FF\\uFB50-\\uFDFF\\uFE70-\\uFEFF0-9\\s،؛؟.!…«»():\\-]", " ", text)
+    return re.sub(r"[ \\t]+", " ", kept).strip()
+
+
+def diagnostics(story: str, proxies: dict) -> dict:
+    words = len(story.split())
+    arabic_letters = len(re.findall(r"[\\u0600-\\u06FF\\u0750-\\u077F\\u08A0-\\u08FF\\uFB50-\\uFDFF\\uFE70-\\uFEFF]", story))
+    latin_letters = len(re.findall(r"[A-Za-z]", story))
+    cjk_characters = len(re.findall(r"[\\u3400-\\u4DBF\\u4E00-\\u9FFF]", story))
+    punctuation = story.rstrip().endswith(("؟", "!", ".", "۔", "…", "»", '"'))
+    return {
+        "whitespace_word_count": words,
+        "arabic_letter_count": arabic_letters,
+        "latin_letter_count": latin_letters,
+        "cjk_character_count": cjk_characters,
+        "ends_with_sentence_punctuation": punctuation,
+        "heuristic_gates": {
+            "target_length_130_to_240_whitespace_words": MIN_TARGET_WORDS <= words <= MAX_TARGET_WORDS,
+            "no_latin_or_cjk_letters": latin_letters == 0 and cjk_characters == 0,
+            "sentence_punctuation_at_end": punctuation,
+        },
+        "proxy_metrics": proxies,
+    }
+
+
 def main() -> None:
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed
@@ -68,16 +123,12 @@ def main() -> None:
 
     settings = load_settings(source_root / "configs/generation/settings.yaml")
     plan = build_plan(repaired=True)
+    plan.target_words = TARGET_WORDS
     validation = validate_plan(plan, settings)
     if not validation.ok:
         raise RuntimeError("ANSG plan validation failed: " + repr(validation.to_dict()))
 
-    plan_prompt = build_prompt(plan, settings) + (
-        "\n\nاكتب قصة كاملة لا قائمة أحداث. التزم بتسلسل الأحداث السبعة وبالمعرفة المقررة لكل شخصية. "
-        "الشخصيات: سالم ملك رجل، وعودة وزير رجل، وأهل الحي جماعة. استخدم العربية فقط، "
-        "ولا تضع كلمات إنجليزية أو أجنبية. اجعل السرد فصيحًا والحوار بلهجة أهل العقبة، "
-        "واختم بحل واضح. الطول نحو 220 إلى 300 كلمة."
-    )
+    plan_prompt = build_prompt(plan, settings) + "\\n\\n" + COMMON_PLAN_STYLE
 
     if not torch.cuda.is_available():
         raise RuntimeError("Kaggle GPU unavailable")
@@ -90,56 +141,69 @@ def main() -> None:
     )
     model.eval()
 
-    direct_text = generate(model, tokenizer, DIRECT_PROMPT, torch, 700)
-    plan_text = generate(model, tokenizer, plan_prompt, torch, 700)
+    # Same backbone, system instruction, seed, and greedy decoding across conditions.
+    direct_text = generate(model, tokenizer, DIRECT_PROMPT, torch, MAX_NEW_TOKENS)
+    plan_text = generate(model, tokenizer, plan_prompt, torch, MAX_NEW_TOKENS)
+
+    draft_seed = arabic_seed(plan_text)
     repair_prompt = (
         plan_prompt
-        + "\n\nأعد كتابة القصة كاملة كنص متماسك بعد مراجعة المسودة. لا تختصرها ولا تتوقف قبل النهاية. "
-        + "احذف الكلمات غير العربية وصحح الأدوار. أظهر الأحداث السبعة بالترتيب: ملاحظة ضعف الماء؛ "
-        + "فحص القناة واكتشاف الحجر؛ استشارة عودة بعد اكتشاف السبب؛ نصيحة عودة؛ إزالة الحجر؛ "
-        + "توزيع الماء بالدور؛ اتفاق أهل الحي على جدول ومراجعته. أخرج القصة النهائية فقط.\n\nالمسودة:\n"
-        + plan_text
+        + "\\n\\nأعد كتابة المسودة الأولية التالية لتصبح قصة عربية مكتملة ومتماسكة. "
+        + "قد تكون المسودة مبتورة؛ لا تكرر أي نص أجنبي أو تعليق عن النموذج. "
+        + "استخدم الخطة أعلاه لإكمال جميع الأحداث السبعة بالترتيب، واجعلها نحو 180 كلمة. "
+        + "أخرج القصة النهائية وحدها.\\n\\nالمسودة العربية المنقحة آليًا:\\n"
+        + draft_seed
     )
-    repaired_text = generate(model, tokenizer, repair_prompt, torch, 700)
+    repaired_text = generate(model, tokenizer, repair_prompt, torch, MAX_NEW_TOKENS)
 
     conditions = {}
-    for name, story in (
-        ("direct", direct_text),
-        ("ansg_plan", plan_text),
-        ("ansg_plan_repaired", repaired_text),
+    for name, prompt, story in (
+        ("direct", DIRECT_PROMPT, direct_text),
+        ("ansg_plan", plan_prompt, plan_text),
+        ("ansg_plan_repaired", repair_prompt, repaired_text),
     ):
         conditions[name] = {
+            "prompt_sha256": __import__("hashlib").sha256(prompt.encode("utf-8")).hexdigest(),
             "text": story,
-            "word_count_whitespace": len(story.split()),
-            "proxy_metrics": summarise(
+            **diagnostics(story, summarise(
                 story, plan_graph=plan.graph,
                 markers=settings["aqaba"].dialect_markers,
-            ),
-            "ends_with_sentence_punctuation": story.rstrip().endswith(
-                ("؟", "!", ".", "۔", "…", "»", '"')
-            ),
+            )),
         }
 
     report = {
-        "experiment": "Frozen Qwen2.5-7B direct vs ANSG-plan-conditioned story realization",
+        "experiment": "Controlled frozen Qwen2.5-7B direct vs ANSG-plan-conditioned story realization",
         "status": "completed",
         "model": MODEL_ID,
         "model_weights_updated": False,
         "gpu_names": gpu_names,
-        "decoding": {"method": "greedy", "do_sample": False, "max_new_tokens": 700, "seed": 42},
+        "controlled_task": {
+            "setting": "Aqaba, Jordan",
+            "characters": ["سالم", "عودة", "أهل العقبة"],
+            "target_words": TARGET_WORDS,
+            "target_length_gate_whitespace_words": [MIN_TARGET_WORDS, MAX_TARGET_WORDS],
+            "same_system_prompt_and_decoding_for_all_conditions": True,
+            "decoding": {"method": "greedy", "do_sample": False, "max_new_tokens": MAX_NEW_TOKENS, "seed": 42},
+            "conditions": {
+                "direct": "Natural-language prompt with the same seven events as the ANSG plan.",
+                "ansg_plan": "Validated ANSG StoryPlan converted to a generation prompt.",
+                "ansg_plan_repaired": "Same ANSG plan plus a repair request using only the draft's Arabic-script text.",
+            },
+        },
         "plan_validation": validation.to_dict(),
         "plan_origin": "ANSG experimental pilot build_plan(repaired=True); no heritage source text supplied to the model",
         "conditions": conditions,
         "limits": [
-            "This is frozen-backbone inference, not training or a reproduction of thesis experiments.",
+            "Frozen-backbone inference only; no model training and no reproduction of thesis experiments.",
             "CSAM, DAL, CKG retrieval and PPO/RL are not executed.",
-            "The Aqaba dialect setting is an unreviewed draft; marker counts are proxies, not dialect authenticity.",
+            "The Aqaba dialect setting remains an unreviewed draft; marker counts are proxies, not dialect authenticity.",
             "Surface trigger counts do not establish event order, causality or plot adherence.",
-            "No human ratings have been collected; do not claim excellent results until blinded native-speaker and expert review.",
+            "Heuristic gates are screening signals, not quality scores.",
+            "Only one prompt and one deterministic seed were run; no human ratings have been collected.",
         ],
     }
     (OUT / "model_comparison.json").write_text(
-        json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        json.dumps(report, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8"
     )
 
     rng = random.Random(42)
@@ -160,13 +224,19 @@ def main() -> None:
             "output_A": conditions[a]["text"], "output_B": conditions[b]["text"],
         })
     (OUT / "blind_review_key.json").write_text(
-        json.dumps({"aqaba-water-story": {"A": a, "B": b}}, indent=2) + "\n",
+        json.dumps({"aqaba-water-story": {"A": a, "B": b}}, indent=2) + "\\n",
         encoding="utf-8",
     )
     print(json.dumps({
         "status": report["status"], "model": MODEL_ID,
         "gpus": gpu_names, "plan_ok": validation.ok,
-        "word_counts": {k: v["word_count_whitespace"] for k, v in conditions.items()},
+        "conditions": {k: {
+            "whitespace_word_count": v["whitespace_word_count"],
+            "arabic_letter_count": v["arabic_letter_count"],
+            "latin_letter_count": v["latin_letter_count"],
+            "cjk_character_count": v["cjk_character_count"],
+            "heuristic_gates": v["heuristic_gates"],
+        } for k, v in conditions.items()},
         "output_dir": str(OUT),
     }, ensure_ascii=False))
 
