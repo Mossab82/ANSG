@@ -32,13 +32,13 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
           python -m pip install transformers==4.51.3 accelerate==1.7.0 safetensors PyYAML
-      - name: Generate matched story pair
+      - name: Generate matched stories
         env:
           PYTHONPATH: src
         run: |
           python experiments/anhc_story_pilot/model_comparison.py \
             --output-dir model_generation_review \
-            --max-new-tokens 300
+            --max-new-tokens 480
       - name: Preserve generated texts and blind review sheet
         uses: actions/upload-artifact@v4
         with:
