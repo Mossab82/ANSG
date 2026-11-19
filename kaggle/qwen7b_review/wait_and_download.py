@@ -38,7 +38,7 @@ while time.monotonic() < DEADLINE:
                 raise SystemExit("Kaggle generation failed or report missing.")
             report = json.loads(reports[0].read_text(encoding="utf-8"))
             if report.get("status") != "completed" or set(report.get("conditions", {})) != {
-                "direct", "ansg_plan", "ansg_plan_repaired"
+                "direct", "ansg_plan", "ansg_plan_repaired", "ansg_stepwise"
             }:
                 raise SystemExit("Generated report incomplete.")
             print("Verified real GPU inference:", json.dumps({
@@ -46,9 +46,10 @@ while time.monotonic() < DEADLINE:
                 "gpus": report.get("gpu_names"),
                 "plan_validation": report.get("plan_validation"),
                 "word_counts": {
-                    k: v.get("word_count_whitespace")
+                    k: v.get("whitespace_word_count")
                     for k, v in report.get("conditions", {}).items()
                 },
+                "stepwise_events": len(report.get("stepwise_trace", [])),
             }, ensure_ascii=False), flush=True)
             raise SystemExit(0)
     time.sleep(40)

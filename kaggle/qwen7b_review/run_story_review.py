@@ -84,6 +84,59 @@ def generate(model, tokenizer, prompt: str, torch, max_new_tokens: int) -> str:
     return tokenizer.decode(output[0, prompt_tokens:], skip_special_tokens=True).strip()
 
 
+
+def generate_stepwise(model, tokenizer, plan, order, torch):
+    """Realize one validated plan event at a time, carrying forward Arabic-only context."""
+    entity_names = {entity.id: entity.name for entity in plan.graph.entities}
+    history = []
+    trace = []
+    prompt_hashes = []
+    for index, event_id in enumerate(order, start=1):
+        event = plan.graph.event(event_id)
+        participants = list(dict.fromkeys(
+            entity_names.get(participant.entity, participant.entity)
+            for participant in event.participants
+        ))
+        prior = "\n\n".join(history) if history else "هذه بداية القصة."
+        prompt = "\n".join([
+            f"نكتب القصة «{plan.title}» في العقبة، عن سالم وعودة وأهل الحي.",
+            f"هذا هو الحدث رقم {index} من 7، ويجب أن يظهر الآن دون أي حدث لاحق: {event.gloss}",
+            "الشخصيات المرتبطة بهذا الحدث: " + ("، ".join(participants) if participants else "شخصيات القصة"),
+            "المسودة حتى الآن:\n" + prior,
+            "أضف فقرة قصيرة من جملة أو جملتين تحقق هذا الحدث فقط. لا تعد سرد الأحداث السابقة، ولا تستبق حدثًا لاحقًا. حافظ على الأسماء والسببية واتساق ما تعرفه كل شخصية. اكتب الإضافة بالعربية فقط.",
+        ])
+        prompt_hash = __import__("hashlib").sha256(prompt.encode("utf-8")).hexdigest()
+        prompt_hashes.append(prompt_hash)
+        raw_segment = generate(model, tokenizer, prompt, torch, 160)
+        arabic_segment = arabic_seed(raw_segment)
+        if arabic_segment:
+            history.append(arabic_segment)
+        trace.append({
+            "event_id": event_id,
+            "event_gloss": event.gloss,
+            "prompt_sha256": prompt_hash,
+            "raw_segment": raw_segment,
+            "arabic_context_segment": arabic_segment,
+            "whitespace_word_count": len(arabic_segment.split()),
+        })
+
+    event_checklist = "\n".join(
+        f"{i}. {plan.graph.event(event_id).gloss}"
+        for i, event_id in enumerate(order, start=1)
+    )
+    polish_prompt = "\n".join([
+        f"حرّر المسودة المرحلية التالية لتصبح قصة عربية واحدة مكتملة، نحو {plan.target_words} كلمة.",
+        "حافظ على الأحداث السبعة الآتية بالترتيب نفسه، ولا تحذف حدثًا أو تضف حدثًا جديدًا:",
+        event_checklist,
+        "حسّن الترابط والانتقالات فقط. لا تكرر التعليمات ولا تذكر أنك نموذج. أخرج نص القصة وحده.",
+        "المسودة المرحلية:\n" + ("\n\n".join(history) if history else ""),
+    ])
+    polish_hash = __import__("hashlib").sha256(polish_prompt.encode("utf-8")).hexdigest()
+    prompt_hashes.append(polish_hash)
+    final_story = generate(model, tokenizer, polish_prompt, torch, MAX_NEW_TOKENS)
+    return final_story, trace, prompt_hashes
+
+
 def arabic_seed(text: str) -> str:
     """Keep Arabic draft text while removing foreign-script contamination."""
     kept = re.sub(r"[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF0-9\s،؛؟.!…«»():\-]", " ", text)
@@ -141,7 +194,7 @@ def main() -> None:
     )
     model.eval()
 
-    # Same backbone, system instruction, seed, and greedy decoding across conditions.
+    # Frozen model, one task and greedy decoding. Stepwise uses one bounded call per event plus a final edit.
     direct_text = generate(model, tokenizer, DIRECT_PROMPT, torch, MAX_NEW_TOKENS)
     plan_text = generate(model, tokenizer, plan_prompt, torch, MAX_NEW_TOKENS)
 
@@ -155,6 +208,9 @@ def main() -> None:
         + draft_seed
     )
     repaired_text = generate(model, tokenizer, repair_prompt, torch, MAX_NEW_TOKENS)
+    stepwise_text, stepwise_trace, stepwise_prompt_hashes = generate_stepwise(
+        model, tokenizer, plan, validation.order, torch
+    )
 
     conditions = {}
     for name, prompt, story in (
@@ -170,9 +226,21 @@ def main() -> None:
                 markers=settings["aqaba"].dialect_markers,
             )),
         }
+    conditions["ansg_stepwise"] = {
+        "prompt_sha256": __import__("hashlib").sha256(
+            "".join(stepwise_prompt_hashes).encode("utf-8")
+        ).hexdigest(),
+        "prompt_sha256_per_stage": stepwise_prompt_hashes,
+        "event_generation_count": len(stepwise_trace),
+        "text": stepwise_text,
+        **diagnostics(stepwise_text, summarise(
+            stepwise_text, plan_graph=plan.graph,
+            markers=settings["aqaba"].dialect_markers,
+        )),
+    }
 
     report = {
-        "experiment": "Controlled frozen Qwen2.5-7B direct vs ANSG-plan-conditioned story realization",
+        "experiment": "Frozen Qwen2.5-7B direct vs ANSG plan vs event-by-event plan realization",
         "status": "completed",
         "model": MODEL_ID,
         "model_weights_updated": False,
@@ -182,22 +250,29 @@ def main() -> None:
             "characters": ["سالم", "عودة", "أهل العقبة"],
             "target_words": TARGET_WORDS,
             "target_length_gate_whitespace_words": [MIN_TARGET_WORDS, MAX_TARGET_WORDS],
-            "same_system_prompt_and_decoding_for_all_conditions": True,
-            "decoding": {"method": "greedy", "do_sample": False, "max_new_tokens": MAX_NEW_TOKENS, "seed": 42},
+            "same_system_prompt_and_greedy_sampling_policy": True,
+            "decoding": {
+                "method": "greedy", "do_sample": False, "seed": 42,
+                "all_at_once_max_new_tokens": MAX_NEW_TOKENS,
+                "stepwise_per_event_max_new_tokens": 160,
+                "stepwise_final_edit_max_new_tokens": MAX_NEW_TOKENS,
+            },
             "conditions": {
-                "direct": "Natural-language prompt with the same seven events as the ANSG plan.",
+                "direct": "Natural-language prompt with the same seven-event task.",
                 "ansg_plan": "Validated ANSG StoryPlan converted to a generation prompt.",
-                "ansg_plan_repaired": "Same ANSG plan plus a repair request using only the draft's Arabic-script text.",
+                "ansg_plan_repaired": "Same ANSG plan plus a repair request using Arabic-script draft text.",
+                "ansg_stepwise": "Seven event-conditioned generation calls in validated order, followed by one continuity edit.",
             },
         },
         "plan_validation": validation.to_dict(),
         "plan_origin": "ANSG experimental pilot build_plan(repaired=True); no heritage source text supplied to the model",
+        "stepwise_trace": stepwise_trace,
         "conditions": conditions,
         "limits": [
             "Frozen-backbone inference only; no model training and no reproduction of thesis experiments.",
             "CSAM, DAL, CKG retrieval and PPO/RL are not executed.",
             "The Aqaba dialect setting remains an unreviewed draft; marker counts are proxies, not dialect authenticity.",
-            "Surface trigger counts do not establish event order, causality or plot adherence.",
+            "Surface trigger counts do not establish event order, causality or plot adherence; stepwise event alignment is by construction.",
             "Heuristic gates are screening signals, not quality scores.",
             "Only one prompt and one deterministic seed were run; no human ratings have been collected.",
         ],
@@ -207,24 +282,34 @@ def main() -> None:
     )
 
     rng = random.Random(42)
-    a, b = (("ansg_plan_repaired", "direct") if rng.getrandbits(1)
-            else ("direct", "ansg_plan_repaired"))
+    pairs = [
+        ("direct-vs-plan", "direct", "ansg_plan"),
+        ("direct-vs-stepwise", "direct", "ansg_stepwise"),
+        ("plan-vs-stepwise", "ansg_plan", "ansg_stepwise"),
+    ]
+    review_fields = [
+        "pair_id", "output_A", "output_B",
+        "coherence_A_1to5", "coherence_B_1to5",
+        "event_order_adherence_A_1to5", "event_order_adherence_B_1to5",
+        "causal_consistency_A_1to5", "causal_consistency_B_1to5",
+        "Aqaba_dialect_naturalness_A_1to5", "Aqaba_dialect_naturalness_B_1to5",
+        "cultural_plausibility_A_1to5", "cultural_plausibility_B_1to5",
+        "originality_A_1to5", "originality_B_1to5", "preferred", "notes",
+    ]
+    review_key = {}
     with (OUT / "blind_story_review.csv").open("w", newline="", encoding="utf-8-sig") as f:
-        writer = csv.DictWriter(f, fieldnames=[
-            "prompt_id", "output_A", "output_B",
-            "coherence_A_1to5", "coherence_B_1to5",
-            "causal_consistency_A_1to5", "causal_consistency_B_1to5",
-            "Aqaba_dialect_naturalness_A_1to5", "Aqaba_dialect_naturalness_B_1to5",
-            "cultural_plausibility_A_1to5", "cultural_plausibility_B_1to5",
-            "originality_A_1to5", "originality_B_1to5", "preferred", "notes",
-        ])
+        writer = csv.DictWriter(f, fieldnames=review_fields)
         writer.writeheader()
-        writer.writerow({
-            "prompt_id": "aqaba-water-story",
-            "output_A": conditions[a]["text"], "output_B": conditions[b]["text"],
-        })
+        for pair_id, left, right in pairs:
+            a, b = (right, left) if rng.getrandbits(1) else (left, right)
+            review_key[pair_id] = {"A": a, "B": b}
+            writer.writerow({
+                "pair_id": pair_id,
+                "output_A": conditions[a]["text"],
+                "output_B": conditions[b]["text"],
+            })
     (OUT / "blind_review_key.json").write_text(
-        json.dumps({"aqaba-water-story": {"A": a, "B": b}}, indent=2) + "\n",
+        json.dumps(review_key, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
     print(json.dumps({
