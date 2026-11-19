@@ -1,0 +1,51 @@
+name: ANSG plan-conditioned story generation
+
+on:
+  push:
+    branches:
+      - experiment/anhc-stepwise-story-pilot-review
+    paths:
+      - .github/workflows/ansg-plan-conditioned-generation.yml
+      - experiments/anhc_story_pilot/model_comparison.py
+      - experiments/anhc_story_pilot/pilot.py
+      - src/ansg/narrative/**
+      - src/ansg/evaluation/story_proxies.py
+      - configs/generation/settings.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    name: Direct vs validated ANSG plan (CPU)
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install CPU inference dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install transformers==4.51.3 accelerate==1.7.0 safetensors PyYAML
+      - name: Generate matched stories
+        env:
+          PYTHONPATH: src
+        run: |
+          python experiments/anhc_story_pilot/model_comparison.py \
+            --output-dir model_generation_review \
+            --max-new-tokens 480
+      - name: Preserve generated texts and blind review sheet
+        uses: actions/upload-artifact@v4
+        with:
+          name: ansg-plan-conditioned-story-review
+          path: |
+            model_generation_review/model_comparison.json
+            model_generation_review/blind_story_review.csv
+            model_generation_review/blind_review_key.json
+          if-no-files-found: error
+          retention-days: 30

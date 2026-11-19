@@ -1,0 +1,57 @@
+name: ANSG Qwen 7B plan story review (Kaggle GPU)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - experiment/anhc-stepwise-story-pilot-review
+    paths:
+      - .github/workflows/ansg-qwen7b-kaggle-review.yml
+      - kaggle/qwen7b_review/**
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ansg-qwen7b-story-review
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 145
+    env:
+      KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+    steps:
+      - name: Check out research code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install Kaggle CLI
+        run: |
+          python -m pip install --upgrade kaggle six
+          python -c 'import kaggle, six'
+      - name: Validate Kaggle credential is configured
+        run: |
+          if [ -z "$KAGGLE_API_TOKEN" ]; then
+            echo "::error::KAGGLE_API_TOKEN GitHub Actions secret missing"
+            exit 1
+          fi
+      - name: Verify Kaggle API access
+        run: kaggle kernels list --mine --page-size 5
+      - name: Push private Qwen 7B inference kernel and record Kaggle slug
+        run: |
+          kaggle kernels push -p kaggle/qwen7b_review
+          kaggle kernels list --mine --page-size 50
+      - name: Wait for GPU inference and collect review files
+        run: python kaggle/qwen7b_review/wait_and_download.py
+      - name: Upload generated stories and blind review form
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ansg-qwen7b-story-review
+          path: kaggle-qwen7b-output/
+          if-no-files-found: warn
+          retention-days: 30

@@ -1,0 +1,250 @@
+{
+  "schema": "ansg.event_graph/1",
+  "record_id": "pilot-king-adviser-aqaba",
+  "text_sha256": null,
+  "entities": [
+    {
+      "id": "king",
+      "name": "سالم",
+      "kind": "character",
+      "narrative_role": "protagonist",
+      "aliases": [],
+      "mentions": []
+    },
+    {
+      "id": "minister",
+      "name": "عودة",
+      "kind": "character",
+      "narrative_role": "helper",
+      "aliases": [],
+      "mentions": []
+    },
+    {
+      "id": "residents",
+      "name": "أهل العقبة",
+      "kind": "group",
+      "narrative_role": "community",
+      "aliases": [],
+      "mentions": []
+    },
+    {
+      "id": "canal",
+      "name": "القناة",
+      "kind": "object",
+      "narrative_role": null,
+      "aliases": [],
+      "mentions": []
+    },
+    {
+      "id": "stone",
+      "name": "الحجر",
+      "kind": "object",
+      "narrative_role": null,
+      "aliases": [],
+      "mentions": []
+    },
+    {
+      "id": "aqaba",
+      "name": "العقبة",
+      "kind": "place",
+      "narrative_role": null,
+      "aliases": [],
+      "mentions": []
+    }
+  ],
+  "events": [
+    {
+      "id": "e1",
+      "trigger": "أوصى",
+      "evidence": null,
+      "discourse_index": 0,
+      "participants": [
+        {
+          "role": "Agent",
+          "entity": "minister",
+          "evidence": null,
+          "implicit_reason": null
+        },
+        {
+          "role": "Theme",
+          "entity": "canal",
+          "evidence": null,
+          "implicit_reason": null
+        }
+      ],
+      "modality": "planned",
+      "story_time": null,
+      "verbnet_class": null,
+      "preconditions": [],
+      "effects": [],
+      "knowledge_required": [
+        {
+          "entity": "minister",
+          "proposition": {
+            "predicate": "blocked",
+            "args": [
+              "canal"
+            ],
+            "negated": false
+          },
+          "channel": "perception",
+          "source_entity": null
+        }
+      ],
+      "knowledge_gained": [],
+      "values": [],
+      "status": "automatic",
+      "source": "automatic",
+      "gloss": "عودة يوصي بإغلاق القناة اعتمادًا على إشاعة"
+    },
+    {
+      "id": "e2",
+      "trigger": "فحص",
+      "evidence": null,
+      "discourse_index": 1,
+      "participants": [
+        {
+          "role": "Agent",
+          "entity": "king",
+          "evidence": null,
+          "implicit_reason": null
+        },
+        {
+          "role": "Agent",
+          "entity": "minister",
+          "evidence": null,
+          "implicit_reason": null
+        },
+        {
+          "role": "Theme",
+          "entity": "canal",
+          "evidence": null,
+          "implicit_reason": null
+        },
+        {
+          "role": "Instrument",
+          "entity": "stone",
+          "evidence": null,
+          "implicit_reason": null
+        }
+      ],
+      "modality": "planned",
+      "story_time": null,
+      "verbnet_class": null,
+      "preconditions": [],
+      "effects": [
+        {
+          "predicate": "blocked",
+          "args": [
+            "canal"
+          ],
+          "negated": false
+        }
+      ],
+      "knowledge_required": [],
+      "knowledge_gained": [
+        {
+          "entity": "king",
+          "proposition": {
+            "predicate": "blocked",
+            "args": [
+              "canal"
+            ],
+            "negated": false
+          },
+          "channel": "perception",
+          "source_entity": null
+        },
+        {
+          "entity": "minister",
+          "proposition": {
+            "predicate": "blocked",
+            "args": [
+              "canal"
+            ],
+            "negated": false
+          },
+          "channel": "perception",
+          "source_entity": null
+        }
+      ],
+      "values": [],
+      "status": "automatic",
+      "source": "automatic",
+      "gloss": "سالم وعودة يفحصان القناة ويكتشفان الحجر"
+    },
+    {
+      "id": "e3",
+      "trigger": "أغلق",
+      "evidence": null,
+      "discourse_index": 2,
+      "participants": [
+        {
+          "role": "Agent",
+          "entity": "king",
+          "evidence": null,
+          "implicit_reason": null
+        },
+        {
+          "role": "Theme",
+          "entity": "canal",
+          "evidence": null,
+          "implicit_reason": null
+        }
+      ],
+      "modality": "planned",
+      "story_time": null,
+      "verbnet_class": null,
+      "preconditions": [],
+      "effects": [
+        {
+          "predicate": "flowing",
+          "args": [
+            "canal"
+          ],
+          "negated": true
+        }
+      ],
+      "knowledge_required": [
+        {
+          "entity": "king",
+          "proposition": {
+            "predicate": "blocked",
+            "args": [
+              "canal"
+            ],
+            "negated": false
+          },
+          "channel": "perception",
+          "source_entity": null
+        }
+      ],
+      "knowledge_gained": [],
+      "values": [],
+      "status": "automatic",
+      "source": "automatic",
+      "gloss": "سالم يغلق القناة قبل التحقق من الشكوى"
+    }
+  ],
+  "relations": [
+    {
+      "kind": "BEFORE",
+      "source": "e1",
+      "target": "e2",
+      "cue": null,
+      "status": "automatic",
+      "annotation_source": "automatic"
+    },
+    {
+      "kind": "BEFORE",
+      "source": "e2",
+      "target": "e3",
+      "cue": null,
+      "status": "automatic",
+      "annotation_source": "automatic"
+    }
+  ],
+  "initial_state": [],
+  "initial_knowledge": [],
+  "metadata": {}
+}

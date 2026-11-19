@@ -1,0 +1,168 @@
+{
+  "experiment": "ANSG stepwise story pilot",
+  "execution_mode": "plan-validation-and-deterministic-proxy-metrics; no language model or training",
+  "source_candidate": {
+    "candidate_id": "hindawi-27482482-b003",
+    "title_candidate": "حكاية الملك جليعاد والشماس",
+    "source": {
+      "record_id": "hindawi-27482482",
+      "title": "ألف ليلة وليلة (الجزء السادس)",
+      "author": "ألف ليلة وليلة (الجزء السادس)",
+      "text_file": "records/hindawi-27482482.jsonl.gz",
+      "source_text_sha256": "008a5c1c85ec17c1874a6fe53edc424c1645562496bed5305195314396bd519d",
+      "license": "CC BY 4.0 (dataset; the dataset README states included works/translations are public domain or CC BY 4.0)",
+      "attribution": "Hallberg, A. (2024). The Arabic E-Book Corpus (Version 1). University of Gothenburg. DOI: 10.5878/7rbh-gy93; original book metadata retained.",
+      "dataset_doi": "10.5878/7rbh-gy93",
+      "archive_member": "corpus-txt/27482482.txt"
+    },
+    "span": {
+      "start_char": 110868,
+      "end_char": 114684,
+      "boundary_start_evidence": "standalone heading beginning with story term",
+      "boundary_end_evidence": "next detected heading candidate",
+      "boundary_method": "existing_provisional_inventory_offsets",
+      "source_candidate_status": "provisional_needs_human_review"
+    },
+    "work_group": "alf_layla_work_cycle",
+    "candidate_scope": "narrative_core",
+    "status": "explicit_story_heading_span_requires_content_and_boundary_review",
+    "annotations": {
+      "DIA": null,
+      "MOTIF": null,
+      "MORAL": null
+    }
+  },
+  "source_text_sha256": "008a5c1c85ec17c1874a6fe53edc424c1645562496bed5305195314396bd519d",
+  "source_annotation_state": {
+    "DIA": null,
+    "MOTIF": null,
+    "MORAL": null
+  },
+  "source_boundary_status": "explicit_story_heading_span_requires_content_and_boundary_review",
+  "provisional_pilot_tags": {
+    "DIA": {
+      "value": "Levantine setting; planned register = MSA narration + dialect dialogue",
+      "status": "experimenter-provisional; not source annotation"
+    },
+    "MOTIF": {
+      "value": "ruler-and-adviser consultation; rumor resolved by evidence",
+      "status": "experimenter-provisional"
+    },
+    "MORAL": {
+      "value": [
+        "justice",
+        "deliberation",
+        "shared responsibility"
+      ],
+      "status": "experimenter-provisional"
+    }
+  },
+  "flawed_draft": "في العقبة، سمع الملك سالم إشاعة أن أهل الحي يسرقون ماء القناة. فورًا أمر الوزير عودة أن يغلق القناة عنهم. بعد ذلك فحص الملك القناة فوجد حجرًا يسدها، مع أن الناس كانوا يشربون منها. قال الوزير: اتركها مغلقة حتى يتساوى الناس في الشرب. لم يسمع الملك أهل الحي، لكنه أعلن أنه وزع الماء بالعدل. وكانت العبرة أن الحاكم العادل لا يحتاج إلى دليل ولا إلى سماع الناس.",
+  "flawed_plan_validation": {
+    "ok": false,
+    "errors": 1,
+    "warnings": 0,
+    "issues": [
+      {
+        "code": "E-KNOWLEDGE-PREMATURE",
+        "severity": "error",
+        "message": "minister acts on blocked(canal) before learning it in e2",
+        "ref": "e1"
+      }
+    ],
+    "order": [
+      "e1",
+      "e2",
+      "e3"
+    ],
+    "knowledge": {
+      "king": [
+        "blocked(canal)",
+        "not flowing(canal)"
+      ],
+      "minister": [
+        "blocked(canal)"
+      ],
+      "residents": [],
+      "canal": [],
+      "stone": [],
+      "aqaba": []
+    }
+  },
+  "repaired_plan_validation": {
+    "ok": true,
+    "errors": 0,
+    "warnings": 0,
+    "issues": [],
+    "order": [
+      "e1",
+      "e2",
+      "e3",
+      "e4",
+      "e5",
+      "e6",
+      "e7"
+    ],
+    "knowledge": {
+      "king": [
+        "blocked(canal)",
+        "fair_access(residents)",
+        "low_flow(canal)"
+      ],
+      "minister": [
+        "blocked(canal)"
+      ],
+      "residents": [
+        "fair_access(residents)",
+        "flowing(canal)",
+        "not blocked(canal)"
+      ],
+      "canal": [],
+      "stone": [],
+      "aqaba": []
+    }
+  },
+  "generation_prompt": "اكتب قصة عربية أصلية بعنوان «القناة والعدل» تدور أحداثها في العقبة، الأردن.\nلغة السرد: الفصحى السردية. لغة الحوار: لهجة العقبة، الأردن الطبيعية.\nاجعل الأسماء والأماكن والعلاقات الاجتماعية والسلوك والحوار منسجمة مع هذه البيئة دون مبالغة أو قوالب نمطية.\nلا تنقل أي نص من «ألف ليلة وليلة» أو من غيرها؛ استلهم البناء السردي فقط.\nالطول التقريبي: 180 كلمة.\n\nالشخصيات:\n- سالم — protagonist\n- عودة — helper\n- أهل العقبة — community\nالأماكن: العقبة\n\nتسلسل الأحداث (يجب الالتزام به وبعلاقاته السببية):\n1. سالم يلاحظ ضعف الماء في القناة (الفاعل: سالم؛ الموضوع: القناة)\n2. سالم وعودة يفحصان القناة ويكتشفان الحجر (الفاعل: سالم؛ الفاعل: عودة؛ الموضوع: القناة؛ الأداة: الحجر)\n3. سالم يستشير عودة بعد معرفة سبب ضعف الماء (الفاعل: سالم؛ المتلقي: عودة)\n4. عودة يقترح إزالة الحجر وتوزيع الماء بالدور (الفاعل: عودة؛ المتلقي: سالم)\n5. العمّال يزيلون الحجر فيعود الماء إلى المجرى (الفاعل: أهل العقبة؛ الموضوع: الحجر؛ المكان: القناة)\n6. سالم وأهل الحي يوزعون الماء بالدور (الفاعل: سالم؛ الفاعل: أهل العقبة؛ الموضوع: القناة)\n7. أهل الحي يتفقون على جدول معلن ومراجعة مشتركة (الفاعل: أهل العقبة)\n\nالعلاقات بين الأحداث:\n- «عودة يقترح إزالة الحجر وتوزيع الماء بالدور» يدفع إلى «العمّال يزيلون الحجر فيعود الماء إلى المجرى»\n\nما تعرفه الشخصيات: لا تجعل أي شخصية تتصرف بناءً على معلومة قبل أن تعرفها في القصة.",
+  "final_story_manual_realisation": "في سنةٍ قلّ فيها المطر، لاحظ الملك سالم أن الماء في القناة صار أضعف من المعتاد. وصلته شكاوى من أهل الحي، فاستشار الوزير عودة وقال له: «شو رأيك؟ نسمع من الناس ونفحص مجرى القناة قبل ما نحكم؟»\n\nراح سالم وعودة إلى طرف القناة، وهناك وجدوا حجرًا كبيرًا عالقًا عند المدخل، فكان يمنع الماء من الوصول إلى الحقول. نصح عودة الملك وقال: «هسّا عرفنا السبب. إذا أزلنا الحجر ووزعنا الماء بالدور، ما بنظلم حدا».\n\nأزال العمّال الحجر، وفتحوا المجرى، ثم وزّعوا الماء بالدور وسجّلوا أوقات السقاية على لوحة عند البئر. اجتمع أهل الحي واختاروا ممثلين يتابعون الجدول، واتفقوا أن يخبّروا بعضهم إذا تغيّر تدفق الماء.\n\nبعد أيام رجعت المياه إلى مجراها، ووصلت الحصص إلى الحقول بالتساوي. شكر الملك الوزير وأهل الحي على تعاونهم، وقال: «العدل ما بيقوم على إشاعة؛ بدّه دليل، وسماع للطرفين، ومشاركة بالقرار».\n\nومن يومها صار أهل العقبة يفحصون القناة معًا قبل ما يتهموا أحدًا، ويقسمون الماء بالدور. وعرفوا أن النصيحة النافعة تبدأ بالسؤال، وأن الإنصاف يحفظ حق الجماعة.",
+  "proxy_metrics": {
+    "arabic_letter_ratio": {
+      "metric_status": "proxy",
+      "ratio": 1.0
+    },
+    "repetition_3": {
+      "metric_status": "proxy",
+      "n": 3,
+      "repeated_fraction": 0.0
+    },
+    "copy_overlap_8": {
+      "metric_status": "proxy",
+      "n": 8,
+      "containment": 0.0,
+      "longest_copied_run_words": 2,
+      "does_not_measure": "paraphrase or plot-level borrowing"
+    },
+    "plan_surface_coverage": {
+      "metric_status": "proxy",
+      "characters_named": "3/3",
+      "event_triggers_on_surface": "7/7",
+      "does_not_measure": "event order, causality or whether the plot follows the plan"
+    },
+    "dialect_marker_rate": {
+      "metric_status": "proxy",
+      "per_100_words": 1.25,
+      "does_not_measure": "dialect authenticity, naturalness or correct variety"
+    }
+  },
+  "interpretation": {
+    "planning": "The intentionally premature advice is rejected because the adviser acts on a fact learned only in a later event.",
+    "cultural_reasoning": "The fairness/deliberation values are explicitly authored pilot tags; CSAM weights, CKG retrieval, and RL are not executed.",
+    "dialect": "The plan requests Levantine/DAL with MSA narration and dialect dialogue. Marker rate is a presence proxy only; setting config is marked unreviewed_draft.",
+    "realisation": "The final text is manually authored against the validated plan because no verified Arabic backbone/checkpoint is present locally."
+  },
+  "model_and_training": {
+    "local_backbone_found": false,
+    "torch_available": false,
+    "csam_dal_checkpoint_found": false,
+    "ppo_executed": false
+  }
+}
