@@ -2,7 +2,7 @@
   "schema": "ansg.dialect_sources/1",
   "reviewed_on": "2026-11-21",
   "status": "metadata_reviewed_new_candidate_sources_no_downloads",
-  "purpose": "Independent dialect resource discovery for existing DAL, not a change to thesis architecture or original evaluation; new linked lexical and dialect tools are recorded by task and source-license status",
+  "purpose": "Independent dialect resource discovery for existing DAL, not a change to thesis architecture or original evaluation; new linked lexical and dialect tools are recorded by task and source-license status; Lahga is recorded as a dialect-form candidate source, not as gold ANHC labels or narrative text.",
   "datasets": [
     {
       "id": "MADAR",
@@ -175,6 +175,29 @@
         "avoid training on source benchmark test partitions",
         "published README metrics are project-reported and require reproduction before comparison"
       ]
+    },
+    {
+      "id": "Lahga_Arabic_Dialect_Dictionary",
+      "url": "https://huggingface.co/datasets/lahga/arabic-dialects",
+      "provider_url": "https://lahga.fyi",
+      "snapshot_date": "2026-10-02",
+      "verified": true,
+      "data": "2,012 MSA headwords; 25,072 dialect forms; 3,313 example sentences; 24 varieties",
+      "license": "CC-BY-SA-4.0",
+      "roles": [
+        "candidate_MSA_to_dialect_lexicon",
+        "candidate_for_dialect_story_guide"
+      ],
+      "status": "metadata_reviewed_not_downloaded",
+      "limits": [
+        "3,606 of 25,072 forms are flagged needs_review; the card says over half of forms were first model-drafted",
+        "needs_review=false does not mean confirmed by a native speaker",
+        "coverage is uneven; the card reports only 25 Jordanian forms and 1,123 Yemeni forms",
+        "the source requests attribution and share-alike for derivatives and says models trained on it should follow the same licence",
+        "lexical resource, not a narrative formula/story corpus; no transliteration and no dialect verb paradigms"
+      ],
+      "admission": "candidate_only; human validation and licence-compatible release policy required",
+      "text_downloaded": false
     }
   ],
   "research_gates": [
