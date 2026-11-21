@@ -36,3 +36,10 @@ The repository already contains data/knowledge infrastructure, thesis variant tr
 - Conflict ledger: `docs/SPECIFICATION_CONFLICTS.md`.
 - Missing source material and author decisions: `docs/IMPLEMENTATION_GAPS.md`.
 - Model/data contract and ordered integration work: `docs/INTEGRATION_EXECUTION_PLAN.md`.
+
+
+## Current data and checkpoint audit
+
+At the audited `master` head `e053bef`, the repository contains a 20-record classical-Arabic collection (`data/corpora/classical_arabic/stories.jsonl`, 195,197 words). Its own build report says model-training rights have not been verified, the split is not story-independent, and its rows are source pages/cycles rather than nested-story annotations. It is therefore a useful research pilot corpus after rights and split review, but it is **not the thesis's ANHC** and must not be used to claim the Chapter 5 run.
+
+The repository readiness documentation also reports no bundled pretrained Arabic causal-LM checkpoint, no trained CSAM/DAL weights, and no real CKG/CST-Onto export. The current data examples and CKG fixtures are explicitly synthetic. The immediate technical gate is consequently source eligibility and provenance, followed by the real model/tokenizer and ontology artifacts; launching a thesis-scale training run before those checks would produce an untraceable variant.
