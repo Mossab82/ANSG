@@ -59,6 +59,15 @@ training_protocol:
     training_manifest: null
     gold_annotation_manifest: null
     split_manifest: null
+    available_but_not_qualified:
+      path: data/corpora/classical_arabic/stories.jsonl
+      records: 20
+      words: 195197
+      narrative_unit: source_page_or_cycle
+      license_for_model_training_verified: false
+      story_independent_split_verified: false
+      thesis_anhc: false
+      permitted_use_in_this_profile: exploratory_only
 
   phases:
     - id: supervised
