@@ -22,7 +22,7 @@
 4. **Connect the model path.** Load the selected Arabic backbone and tokenizer from explicit local artifacts; integrate morphology, CSAM, CKG activation, and DAL with shape/mask contracts. Keep any non-thesis bridge or approximation named as an engineering variant.
 5. **Implement training stages separately.** First supervised objective (including Eq. 4.16 terms whose labels/formulae exist), then GAN matching §5.6.2, then PPO matching §5.6.3/Table 5.9. Log phase transitions, checkpoints, seed, data digest, and hardware from actual runs.
 6. **Unblock scientific reward terms.** Add only terms with complete equations and usable labels. Keep undefined CRAFT/CMPI terms unavailable rather than substituting similarly named metrics.
-7. **Evaluate evidence in layers.** Run data/interface checks, synthetic smoke runs, licensed real-data runs, then agent-assisted blind critique. Agents may find errors or rank outputs; their ratings are not human-evaluation results. Collect the thesis’s human ratings separately before making human-study claims.
+7. **Evaluate evidence in layers.** Run data/interface checks, synthetic smoke runs, licensed real-data runs, then agent-assisted critique. Agents may find errors or rank outputs; their ratings are not human-evaluation results. Collect the thesis’s human ratings separately before making human-study claims.
 8. **Release a reproducible candidate.** Publish exact source/model/data identifiers and licences, config and checkpoint digests, manifests, logs, evaluation scripts, and limitations. Call it a full ANSG reconstruction only after the end-to-end training and evaluation evidence is independently auditable.
 
 ## Current repository evidence and limits
