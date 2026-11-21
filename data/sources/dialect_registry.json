@@ -1,8 +1,8 @@
 {
   "schema": "ansg.dialect_sources/1",
-  "reviewed_on": "2026-11-14",
-  "status": "metadata_only_no_dataset_downloads",
-  "purpose": "Independent dialect resource discovery for existing DAL, not a change to thesis architecture or original evaluation",
+  "reviewed_on": "2026-11-21",
+  "status": "metadata_reviewed_new_candidate_sources_no_downloads",
+  "purpose": "Independent dialect resource discovery for existing DAL, not a change to thesis architecture or original evaluation; new linked lexical and dialect tools are recorded by task and source-license status",
   "datasets": [
     {
       "id": "MADAR",
@@ -122,6 +122,58 @@
       ],
       "limits": [
         "request original DOI/repository and license before any use"
+      ]
+    },
+    {
+      "id": "QCRI_Dialectal_Arabic_Resources",
+      "url": "https://alt.qcri.org/resources/da_resources/",
+      "repository_url": "https://github.com/qcri/dialectal_arabic_resources",
+      "verified": true,
+      "data": "Egyptian segmentation resource; four-dialect segmentation resource; and four-dialect POS resource with 350 manually segmented/POS-tagged tweets per dialect (Egyptian, Levantine, Gulf, Maghrebi)",
+      "license": "Apache-2.0 stated by QCRI resource page",
+      "roles": [
+        "morphological_segmentation_auxiliary",
+        "dialect_POS_auxiliary",
+        "separate_dialect_diagnostics"
+      ],
+      "limits": [
+        "tweet-level data, not narratives",
+        "keep all official benchmark/test folds out of ANHC story training",
+        "cite Darwish et al. (2018); preserve Apache-2.0 notice",
+        "download-specific terms and file integrity still to be recorded"
+      ]
+    },
+    {
+      "id": "Arabic_VerbNet",
+      "url": "https://github.com/JaouadMousser/Arabic-Verbnet",
+      "verified": true,
+      "data": "XML lexical verb classes with Arabic members, roots, deverbal forms, participles, syntactic frames, semantic roles/predicates, and example sentences",
+      "roles": [
+        "lexical_semantic_reference_candidate",
+        "morphology_and_CKG_candidate"
+      ],
+      "license_status": "not_verified_on_repository_landing_page",
+      "limits": [
+        "not a story corpus or dialect-labeled resource",
+        "check license and schema before copying or integrating",
+        "example sentences should not be counted as ANHC narratives"
+      ]
+    },
+    {
+      "id": "Arabic_Dialect_Identification_GitHub_Project",
+      "url": "https://github.com/Lafifi-24/arabic-dialect-identification",
+      "verified": true,
+      "data": "Classifier project and aggregated sentence-level data reported from arabic_pos_dialect, IADD, QADI, MADAR, plus 10,000 Wikipedia MSA sentences",
+      "roles": [
+        "classifier_baseline_reference",
+        "dataset_discovery"
+      ],
+      "license_status": "not_verified_in_project_readme_or_repository_listing",
+      "limits": [
+        "mixed data provenance; resolve each constituent license independently",
+        "do not import as story text or ANHC gold labels",
+        "avoid training on source benchmark test partitions",
+        "published README metrics are project-reported and require reproduction before comparison"
       ]
     }
   ],

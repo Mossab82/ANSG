@@ -63,19 +63,6 @@ current_seed:
     rights_cleared_for_training: false
     split_status: unassigned
 
-user_supplied_source_files:
-  - work: alf_layla_wa_layla
-    pages: 1342
-    intake_status: scanned_images_arabic_ocr_required
-    bibliographic_edition_identified: false
-    rights_status: unknown_review_required
-  - work: kalila_wa_dimna
-    pages: 101
-    intake_status: searchable_arabic_with_glyph_review_required
-    contents_entries: 19
-    current_seed_title_matches: 15
-    additional_front_matter_candidates: 4
-    rights_status: unknown_review_required
   sources:
     - source_family: arabian_nights
       ids: [arabian_nights-001, arabian_nights-002, arabian_nights-003, arabian_nights-004, arabian_nights-005]
@@ -90,6 +77,19 @@ user_supplied_source_files:
         - "Wikisource scan of the Egypt 1355 AH edition is marked public domain."
         - "Map each story page to the exact scanned edition/revision before training use."
 
+user_supplied_source_files:
+  - work: alf_layla_wa_layla
+    pages: 1342
+    intake_status: scanned_images_arabic_ocr_required
+    bibliographic_edition_identified: false
+    rights_status: unknown_review_required
+  - work: kalila_wa_dimna
+    pages: 101
+    intake_status: searchable_arabic_with_glyph_review_required
+    contents_entries: 19
+    current_seed_title_matches: 15
+    additional_front_matter_candidates: 4
+    rights_status: unknown_review_required
 external_candidates:
   - id: arastories
     url: https://github.com/UBC-NLP/arastories
@@ -115,6 +115,37 @@ external_candidates:
     admission_status: source_and_license_verification
     use_before_review: dialect_reference_only
     note: "Not long-form stories; do not import as narrative examples."
+  - id: qcri_dialectal_arabic_resources
+    url: https://alt.qcri.org/resources/da_resources/
+    source_repository: https://github.com/qcri/dialectal_arabic_resources
+    varieties: [Egyptian, Levantine, Gulf, Maghrebi]
+    content_types: [tweets, segmentation_labels, pos_tags]
+    reported_size: "350 manually segmented and POS-tagged tweets per dialect in the four-dialect POS resource; segmentation training resources are separate"
+    provider_license: Apache-2.0
+    admission_status: auxiliary_task_specific_resource
+    use_before_review: morphological_segmentation_and_pos_auxiliary_only
+    excluded_from: [narrative_story_training, ANHC_story_counts]
+    note: "QCRI explicitly lists the resource license; preserve source citation and separate splits."
+  - id: arabic_verbnet
+    url: https://github.com/JaouadMousser/Arabic-Verbnet
+    varieties: [Arabic_unspecified]
+    content_types: [verb_lexicon, syntactic_alternations, semantic_roles, example_sentences]
+    license_status: not_verified
+    admission_status: license_and_schema_review_required
+    use_before_review: none
+    candidate_role: lexical_semantic_reference_for_morphology_and_CKG
+    excluded_from: [narrative_story_training, dialect_gold_labels]
+    note: "Repository XML includes verb members, roots, argument structures, semantic predicates, and examples; no license was evident on the repository landing page."
+  - id: arabic_dialect_identification_repository
+    url: https://github.com/Lafifi-24/arabic-dialect-identification
+    varieties: [MSA, Egyptian, Levantine, Gulf, Maghrebi, other_country_dialects]
+    content_types: [dialect_labeled_sentences, classifier_code, pretrained_models]
+    origins_reported: [arabic_pos_dialect, IADD, QADI, MADAR, Wikipedia_MSA]
+    repository_license_status: not_verified
+    admission_status: provenance_and_license_review_required
+    use_before_review: classifier_baseline_reference_only
+    excluded_from: [narrative_story_training, ANHC_gold_labels]
+    note: "Aggregates sources and sentence-level dialect labels; do not import its mixed dataset as narrative examples or reuse benchmark tests for training."
 
 build_gates:
   - source_revision_and_rights_verified

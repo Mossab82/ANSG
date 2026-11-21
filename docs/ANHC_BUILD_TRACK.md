@@ -20,6 +20,16 @@ The newly supplied **Kalila wa Dimna** PDF is 101 pages. Its text layer yields a
 
 The supplied **One Thousand and One Nights** PDF is a 1,342-page scan. It yields no usable Arabic text through `pdftotext`, so Arabic OCR and bibliographic identification are required. A visible W. R. Taylor Collection stamp is archival provenance, not a publication/rights statement. Both files therefore expand the source evidence and structural review work; only the Kalila file is immediately text-extractable, and neither is rights-cleared.
 
+## Linked Arabic language resources
+
+The three linked resources support separate ANSG components; they are not story corpora:
+
+- [QCRI Dialectal Arabic Resources](https://alt.qcri.org/resources/da_resources/) and its [dataset repository](https://github.com/qcri/dialectal_arabic_resources) provide segmentation/POS resources. The four-dialect POS set has 350 manually segmented and tagged tweets per dialect (Egyptian, Levantine, Gulf, Maghrebi); the provider page states Apache-2.0. Use only as auxiliary DIA/morphology data and keep the official folds separate from narrative training/evaluation.
+- [Arabic VerbNet](https://github.com/JaouadMousser/Arabic-Verbnet) is an XML verb lexicon with roots, forms, syntactic frames, semantic roles/predicates, and examples. It may support CKG/verb-frame work, but it is not a story or dialect corpus; its reuse license remains unverified, so the registry does not admit its data yet.
+- [Arabic Dialect Identification](https://github.com/Lafifi-24/arabic-dialect-identification) describes a sentence-level classifier project combining QADI, IADD, MADAR, the QCRI POS set, and 10,000 Wikipedia MSA sentences. Keep it as a baseline/discovery reference until constituent licenses and partitions are traced. Do not copy its aggregate data into ANHC or treat its labels as story-level gold.
+
+The source roles and admission gates are recorded in `configs/data/anhc_build.yaml` and `data/sources/dialect_registry.json`. This preserves the distinction between narrative training data, morphological resources, and dialect-classification benchmarks.
+
 ## Source admission rules
 
 A source is admitted to a training split only after its exact edition/revision and reuse rights are recorded. Work-level public-domain status does not automatically clear a later edition's notes, editorial additions, images, or formatting. Keep only the text whose rights have been verified; store attribution and source revision in every record. If rights remain uncertain, keep the source in the registry as `review_required` and keep its text out of distributable training exports.
