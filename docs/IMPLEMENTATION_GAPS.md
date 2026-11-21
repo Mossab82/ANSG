@@ -38,7 +38,7 @@ how to proceed.
 | --- | --- | --- |
 | C1 | Reference backbone | GPT-2 Medium 355M / 774M base / AraGPT2-large (C-MODEL-1) |
 | C2 | Tokenizer | backbone BPE vs SentencePiece-32k root-aware (C-MODEL-3) |
-| C3 | Training protocol | 2-phase / 3-phase (Table 4.1) / 3-phase (§4.1.6) / 3-phase with GAN / 4-phase (C-TRAIN-1) |
+| C3 | Training protocol | Historical sources conflict (C-TRAIN-1). For implementation, user selected the Chapter 5 sequence SFT → GAN → PPO (decision D7); historical reporting remains unresolved. |
 | C4 | Reward | five definitions (C-REWARD-1); which AHP matrix is authoritative (C-REWARD-4) |
 | C5 | CSAM formulation | Eq. 4.12–4.13 vs §4.3.6 vs A.25 code; head partition (C-CSAM-2…4) |
 | C6 | Activation | τ 0.5 / 768-d vs 0.75 / 256-d / max 50 (C-CSAM-5) |
