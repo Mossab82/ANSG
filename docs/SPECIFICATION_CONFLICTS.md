@@ -2,9 +2,12 @@
 
 Source: the dissertation as supplied by the author on 2026-11-13 (Markdown export of
 the PDF, 13,146 lines). Section, table and equation numbers refer to the dissertation.
-Every entry quotes the competing statements and their locations. **Nothing here is
-resolved**: resolution is an author decision (see `IMPLEMENTATION_GAPS.md §C`).
-Machine-readable variants: `configs/specification/thesis_variants.yaml`.
+Every entry records the competing statements and their locations. Historical
+thesis conflicts are preserved. The author has selected an implementation path
+for C-TRAIN-1 (D7: Chapter 5 SFT → GAN → PPO); this does not establish which
+historical account is correct or silently rewrite the source variants. See
+`docs/AUTHOR_DECISIONS.md` and `configs/experiments/ansg_ch5_selected.yaml`.
+Machine-readable source variants: `configs/specification/thesis_variants.yaml`.
 
 Entries marked **[recomputed]** were checked arithmetically
 (`tests/unit/test_thesis_computations.py` reproduces them). Entries marked
@@ -49,7 +52,7 @@ spot-checked; further conflicts may exist there.
 
 | Id | Topic | Statements |
 | --- | --- | --- |
-| C-TRAIN-1 | Training phases | Ch.3 §3.1.2: two phases (masked-LM pretraining on 70.4M; SFT on 23M). Ch.4 Table 4.1: pretrain (MLM) → fine-tune L_CSAM → RL. Ch.4 §4.1.6: causal-LM pretraining 100k steps → cultural SFT 50k → PPO 20k. Ch.5 §5.1.3/§5.6: supervised → **GAN adversarial** → RL (epochs 1–30 / 31–65 / 66–100). App. A.26 Listing A.9: four phases incl. "multi-agent refinement" (contradicting Ch.4 §4.1.5's replacement of multi-agent design). |
+| C-TRAIN-1 | Training phases | Ch.3 §3.1.2: two phases (masked-LM pretraining on 70.4M; SFT on 23M). Ch.4 Table 4.1: pretrain (MLM) → fine-tune L_CSAM → RL. Ch.4 §4.1.6: causal-LM pretraining 100k steps → cultural SFT 50k → PPO 20k. Ch.5 §5.1.3/§5.6: supervised → **GAN adversarial** → RL (epochs 1–30 / 31–65 / 66–100). App. A.26 Listing A.9: four phases incl. "multi-agent refinement" (contradicting Ch.4 §4.1.5's replacement of multi-agent design). **Implementation choice D7:** Chapter 5 sequence selected; historical disagreement remains unresolved. |
 | C-TRAIN-2 | Compute | Ch.3: ~150 GPU-h for phase 1 alone. Ch.4 §4.1.6: ~90 GPU-h total, 4×A100 80GB. Ch.4 Table 4.1: 4×A100 40GB. Ch.5: 72 h × 4 = 288 GPU-h, 24/28/20 h. A.26: 24/12/24/12 h. |
 | C-TRAIN-3 | Schedules / LR | Table 4.1: LR 3e-4 (3 epochs, batch 32), 5e-5 (5 epochs), 1e-5 (10k steps). §4.1.6: steps 100k/50k/20k. Ch.5: epochs, LR 5e-5 (TPE optimum 4.7e-5), RL 1e-5. A.3: phase-1 10 epochs, RL LR 1e-6. Grad accumulation fixed at 4 (Table 5.2/5.8) vs phase-specific 4/2/8 (§5.7.2). Phase 2→3 trigger: cultural F1 > 0.75 (§4.1.2) vs discriminator accuracy < 70% (§5.1.3). |
 | C-TRAIN-4 | Symbol reuse | β, γ denote CSAM coefficients (0.347, 0.283) and, in Table 5.7, "motif weight" 0.28 and "temporal weight" 0.18; α is Eq. 4.2's 0.6, Table 5.7's cultural weight 0.42, A.3's `alpha_base` 0.370, and CULTURA's gate 0.7 (Eq. 4.1). |
