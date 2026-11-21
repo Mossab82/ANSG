@@ -2,7 +2,7 @@
   "schema": "ansg.anhc_narrative_sources/0.1",
   "reviewed_on": "2026-11-21",
   "purpose": "Candidate inventory for building the new ANHC corpus. Metadata discovery is not a download, rights clearance, annotation, or training admission.",
-  "status": "candidate_sources_reviewed_no_external_text_ingested",
+  "status": "candidate_sources_reviewed; TinyStories Algerian cohort and user-supplied Kalila PDF candidates are locally staged under quarantine; other external narratives remain metadata-only",
   "sources": [
     {
       "id": "darijastory_mbzuai_9esa",
@@ -109,7 +109,7 @@
       "provenance": "Dataset card states machine-generated translation and cultural adaptation from TinyStories; underlying TinyStories is declared CDLA-Sharing-1.0.",
       "declared_license": "MIT claimed for derivative dataset; source license is CDLA-Sharing-1.0.",
       "rights_status": "derivative_license_compatibility_review_required",
-      "admission_status": "synthetic_supplement_only_metadata_only",
+      "admission_status": "synthetic_supplement_only_local_quarantine_not_training_cleared",
       "role": [
         "synthetic_dialect_story_supplement",
         "parallel_story_generation"
@@ -119,7 +119,14 @@
         "Review source and derivative license obligations before use.",
         "Group each English/Darija pair and source story in one split."
       ],
-      "text_ingested": false
+      "text_ingested": true,
+      "local_intake": {
+        "revision": "82760dc9de372ff56a531766194f91f78e270520",
+        "candidate_records": 11326,
+        "whitespace_words": 1627572,
+        "path": "data/corpora/anhc/quarantine/merged_narrative_candidates.jsonl",
+        "status": "quarantined; no human dialect validation; rights review pending"
+      }
     },
     {
       "id": "algerian_darja_long_form_transcripts",
