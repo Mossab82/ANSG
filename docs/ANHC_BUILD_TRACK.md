@@ -14,6 +14,12 @@ The first construction pass now materializes **27 ANHC-schema records with their
 
 All three annotation layers (DIA, MOTIF, MORAL) remain `unannotated`; rights are `unknown`, `redistributable` is false, and splits remain unassigned. The build has 0 schema errors and expected warnings for unresolved rights. This is populated staging data for the ANHC we are constructing, not a rights-cleared training release or the thesis-reported 70.4M-token / 23M-annotated-token dataset. Re-run with `python scripts/build_anhc_staging.py` after updating the seed.
 
+## User-supplied reference books
+
+The newly supplied **Kalila wa Dimna** PDF is 101 pages. Its text layer yields about 45,726 whitespace-separated words, though 715 private-use glyphs indicate character-mapping defects. Its contents page lists 19 section starts; all 15 current seed titles now cross-reference to printed page starts in the PDF, while four are additional front-matter/story-frame candidates. These are title/page matches only; text equivalence has not been asserted. The metadata-only intake report stores the PDF digest and page map without copying the PDF text into the repository. The edition and reuse rights still need verification before admission to a distributable/training corpus.
+
+The supplied **One Thousand and One Nights** PDF is a 1,342-page scan. It yields no usable Arabic text through `pdftotext`, so Arabic OCR and bibliographic identification are required. A visible W. R. Taylor Collection stamp is archival provenance, not a publication/rights statement. Both files therefore expand the source evidence and structural review work; only the Kalila file is immediately text-extractable, and neither is rights-cleared.
+
 ## Source admission rules
 
 A source is admitted to a training split only after its exact edition/revision and reuse rights are recorded. Work-level public-domain status does not automatically clear a later edition's notes, editorial additions, images, or formatting. Keep only the text whose rights have been verified; store attribution and source revision in every record. If rights remain uncertain, keep the source in the registry as `review_required` and keep its text out of distributable training exports.
@@ -65,6 +71,7 @@ The existing seed is far below 70.4M tokens; full source coverage and the origin
 
 - [Existing seed inventory and build limitations](../data/corpora/classical_arabic/build_report.json)
 - [Existing ANHC record schema](../src/ansg/data/records.py)
+- [User-supplied PDF intake report](../data/corpora/anhc/source_intake.json)
 - [Wikisource One Thousand and One Nights, Part 1 (Hindawi 2022)](https://ar.wikisource.org/wiki/ألف_ليلة_وليلة_(مؤسسة_هنداوي،_2022)/الجزء_الأول)
 - [Wikisource Kalila wa Dimna scan, Egypt 1355 AH](https://ar.wikisource.org/wiki/ملف:كليلة_ودمنة.pdf)
 - [AraStories data/code repository](https://github.com/UBC-NLP/arastories)

@@ -53,6 +53,7 @@ current_seed:
     review_queue_path: data/corpora/anhc/story_review_queue.jsonl
     manifest_path: data/corpora/anhc/manifest.json
     validation_report_path: data/corpora/anhc/validation_report.json
+    source_intake_report_path: data/corpora/anhc/source_intake.json
     records: 27
     nights_candidate_segments: 12
     kalila_titled_page_candidates: 15
@@ -61,6 +62,20 @@ current_seed:
     annotation_status: {dia: unannotated, motif: unannotated, moral: unannotated}
     rights_cleared_for_training: false
     split_status: unassigned
+
+user_supplied_source_files:
+  - work: alf_layla_wa_layla
+    pages: 1342
+    intake_status: scanned_images_arabic_ocr_required
+    bibliographic_edition_identified: false
+    rights_status: unknown_review_required
+  - work: kalila_wa_dimna
+    pages: 101
+    intake_status: searchable_arabic_with_glyph_review_required
+    contents_entries: 19
+    current_seed_title_matches: 15
+    additional_front_matter_candidates: 4
+    rights_status: unknown_review_required
   sources:
     - source_family: arabian_nights
       ids: [arabian_nights-001, arabian_nights-002, arabian_nights-003, arabian_nights-004, arabian_nights-005]

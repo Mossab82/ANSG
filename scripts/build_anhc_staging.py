@@ -9,6 +9,9 @@ from __future__ import annotations
 import hashlib
 import json
 import sys
+import re
+import unicodedata
+import difflib
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -24,8 +27,17 @@ def sha(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
+def title_key(value: str) -> str:
+    value = unicodedata.normalize("NFKC", value)
+    value = re.sub(r"^باب\s*", "", value.strip())
+    return "".join(ch for ch in value if ch.isalnum())
+
+
 def main() -> None:
     source_rows = [json.loads(line) for line in SEED.read_text(encoding="utf-8").splitlines() if line.strip()]
+    intake_path = OUT / "source_intake.json"
+    intake = json.loads(intake_path.read_text(encoding="utf-8")) if intake_path.exists() else None
+    kalila_reference = next((s for s in (intake or {}).get("sources", []) if s.get("work_title_observed") == "كليلة ودمنة"), None)
     records: list[NarrativeRecord] = []
     review_queue: list[dict] = []
     counts = {"arabian_nights": 0, "kalila_dimna": 0}
@@ -92,6 +104,25 @@ def main() -> None:
             # Source pages have titled fable headings, but some contain nested tales.
             # Keep page boundaries as candidate units until human segmentation review.
             rid = f"anhc-{source['id']}-page"
+            secondary_reference = None
+            if kalila_reference and kalila_reference.get("chapter_index"):
+                title_key_seed = title_key(source["title"].split("/", 1)[-1])
+                best = max(
+                    kalila_reference["chapter_index"],
+                    key=lambda entry: difflib.SequenceMatcher(None, title_key_seed, title_key(entry["title"])).ratio(),
+                )
+                score = difflib.SequenceMatcher(None, title_key_seed, title_key(best["title"])).ratio()
+                if score >= 0.90:
+                    secondary_reference = {
+                        "source_file_sha256": kalila_reference["sha256"],
+                        "printed_page_start": best["printed_page_start"],
+                        "printed_page_end": best["printed_page_end"],
+                        "chapter_title_candidate": best["title"],
+                        "title_similarity": round(score, 3),
+                        "alignment_status": "title_cross_reference_only",
+                        "text_equivalence_verified": False,
+                        "rights_status": "unknown_review_required",
+                    }
             rec = NarrativeRecord(
                 record_id=rid, text=raw_text, source=provenance,
                 narrative=NarrativeMetadata(
@@ -104,6 +135,7 @@ def main() -> None:
                         "segmentation_status": "page_boundary_only_nested_tales_unreviewed",
                         "source_revision_id": source.get("revision_id"),
                         "source_text_sha256": source["sha256"],
+                        "secondary_reference_pdf": secondary_reference,
                     },
                 ), split=None,
             )
@@ -113,6 +145,7 @@ def main() -> None:
                 "title_candidate": rec.narrative.title, "start_char": 0,
                 "end_char": len(raw_text), "candidate_word_count": len(raw_text.split()),
                 "segmentation_status": "page_boundary_only_nested_tales_unreviewed",
+                "secondary_reference_pdf": secondary_reference,
                 "review_decision": None,
             })
             counts[family] += 1
@@ -157,6 +190,10 @@ def main() -> None:
         "split_leakage_checked": False,
         "structural_review_queue": str((OUT / "story_review_queue.jsonl").relative_to(ROOT)),
         "validation_report": str((OUT / "validation_report.json").relative_to(ROOT)),
+        "source_intake_report": str((OUT / "source_intake.json").relative_to(ROOT)),
+        "kalila_pdf_title_cross_references": sum(
+            bool(r.narrative.extra.get("secondary_reference_pdf")) for r in records
+        ),
         "schema_validation_errors": sum(issue.severity == "error" for issue in validation),
         "schema_validation_warnings": sum(issue.severity == "warning" for issue in validation),
         "policy": "No automatic extraction or heuristic is represented as human annotation or gold data.",
