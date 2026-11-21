@@ -146,6 +146,31 @@ external_candidates:
     use_before_review: classifier_baseline_reference_only
     excluded_from: [narrative_story_training, ANHC_gold_labels]
     note: "Aggregates sources and sentence-level dialect labels; do not import its mixed dataset as narrative examples or reuse benchmark tests for training."
+  - id: sanaa_ai_dialect_stories
+    url: https://www.sanaa.ai/stories/index.php/
+    varieties_observed: [Palestinian-Jordanian, Palestinian, Yemeni, Moroccan]
+    content_types: [short_modern_dialect_stories, proverb_explanations]
+    displayed_window: "rolling selection of 200 stories, 20 per page"
+    authorship_and_generation_provenance: unknown
+    license_status: no_reuse_license_found_on_reviewed_story_pages
+    admission_status: permission_and_provenance_review_required
+    use_before_review: metadata_reference_only
+    candidate_role: dialect_story_discovery_and_human_review_candidate
+    excluded_from: [ANHC_text_ingestion, gold_annotations, training]
+    note: "Do not scrape or copy story text until rights and authorship are established; observed dialect tags are site-provided labels, not adjudicated gold."
+  - id: wojood_arabic_nested_ner
+    url: https://github.com/SinaLab/ArabicNER
+    model_url: https://huggingface.co/SinaLab/ArabicNER-Wojood
+    varieties: [MSA, Arabic_dialects_unspecified_in_summary]
+    content_types: [nested_named_entity_annotations, NER_code, NER_model]
+    corpus_reference: {tokens: 550000, entity_types: 21, entities: 75000, nested_entity_share: 0.225}
+    code_license: MIT
+    full_corpus_access: available_on_request_for_academic_and_commercial_use
+    admission_status: NER_component_candidate_corpus_access_review_required
+    use_before_review: model_or_demo_assessment_only
+    candidate_role: character_location_and_entity_consistency_diagnostics
+    excluded_from: [narrative_story_training, ANHC_gold_annotations]
+    note: "README-reported figures; request full corpus/guidelines from provider before using labels as gold. Verify pretrained model terms separately."
 
 build_gates:
   - source_revision_and_rights_verified

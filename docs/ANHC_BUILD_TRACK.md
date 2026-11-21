@@ -30,6 +30,11 @@ The three linked resources support separate ANSG components; they are not story 
 
 The source roles and admission gates are recorded in `configs/data/anhc_build.yaml` and `data/sources/dialect_registry.json`. This preserves the distinction between narrative training data, morphological resources, and dialect-classification benchmarks.
 
+Two further linked resources have complementary roles:
+
+- [Sanaa AI Stories](https://www.sanaa.ai/stories/index.php/) displays short modern stories with site-provided dialect labels, including Palestinian-Jordanian, Palestinian, Yemeni, and Moroccan examples. The site shows a rotating 200-story window. No reuse license or authorship/generation statement was found on the reviewed story pages, so these texts remain discovery references only; do not scrape, add, or train on them until permission and provenance are established. Site labels are candidate labels, not ANHC gold.
+- [Wojood / ArabicNER](https://github.com/SinaLab/ArabicNER) is an entity-recognition resource, not a story corpus. Its README reports about 550K MSA/dialect tokens, 21 entity types, about 75K entities, and nested annotations for 22.5% of entities; the full corpus is available upon request for academic/commercial use. The repository code is MIT-licensed. It is a promising candidate for checking character/place/entity consistency, including nested mentions, but full corpus access and model terms must be reviewed before importing labels or weights.
+
 ## Source admission rules
 
 A source is admitted to a training split only after its exact edition/revision and reuse rights are recorded. Work-level public-domain status does not automatically clear a later edition's notes, editorial additions, images, or formatting. Keep only the text whose rights have been verified; store attribution and source revision in every record. If rights remain uncertain, keep the source in the registry as `review_required` and keep its text out of distributable training exports.
