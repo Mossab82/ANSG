@@ -75,6 +75,11 @@ def main() -> None:
         default=ROOT / "data/corpora/anhc/quarantine/kalila_pdf_candidates.jsonl",
     )
     parser.add_argument(
+        "--external-candidates",
+        type=Path,
+        default=ROOT / "data/corpora/anhc/quarantine/tinystories_darija_candidates.jsonl",
+    )
+    parser.add_argument(
         "--output",
         type=Path,
         default=ROOT / "data/corpora/anhc/quarantine/merged_narrative_candidates.jsonl",
@@ -98,6 +103,7 @@ def main() -> None:
 
     staged = read_jsonl(args.staging)
     pdf_rows = read_jsonl(args.pdf_candidates)
+    external_rows = read_jsonl(args.external_candidates) if args.external_candidates.exists() else []
     kalila_title_index: list[tuple[str, str]] = []
     for record in staged:
         if record.get("source", {}).get("source_id", "").startswith("kalila_dimna-"):
@@ -213,6 +219,20 @@ def main() -> None:
             "link_status": "title_only_needs_human_collation" if matched else "unmatched",
         })
 
+    # Keep synthetic dialect data in its own source cohort and flag all rows for
+    # separate quality/rights review. It is not joined to the heritage texts.
+    for original in external_rows:
+        row = copy.deepcopy(original)
+        src_id = source_record_id(row)
+        family_id = f"family-candidate-{row['record_id']}"
+        extra = row.setdefault("narrative", {}).setdefault("extra", {})
+        extra["candidate_story_family_id"] = family_id
+        extra["family_grouping_status"] = "independent_synthetic_record"
+        extra["merge_role"] = "external_synthetic_dialect_candidate"
+        extra["text_sha256"] = digest(row["text"])
+        merged.append(row)
+        family_members[family_id].append(row["record_id"])
+
     ids = [row["record_id"] for row in merged]
     if len(ids) != len(set(ids)):
         raise ValueError("Duplicate record_id found while merging source candidates")
@@ -231,6 +251,10 @@ def main() -> None:
             "source_pdf_pages": [extra.get("source_pdf_page_start"), extra.get("source_pdf_page_end")]
             if extra.get("source_pdf_page_start") is not None else None,
             "segmentation_status": extra.get("segmentation_status"),
+            "origin_type": extra.get("origin_type"),
+            "quality_gate_status": extra.get("quality_gate_status", "not_reviewed"),
+            "rights_gate_status": extra.get("rights_gate_status") or extra.get("rights_and_training_gate"),
+            "human_review_required": extra.get("human_review_required", True),
             "boundary_review": None,
             "nested_story_review": None,
             "edition_collation_review": None,
@@ -245,6 +269,8 @@ def main() -> None:
         family = row.get("source", {}).get("source_id", "")
         if role == "existing_heritage_seed_candidate":
             key = "existing_heritage_seed_candidates"
+        elif role == "external_synthetic_dialect_candidate":
+            key = "external_synthetic_dialect_candidates"
         elif family.startswith("user-pdf-"):
             key = "user_pdf_parallel_candidates"
         else:
@@ -258,6 +284,7 @@ def main() -> None:
         "narrative_records": len(merged),
         "existing_staged_records": len(staged),
         "user_pdf_fable_candidates": pdf_fable_count,
+        "external_synthetic_dialect_candidates": len(external_rows),
         "front_matter_source_units_separate": pdf_frontmatter_count,
         "candidate_story_family_groups": len(family_members),
         "merged_story_review_queue_rows": len(review_queue),
@@ -269,7 +296,13 @@ def main() -> None:
         "candidate_words_by_origin": dict(word_counts),
         "exact_text_duplicate_count": len(merged) - len({digest(row["text"]) for row in merged}),
         "unique_story_words_status": "not_computed; parallel editions and source cycles require human collation",
-        "dialect_coverage": [],
+        "dialect_coverage": ([{
+            "variety": "Algerian Darija",
+            "source_label_status": "source_labeled_not_human_verified",
+            "origin": "synthetic_parallel_adaptation",
+            "records": len(external_rows),
+            "training_cleared": False,
+        }] if external_rows else []),
         "annotation_status": {"dia": "unannotated", "motif": "unannotated", "moral": "unannotated"},
         "rights_cleared_for_training": False,
         "redistributable": False,
@@ -277,8 +310,8 @@ def main() -> None:
         "split_leakage_checked": False,
         "narrative_boundary_review": "required; Nights and Kalila nested stories are not adjudicated",
         "human_collation_required": True,
-        "next_phase_readiness": "review_queue_prepared; human structural review and versioned annotation guide are the next gates",
-        "external_dialect_story_datasets_downloaded": False,
+        "next_phase_readiness": "review_queue_prepared; synthetic dialect candidates are available for source-specific quality and rights review; structural review and the annotation guide remain open",
+        "external_dialect_story_datasets_downloaded": bool(external_rows),
         "outputs": {
             "local_quarantined_records": str(args.output.relative_to(ROOT)),
             "local_nonstory_source_units": str(args.source_units_output.relative_to(ROOT)),
@@ -289,7 +322,8 @@ def main() -> None:
             "This merges available text candidates, not a completed or training-cleared ANHC.",
             "Kalila PDF text is local-only because its edition and reuse rights are unresolved.",
             "Kalila PDF and Wikisource records are linked by title only; they remain separate text versions pending human collation.",
-            "The currently available narrative sources are classical Arabic; the planned dialect families are not yet represented by ingested stories.",
+            "The only ingested dialect story cohort is synthetic, source-labeled Algerian Darija; Levantine, Egyptian, Gulf, and other Maghrebi story cohorts remain absent.",
+            "The synthetic dialect cohort remains quarantined pending row-level quality review and upstream license-term assessment.",
             "Counts are whitespace-word counts, include parallel editions, and are not tokenizer-specific corpus token counts.",
             "The thesis reference of 70.4M total and 23M annotated tokens is not met by this reconstruction.",
         ],
@@ -300,6 +334,7 @@ def main() -> None:
         "narrative_records": report["narrative_records"],
         "existing_staged_records": report["existing_staged_records"],
         "user_pdf_fable_candidates": report["user_pdf_fable_candidates"],
+        "external_synthetic_dialect_candidates": report["external_synthetic_dialect_candidates"],
         "front_matter_source_units_separate": report["front_matter_source_units_separate"],
         "candidate_story_family_groups": report["candidate_story_family_groups"],
         "kalila_title_links": report["kalila_title_links"],

@@ -1,8 +1,8 @@
 {
   "schema": "ansg.dialect_sources/1",
   "reviewed_on": "2026-11-21",
-  "status": "metadata_reviewed_new_candidate_sources_no_downloads",
-  "purpose": "Independent dialect resource discovery for existing DAL, not a change to thesis architecture or original evaluation; new linked lexical and dialect tools are recorded by task and source-license status; Lahga is recorded as a dialect-form candidate source, not as gold ANHC labels or narrative text.",
+  "status": "metadata_reviewed_with_one_synthetic_dialect_story_candidate_downloaded_to_local_quarantine",
+  "purpose": "Independent dialect resource discovery for existing DAL, not a change to thesis architecture or original evaluation; new linked lexical and dialect tools are tracked by task and license status. One synthetic Algerian Darija story source is in local rights- and quality-gated quarantine; this does not establish thesis-reported ANHC completeness.",
   "datasets": [
     {
       "id": "MADAR",
@@ -198,6 +198,31 @@
       ],
       "admission": "candidate_only; human validation and licence-compatible release policy required",
       "text_downloaded": false
+    },
+    {
+      "id": "TinyStories_Algerian_Darija",
+      "url": "https://huggingface.co/datasets/touati-kamel/TinyStories-Algerian-Darija/tree/82760dc9de372ff56a531766194f91f78e270520",
+      "upstream_url": "https://huggingface.co/datasets/roneneldan/TinyStories",
+      "verified": true,
+      "data": "11,326 synthetic Algerian Darija children stories; source-card count and local shard intake agree",
+      "source_revision": "82760dc9de372ff56a531766194f91f78e270520",
+      "source_license_claim": "MIT",
+      "upstream_license_claim": "CDLA-Sharing-1.0",
+      "local_intake": {
+        "words_whitespace": 1627572,
+        "exact_duplicate_texts": 0,
+        "status": "downloaded_local_git_ignored_quarantine"
+      },
+      "roles": [
+        "synthetic_dialect_story_candidate",
+        "quality_review_queue"
+      ],
+      "limits": [
+        "source card identifies corpus as synthetic adaptation from TinyStories",
+        "license obligations inherited from upstream have not been adjudicated",
+        "Algerian Darija only; source label not human-validated",
+        "not approved for training, redistribution, or gold annotation"
+      ]
     }
   ],
   "research_gates": [

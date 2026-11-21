@@ -2,24 +2,34 @@
   "schema": "ansg.anhc-merged-candidate-manifest/0.1",
   "dataset_id": "ANHC-reconstruction",
   "status": "merged_local_staging_review_required",
-  "narrative_records": 42,
+  "narrative_records": 11368,
   "existing_staged_records": 27,
   "user_pdf_fable_candidates": 15,
+  "external_synthetic_dialect_candidates": 11326,
   "front_matter_source_units_separate": 4,
-  "candidate_story_family_groups": 20,
-  "merged_story_review_queue_rows": 42,
+  "candidate_story_family_groups": 11346,
+  "merged_story_review_queue_rows": 11368,
   "kalila_title_links": 15,
   "kalila_title_link_threshold": 0.88,
   "kalila_title_match_min": 1.0,
   "kalila_title_match_max": 1.0,
-  "candidate_words_whitespace_including_parallel_versions": 227869,
+  "candidate_words_whitespace_including_parallel_versions": 1855441,
   "candidate_words_by_origin": {
     "existing_heritage_seed_candidates": 195197,
-    "user_pdf_parallel_candidates": 32672
+    "user_pdf_parallel_candidates": 32672,
+    "external_synthetic_dialect_candidates": 1627572
   },
   "exact_text_duplicate_count": 0,
   "unique_story_words_status": "not_computed; parallel editions and source cycles require human collation",
-  "dialect_coverage": [],
+  "dialect_coverage": [
+    {
+      "variety": "Algerian Darija",
+      "source_label_status": "source_labeled_not_human_verified",
+      "origin": "synthetic_parallel_adaptation",
+      "records": 11326,
+      "training_cleared": false
+    }
+  ],
   "annotation_status": {
     "dia": "unannotated",
     "motif": "unannotated",
@@ -31,8 +41,8 @@
   "split_leakage_checked": false,
   "narrative_boundary_review": "required; Nights and Kalila nested stories are not adjudicated",
   "human_collation_required": true,
-  "next_phase_readiness": "review_queue_prepared; human structural review and versioned annotation guide are the next gates",
-  "external_dialect_story_datasets_downloaded": false,
+  "next_phase_readiness": "review_queue_prepared; synthetic dialect candidates are available for source-specific quality and rights review; structural review and the annotation guide remain open",
+  "external_dialect_story_datasets_downloaded": true,
   "outputs": {
     "local_quarantined_records": "data/corpora/anhc/quarantine/merged_narrative_candidates.jsonl",
     "local_nonstory_source_units": "data/corpora/anhc/quarantine/non_narrative_source_units.jsonl",
@@ -164,7 +174,8 @@
     "This merges available text candidates, not a completed or training-cleared ANHC.",
     "Kalila PDF text is local-only because its edition and reuse rights are unresolved.",
     "Kalila PDF and Wikisource records are linked by title only; they remain separate text versions pending human collation.",
-    "The currently available narrative sources are classical Arabic; the planned dialect families are not yet represented by ingested stories.",
+    "The only ingested dialect story cohort is synthetic, source-labeled Algerian Darija; Levantine, Egyptian, Gulf, and other Maghrebi story cohorts remain absent.",
+    "The synthetic dialect cohort remains quarantined pending row-level quality review and upstream license-term assessment.",
     "Counts are whitespace-word counts, include parallel editions, and are not tokenizer-specific corpus token counts.",
     "The thesis reference of 70.4M total and 23M annotated tokens is not met by this reconstruction."
   ]
