@@ -173,6 +173,24 @@ external_candidates:
     excluded_from: [narrative_story_training, ANHC_gold_annotations]
     note: "README-reported figures; request full corpus/guidelines from provider before using labels as gold. Verify pretrained model terms separately."
 
+merged_available_source_snapshot:
+  manifest: data/corpora/anhc/merged_candidate_manifest.json
+  merge_script: scripts/merge_anhc_available_sources.py
+  narrative_records: 42
+  source_family_groups: 20
+  kalila_pdf_parallel_candidates: 15
+  kalila_title_links: 15
+  non_narrative_pdf_front_matter_units: 4
+  whitespace_word_instances_including_parallel_versions: 227869
+  exact_text_duplicates: 0
+  story_review_queue_rows: 42
+  external_dialect_story_sources_downloaded: false
+  training_ready: false
+  rights_cleared: false
+  split_status: unassigned
+  annotations: {dia: unannotated, motif: unannotated, moral: unannotated}
+  note: "Local quarantine text includes rights-unresolved PDF material; counts include parallel versions and are not tokenizer-specific or unique-story counts."
+
 build_gates:
   - source_revision_and_rights_verified
   - narrative_units_and_parent_links_reviewed
