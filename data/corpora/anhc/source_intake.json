@@ -1,0 +1,171 @@
+{
+  "schema": "ansg.anhc-source-intake/0.1",
+  "dataset_id": "ANHC-reconstruction",
+  "status": "source_intake_only_not_rights_cleared",
+  "sources": [
+    {
+      "filename": "ألف ليلة وليلة - نسخة أصلية نادرة_90944_Foulabook.com_.pdf",
+      "sha256": "21dc07d32c8b901fd12787e4fdb1359405a99382c35f0fb6c37ed7ff826e2ec4",
+      "file_size_bytes": 127679452,
+      "pdf_pages": 1342,
+      "pdf_title_metadata": null,
+      "pdf_author_metadata": null,
+      "pdf_creation_date": "Tue Oct 21 10:57:02 2008 EEST",
+      "extracted_word_count_whitespace": 60592,
+      "extracted_arabic_characters": 0,
+      "private_use_glyph_count": 0,
+      "text_extractability": "arabic_ocr_required",
+      "rights_status": "unknown_review_required",
+      "training_admission": false,
+      "redistributable": false,
+      "work_title_observed_on_cover": "ألف ليلة وليلة",
+      "bibliographic_edition_identified": false,
+      "observations": [
+        "The PDF is primarily page images; pdftotext yielded no usable Arabic text.",
+        "A W. R. Taylor Collection label is visible in the scanned front matter; it is not an edition statement.",
+        "Arabic OCR and bibliographic identification are required before record ingestion."
+      ]
+    },
+    {
+      "filename": "كليلة ودمنة_31354_Foulabook.com_.pdf",
+      "sha256": "22e5907307ee40142a4d8f71a6a9984d438f2b42fe952c856f43d3a090384942",
+      "file_size_bytes": 832232,
+      "pdf_pages": 101,
+      "pdf_title_metadata": "001224",
+      "pdf_author_metadata": "ah",
+      "pdf_creation_date": "Sun May 14 21:37:54 2006 EEST",
+      "extracted_word_count_whitespace": 45726,
+      "extracted_arabic_characters": 185476,
+      "private_use_glyph_count": 715,
+      "text_extractability": "searchable_arabic_text",
+      "rights_status": "unknown_review_required",
+      "training_admission": false,
+      "redistributable": false,
+      "work_title_observed": "كليلة ودمنة",
+      "author_attribution_observed": "ابن المقفع",
+      "bibliographic_edition_identified": false,
+      "chapter_index": [
+        {
+          "title": "مقدمة",
+          "printed_page_start": 2,
+          "printed_page_end": 11,
+          "unit_status": "contents_page_candidate_boundary_review_required"
+        },
+        {
+          "title": "باب بعثة برزويه إلى بلاد الهند",
+          "printed_page_start": 12,
+          "printed_page_end": 16,
+          "unit_status": "contents_page_candidate_boundary_review_required"
+        },
+        {
+          "title": "باب عرض الكتاب ترجمة عبد االله بن المقفع",
+          "printed_page_start": 17,
+          "printed_page_end": 21,
+          "unit_status": "contents_page_candidate_boundary_review_required"
+        },
+        {
+          "title": "باب بروزيه ترجمة بزرجمهر بن البختكان",
+          "printed_page_start": 22,
+          "printed_page_end": 27,
+          "unit_status": "contents_page_candidate_boundary_review_required"
+        },
+        {
+          "title": "باب الأسد والثور وهو أول الكتاب",
+          "printed_page_start": 28,
+          "printed_page_end": 46,
+          "unit_status": "contents_page_candidate_boundary_review_required"
+        },
+        {
+          "title": "باب الفحص عن أمر دمنة",
+          "printed_page_start": 47,
+          "printed_page_end": 53,
+          "unit_status": "contents_page_candidate_boundary_review_required"
+        },
+        {
+          "title": "باب الحمامة المطوقة",
+          "printed_page_start": 54,
+          "printed_page_end": 60,
+          "unit_status": "contents_page_candidate_boundary_review_required"
+        },
+        {
+          "title": "باب البوم والغربان",
+          "printed_page_start": 61,
+          "printed_page_end": 70,
+          "unit_status": "contents_page_candidate_boundary_review_required"
+        },
+        {
+          "title": "باب القرد والغيلم",
+          "printed_page_start": 71,
+          "printed_page_end": 73,
+          "unit_status": "contents_page_candidate_boundary_review_required"
+        },
+        {
+          "title": "الناسك وابن عرس",
+          "printed_page_start": 74,
+          "printed_page_end": 74,
+          "unit_status": "contents_page_candidate_boundary_review_required"
+        },
+        {
+          "title": "باب الجرذ والسنور",
+          "printed_page_start": 75,
+          "printed_page_end": 77,
+          "unit_status": "contents_page_candidate_boundary_review_required"
+        },
+        {
+          "title": "باب ابن الملك والطائر فنزة",
+          "printed_page_start": 78,
+          "printed_page_end": 80,
+          "unit_status": "contents_page_candidate_boundary_review_required"
+        },
+        {
+          "title": "باب الأسد والشغبر الناسك وهو ابن آوى",
+          "printed_page_start": 81,
+          "printed_page_end": 83,
+          "unit_status": "contents_page_candidate_boundary_review_required"
+        },
+        {
+          "title": "باب إيلاذ وبلاذ وايراخت",
+          "printed_page_start": 84,
+          "printed_page_end": 90,
+          "unit_status": "contents_page_candidate_boundary_review_required"
+        },
+        {
+          "title": "باب اللبوة والإسوار والشغب ر",
+          "printed_page_start": 91,
+          "printed_page_end": 91,
+          "unit_status": "contents_page_candidate_boundary_review_required"
+        },
+        {
+          "title": "باب الناسك والضيف",
+          "printed_page_start": 92,
+          "printed_page_end": 92,
+          "unit_status": "contents_page_candidate_boundary_review_required"
+        },
+        {
+          "title": "باب السائح والصائغ",
+          "printed_page_start": 93,
+          "printed_page_end": 94,
+          "unit_status": "contents_page_candidate_boundary_review_required"
+        },
+        {
+          "title": "باب ابن الملك وأصحابه",
+          "printed_page_start": 95,
+          "printed_page_end": 97,
+          "unit_status": "contents_page_candidate_boundary_review_required"
+        },
+        {
+          "title": "باب الحمامة والثعلب ومالك الحزي ن",
+          "printed_page_start": 98,
+          "printed_page_end": null,
+          "unit_status": "contents_page_candidate_boundary_review_required"
+        }
+      ],
+      "observations": [
+        "Searchable Arabic text was extracted, with private-use glyph substitutions that need correction or review.",
+        "The PDF includes an al-mostafa.com conversion credit; publisher/editor/year are not established by the supplied file metadata.",
+        "Contents-page chapter entries are structural candidates, not human-adjudicated story boundaries."
+      ]
+    }
+  ],
+  "policy": "User-supplied files are source candidates. Their presence does not establish copyright permission for redistribution or training."
+}

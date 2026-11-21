@@ -2,7 +2,7 @@
 # and does not mark any source as training-cleared by itself.
 schema: ansg.anhc_build/0.1
 dataset_id: ANHC-reconstruction
-dataset_status: construction
+dataset_status: populated_staging_review_required
 historical_dataset_claim: false
 training_ready: false
 
@@ -48,6 +48,21 @@ current_seed:
   nested_stories_segmented: false
   annotations_present: false
   split_status: unassigned
+  staging_output:
+    records_path: data/corpora/anhc/staging_records.jsonl
+    review_queue_path: data/corpora/anhc/story_review_queue.jsonl
+    manifest_path: data/corpora/anhc/manifest.json
+    validation_report_path: data/corpora/anhc/validation_report.json
+    source_intake_report_path: data/corpora/anhc/source_intake.json
+    records: 27
+    nights_candidate_segments: 12
+    kalila_titled_page_candidates: 15
+    schema_errors: 0
+    schema_warnings: 27
+    annotation_status: {dia: unannotated, motif: unannotated, moral: unannotated}
+    rights_cleared_for_training: false
+    split_status: unassigned
+
   sources:
     - source_family: arabian_nights
       ids: [arabian_nights-001, arabian_nights-002, arabian_nights-003, arabian_nights-004, arabian_nights-005]
@@ -62,7 +77,40 @@ current_seed:
         - "Wikisource scan of the Egypt 1355 AH edition is marked public domain."
         - "Map each story page to the exact scanned edition/revision before training use."
 
+user_supplied_source_files:
+  - work: alf_layla_wa_layla
+    pages: 1342
+    intake_status: scanned_images_arabic_ocr_required
+    bibliographic_edition_identified: false
+    rights_status: unknown_review_required
+  - work: kalila_wa_dimna
+    pages: 101
+    intake_status: searchable_arabic_with_glyph_review_required
+    contents_entries: 19
+    current_seed_title_matches: 15
+    additional_front_matter_candidates: 4
+    rights_status: unknown_review_required
+narrative_source_registry: data/sources/narrative_registry.json
 external_candidates:
+  - id: tinystories_algerian_darija
+    url: https://huggingface.co/datasets/touati-kamel/TinyStories-Algerian-Darija
+    upstream_url: https://huggingface.co/datasets/roneneldan/TinyStories
+    source_revision: 82760dc9de372ff56a531766194f91f78e270520
+    varieties: [Algerian_Darija]
+    content_types: [children_stories, parallel_English_Darija, themes, morals]
+    source_card_size: {records: 11326, downloaded_size_bytes: 18451717}
+    source_card_origins: [synthetic_translation, cultural_adaptation]
+    source_license_claim: MIT
+    upstream_license_claim: CDLA-Sharing-1.0
+    local_intake:
+      record_count: 11326
+      whitespace_words: 1627572
+      exact_duplicate_texts: 0
+      status: downloaded_local_git_ignored_quarantine
+    admission_status: blocked_pending_upstream_terms_and_human_quality_review
+    use_before_review: quarantined_analysis_only
+    excluded_from: [training, redistributable_ANHC_release, gold_annotations]
+    note: "Synthetic, source-labeled Algerian Darija; not native-validated gold. Preserve upstream TinyStories terms and the source card; a project license badge alone does not clear derivatives for ANHC use."
   - id: arastories
     url: https://github.com/UBC-NLP/arastories
     varieties: [MSA, Egyptian, Maghrebi]
@@ -87,6 +135,82 @@ external_candidates:
     admission_status: source_and_license_verification
     use_before_review: dialect_reference_only
     note: "Not long-form stories; do not import as narrative examples."
+  - id: qcri_dialectal_arabic_resources
+    url: https://alt.qcri.org/resources/da_resources/
+    source_repository: https://github.com/qcri/dialectal_arabic_resources
+    varieties: [Egyptian, Levantine, Gulf, Maghrebi]
+    content_types: [tweets, segmentation_labels, pos_tags]
+    reported_size: "350 manually segmented and POS-tagged tweets per dialect in the four-dialect POS resource; segmentation training resources are separate"
+    provider_license: Apache-2.0
+    admission_status: auxiliary_task_specific_resource
+    use_before_review: morphological_segmentation_and_pos_auxiliary_only
+    excluded_from: [narrative_story_training, ANHC_story_counts]
+    note: "QCRI explicitly lists the resource license; preserve source citation and separate splits."
+  - id: arabic_verbnet
+    url: https://github.com/JaouadMousser/Arabic-Verbnet
+    varieties: [Arabic_unspecified]
+    content_types: [verb_lexicon, syntactic_alternations, semantic_roles, example_sentences]
+    license_status: not_verified
+    admission_status: license_and_schema_review_required
+    use_before_review: none
+    candidate_role: lexical_semantic_reference_for_morphology_and_CKG
+    excluded_from: [narrative_story_training, dialect_gold_labels]
+    note: "Repository XML includes verb members, roots, argument structures, semantic predicates, and examples; no license was evident on the repository landing page."
+  - id: arabic_dialect_identification_repository
+    url: https://github.com/Lafifi-24/arabic-dialect-identification
+    varieties: [MSA, Egyptian, Levantine, Gulf, Maghrebi, other_country_dialects]
+    content_types: [dialect_labeled_sentences, classifier_code, pretrained_models]
+    origins_reported: [arabic_pos_dialect, IADD, QADI, MADAR, Wikipedia_MSA]
+    repository_license_status: not_verified
+    admission_status: provenance_and_license_review_required
+    use_before_review: classifier_baseline_reference_only
+    excluded_from: [narrative_story_training, ANHC_gold_labels]
+    note: "Aggregates sources and sentence-level dialect labels; do not import its mixed dataset as narrative examples or reuse benchmark tests for training."
+  - id: sanaa_ai_dialect_stories
+    url: https://www.sanaa.ai/stories/index.php/
+    varieties_observed: [Palestinian-Jordanian, Palestinian, Yemeni, Moroccan]
+    content_types: [short_modern_dialect_stories, proverb_explanations]
+    displayed_window: "rolling selection of 200 stories, 20 per page"
+    authorship_and_generation_provenance: unknown
+    license_status: no_reuse_license_found_on_reviewed_story_pages
+    admission_status: permission_and_provenance_review_required
+    use_before_review: metadata_reference_only
+    candidate_role: dialect_story_discovery_and_human_review_candidate
+    excluded_from: [ANHC_text_ingestion, gold_annotations, training]
+    note: "Do not scrape or copy story text until rights and authorship are established; observed dialect tags are site-provided labels, not adjudicated gold."
+  - id: wojood_arabic_nested_ner
+    url: https://github.com/SinaLab/ArabicNER
+    model_url: https://huggingface.co/SinaLab/ArabicNER-Wojood
+    varieties: [MSA, Arabic_dialects_unspecified_in_summary]
+    content_types: [nested_named_entity_annotations, NER_code, NER_model]
+    corpus_reference: {tokens: 550000, entity_types: 21, entities: 75000, nested_entity_share: 0.225}
+    code_license: MIT
+    full_corpus_access: available_on_request_for_academic_and_commercial_use
+    admission_status: NER_component_candidate_corpus_access_review_required
+    use_before_review: model_or_demo_assessment_only
+    candidate_role: character_location_and_entity_consistency_diagnostics
+    excluded_from: [narrative_story_training, ANHC_gold_annotations]
+    note: "README-reported figures; request full corpus/guidelines from provider before using labels as gold. Verify pretrained model terms separately."
+
+merged_available_source_snapshot:
+  manifest: data/corpora/anhc/merged_candidate_manifest.json
+  merge_script: scripts/merge_anhc_available_sources.py
+  narrative_records: 11368
+  source_family_groups: 11346
+  kalila_pdf_parallel_candidates: 15
+  kalila_title_links: 15
+  non_narrative_pdf_front_matter_units: 4
+  external_dialect_story_candidates: 11326
+  external_dialect_story_words_whitespace: 1627572
+  whitespace_word_instances_including_parallel_versions: 1855441
+  exact_text_duplicates: 0
+  story_review_queue_rows: 11368
+  external_dialect_story_sources_downloaded: true
+  training_ready: false
+  rights_cleared: false
+  split_status: unassigned
+  annotations: {dia: unannotated, motif: unannotated, moral: unannotated}
+  note: "Local quarantine text includes rights-unresolved PDF material; counts include parallel versions and are not tokenizer-specific or unique-story counts."
 
 build_gates:
   - source_revision_and_rights_verified

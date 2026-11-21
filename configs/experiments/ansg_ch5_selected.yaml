@@ -1,0 +1,97 @@
+# Author-selected implementation protocol based on Chapter 5 §5.1.3 and §5.6.
+# This selects an implementation path; it does not assert that the historical
+# experiments were run or resolve the conflicting statements elsewhere in thesis.
+schema: ansg.selected_training_protocol/1.0
+decision_id: D7
+status: selected_for_implementation_not_executed
+source: configs/specification/thesis_variants.yaml#training_protocol_variants.ch5_5_1_3
+selection_rationale: >-
+  The user selected the detailed Chapter 5 account, which describes supervised
+  training followed by adversarial GAN training and PPO. Other thesis variants
+  remain preserved verbatim in the source register.
+
+base_checkpoint:
+  required: true
+  provenance_required: true
+  note: >-
+    Chapter 5 training stages start from a pretrained model; this config does
+    not select among the conflicting backbone variants in C-MODEL-1.
+
+hardware_reported:
+  gpus: 4
+  model: NVIDIA A100
+  memory_gb_per_gpu: 40
+  reported_total_hours: 72
+  reported_gpu_hours: 288
+
+stages:
+  - id: sft
+    ordinal: 1
+    thesis_name: supervised
+    thesis_epochs: [1, 30]
+    reported_hours: 24
+    objective: "L_LM + lambda_align * L_cultural"
+    optimizer:
+      name: AdamW
+      learning_rate: 0.00005
+      betas: [0.9, 0.999]
+      epsilon: 1.0e-8
+      weight_decay: 0.01
+      warmup_steps: 1000
+      schedule: cosine
+    effective_batch_size: 128
+    max_gradient_norm: 1.0
+    transition:
+      criterion: validation_perplexity_relative_change
+      threshold: 0.05
+      window_steps: 1000
+  - id: gan
+    ordinal: 2
+    thesis_name: adversarial_gan
+    thesis_epochs: [31, 65]
+    reported_hours: 28
+    discriminator:
+      architecture: "3-layer CNN"
+      feature_matching: true
+      replay_buffer_size: 10000
+    transition:
+      criterion: discriminator_accuracy_below
+      threshold: 0.70
+  - id: ppo
+    ordinal: 3
+    thesis_name: rl_ppo
+    thesis_epochs: [66, 100]
+    reported_hours: 20
+    optimizer:
+      name: AdamW
+      learning_rate: 0.00001
+    ppo:
+      clip: 0.20
+      value_coefficient: 0.5
+      entropy_coefficient: 0.01
+      gae_lambda: 0.95
+      epochs: 4
+      minibatch_size: 32
+      rollout_batch_size: 128
+      kl_coefficient: 0.01
+    max_gradient_norm: 0.5
+
+stopping:
+  metric: validation_cmpi_gain
+  threshold: 0.01
+  patience_epochs: 10
+  note: >-
+    CMPI is not operationally defined in the supplied thesis text; this gate
+    must remain disabled until an explicitly named, non-surrogate metric is
+    approved. Do not substitute the implemented weighted proxy silently.
+
+reproduction_gates:
+  - resolve_backbone_and_tokenizer_variants
+  - rights_clear_and_freeze_training_corpus
+  - prepare_approved_sft_targets_and_annotation_provenance
+  - validate_gan_real_fake_data_and_discriminator_objective
+  - define_and_validate_reward_terms_before_ppo
+  - provide_hardware_and_checkpoint_provenance
+execution:
+  training_started: false
+  reason: "Configuration selected; dataset, checkpoint, rights, loss/reward and CRAFT gates are not satisfied."

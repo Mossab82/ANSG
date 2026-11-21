@@ -31,9 +31,15 @@ happens before Phase 3, and none before the specification decisions in
 - DAL/LoRA, morphological conditioning.
 - Schema activation per thesis definition.
 
+This project-roadmap phase is **not** the same as a training-stage number. The
+selected training protocol is recorded as decision D7: its Stage 1 is SFT, Stage
+2 is GAN, and Stage 3 is PPO. See `docs/AUTHOR_DECISIONS.md` and
+`configs/experiments/ansg_ch5_selected.yaml`.
+
 ## Phase 3 — Training
-- Implement the staged training schedule(s); dry-runs on tiny configs; experiment logging.
-- Only then: GPU runs, with manifests and real dates.
+- Implement the selected Chapter 5 SFT → GAN → PPO schedule; retain other thesis variants as source evidence.
+- Run CPU/tiny-config dry-runs and record experiment manifests.
+- GPU runs only after the selected data, checkpoint, objective, reward, and compute gates are satisfied; never backfill historical run claims.
 
 ## Phase 4 — Reward and RL
 - Reward terms per Ch. 5 / App. A.3 (both variants configurable); RL loop.

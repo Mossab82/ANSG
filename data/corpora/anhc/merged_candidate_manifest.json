@@ -1,0 +1,182 @@
+{
+  "schema": "ansg.anhc-merged-candidate-manifest/0.1",
+  "dataset_id": "ANHC-reconstruction",
+  "status": "merged_local_staging_review_required",
+  "narrative_records": 11368,
+  "existing_staged_records": 27,
+  "user_pdf_fable_candidates": 15,
+  "external_synthetic_dialect_candidates": 11326,
+  "front_matter_source_units_separate": 4,
+  "candidate_story_family_groups": 11346,
+  "merged_story_review_queue_rows": 11368,
+  "kalila_title_links": 15,
+  "kalila_title_link_threshold": 0.88,
+  "kalila_title_match_min": 1.0,
+  "kalila_title_match_max": 1.0,
+  "candidate_words_whitespace_including_parallel_versions": 1855441,
+  "candidate_words_by_origin": {
+    "existing_heritage_seed_candidates": 195197,
+    "user_pdf_parallel_candidates": 32672,
+    "external_synthetic_dialect_candidates": 1627572
+  },
+  "exact_text_duplicate_count": 0,
+  "unique_story_words_status": "not_computed; parallel editions and source cycles require human collation",
+  "dialect_coverage": [
+    {
+      "variety": "Algerian Darija",
+      "source_label_status": "source_labeled_not_human_verified",
+      "origin": "synthetic_parallel_adaptation",
+      "records": 11326,
+      "training_cleared": false
+    }
+  ],
+  "annotation_status": {
+    "dia": "unannotated",
+    "motif": "unannotated",
+    "moral": "unannotated"
+  },
+  "rights_cleared_for_training": false,
+  "redistributable": false,
+  "split_status": "unassigned",
+  "split_leakage_checked": false,
+  "narrative_boundary_review": "required; Nights and Kalila nested stories are not adjudicated",
+  "human_collation_required": true,
+  "next_phase_readiness": "review_queue_prepared; synthetic dialect candidates are available for source-specific quality and rights review; structural review and the annotation guide remain open",
+  "external_dialect_story_datasets_downloaded": true,
+  "outputs": {
+    "local_quarantined_records": "data/corpora/anhc/quarantine/merged_narrative_candidates.jsonl",
+    "local_nonstory_source_units": "data/corpora/anhc/quarantine/non_narrative_source_units.jsonl",
+    "local_story_review_queue": "data/corpora/anhc/quarantine/merged_story_review_queue.jsonl",
+    "candidate_group_links": [
+      {
+        "pdf_record_id": "anhc-kalila-pdf-005",
+        "pdf_title": "باب الأسد والثور وهو أول الكتاب",
+        "seed_source_record_id": "kalila_dimna-010",
+        "candidate_story_family_id": "family-candidate-kalila_dimna-010",
+        "title_similarity": 1.0,
+        "link_status": "title_only_needs_human_collation"
+      },
+      {
+        "pdf_record_id": "anhc-kalila-pdf-006",
+        "pdf_title": "باب الفحص عن أمر دمنة",
+        "seed_source_record_id": "kalila_dimna-017",
+        "candidate_story_family_id": "family-candidate-kalila_dimna-017",
+        "title_similarity": 1.0,
+        "link_status": "title_only_needs_human_collation"
+      },
+      {
+        "pdf_record_id": "anhc-kalila-pdf-007",
+        "pdf_title": "باب الحمامة المطوقة",
+        "seed_source_record_id": "kalila_dimna-014",
+        "candidate_story_family_id": "family-candidate-kalila_dimna-014",
+        "title_similarity": 1.0,
+        "link_status": "title_only_needs_human_collation"
+      },
+      {
+        "pdf_record_id": "anhc-kalila-pdf-008",
+        "pdf_title": "باب البوم والغربان",
+        "seed_source_record_id": "kalila_dimna-012",
+        "candidate_story_family_id": "family-candidate-kalila_dimna-012",
+        "title_similarity": 1.0,
+        "link_status": "title_only_needs_human_collation"
+      },
+      {
+        "pdf_record_id": "anhc-kalila-pdf-009",
+        "pdf_title": "باب القرد والغيلم",
+        "seed_source_record_id": "kalila_dimna-018",
+        "candidate_story_family_id": "family-candidate-kalila_dimna-018",
+        "title_similarity": 1.0,
+        "link_status": "title_only_needs_human_collation"
+      },
+      {
+        "pdf_record_id": "anhc-kalila-pdf-010",
+        "pdf_title": "الناسك وابن عرس",
+        "seed_source_record_id": "kalila_dimna-006",
+        "candidate_story_family_id": "family-candidate-kalila_dimna-006",
+        "title_similarity": 1.0,
+        "link_status": "title_only_needs_human_collation"
+      },
+      {
+        "pdf_record_id": "anhc-kalila-pdf-011",
+        "pdf_title": "باب الجرذ والسنور",
+        "seed_source_record_id": "kalila_dimna-013",
+        "candidate_story_family_id": "family-candidate-kalila_dimna-013",
+        "title_similarity": 1.0,
+        "link_status": "title_only_needs_human_collation"
+      },
+      {
+        "pdf_record_id": "anhc-kalila-pdf-012",
+        "pdf_title": "باب ابن الملك والطائر فنزة",
+        "seed_source_record_id": "kalila_dimna-009",
+        "candidate_story_family_id": "family-candidate-kalila_dimna-009",
+        "title_similarity": 1.0,
+        "link_status": "title_only_needs_human_collation"
+      },
+      {
+        "pdf_record_id": "anhc-kalila-pdf-013",
+        "pdf_title": "باب الأسد والشغبر الناسك وهو ابن آوى",
+        "seed_source_record_id": "kalila_dimna-011",
+        "candidate_story_family_id": "family-candidate-kalila_dimna-011",
+        "title_similarity": 1.0,
+        "link_status": "title_only_needs_human_collation"
+      },
+      {
+        "pdf_record_id": "anhc-kalila-pdf-014",
+        "pdf_title": "باب إيلاذ وبلاذ وايراخت",
+        "seed_source_record_id": "kalila_dimna-007",
+        "candidate_story_family_id": "family-candidate-kalila_dimna-007",
+        "title_similarity": 1.0,
+        "link_status": "title_only_needs_human_collation"
+      },
+      {
+        "pdf_record_id": "anhc-kalila-pdf-015",
+        "pdf_title": "باب اللبوة والإسوار والشغب ر",
+        "seed_source_record_id": "kalila_dimna-019",
+        "candidate_story_family_id": "family-candidate-kalila_dimna-019",
+        "title_similarity": 1.0,
+        "link_status": "title_only_needs_human_collation"
+      },
+      {
+        "pdf_record_id": "anhc-kalila-pdf-016",
+        "pdf_title": "باب الناسك والضيف",
+        "seed_source_record_id": "kalila_dimna-020",
+        "candidate_story_family_id": "family-candidate-kalila_dimna-020",
+        "title_similarity": 1.0,
+        "link_status": "title_only_needs_human_collation"
+      },
+      {
+        "pdf_record_id": "anhc-kalila-pdf-017",
+        "pdf_title": "باب السائح والصائغ",
+        "seed_source_record_id": "kalila_dimna-016",
+        "candidate_story_family_id": "family-candidate-kalila_dimna-016",
+        "title_similarity": 1.0,
+        "link_status": "title_only_needs_human_collation"
+      },
+      {
+        "pdf_record_id": "anhc-kalila-pdf-018",
+        "pdf_title": "باب ابن الملك وأصحابه",
+        "seed_source_record_id": "kalila_dimna-008",
+        "candidate_story_family_id": "family-candidate-kalila_dimna-008",
+        "title_similarity": 1.0,
+        "link_status": "title_only_needs_human_collation"
+      },
+      {
+        "pdf_record_id": "anhc-kalila-pdf-019",
+        "pdf_title": "باب الحمامة والثعلب ومالك الحزي ن",
+        "seed_source_record_id": "kalila_dimna-015",
+        "candidate_story_family_id": "family-candidate-kalila_dimna-015",
+        "title_similarity": 1.0,
+        "link_status": "title_only_needs_human_collation"
+      }
+    ]
+  },
+  "limitations": [
+    "This merges available text candidates, not a completed or training-cleared ANHC.",
+    "Kalila PDF text is local-only because its edition and reuse rights are unresolved.",
+    "Kalila PDF and Wikisource records are linked by title only; they remain separate text versions pending human collation.",
+    "The only ingested dialect story cohort is synthetic, source-labeled Algerian Darija; Levantine, Egyptian, Gulf, and other Maghrebi story cohorts remain absent.",
+    "The synthetic dialect cohort remains quarantined pending row-level quality review and upstream license-term assessment.",
+    "Counts are whitespace-word counts, include parallel editions, and are not tokenizer-specific corpus token counts.",
+    "The thesis reference of 70.4M total and 23M annotated tokens is not met by this reconstruction."
+  ]
+}

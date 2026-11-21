@@ -8,6 +8,41 @@ The repository currently has a seed collection at `data/corpora/classical_arabic
 
 This is a useful bootstrap source inventory. It is not yet the finished ANHC and its word count must not be equated with the thesis's 70.4M-token corpus.
 
+## Populated staging build
+
+The first construction pass now materializes **27 ANHC-schema records with their Arabic text** in `data/corpora/anhc/staging_records.jsonl`: 12 candidate spans segmented from the five Nights source pages using the repository's configurable title-boundary extractor, plus 15 titled Kalila wa Dimna source-page candidates. Each record includes the source-page id, exact revision id, source text digest, URL, and character span. `story_review_queue.jsonl` lists every candidate for structural review; the extraction is a proposal and nested fables remain unreviewed.
+
+All three annotation layers (DIA, MOTIF, MORAL) remain `unannotated`; rights are `unknown`, `redistributable` is false, and splits remain unassigned. The build has 0 schema errors and expected warnings for unresolved rights. This is populated staging data for the ANHC we are constructing, not a rights-cleared training release or the thesis-reported 70.4M-token / 23M-annotated-token dataset. Re-run with `python scripts/build_anhc_staging.py` after updating the seed.
+
+## User-supplied reference books
+
+The newly supplied **Kalila wa Dimna** PDF is 101 pages. Its searchable text contains 45,726 whitespace-separated words after NFKC/format-control normalization, though 715 private-use glyphs indicate character-mapping defects. Its contents page lists 19 section starts; all 15 current seed titles now cross-reference to printed page starts in the PDF, while four are front matter. A local-only, git-ignored quarantine extraction now holds 19 page-range candidates (15 fable chapters/story cycles and four front-matter sections), with 45,714 normalized whitespace-separated words from printed pages 2–101. A diagnostic title scan found all 19 headings on the corresponding numbered PDF pages; a token-trigram overlap comparison against the 15 matching Wikisource pages ranged from 0.006 to 0.583 (median 0.438). Treat this as evidence that the PDF and seed texts are separate source versions, not as proof of identity or difference; do not deduplicate or merge them without human collation. Nested tales are not independently segmented. The PDF edition and reuse rights remain unverified, so the extracted text is neither redistributable nor cleared for training.
+
+The supplied **One Thousand and One Nights** PDF is a 1,342-page scan. It yields no usable Arabic text through `pdftotext`; no Arabic Tesseract language pack is installed in this environment, so Arabic OCR and bibliographic identification remain required. A visible W. R. Taylor Collection stamp is archival provenance, not a publication/rights statement. Both files therefore expand the source evidence and structural review work; only the Kalila file is immediately text-extractable, and neither is rights-cleared.
+
+## Merged local candidate view
+
+`python scripts/merge_anhc_available_sources.py` now creates a unified, git-ignored candidate text view from the 27 ANHC staging records, 15 fable/chapter candidates extracted from the supplied Kalila PDF, and 11,326 synthetic Algerian Darija stories from TinyStories-Algerian-Darija. The four PDF front-matter sections are retained separately as source units. There are **11,368 narrative candidate records**, **11,346 conservative source/story-family groups**, and an **11,368-row review queue**. The 15 PDF chapter titles map to 15 Wikisource candidates by normalized title (all title-match scores are 1.0); this is not textual equivalence. A separate diagnostic text-overlap check varies widely across versions, so both texts stay in the candidate view pending collation.
+
+The merge contains **1,855,441 whitespace-word instances** across the heritage and synthetic candidates, including parallel Kalila versions. It is not a tokenizer-token count or a thesis-sized corpus. The external Algerian cohort contributes **1,627,572 words**; an intake pass found 11,326 distinct source IDs and no exact duplicate texts in this release. The [source card](https://huggingface.co/datasets/touati-kamel/TinyStories-Algerian-Darija/tree/82760dc9de372ff56a531766194f91f78e270520) describes the stories as synthetic adaptations from TinyStories, and declares MIT while identifying the upstream TinyStories source as CDLA-Sharing-1.0. The cohort therefore remains isolated and quarantined pending review of inherited terms and human quality checks; the license badge and the card's “authentic” description are not treated as permission or gold validation. Its dialect label is Algerian only, so it does not cover Levantine, Egyptian, Gulf, or the rest of Maghrebi varieties.
+
+This is a populated candidate build, not a finished or training-cleared ANHC: heritage edition rights and nested boundaries remain unresolved, DIA/MOTIF/MORAL are not human-adjudicated, splits are unassigned, and the 70.4M total / 23M annotated thesis reference is unmet. Full source shards and text candidates stay in local git-ignored quarantine; `merged_candidate_manifest.json` and the intake manifest record metadata/counts. `python scripts/download_tinystories_darija.py` downloads the pinned source snapshot, `python scripts/intake_tinystories_darija.py` rebuilds the local external candidate file, and `python scripts/merge_anhc_available_sources.py` rebuilds the combined view and review queue.
+
+## Linked Arabic language resources
+
+The three linked resources support separate ANSG components; they are not story corpora:
+
+- [QCRI Dialectal Arabic Resources](https://alt.qcri.org/resources/da_resources/) and its [dataset repository](https://github.com/qcri/dialectal_arabic_resources) provide segmentation/POS resources. The four-dialect POS set has 350 manually segmented and tagged tweets per dialect (Egyptian, Levantine, Gulf, Maghrebi); the provider page states Apache-2.0. Use only as auxiliary DIA/morphology data and keep the official folds separate from narrative training/evaluation.
+- [Arabic VerbNet](https://github.com/JaouadMousser/Arabic-Verbnet) is an XML verb lexicon with roots, forms, syntactic frames, semantic roles/predicates, and examples. It may support CKG/verb-frame work, but it is not a story or dialect corpus; its reuse license remains unverified, so the registry does not admit its data yet.
+- [Arabic Dialect Identification](https://github.com/Lafifi-24/arabic-dialect-identification) describes a sentence-level classifier project combining QADI, IADD, MADAR, the QCRI POS set, and 10,000 Wikipedia MSA sentences. Keep it as a baseline/discovery reference until constituent licenses and partitions are traced. Do not copy its aggregate data into ANHC or treat its labels as story-level gold.
+
+The source roles and admission gates are recorded in `configs/data/anhc_build.yaml` and `data/sources/dialect_registry.json`. This preserves the distinction between narrative training data, morphological resources, and dialect-classification benchmarks.
+
+Two further linked resources have complementary roles:
+
+- [Sanaa AI Stories](https://www.sanaa.ai/stories/index.php/) displays short modern stories with site-provided dialect labels, including Palestinian-Jordanian, Palestinian, Yemeni, and Moroccan examples. The site shows a rotating 200-story window. No reuse license or authorship/generation statement was found on the reviewed story pages, so these texts remain discovery references only; do not scrape, add, or train on them until permission and provenance are established. Site labels are candidate labels, not ANHC gold.
+- [Wojood / ArabicNER](https://github.com/SinaLab/ArabicNER) is an entity-recognition resource, not a story corpus. Its README reports about 550K MSA/dialect tokens, 21 entity types, about 75K entities, and nested annotations for 22.5% of entities; the full corpus is available upon request for academic/commercial use. The repository code is MIT-licensed. It is a promising candidate for checking character/place/entity consistency, including nested mentions, but full corpus access and model terms must be reviewed before importing labels or weights.
+
 ## Source admission rules
 
 A source is admitted to a training split only after its exact edition/revision and reuse rights are recorded. Work-level public-domain status does not automatically clear a later edition's notes, editorial additions, images, or formatting. Keep only the text whose rights have been verified; store attribution and source revision in every record. If rights remain uncertain, keep the source in the registry as `review_required` and keep its text out of distributable training exports.
@@ -45,7 +80,7 @@ The existing `ansg.anhc-record/0.1` schema already provides provenance, parent-s
 
 - **B0 — Source registry:** done as metadata in `data/corpora/classical_arabic/index.json`; this track adds rights/origin decisions without silently changing the source text.
 - **B1 — Rights pass:** pin exact revisions and classify each source/page as `public_domain_text`, `licensed`, `restricted`, or `review_required`.
-- **B2 — Narrative segmentation:** preserve parent-page ids; produce child story ids and boundary-review records; inspect nested stories before splitting.
+- **B2 — Narrative segmentation:** initial candidate spans and a boundary-review queue are built; preserve parent-page ids and inspect nesting before accepting boundaries or splitting.
 - **B3 — Dialect/story intake:** add rights-cleared narrative sources for missing varieties; keep dialect benchmarks and story-generation corpora distinct by origin and task.
 - **B4 — Annotation pilot:** create a small, versioned guide and blind double annotation for DIA/MOTIF/MORAL; measure agreement; adjudicate disagreements; then expand.
 - **B5 — Leakage-safe splits:** cluster source variants and narrative families before assigning train/validation/test; freeze the test set before model selection.
@@ -59,6 +94,7 @@ The existing seed is far below 70.4M tokens; full source coverage and the origin
 
 - [Existing seed inventory and build limitations](../data/corpora/classical_arabic/build_report.json)
 - [Existing ANHC record schema](../src/ansg/data/records.py)
+- [User-supplied PDF intake report](../data/corpora/anhc/source_intake.json)
 - [Wikisource One Thousand and One Nights, Part 1 (Hindawi 2022)](https://ar.wikisource.org/wiki/ألف_ليلة_وليلة_(مؤسسة_هنداوي،_2022)/الجزء_الأول)
 - [Wikisource Kalila wa Dimna scan, Egypt 1355 AH](https://ar.wikisource.org/wiki/ملف:كليلة_ودمنة.pdf)
 - [AraStories data/code repository](https://github.com/UBC-NLP/arastories)

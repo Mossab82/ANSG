@@ -1,0 +1,33 @@
+# Chapter 5 GAN engineering profile. Exact thesis settings are retained where
+# reported; omitted CNN/feature-matching details are explicit pilot choices.
+schema: ansg.gan_pilot_profile/1.0
+status: prototype_configuration_not_yet_smoke_run
+source: configs/specification/thesis_variants.yaml#training_protocol_variants.ch5_5_1_3
+reported_by_chapter_5:
+  discriminator: "3-layer CNN"
+  feature_matching: true
+  replay_buffer_capacity: 10000
+  epochs: "31-65"
+  reported_hours: 28
+  transition_to_ppo: "discriminator accuracy < 0.70"
+engineering_choices_not_specified_in_thesis:
+  convolution_kernel_size: 3
+  channels: "model hidden_size"
+  pooling: [mean, max]
+  feature_matching_weight: 0.2
+  feature_matching_reward: "exp(-normalized mean-squared distance to real-batch feature mean)"
+  adversarial_reward: "sigmoid(discriminator logit)"
+  generator_gradient: "score-function policy gradient over newly generated continuation tokens"
+replay_buffer:
+  capacity: 10000
+  store: generated_token_sequences
+  sample: one historical fake per current fake when available
+smoke_run:
+  allowed: true
+  label: "GAN prototype smoke run; not Chapter 5 reproduction"
+  recommended_steps: 1
+  recommended_data: "examples/demo.jsonl"
+  caveats:
+    - "Smoke model is randomly initialized and byte-tokenized."
+    - "Discriminator and feature-reward definitions are engineering choices."
+    - "No CRAFT reward, thesis data, pretrained backbone, or historical checkpoint is implied."
