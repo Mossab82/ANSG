@@ -2,7 +2,7 @@
 # and does not mark any source as training-cleared by itself.
 schema: ansg.anhc_build/0.1
 dataset_id: ANHC-reconstruction
-dataset_status: construction
+dataset_status: populated_staging_review_required
 historical_dataset_claim: false
 training_ready: false
 
@@ -48,6 +48,19 @@ current_seed:
   nested_stories_segmented: false
   annotations_present: false
   split_status: unassigned
+  staging_output:
+    records_path: data/corpora/anhc/staging_records.jsonl
+    review_queue_path: data/corpora/anhc/story_review_queue.jsonl
+    manifest_path: data/corpora/anhc/manifest.json
+    validation_report_path: data/corpora/anhc/validation_report.json
+    records: 27
+    nights_candidate_segments: 12
+    kalila_titled_page_candidates: 15
+    schema_errors: 0
+    schema_warnings: 27
+    annotation_status: {dia: unannotated, motif: unannotated, moral: unannotated}
+    rights_cleared_for_training: false
+    split_status: unassigned
   sources:
     - source_family: arabian_nights
       ids: [arabian_nights-001, arabian_nights-002, arabian_nights-003, arabian_nights-004, arabian_nights-005]

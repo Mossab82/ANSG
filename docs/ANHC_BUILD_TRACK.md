@@ -8,6 +8,12 @@ The repository currently has a seed collection at `data/corpora/classical_arabic
 
 This is a useful bootstrap source inventory. It is not yet the finished ANHC and its word count must not be equated with the thesis's 70.4M-token corpus.
 
+## Populated staging build
+
+The first construction pass now materializes **27 ANHC-schema records with their Arabic text** in `data/corpora/anhc/staging_records.jsonl`: 12 candidate spans segmented from the five Nights source pages using the repository's configurable title-boundary extractor, plus 15 titled Kalila wa Dimna source-page candidates. Each record includes the source-page id, exact revision id, source text digest, URL, and character span. `story_review_queue.jsonl` lists every candidate for structural review; the extraction is a proposal and nested fables remain unreviewed.
+
+All three annotation layers (DIA, MOTIF, MORAL) remain `unannotated`; rights are `unknown`, `redistributable` is false, and splits remain unassigned. The build has 0 schema errors and expected warnings for unresolved rights. This is populated staging data for the ANHC we are constructing, not a rights-cleared training release or the thesis-reported 70.4M-token / 23M-annotated-token dataset. Re-run with `python scripts/build_anhc_staging.py` after updating the seed.
+
 ## Source admission rules
 
 A source is admitted to a training split only after its exact edition/revision and reuse rights are recorded. Work-level public-domain status does not automatically clear a later edition's notes, editorial additions, images, or formatting. Keep only the text whose rights have been verified; store attribution and source revision in every record. If rights remain uncertain, keep the source in the registry as `review_required` and keep its text out of distributable training exports.
@@ -45,7 +51,7 @@ The existing `ansg.anhc-record/0.1` schema already provides provenance, parent-s
 
 - **B0 — Source registry:** done as metadata in `data/corpora/classical_arabic/index.json`; this track adds rights/origin decisions without silently changing the source text.
 - **B1 — Rights pass:** pin exact revisions and classify each source/page as `public_domain_text`, `licensed`, `restricted`, or `review_required`.
-- **B2 — Narrative segmentation:** preserve parent-page ids; produce child story ids and boundary-review records; inspect nested stories before splitting.
+- **B2 — Narrative segmentation:** initial candidate spans and a boundary-review queue are built; preserve parent-page ids and inspect nesting before accepting boundaries or splitting.
 - **B3 — Dialect/story intake:** add rights-cleared narrative sources for missing varieties; keep dialect benchmarks and story-generation corpora distinct by origin and task.
 - **B4 — Annotation pilot:** create a small, versioned guide and blind double annotation for DIA/MOTIF/MORAL; measure agreement; adjudicate disagreements; then expand.
 - **B5 — Leakage-safe splits:** cluster source variants and narrative families before assigning train/validation/test; freeze the test set before model selection.

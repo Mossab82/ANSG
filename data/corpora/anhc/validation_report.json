@@ -1,0 +1,143 @@
+{
+  "records_checked": 27,
+  "errors": 0,
+  "warnings": 27,
+  "issues": [
+    {
+      "record_id": "anhc-arabian_nights-001-000",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-arabian_nights-001-001",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-arabian_nights-001-002",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-arabian_nights-002-000",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-arabian_nights-002-001",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-arabian_nights-002-002",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-arabian_nights-003-000",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-arabian_nights-003-001",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-arabian_nights-003-002",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-arabian_nights-003-003",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-arabian_nights-004-000",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-arabian_nights-005-000",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-kalila_dimna-006-page",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-kalila_dimna-007-page",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-kalila_dimna-008-page",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-kalila_dimna-009-page",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-kalila_dimna-010-page",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-kalila_dimna-011-page",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-kalila_dimna-012-page",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-kalila_dimna-013-page",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-kalila_dimna-014-page",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-kalila_dimna-015-page",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-kalila_dimna-016-page",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-kalila_dimna-017-page",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-kalila_dimna-018-page",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-kalila_dimna-019-page",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    },
+    {
+      "record_id": "anhc-kalila_dimna-020-page",
+      "severity": "warning",
+      "message": "copyright_status is unknown"
+    }
+  ],
+  "warning_policy": "Unknown source rights are expected at staging and block training admission."
+}

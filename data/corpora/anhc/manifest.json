@@ -1,0 +1,30 @@
+{
+  "schema": "ansg.anhc-staging-manifest/0.1",
+  "dataset_id": "ANHC-reconstruction",
+  "dataset_status": "staging_records_populated_review_required",
+  "generated_at_utc": "2026-11-21T17:15:42.972079+00:00",
+  "input": "data/corpora/classical_arabic/stories.jsonl",
+  "input_source_records": 20,
+  "records": 27,
+  "records_by_family": {
+    "arabian_nights": 12,
+    "kalila_dimna": 15
+  },
+  "candidate_words_whitespace_count": 195197,
+  "token_count_status": "whitespace_word_count_only; tokenizer-specific token count not computed",
+  "annotation_status": {
+    "dia": "unannotated",
+    "motif": "unannotated",
+    "moral": "unannotated"
+  },
+  "rights_cleared_for_training": false,
+  "redistributable": false,
+  "split_status": "unassigned",
+  "split_leakage_checked": false,
+  "structural_review_queue": "data/corpora/anhc/story_review_queue.jsonl",
+  "validation_report": "data/corpora/anhc/validation_report.json",
+  "schema_validation_errors": 0,
+  "schema_validation_warnings": 27,
+  "policy": "No automatic extraction or heuristic is represented as human annotation or gold data.",
+  "counts_note": "ANHC is being constructed here; these are populated staging records, not the thesis target of 70.4M tokens / 23M annotated tokens."
+}
