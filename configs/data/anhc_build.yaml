@@ -1,0 +1,98 @@
+# Construction policy for the new ANHC corpus. This is not an annotation file
+# and does not mark any source as training-cleared by itself.
+schema: ansg.anhc_build/0.1
+dataset_id: ANHC-reconstruction
+dataset_status: construction
+historical_dataset_claim: false
+training_ready: false
+
+target_reference:
+  thesis_total_tokens: 70400000
+  thesis_annotated_tokens: 23000000
+  note: "Reference values only; never report as current corpus counts."
+  desired_varieties: [MSA, Egyptian, Levantine, Gulf, Maghrebi]
+  desired_split: {train: 0.8, validation: 0.1, test: 0.1}
+  split_seed_reference: 42
+
+record_contract:
+  schema_version: ansg.anhc-record/0.1
+  required_source_fields:
+    - source_id
+    - source_url
+    - source_revision
+    - source_file_sha256
+    - edition
+    - copyright_status
+    - license
+    - redistributable
+  required_narrative_fields:
+    - record_id
+    - parent_story_id
+    - nesting_level
+    - title
+    - source_span
+    - split
+  annotation_layers:
+    dia: {status: [unannotated, automatic, silver, gold]}
+    motif: {status: [unannotated, automatic, silver, gold]}
+    moral: {status: [unannotated, automatic, silver, gold]}
+  gold_rule: "human adjudication under a versioned guide; model output never counts as gold"
+  split_rule: "keep parent-child tales, parallel retellings, and duplicate source cycles in one split"
+
+current_seed:
+  path: data/corpora/classical_arabic/index.json
+  records: 20
+  words: 195197
+  record_unit: source_page_or_cycle
+  rights_cleared_for_training: false
+  nested_stories_segmented: false
+  annotations_present: false
+  split_status: unassigned
+  sources:
+    - source_family: arabian_nights
+      ids: [arabian_nights-001, arabian_nights-002, arabian_nights-003, arabian_nights-004, arabian_nights-005]
+      rights_status: revision_review_required
+      notes:
+        - "Part 1 Hindawi 2022 page states original-work text is public domain; cover/design is separately CC BY 4.0."
+        - "Verify the exact source revision for each collected page; retain only permitted text and attribution."
+    - source_family: kalila_dimna
+      ids: [kalila_dimna-006, kalila_dimna-007, kalila_dimna-008, kalila_dimna-009, kalila_dimna-010, kalila_dimna-011, kalila_dimna-012, kalila_dimna-013, kalila_dimna-014, kalila_dimna-015, kalila_dimna-016, kalila_dimna-017, kalila_dimna-018, kalila_dimna-019, kalila_dimna-020]
+      rights_status: edition_mapping_required
+      notes:
+        - "Wikisource scan of the Egypt 1355 AH edition is marked public domain."
+        - "Map each story page to the exact scanned edition/revision before training use."
+
+external_candidates:
+  - id: arastories
+    url: https://github.com/UBC-NLP/arastories
+    varieties: [MSA, Egyptian, Maghrebi]
+    content_types: [stories, prompts]
+    origins_reported: [machine_translated, model_generated]
+    repository_license: MIT
+    admission_status: per_record_provenance_and_rights_review
+    use_before_review: none
+    note: "Repository license and dataset origins are recorded separately; do not infer per-story rights from MIT alone."
+  - id: arabic_stories_corpus
+    url: https://github.com/motazsaad/Arabic-Stories-Corpus
+    varieties: [MSA]
+    content_types: [short_stories]
+    repository_license: Apache-2.0
+    admission_status: underlying_source_rights_review
+    use_before_review: none
+    note: "Reported source websites include Mawdoo3 and Qisasse; repository license does not settle all underlying rights."
+  - id: shami
+    url: null
+    varieties: [Levantine]
+    content_types: [short_conversational_sentences]
+    admission_status: source_and_license_verification
+    use_before_review: dialect_reference_only
+    note: "Not long-form stories; do not import as narrative examples."
+
+build_gates:
+  - source_revision_and_rights_verified
+  - narrative_units_and_parent_links_reviewed
+  - duplicated_or_parallel_story_families_grouped
+  - annotation_guide_versioned
+  - gold_labels_human_adjudicated
+  - leakage_safe_splits_frozen
+  - token_counts_computed_with_selected_tokenizer
