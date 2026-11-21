@@ -15,7 +15,7 @@ from torch.nn import functional as F
 from ansg.config import ModelConfig
 from ansg.data import NarrativeDataset,collate
 from ansg.model import ANSG,count_parameters
-from ansg.training import (supervised_step,NarrativeDiscriminator,
+from ansg.training import (supervised_step,NarrativeDiscriminator,FakeReplayBuffer,
                            discriminator_step,generator_adversarial_step,ppo_update)
 from ansg.provenance import write_run_manifest,sha256_file
 
@@ -28,7 +28,8 @@ def surrogate_scores(samples,disc):
         return (0.7*realism+0.3*novelty).clamp(0,1)
 
 
-def run_pipeline(config_path,data_path,output_dir,steps_per_stage=1,seed=42,learning_rate=1e-4):
+def run_pipeline(config_path,data_path,output_dir,steps_per_stage=1,seed=42,learning_rate=1e-4,
+                 replay_buffer_size=10000,feature_matching_weight=0.2):
     if steps_per_stage<1:
         raise ValueError('steps_per_stage must be positive')
     torch.manual_seed(seed);np.random.seed(seed);random.seed(seed)
@@ -38,6 +39,7 @@ def run_pipeline(config_path,data_path,output_dir,steps_per_stage=1,seed=42,lear
     device=torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     generator=ANSG(config).to(device)
     discriminator=NarrativeDiscriminator(config.vocab_size,config.hidden_size).to(device)
+    replay_buffer=FakeReplayBuffer(replay_buffer_size)
     gen_optimizer=torch.optim.AdamW(generator.parameters(),lr=learning_rate)
     disc_optimizer=torch.optim.AdamW(discriminator.parameters(),lr=learning_rate)
     output=Path(output_dir);output.mkdir(parents=True,exist_ok=True)
@@ -59,9 +61,17 @@ def run_pipeline(config_path,data_path,output_dir,steps_per_stage=1,seed=42,lear
         schema=batch['schema_ids']
         dialect=batch['dialect_ids']
         fake=generator.generate(prompt,schema,dialect,max_new_tokens=4)
-        dloss=discriminator_step(discriminator,batch['input_ids'][:,:12],fake[:,:12],disc_optimizer)
-        gloss=generator_adversarial_step(generator,discriminator,prompt,schema,gen_optimizer,dialect,new_tokens=4)
-        results.append({'stage':'adversarial','step':index+1,'discriminator_loss':dloss,'generator_loss':gloss})
+        dloss=discriminator_step(discriminator,batch['input_ids'][:,:12],fake[:,:12],disc_optimizer,
+                                 replay_buffer=replay_buffer)
+        gan_metrics=generator_adversarial_step(generator,discriminator,prompt,schema,gen_optimizer,dialect,
+                                               new_tokens=4,real_ids=batch['input_ids'][:,:12],
+                                               feature_matching_weight=feature_matching_weight,
+                                               return_metrics=True)
+        results.append({'stage':'adversarial','step':index+1,'discriminator_loss':dloss,
+                        'generator_loss':gan_metrics['loss'],
+                        'adversarial_score':gan_metrics['adversarial_score'],
+                        'feature_match_score':gan_metrics['feature_match_score'],
+                        'combined_reward':gan_metrics['reward'],'replay_items':len(replay_buffer)})
     # Real on-policy sampling and clipped PPO updates with new-run surrogate reward.
     for index,batch in enumerate(batches):
         if index>=steps_per_stage:break
@@ -85,10 +95,13 @@ def run_pipeline(config_path,data_path,output_dir,steps_per_stage=1,seed=42,lear
         metrics=ppo_update(generator,old_lp,states,schema,actions,advantages,returns,gen_optimizer,dialect,action_mask=mask)
         results.append({'stage':'ppo','step':index+1,'surrogate_reward':float(score.mean()),**metrics})
     torch.save({'model':generator.state_dict(),'config':config.__dict__,'stages_completed':['supervised','adversarial','ppo']},output/'model.pt')
-    torch.save({'model':discriminator.state_dict()},output/'discriminator.pt')
+    torch.save({'model':discriminator.state_dict(),'replay_buffer':replay_buffer.state_dict()},output/'discriminator.pt')
     results_path=output/'training_results.json'
     results_path.write_text(json.dumps({'parameters':count_parameters(generator),
-       'reconstruction':True,'reward_type':'SURROGATE_NOT_CRAFT','stages':results,
+       'reconstruction':True,'reward_type':'SURROGATE_NOT_CRAFT',
+       'gan_profile':{'discriminator':'three_layer_text_cnn','feature_matching_weight':feature_matching_weight,
+                      'replay_buffer_capacity':replay_buffer_size,'replay_items_at_checkpoint':len(replay_buffer)},
+       'stages':results,
        'model_sha256':sha256_file(output/'model.pt')},indent=2),encoding='utf-8')
     return results
 
@@ -99,7 +112,12 @@ def main():
     ap.add_argument('--output',default='runs/pipeline')
     ap.add_argument('--steps-per-stage',type=int,default=1)
     ap.add_argument('--seed',type=int,default=42)
+    ap.add_argument('--replay-buffer-size',type=int,default=10000)
+    ap.add_argument('--feature-matching-weight',type=float,default=0.2,
+                    help='engineering pilot coefficient; not specified by Chapter 5')
     args=ap.parse_args()
-    result=run_pipeline(args.config,args.data,args.output,args.steps_per_stage,args.seed)
+    result=run_pipeline(args.config,args.data,args.output,args.steps_per_stage,args.seed,
+                        replay_buffer_size=args.replay_buffer_size,
+                        feature_matching_weight=args.feature_matching_weight)
     print(json.dumps(result,indent=2))
 if __name__=='__main__':main()
