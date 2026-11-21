@@ -1,8 +1,8 @@
 {
   "schema": "ansg.dialect_sources/1",
   "reviewed_on": "2026-11-21",
-  "status": "metadata_reviewed_with_one_synthetic_dialect_story_candidate_downloaded_to_local_quarantine",
-  "purpose": "Independent dialect resource discovery for existing DAL, not a change to thesis architecture or original evaluation; new linked lexical and dialect tools are tracked by task and license status. One synthetic Algerian Darija story source is in local rights- and quality-gated quarantine; this does not establish thesis-reported ANHC completeness.",
+  "status": "resource_catalog_consolidated; Lahga snapshot imported_locally_to_quarantine; no dialect source admitted as gold",
+  "purpose": "Independent dialect resource discovery for existing DAL, not a change to thesis architecture or original evaluation. Linked lexical and dialect tools are catalogued by task, revision, and rights status. Lahga lexical data and one synthetic Algerian Darija story source are in local rights- and quality-gated quarantine; neither establishes thesis-reported ANHC completeness.",
   "datasets": [
     {
       "id": "MADAR",
@@ -188,7 +188,15 @@
         "candidate_MSA_to_dialect_lexicon",
         "candidate_for_dialect_story_guide"
       ],
-      "status": "metadata_reviewed_not_downloaded",
+      "status": "downloaded_and_normalized_to_local_quarantine",
+      "source_revision": "3bacbff0dede7f42c6f9d08a7ca56b7ca6bcdaa8",
+      "local_snapshot": "data/corpora/anhc/quarantine/external/lahga/",
+      "local_inventory": "data/corpora/anhc/quarantine/anhc_resource_inventory/anhc_resource_inventory.sqlite",
+      "observed_rows": {
+        "lexical_forms": 23428,
+        "examples": 2878,
+        "forms_flagged_needs_review": 3485
+      },
       "limits": [
         "3,606 of 25,072 forms are flagged needs_review; the card says over half of forms were first model-drafted",
         "needs_review=false does not mean confirmed by a native speaker",
@@ -197,7 +205,7 @@
         "lexical resource, not a narrative formula/story corpus; no transliteration and no dialect verb paradigms"
       ],
       "admission": "candidate_only; human validation and licence-compatible release policy required",
-      "text_downloaded": false
+      "text_downloaded": true
     },
     {
       "id": "TinyStories_Algerian_Darija",
