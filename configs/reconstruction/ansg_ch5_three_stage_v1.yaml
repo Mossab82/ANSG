@@ -125,9 +125,10 @@ training_protocol:
         linguistic_submetrics: unresolved
         coherence_submetrics: unresolved
         dissertation_cmpi: unavailable
-      transition:
+      reported_transition:
         metric: validation_cmpi_improvement
         criterion: "< 0.01 for 10 consecutive epochs"
+        status: "transcribed from Chapter 5; not executable until CMPI is defined"
       blocked_by:
         - "authoritative, executable reward definitions"
         - "CRAFT/CMPI formulas and validated inputs"
