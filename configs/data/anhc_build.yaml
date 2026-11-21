@@ -90,6 +90,7 @@ user_supplied_source_files:
     current_seed_title_matches: 15
     additional_front_matter_candidates: 4
     rights_status: unknown_review_required
+narrative_source_registry: data/sources/narrative_registry.json
 external_candidates:
   - id: arastories
     url: https://github.com/UBC-NLP/arastories
