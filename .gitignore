@@ -10,6 +10,7 @@ venv/
 runs/
 checkpoints/
 data/private/
+data/corpora/anhc/quarantine/
 *.pt
 *.pth
 *.safetensors
