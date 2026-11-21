@@ -1,0 +1,153 @@
+# Non-executable research profile: gates must be cleared before training.
+profile_id: ansg_ch5_three_stage_reconstruction_v1
+status: provisional_reconstruction
+historical_reproduction: false
+training_ready: false
+training_start_permitted: false
+
+traceability:
+  reconciliation: docs/CH4_CH5_IMPLEMENTATION_RECONCILIATION.md
+  variant_register: configs/specification/thesis_variants.yaml
+  conflict_ledger: docs/SPECIFICATION_CONFLICTS.md
+  gaps: docs/IMPLEMENTATION_GAPS.md
+  primary_protocol:
+    - "Chapter 5 overview, printed p.132"
+    - "Chapter 5 §§5.6.1-5.6.3, printed pp.149-150"
+    - "Chapter 5 Tables 5.8-5.9"
+  compatible_chapter4_components:
+    - "Chapter 4 §4.3 and Eqs. 4.16-4.19: cultural supervised objective, subject to label/formula availability"
+    - "Chapter 4 §4.5 and Eqs. 4.26-4.29: reported outer reward weights only"
+
+terminology:
+  csam_canonical: "Cultural Schema Attention Mechanism"
+  csam_chapter4_title_variant: "Cultural Semantic Alignment Module"
+  terminology_decision_scope: implementation_docs_and_new_reports_only
+
+backbone:
+  selection_status: unresolved
+  model_id: null
+  reported_target_parameters:
+    base_transformer: 774000000
+    cultural_modules: 73000000
+    total: 847000000
+  variants_to_preserve:
+    - id: chapter4_gpt2_medium
+      reported_parameters: 355000000
+      stated_role: "English GPT-2 Medium continued causal-LM pretraining on ANHC, §4.1.6"
+      candidate_as_earlier_checkpoint: true
+      transition_to_reported_847m_model: unverified
+    - id: chapter5_base_plus_cultural
+      reported_parameters: 847000000
+      stated_role: "774M base plus 73M cultural modules, Table 5.1"
+      concrete_checkpoint: unavailable
+    - id: appendix_a3_aragpt2_large
+      model_id: aubmindlab/aragpt2-large
+      reported_parameters: 847000000
+      concrete_checkpoint: unavailable
+  required_before_selection:
+    - original_or_author_verified_model_config
+    - checkpoint_or_provenance_record
+    - tokenizer_identity_and_vocabulary
+    - architecture_parameter_audit
+
+training_protocol:
+  selected_reconstruction_variant: chapter5_three_stage_with_gan
+  historical_protocol_status: unresolved
+  data:
+    total_pretraining_tokens_reported: 70400000
+    culturally_annotated_tokens_reported: 23000000
+    training_manifest: null
+    gold_annotation_manifest: null
+    split_manifest: null
+
+  phases:
+    - id: supervised
+      order: 1
+      epochs: [1, 30]
+      reported_duration_hours: 24
+      objective:
+        expression: "L_LM + lambda_align * L_cultural"
+        thesis_reference: "Chapter 5 §5.6.1; Chapter 4 Eqs. 4.16-4.19"
+        lambda_align: 0.1
+        status: partially_specified
+      data:
+        - "70.4M tokens for linguistic pretraining"
+        - "23M annotated tokens for cultural fine-tuning"
+      transition:
+        metric: validation_perplexity_relative_change
+        criterion: "< 5% over 1000 steps"
+      blocked_by:
+        - "verified data, annotation, and split manifests"
+        - "MOTIF codebook and usable cultural-span labels"
+        - "selected backbone and tokenizer"
+
+    - id: adversarial_gan
+      order: 2
+      epochs: [31, 65]
+      reported_duration_hours: 28
+      objective: generator_discriminator_minimax
+      discriminator:
+        reported_architecture: three_layer_cnn
+        feature_matching: true
+        replay_buffer_size: 10000
+      generated_samples_per_epoch_reported: 50000
+      transition:
+        metric: discriminator_accuracy
+        criterion: "< 0.70"
+      blocked_by:
+        - "verified implementation of the reported discriminator and feature-matching objective"
+        - "licensed authentic narrative training records"
+        - "real-run checkpoint and metric logging"
+
+    - id: rl_ppo
+      order: 3
+      epochs: [66, 100]
+      reported_duration_hours: 20
+      objective: ppo
+      reward_outer_weights:
+        cultural: 0.45
+        linguistic: 0.35
+        coherence: 0.20
+        source: "Chapter 4 Eqs. 4.26-4.29; Chapter 5 §5.6.3"
+      ppo:
+        clip: 0.20
+        value_coefficient: 0.5
+        entropy_coefficient: 0.01
+        gae_lambda: 0.95
+        ppo_epochs: 4
+        minibatch_size: 32
+        rollout_batch_size: 128
+        kl_coefficient: 0.01
+        learning_rate: 0.00001
+      reward_terms_status:
+        outer_weights: transcribed
+        cultural_submetrics: unresolved
+        linguistic_submetrics: unresolved
+        coherence_submetrics: unresolved
+        dissertation_cmpi: unavailable
+      transition:
+        metric: validation_cmpi_improvement
+        criterion: "< 0.01 for 10 consecutive epochs"
+      blocked_by:
+        - "authoritative, executable reward definitions"
+        - "CRAFT/CMPI formulas and validated inputs"
+        - "selected backbone, data, and checkpoints"
+
+  excluded_from_this_profile:
+    - variant: "Appendix A.2.6 four-phase schedule with multi-agent refinement"
+      reason: "retained as a thesis variant; not merged into the Chapter 5 schedule"
+
+required_provenance_for_any_real_run:
+  - exact_git_commit
+  - resolved_profile_digest
+  - model_and_tokenizer_digests
+  - licensed_data_source_and_split_digests
+  - seed
+  - software_environment
+  - hardware
+  - phase_checkpoints_and_logs
+
+evaluation_policy:
+  agent_assisted_review: "diagnostic only; not human evaluation"
+  human_evaluation_claims: "require the thesis protocol and recorded human ratings"
+  reported_thesis_metrics: "do not present as reproduced without matching artifacts"
