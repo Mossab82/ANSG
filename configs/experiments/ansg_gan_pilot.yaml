@@ -48,3 +48,18 @@ smoke_run:
     - "Smoke model is randomly initialized and byte-tokenized."
     - "Discriminator and feature-reward definitions are engineering choices."
     - "No CRAFT reward, thesis data, pretrained backbone, or historical checkpoint is implied."
+ablation_run:
+  completed: true
+  completed_at: "2026-11-22"
+  script: "scripts/gan_feature_matching_ablation.py"
+  data: "examples/demo.jsonl"
+  data_sha256: "87fcc25a8ec4a1be2cc8273bf7fe9cdf37f5cbe58bf1c15dec8e63f0c6736ad5"
+  seeds: [42, 43, 44, 45, 46]
+  coefficients: [0.0, 0.2]
+  steps_per_stage: 2
+  key_paired_deltas_0_2_minus_0:
+    combined_reward_mean: 0.0942822
+    combined_reward_sample_sd: 0.0047252
+    generator_loss_mean: 1.1752702
+    generator_loss_sample_sd: 0.3640611
+  interpretation: "engineering smoke ablation only; no narrative-quality inference"
