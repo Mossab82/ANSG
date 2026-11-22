@@ -1,0 +1,280 @@
+{
+  "schema": "ansg.anhc-training-readiness-audit/1.0",
+  "generated_at_utc": "2026-11-22T04:29:35.487674+00:00",
+  "policy_source": "data/corpora/anhc/training_admission_decisions.json",
+  "inputs": [
+    {
+      "path": "data/corpora/anhc/quarantine/merged_narrative_candidates.jsonl",
+      "records": 11368,
+      "source_count": 22,
+      "provisionally_training_eligible": 0,
+      "candidate_groups": 11346
+    }
+  ],
+  "total_input_rows_including_overlaps": 11368,
+  "unique_sources": 22,
+  "training_eligible_rows": 0,
+  "training_ready": false,
+  "split_counts_including_overlaps": {
+    "unassigned": 11368
+  },
+  "annotation_status_counts_including_overlaps": {
+    "dia:source_label_only_not_gold": 11326,
+    "dia:unannotated": 42,
+    "moral:source_metadata_only_not_gold": 11326,
+    "moral:unannotated": 42,
+    "motif:unannotated": 11368
+  },
+  "sources": [
+    {
+      "source_id": "arabian_nights-001",
+      "records": 3,
+      "copyright_status_counts": {
+        "unknown": 3
+      },
+      "license_claims": {
+        "missing": 3
+      },
+      "training_decision": "pending_or_incomplete"
+    },
+    {
+      "source_id": "arabian_nights-002",
+      "records": 3,
+      "copyright_status_counts": {
+        "unknown": 3
+      },
+      "license_claims": {
+        "missing": 3
+      },
+      "training_decision": "pending_or_incomplete"
+    },
+    {
+      "source_id": "arabian_nights-003",
+      "records": 4,
+      "copyright_status_counts": {
+        "unknown": 4
+      },
+      "license_claims": {
+        "missing": 4
+      },
+      "training_decision": "pending_or_incomplete"
+    },
+    {
+      "source_id": "arabian_nights-004",
+      "records": 1,
+      "copyright_status_counts": {
+        "unknown": 1
+      },
+      "license_claims": {
+        "missing": 1
+      },
+      "training_decision": "pending_or_incomplete"
+    },
+    {
+      "source_id": "arabian_nights-005",
+      "records": 1,
+      "copyright_status_counts": {
+        "unknown": 1
+      },
+      "license_claims": {
+        "missing": 1
+      },
+      "training_decision": "pending_or_incomplete"
+    },
+    {
+      "source_id": "kalila_dimna-006",
+      "records": 1,
+      "copyright_status_counts": {
+        "unknown": 1
+      },
+      "license_claims": {
+        "missing": 1
+      },
+      "training_decision": "pending_or_incomplete"
+    },
+    {
+      "source_id": "kalila_dimna-007",
+      "records": 1,
+      "copyright_status_counts": {
+        "unknown": 1
+      },
+      "license_claims": {
+        "missing": 1
+      },
+      "training_decision": "pending_or_incomplete"
+    },
+    {
+      "source_id": "kalila_dimna-008",
+      "records": 1,
+      "copyright_status_counts": {
+        "unknown": 1
+      },
+      "license_claims": {
+        "missing": 1
+      },
+      "training_decision": "pending_or_incomplete"
+    },
+    {
+      "source_id": "kalila_dimna-009",
+      "records": 1,
+      "copyright_status_counts": {
+        "unknown": 1
+      },
+      "license_claims": {
+        "missing": 1
+      },
+      "training_decision": "pending_or_incomplete"
+    },
+    {
+      "source_id": "kalila_dimna-010",
+      "records": 1,
+      "copyright_status_counts": {
+        "unknown": 1
+      },
+      "license_claims": {
+        "missing": 1
+      },
+      "training_decision": "pending_or_incomplete"
+    },
+    {
+      "source_id": "kalila_dimna-011",
+      "records": 1,
+      "copyright_status_counts": {
+        "unknown": 1
+      },
+      "license_claims": {
+        "missing": 1
+      },
+      "training_decision": "pending_or_incomplete"
+    },
+    {
+      "source_id": "kalila_dimna-012",
+      "records": 1,
+      "copyright_status_counts": {
+        "unknown": 1
+      },
+      "license_claims": {
+        "missing": 1
+      },
+      "training_decision": "pending_or_incomplete"
+    },
+    {
+      "source_id": "kalila_dimna-013",
+      "records": 1,
+      "copyright_status_counts": {
+        "unknown": 1
+      },
+      "license_claims": {
+        "missing": 1
+      },
+      "training_decision": "pending_or_incomplete"
+    },
+    {
+      "source_id": "kalila_dimna-014",
+      "records": 1,
+      "copyright_status_counts": {
+        "unknown": 1
+      },
+      "license_claims": {
+        "missing": 1
+      },
+      "training_decision": "pending_or_incomplete"
+    },
+    {
+      "source_id": "kalila_dimna-015",
+      "records": 1,
+      "copyright_status_counts": {
+        "unknown": 1
+      },
+      "license_claims": {
+        "missing": 1
+      },
+      "training_decision": "pending_or_incomplete"
+    },
+    {
+      "source_id": "kalila_dimna-016",
+      "records": 1,
+      "copyright_status_counts": {
+        "unknown": 1
+      },
+      "license_claims": {
+        "missing": 1
+      },
+      "training_decision": "pending_or_incomplete"
+    },
+    {
+      "source_id": "kalila_dimna-017",
+      "records": 1,
+      "copyright_status_counts": {
+        "unknown": 1
+      },
+      "license_claims": {
+        "missing": 1
+      },
+      "training_decision": "pending_or_incomplete"
+    },
+    {
+      "source_id": "kalila_dimna-018",
+      "records": 1,
+      "copyright_status_counts": {
+        "unknown": 1
+      },
+      "license_claims": {
+        "missing": 1
+      },
+      "training_decision": "pending_or_incomplete"
+    },
+    {
+      "source_id": "kalila_dimna-019",
+      "records": 1,
+      "copyright_status_counts": {
+        "unknown": 1
+      },
+      "license_claims": {
+        "missing": 1
+      },
+      "training_decision": "pending_or_incomplete"
+    },
+    {
+      "source_id": "kalila_dimna-020",
+      "records": 1,
+      "copyright_status_counts": {
+        "unknown": 1
+      },
+      "license_claims": {
+        "missing": 1
+      },
+      "training_decision": "pending_or_incomplete"
+    },
+    {
+      "source_id": "tinystories_algerian_darija_synthetic",
+      "records": 11326,
+      "copyright_status_counts": {
+        "rights_review_required_derivative_source_terms_not_adjudicated": 11326
+      },
+      "license_claims": {
+        "MIT (as declared by dataset card; upstream TinyStories is declared CDLA-Sharing-1.0)": 11326
+      },
+      "training_decision": "pending_or_incomplete"
+    },
+    {
+      "source_id": "user-pdf-كليلة ودمنة_31354_Foulabook.com_.pdf",
+      "records": 15,
+      "copyright_status_counts": {
+        "unknown": 15
+      },
+      "license_claims": {
+        "missing": 15
+      },
+      "training_decision": "pending_or_incomplete"
+    }
+  ],
+  "blocking_gates": [
+    "No source has a complete, source-specific training permission decision with evidence.",
+    "Current story-boundary and parallel-source links remain candidates requiring review.",
+    "DIA, MOTIF, and MORAL layers have no human-adjudicated gold annotations in current staging records.",
+    "No leakage-reviewed train/validation/test assignments are present.",
+    "Tokenizer-specific token counts and selected training tokenizer are not finalized."
+  ],
+  "warning": "This audit reports eligibility only. It does not adjudicate copyright, create annotations, assign splits, or copy text into a training export."
+}
