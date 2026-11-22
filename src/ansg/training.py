@@ -125,12 +125,14 @@ def generator_adversarial_step(model,discriminator,prompt_ids,schema_ids,optimiz
     model.train()
     with torch.no_grad():
         samples=model.generate(prompt_ids,schema_ids,dialect_ids,max_new_tokens=new_tokens)
-        if real_ids is not None and feature_matching_weight>0:
+        if real_ids is not None:
             real_logits,real_features=discriminator(real_ids,return_features=True)
             fake_logits,fake_features=discriminator(samples,return_features=True)
             target_features=real_features.mean(dim=0,keepdim=True)
             distances=(fake_features-target_features).pow(2).mean(dim=-1)
             scale=real_features.var(dim=0,unbiased=False).mean().sqrt().clamp_min(1e-6)
+            # Keep this diagnostic available for the zero-weight ablation arm;
+            # the score contributes to the reward only through its coefficient.
             feature_scores=torch.exp(-distances/scale).clamp(0,1)
         else:
             fake_logits=discriminator(samples)
