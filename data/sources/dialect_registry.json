@@ -1,8 +1,8 @@
 {
   "schema": "ansg.dialect_sources/1",
-  "reviewed_on": "2026-11-14",
-  "status": "metadata_only_no_dataset_downloads",
-  "purpose": "Independent dialect resource discovery for existing DAL, not a change to thesis architecture or original evaluation",
+  "reviewed_on": "2026-11-21",
+  "status": "resource_catalog_consolidated; Lahga snapshot imported_locally_to_quarantine; no dialect source admitted as gold",
+  "purpose": "Independent dialect resource discovery for existing DAL, not a change to thesis architecture or original evaluation. Linked lexical and dialect tools are catalogued by task, revision, and rights status. Lahga lexical data and one synthetic Algerian Darija story source are in local rights- and quality-gated quarantine; neither establishes thesis-reported ANHC completeness.",
   "datasets": [
     {
       "id": "MADAR",
@@ -122,6 +122,114 @@
       ],
       "limits": [
         "request original DOI/repository and license before any use"
+      ]
+    },
+    {
+      "id": "QCRI_Dialectal_Arabic_Resources",
+      "url": "https://alt.qcri.org/resources/da_resources/",
+      "repository_url": "https://github.com/qcri/dialectal_arabic_resources",
+      "verified": true,
+      "data": "Egyptian segmentation resource; four-dialect segmentation resource; and four-dialect POS resource with 350 manually segmented/POS-tagged tweets per dialect (Egyptian, Levantine, Gulf, Maghrebi)",
+      "license": "Apache-2.0 stated by QCRI resource page",
+      "roles": [
+        "morphological_segmentation_auxiliary",
+        "dialect_POS_auxiliary",
+        "separate_dialect_diagnostics"
+      ],
+      "limits": [
+        "tweet-level data, not narratives",
+        "keep all official benchmark/test folds out of ANHC story training",
+        "cite Darwish et al. (2018); preserve Apache-2.0 notice",
+        "download-specific terms and file integrity still to be recorded"
+      ]
+    },
+    {
+      "id": "Arabic_VerbNet",
+      "url": "https://github.com/JaouadMousser/Arabic-Verbnet",
+      "verified": true,
+      "data": "XML lexical verb classes with Arabic members, roots, deverbal forms, participles, syntactic frames, semantic roles/predicates, and example sentences",
+      "roles": [
+        "lexical_semantic_reference_candidate",
+        "morphology_and_CKG_candidate"
+      ],
+      "license_status": "not_verified_on_repository_landing_page",
+      "limits": [
+        "not a story corpus or dialect-labeled resource",
+        "check license and schema before copying or integrating",
+        "example sentences should not be counted as ANHC narratives"
+      ]
+    },
+    {
+      "id": "Arabic_Dialect_Identification_GitHub_Project",
+      "url": "https://github.com/Lafifi-24/arabic-dialect-identification",
+      "verified": true,
+      "data": "Classifier project and aggregated sentence-level data reported from arabic_pos_dialect, IADD, QADI, MADAR, plus 10,000 Wikipedia MSA sentences",
+      "roles": [
+        "classifier_baseline_reference",
+        "dataset_discovery"
+      ],
+      "license_status": "not_verified_in_project_readme_or_repository_listing",
+      "limits": [
+        "mixed data provenance; resolve each constituent license independently",
+        "do not import as story text or ANHC gold labels",
+        "avoid training on source benchmark test partitions",
+        "published README metrics are project-reported and require reproduction before comparison"
+      ]
+    },
+    {
+      "id": "Lahga_Arabic_Dialect_Dictionary",
+      "url": "https://huggingface.co/datasets/lahga/arabic-dialects",
+      "provider_url": "https://lahga.fyi",
+      "snapshot_date": "2026-10-02",
+      "verified": true,
+      "data": "2,012 MSA headwords; 25,072 dialect forms; 3,313 example sentences; 24 varieties",
+      "license": "CC-BY-SA-4.0",
+      "roles": [
+        "candidate_MSA_to_dialect_lexicon",
+        "candidate_for_dialect_story_guide"
+      ],
+      "status": "downloaded_and_normalized_to_local_quarantine",
+      "source_revision": "3bacbff0dede7f42c6f9d08a7ca56b7ca6bcdaa8",
+      "local_snapshot": "data/corpora/anhc/quarantine/external/lahga/",
+      "local_inventory": "data/corpora/anhc/quarantine/anhc_resource_inventory/anhc_resource_inventory.sqlite",
+      "observed_rows": {
+        "lexical_forms": 23428,
+        "examples": 2878,
+        "forms_flagged_needs_review": 3485
+      },
+      "limits": [
+        "3,606 of 25,072 forms are flagged needs_review; the card says over half of forms were first model-drafted",
+        "needs_review=false does not mean confirmed by a native speaker",
+        "coverage is uneven; the card reports only 25 Jordanian forms and 1,123 Yemeni forms",
+        "the source requests attribution and share-alike for derivatives and says models trained on it should follow the same licence",
+        "lexical resource, not a narrative formula/story corpus; no transliteration and no dialect verb paradigms"
+      ],
+      "admission": "candidate_only; human validation and licence-compatible release policy required",
+      "text_downloaded": true
+    },
+    {
+      "id": "TinyStories_Algerian_Darija",
+      "url": "https://huggingface.co/datasets/touati-kamel/TinyStories-Algerian-Darija/tree/82760dc9de372ff56a531766194f91f78e270520",
+      "upstream_url": "https://huggingface.co/datasets/roneneldan/TinyStories",
+      "verified": true,
+      "data": "11,326 synthetic Algerian Darija children stories; source-card count and local shard intake agree",
+      "source_revision": "82760dc9de372ff56a531766194f91f78e270520",
+      "source_license_claim": "MIT",
+      "upstream_license_claim": "CDLA-Sharing-1.0",
+      "local_intake": {
+        "words_whitespace": 1627572,
+        "exact_duplicate_texts": 0,
+        "status": "downloaded_local_git_ignored_quarantine"
+      },
+      "roles": [
+        "synthetic_dialect_story_candidate",
+        "quality_review_queue"
+      ],
+      "limits": [
+        "source card identifies corpus as synthetic adaptation from TinyStories",
+        "license obligations inherited from upstream have not been adjudicated",
+        "Algerian Darija only; source label not human-validated",
+        "not approved for training, redistribution, or gold annotation"
       ]
     }
   ],

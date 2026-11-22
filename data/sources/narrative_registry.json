@@ -1,0 +1,256 @@
+{
+  "schema": "ansg.anhc_narrative_sources/0.1",
+  "reviewed_on": "2026-11-21",
+  "purpose": "Candidate inventory for building the new ANHC corpus. Metadata discovery is not a download, rights clearance, annotation, or training admission.",
+  "status": "candidate_sources_reviewed; TinyStories Algerian cohort and user-supplied Kalila PDF candidates are locally staged under quarantine; other external narratives remain metadata-only",
+  "sources": [
+    {
+      "id": "darijastory_mbzuai_9esa",
+      "title": "DarijaStory",
+      "url": "https://huggingface.co/datasets/MBZUAI-Paris/DarijaStory",
+      "variety": [
+        "Moroccan Darija"
+      ],
+      "material": "4,392 long stories or story chapters; a single train split",
+      "provenance": "Dataset card reports web scraping from 9esa.com",
+      "declared_license": "ODC-BY (dataset card)",
+      "rights_status": "upstream_story_rights_require_review",
+      "admission_status": "priority_candidate_metadata_only",
+      "role": [
+        "long_form_dialect_narrative",
+        "story_completion"
+      ],
+      "blockers": [
+        "Confirm 9esa source terms and underlying author rights independently of the dataset-card license.",
+        "Inspect records, remove duplicates, and group chapters by parent story before assigning splits."
+      ],
+      "text_ingested": false
+    },
+    {
+      "id": "darija_stories_elfilali",
+      "title": "Darija (Moroccan Arabic) Stories Dataset",
+      "url": "https://huggingface.co/datasets/alielfilali01/Darija-Stories-Dataset",
+      "upstream_url": "https://huggingface.co/datasets/Ali-C137/Darija-Stories-Dataset",
+      "variety": [
+        "Moroccan Darija"
+      ],
+      "material": "6,142 chapter rows; dataset card claims over 70 million tokens",
+      "provenance": "Chapter text has author, URL, and tags fields per dataset card; exact upstream rights are not established here.",
+      "declared_license": "CC-BY-NC-4.0 (dataset card)",
+      "rights_status": "source_level_rights_and_license_scope_review_required",
+      "admission_status": "priority_candidate_metadata_only",
+      "role": [
+        "large_scale_dialect_narrative_candidate"
+      ],
+      "blockers": [
+        "Verify the license applies to each underlying work and not only the compilation.",
+        "Non-commercial restriction must be carried into all training and release decisions.",
+        "Recount tokens using the project tokenizer; do not use the reported 70M as ANHC count."
+      ],
+      "text_ingested": false
+    },
+    {
+      "id": "jordanian_storytelling_layla_witheeb",
+      "title": "Layla Witheeb: Jordanian Arabic Acoustic Dataset",
+      "url": "https://data.mendeley.com/datasets/v9n7g7ns49/1",
+      "doi": "10.17632/v9n7g7ns49.1",
+      "variety": [
+        "Jordanian Arabic"
+      ],
+      "material": "Audio, orthographic and phonetic transcripts, and metadata for 109 speakers reading and telling a short story",
+      "provenance": "Dataset paper reports native Jordanian university speakers and a reading plus storytelling task based on an adapted Little Red Riding Hood story.",
+      "declared_license": null,
+      "rights_status": "dataset_record_license_not_verified",
+      "admission_status": "high_value_jordanian_dialect_candidate_metadata_only",
+      "role": [
+        "spoken_dialect_evidence",
+        "retelling_comparison",
+        "human_dialect_review"
+      ],
+      "blockers": [
+        "Read the Mendeley record and verify dataset-specific license before transcript ingestion.",
+        "All recordings retell/read the same short story, so this is not a diverse plot corpus.",
+        "Treat transcripts as retellings, not independent authored stories."
+      ],
+      "text_ingested": false
+    },
+    {
+      "id": "curras_palestinian_story_subset",
+      "title": "Curras / Currasat Palestinian Arabic corpus",
+      "url": "https://sina.birzeit.edu/currasat/about-en.html",
+      "paper_url": "https://aclanthology.org/2022.lrec-1.82/",
+      "variety": [
+        "Palestinian Arabic (Levantine)"
+      ],
+      "material": "About 56K tokens in the earlier Curras description; corpus includes a limited story subset collected from different sources/forums, including a Cinderella story.",
+      "provenance": "Birzeit corpus and paper; narrative items are a subset of a broader morphologically annotated dialect corpus.",
+      "declared_license": "CC-BY-4.0 listed on the corpus download page (verify the exact release and included story sources).",
+      "rights_status": "release_and_story_subset_scope_review_required",
+      "admission_status": "candidate_for_small_levantine_story_subset_metadata_only",
+      "role": [
+        "levantine_story_subset",
+        "morphology_reference",
+        "dialect_review"
+      ],
+      "blockers": [
+        "Separate story records from lexicon, social media, and other corpus material.",
+        "Verify license/version and source-level rights for each story."
+      ],
+      "text_ingested": false
+    },
+    {
+      "id": "tinystories_algerian_darija_synthetic",
+      "title": "TinyStories Algerian Darija",
+      "url": "https://huggingface.co/datasets/touati-kamel/TinyStories-Algerian-Darija",
+      "variety": [
+        "Algerian Darija (Maghrebi)"
+      ],
+      "material": "11,326 parallel English–Darija child-story pairs; one train split",
+      "provenance": "Dataset card states machine-generated translation and cultural adaptation from TinyStories; underlying TinyStories is declared CDLA-Sharing-1.0.",
+      "declared_license": "MIT claimed for derivative dataset; source license is CDLA-Sharing-1.0.",
+      "rights_status": "derivative_license_compatibility_review_required",
+      "admission_status": "synthetic_supplement_only_local_quarantine_not_training_cleared",
+      "role": [
+        "synthetic_dialect_story_supplement",
+        "parallel_story_generation"
+      ],
+      "blockers": [
+        "Keep synthetic/adapted stories distinct from authentic folk or human-authored narratives.",
+        "Review source and derivative license obligations before use.",
+        "Group each English/Darija pair and source story in one split."
+      ],
+      "text_ingested": true,
+      "local_intake": {
+        "revision": "82760dc9de372ff56a531766194f91f78e270520",
+        "candidate_records": 11326,
+        "whitespace_words": 1627572,
+        "path": "data/corpora/anhc/quarantine/merged_narrative_candidates.jsonl",
+        "status": "quarantined; no human dialect validation; rights review pending"
+      }
+    },
+    {
+      "id": "algerian_darja_long_form_transcripts",
+      "title": "Algerian Darja Corpus",
+      "url": "https://huggingface.co/datasets/algerian-nlp/algerian-darja-corpus",
+      "doi": "10.5281/zenodo.22723182",
+      "variety": [
+        "Algerian Darija (Maghrebi)"
+      ],
+      "material": "11,151 long-form conversational transcript rows; paper-reported 34,336,366 words",
+      "provenance": "Dataset card reports YouTube podcast transcripts plus three audio collections; row-level source identifiers and licenses are absent.",
+      "declared_license": "CC-BY-4.0 (dataset card)",
+      "rights_status": "per_record_provenance_missing",
+      "admission_status": "dialect_style_auxiliary_candidate_metadata_only",
+      "role": [
+        "long_context_dialect_reference",
+        "spoken_style_auxiliary"
+      ],
+      "blockers": [
+        "Not a story dataset: conversational transcripts must not count as ANHC narrative tokens.",
+        "The card reports missing row-level source IDs/licenses; resolve provenance before importing.",
+        "Do not reuse the single train split as a test partition."
+      ],
+      "text_ingested": false
+    },
+    {
+      "id": "sanaa_ai_stories",
+      "title": "Sanaa AI dialect stories",
+      "url": "https://www.sanaa.ai/stories/index.php/",
+      "variety": [
+        "Palestinian-Jordanian",
+        "Palestinian",
+        "Yemeni",
+        "Moroccan (site labels)"
+      ],
+      "material": "Short modern dialect stories and proverb explanations",
+      "provenance": "Site-provided labels; authorship and generation process not established",
+      "declared_license": null,
+      "rights_status": "permission_and_authorship_required",
+      "admission_status": "discovery_and_human_review_only",
+      "role": [
+        "dialect_story_discovery"
+      ],
+      "blockers": [
+        "Do not scrape or ingest story text until authorship and reuse permissions are established.",
+        "Site dialect labels are not gold annotations."
+      ],
+      "text_ingested": false
+    },
+    {
+      "id": "arabic_stories_msa",
+      "title": "Arabic Stories Corpus",
+      "url": "https://github.com/motazsaad/Arabic-Stories-Corpus",
+      "variety": [
+        "MSA"
+      ],
+      "material": "Short stories",
+      "provenance": "Reported source websites need record-level review.",
+      "declared_license": "Apache-2.0 repository declaration",
+      "rights_status": "underlying_story_rights_review_required",
+      "admission_status": "candidate_metadata_only",
+      "role": [
+        "msa_story_supplement"
+      ],
+      "blockers": [
+        "Repository license alone does not establish that the underlying story texts may be redistributed or used for training."
+      ],
+      "text_ingested": false
+    },
+    {
+      "id": "arastories",
+      "title": "AraStories",
+      "url": "https://github.com/UBC-NLP/arastories",
+      "variety": [
+        "MSA",
+        "Egyptian",
+        "Moroccan"
+      ],
+      "material": "Stories and prompts",
+      "provenance": "Repository/paper describe generated and translated material.",
+      "declared_license": "MIT repository license",
+      "rights_status": "record_level_provenance_review_required",
+      "admission_status": "synthetic_or_translated_supplement_metadata_only",
+      "role": [
+        "prompted_story_generation_supplement"
+      ],
+      "blockers": [
+        "Separate model-generated, translated, and other records; MIT code/repository license does not by itself resolve rights in all content."
+      ],
+      "text_ingested": false
+    }
+  ],
+  "not_story_corpora": [
+    {
+      "id": "qcri_dialectal_arabic_resources",
+      "url": "https://alt.qcri.org/resources/da_resources/",
+      "role": "segmentation_and_pos_auxiliary",
+      "reason": "Tweets and task-specific dialect annotations, not long-form narratives."
+    },
+    {
+      "id": "arabic_verbnet",
+      "url": "https://github.com/JaouadMousser/Arabic-Verbnet",
+      "role": "lexical_semantic_reference_for_CKG_and_morphology",
+      "reason": "Verb lexicon and syntactic/semantic frames, not a story corpus; license still needs verification."
+    },
+    {
+      "id": "arabic_dialect_identification",
+      "url": "https://github.com/Lafifi-24/arabic-dialect-identification",
+      "role": "classifier_baseline_and_dataset_discovery",
+      "reason": "Mixed sentence-level classification data; not narrative text and constituent licenses vary."
+    },
+    {
+      "id": "wojood_arabic_ner",
+      "url": "https://github.com/SinaLab/ArabicNER",
+      "role": "nested_NER_component_candidate",
+      "reason": "NER annotations and models are useful for character/entity consistency, not for story generation training; full corpus access and model terms require review."
+    }
+  ],
+  "intake_order": [
+    "inspect dataset metadata, rows, duplicates, document and chapter relationships without copying copyrighted text into ANSG",
+    "verify dataset and underlying-source rights and pin dataset revision",
+    "run row-level genre, dialect, script, and quality profiling",
+    "create a separate quarantine staging file for approved text only",
+    "group parallel, nested, retold, and duplicate story families before a frozen split",
+    "annotate DIA, MOTIF, and MORAL with automatic, silver, and human-adjudicated gold kept distinct"
+  ]
+}

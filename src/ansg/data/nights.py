@@ -1,11 +1,15 @@
 """Ingestion of *One Thousand and One Nights* (ألف ليلة وليلة) source files.
 
-No corpus text is bundled with this repository. The pipeline reads the
-licensed edition files you supply and converts them into ANHC
-:class:`~ansg.data.records.NarrativeRecord` objects.
+The pipeline reads edition files and converts them into ANHC
+:class:`~ansg.data.records.NarrativeRecord` objects. The repository includes
+a heritage-text seed whose rights and segmentation are still under review.
 
 Structure handled
 -----------------
+The pipeline can read licensed edition files and the repository's current
+heritage seed. Seed-derived records remain staging material until their exact
+edition and reuse rights are cleared.
+
 The Nights have two cross-cutting divisions:
 
 * **Nights** — the frame-tale division marked by night headings

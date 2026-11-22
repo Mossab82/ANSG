@@ -1,7 +1,8 @@
 # Machine-readable transcription of the dissertation's model, training and reward
 # specifications. Each variant is quoted from ONE location in the thesis; nothing is
-# merged or resolved. Phase 2 must select a variant explicitly (decision required
-# from the author — docs/IMPLEMENTATION_GAPS.md §C). Conflict ids: docs/SPECIFICATION_CONFLICTS.md.
+# merged or resolved. The author-selected implementation profile is kept separately
+# in configs/experiments/ansg_ch5_selected.yaml (D7); that choice does not overwrite
+# these historical source variants. Conflict ids: docs/SPECIFICATION_CONFLICTS.md.
 #
 # Transcribed 2026-11-13 from the author-supplied Markdown export of the dissertation.
 # "public_fact" fields are facts about public models, not thesis claims.

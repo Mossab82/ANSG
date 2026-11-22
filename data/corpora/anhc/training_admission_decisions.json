@@ -1,0 +1,21 @@
+{
+  "schema": "ansg.anhc-training-admission/1.0",
+  "policy": "No source enters model training unless its source-specific training permission is documented. Training permission and redistribution permission are separate decisions.",
+  "decisions": {},
+  "candidate_rights_evidence": {
+    "kalila_dimna_1937_wikisource_scan": {
+      "url": "https://ar.wikisource.org/wiki/ملف:كليلة_ودمنة.pdf",
+      "bibliography": "Egypt, 1355 AH / 1937, al-Matba'a al-Amiriya, Bulaq",
+      "source_claim": "Wikisource labels this scan public domain",
+      "status": "candidate_evidence_only; exact lineage from the 15 existing mainspace story records to this scan is not yet mapped; local-jurisdiction applicability has not been assessed"
+    }
+  },
+  "decision_record_fields": {
+    "training_allowed": "boolean; true only when the license/permission basis covers model training",
+    "basis": "specific license clause, public-domain determination, or written permission identifier",
+    "evidence_url": "stable source URL or private evidence reference",
+    "reviewed_on": "YYYY-MM-DD",
+    "reviewer": "person who verified the evidence"
+  },
+  "note": "Empty by design: no current ANHC candidate source has yet passed the documented source-specific training-rights gate. Do not change this file to true based only on corpus ownership or a repository-level license badge."
+}
