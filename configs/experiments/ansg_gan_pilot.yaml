@@ -1,7 +1,7 @@
 # Chapter 5 GAN engineering profile. Exact thesis settings are retained where
 # reported; omitted CNN/feature-matching details are explicit pilot choices.
 schema: ansg.gan_pilot_profile/1.0
-status: prototype_configuration_not_yet_smoke_run
+status: prototype_smoke_run_completed_2026_11_22
 source: configs/specification/thesis_variants.yaml#training_protocol_variants.ch5_5_1_3
 reported_by_chapter_5:
   discriminator: "3-layer CNN"
@@ -24,9 +24,26 @@ replay_buffer:
   sample: one historical fake per current fake when available
 smoke_run:
   allowed: true
+  completed: true
+  completed_at: "2026-11-22"
   label: "GAN prototype smoke run; not Chapter 5 reproduction"
   recommended_steps: 1
   recommended_data: "examples/demo.jsonl"
+  output: "runs/gan-smoke-20261122 (git-ignored)"
+  observed:
+    device: cpu
+    pytorch: "2.15.0+cpu"
+    seed: 42
+    supervised_steps: 1
+    gan_steps: 1
+    ppo_steps: 1
+    discriminator_loss: 1.3884687
+    generator_loss: 0.7584128
+    adversarial_score: 0.5224243
+    feature_match_score: 0.9463364
+    combined_reward: 0.6072068
+    replay_items: 2
+    reward_type: "SURROGATE_NOT_CRAFT"
   caveats:
     - "Smoke model is randomly initialized and byte-tokenized."
     - "Discriminator and feature-reward definitions are engineering choices."
