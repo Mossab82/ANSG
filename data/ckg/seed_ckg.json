@@ -1,0 +1,5772 @@
+{
+ "metadata": {
+  "name": "ANSG seed CKG",
+  "source": "data/cultural_seeds (ChatGPT-drafted, pending native review)",
+  "note": "Stand-in for CST-Onto; not the dissertation's 847-concept ontology."
+ },
+ "ontology_classes": [
+  {
+   "iri": "virtue:justice",
+   "label": "justice"
+  },
+  {
+   "iri": "virtue:wisdom",
+   "label": "wisdom"
+  },
+  {
+   "iri": "virtue:courage",
+   "label": "courage"
+  },
+  {
+   "iri": "virtue:temperance",
+   "label": "temperance"
+  },
+  {
+   "iri": "virtue:faith",
+   "label": "faith"
+  },
+  {
+   "iri": "virtue:charity",
+   "label": "charity"
+  },
+  {
+   "iri": "virtue:patience",
+   "label": "patience"
+  },
+  {
+   "iri": "virtue:gratitude",
+   "label": "gratitude"
+  },
+  {
+   "iri": "virtue:social_bond",
+   "label": "social_bond"
+  }
+ ],
+ "nodes": [
+  {
+   "id": "character:090a33b547",
+   "kind": "character",
+   "labels": {
+    "ar": "الجني"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:11a08460e9",
+   "kind": "character",
+   "labels": {
+    "ar": "الفلاح"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:1ec8e80d93",
+   "kind": "character",
+   "labels": {
+    "ar": "أبو زيد الهلالي"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:26eebbf6b5",
+   "kind": "character",
+   "labels": {
+    "ar": "دنيازاد"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:4c9c1ee530",
+   "kind": "character",
+   "labels": {
+    "ar": "ست الحسن والجمال"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:57f2760f7b",
+   "kind": "character",
+   "labels": {
+    "ar": "الحكيم أو الطبيب"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:5b75dc2e94",
+   "kind": "character",
+   "labels": {
+    "ar": "الراعي المسافر"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:5de5a00671",
+   "kind": "character",
+   "labels": {
+    "ar": "الحكواتي أو الراوي"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:664d99a576",
+   "kind": "character",
+   "labels": {
+    "ar": "الملك شهريار"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:68c478296b",
+   "kind": "character",
+   "labels": {
+    "ar": "عنترة بن شداد"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:6d045c9d22",
+   "kind": "character",
+   "labels": {
+    "ar": "الراوية الجدة في حكاية الحزاوي الكويتية"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:76d73df0dc",
+   "kind": "character",
+   "labels": {
+    "ar": "الراوية شهرزاد"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:7daa037e6e",
+   "kind": "character",
+   "labels": {
+    "ar": "السندباد البحري (شخصية من التراث السردي العربي)"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:7f99a4a8bb",
+   "kind": "character",
+   "labels": {
+    "ar": "السلطان أو الحاكم"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:8f3008e1a1",
+   "kind": "character",
+   "labels": {
+    "ar": "التاجر القادم إلى السوق"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:9f223e7f62",
+   "kind": "character",
+   "labels": {
+    "ar": "الجدة الراوية"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:ac4dffe10b",
+   "kind": "character",
+   "labels": {
+    "ar": "الغواص الباحث عن اللؤلؤ"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:accfb12a2c",
+   "kind": "character",
+   "labels": {
+    "ar": "الشاطر علي"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:ad191d99f7",
+   "kind": "character",
+   "labels": {
+    "ar": "الفقيه أو الحكيم"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:b5c3c28b3e",
+   "kind": "character",
+   "labels": {
+    "ar": "الشاطر حسن"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:b951ae3b62",
+   "kind": "character",
+   "labels": {
+    "ar": "الشاطر محمد"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:bc4f1cfdd0",
+   "kind": "character",
+   "labels": {
+    "ar": "جحا في الحكاية المغربية"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:bc803aa92d",
+   "kind": "character",
+   "labels": {
+    "ar": "السندباد البحري"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:bfe78493a5",
+   "kind": "character",
+   "labels": {
+    "ar": "الملك أو السلطان"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:c3c42f30bc",
+   "kind": "character",
+   "labels": {
+    "ar": "جحا (شخصية حكائية عربية مشتركة)"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:c41dce2945",
+   "kind": "character",
+   "labels": {
+    "ar": "جحا"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:c73b606acb",
+   "kind": "character",
+   "labels": {
+    "ar": "الراعي"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:ce3542d0b5",
+   "kind": "character",
+   "labels": {
+    "ar": "التاجر في السوق"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:d43a5c04ed",
+   "kind": "character",
+   "labels": {
+    "ar": "البدوي المسافر في الصحراء"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:d6c664a905",
+   "kind": "character",
+   "labels": {
+    "ar": "التاجر المسافر"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:db02d98bd9",
+   "kind": "character",
+   "labels": {
+    "ar": "النوخذة، ربان السفينة"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:dd322a7167",
+   "kind": "character",
+   "labels": {
+    "ar": "الغولة"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:dfc66e8e36",
+   "kind": "character",
+   "labels": {
+    "ar": "التاجر"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:e02e8cb4f5",
+   "kind": "character",
+   "labels": {
+    "ar": "الحاكم أو الشيخ الذي يفصل بين الخصوم"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:e7bf3e1d17",
+   "kind": "character",
+   "labels": {
+    "ar": "الصياد"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:ebb2aacfc8",
+   "kind": "character",
+   "labels": {
+    "ar": "الوزير"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:ec3b3e6d77",
+   "kind": "character",
+   "labels": {
+    "ar": "عائشة قنديشة في الحكايات الشعبية"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "character:f467ff08ff",
+   "kind": "character",
+   "labels": {
+    "ar": "الحرفي أو الصانع"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "closing:0c751acc1a",
+   "kind": "closing",
+   "labels": {
+    "ar": "عاشوا في تبات ونبات وخلفوا صبيان وبنات"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "closing:4b74866517",
+   "kind": "closing",
+   "labels": {
+    "ar": "وطار الطير، الله يمسيكو بخير"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "closing:5acc347d49",
+   "kind": "closing",
+   "labels": {
+    "ar": "وحكايتي حكيتها وبقلبكم حبيتها، إن شاء الله تحبوها زي ما أنا حبيتها"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "closing:5c93036135",
+   "kind": "closing",
+   "labels": {
+    "ar": "وأدرك شهرزاد الصباح، فسكتت عن الكلام المباح."
+   },
+   "attributes": {}
+  },
+  {
+   "id": "closing:5dece733d8",
+   "kind": "closing",
+   "labels": {
+    "ar": "إيوا، هادا هو الكلام"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "closing:7892559dde",
+   "kind": "closing",
+   "labels": {
+    "ar": "هادا ما قالو الأجواد، والله أعلم"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "closing:7fdbfc406d",
+   "kind": "closing",
+   "labels": {
+    "ar": "وسبتهم وجيت حتى العشا ما اتعشيت"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "closing:8a32b6c454",
+   "kind": "closing",
+   "labels": {
+    "ar": "وعاشوا جميعًا في هناءٍ وصفاءٍ إلى أن أتاهم هازم اللذات ومفرّق الجماعات."
+   },
+   "attributes": {}
+  },
+  {
+   "id": "closing:8e094e7b17",
+   "kind": "closing",
+   "labels": {
+    "ar": "ولم يزالوا في عشرةٍ ومودةٍ إلى أن أتاهم هادم اللذات ومفرّق الجماعات."
+   },
+   "attributes": {}
+  },
+  {
+   "id": "closing:935ff9375a",
+   "kind": "closing",
+   "labels": {
+    "ar": "وخلّصت وملّصت ورحنا ويّنا ما عطونا شيء"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "closing:9c103c7b86",
+   "kind": "closing",
+   "labels": {
+    "ar": "حجايتنا مشات للواد الواد، وحنا بقينا مع الأجواد"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "closing:a144380287",
+   "kind": "closing",
+   "labels": {
+    "ar": "توتة توتة فرغت الحدوتة إن كانت حلوة ولا ملتوتة"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "closing:c358ddbb9c",
+   "kind": "closing",
+   "labels": {
+    "ar": "وعاشوا في تبات ونبات وخلفوا صبيان وبنات"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "closing:df6fe2a1a5",
+   "kind": "closing",
+   "labels": {
+    "ar": "هاي حكايتي حكيتها وعليكو رميتها"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "closing:f639443f9d",
+   "kind": "closing",
+   "labels": {
+    "ar": "كنت عندهم وجيت، ولولا الطاقية مخروقة كنت جبت لكم شوية مسلوقة"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "marker:00c738dbec",
+   "kind": "marker",
+   "labels": {
+    "ar": "منيح، الحمد لله"
+   },
+   "attributes": {
+    "msa": "أنا بخير"
+   }
+  },
+  {
+   "id": "marker:02c6849424",
+   "kind": "marker",
+   "labels": {
+    "ar": "هسا"
+   },
+   "attributes": {
+    "msa": "الآن"
+   }
+  },
+  {
+   "id": "marker:0307efe88a",
+   "kind": "marker",
+   "labels": {
+    "ar": "شو بتعمل؟"
+   },
+   "attributes": {
+    "msa": "ماذا تفعل؟"
+   }
+  },
+  {
+   "id": "marker:0443d89119",
+   "kind": "marker",
+   "labels": {
+    "ar": "أكلت؟"
+   },
+   "attributes": {
+    "msa": "هل أكلت؟"
+   }
+  },
+  {
+   "id": "marker:05bea70d47",
+   "kind": "marker",
+   "labels": {
+    "ar": "هلأ"
+   },
+   "attributes": {
+    "msa": "الآن"
+   }
+  },
+  {
+   "id": "marker:065ff1011d",
+   "kind": "marker",
+   "labels": {
+    "ar": "وين؟"
+   },
+   "attributes": {
+    "msa": "أين؟"
+   }
+  },
+  {
+   "id": "marker:06e80b0b32",
+   "kind": "marker",
+   "labels": {
+    "ar": "ولما طال عليه الانتظار، غلبه النعاس."
+   },
+   "attributes": {
+    "msa": "ولما طال عليه الانتظار، غلبه النعاس."
+   }
+  },
+  {
+   "id": "marker:0774187bcb",
+   "kind": "marker",
+   "labels": {
+    "ar": "وما إن فرغ من كلامه حتى ساد الصمت."
+   },
+   "attributes": {
+    "msa": "وما إن فرغ من كلامه حتى ساد الصمت."
+   }
+  },
+  {
+   "id": "marker:0801bad9c5",
+   "kind": "marker",
+   "labels": {
+    "ar": "شنو بغيتي؟"
+   },
+   "attributes": {
+    "msa": "ماذا تريد؟"
+   }
+  },
+  {
+   "id": "marker:08a423d793",
+   "kind": "marker",
+   "labels": {
+    "ar": "إيش بدك؟"
+   },
+   "attributes": {
+    "msa": "ماذا تريد؟"
+   }
+  },
+  {
+   "id": "marker:0a1b262122",
+   "kind": "marker",
+   "labels": {
+    "ar": "أبي موية."
+   },
+   "attributes": {
+    "msa": "أريد ماءً."
+   }
+  },
+  {
+   "id": "marker:0b4448b12b",
+   "kind": "marker",
+   "labels": {
+    "ar": "إيش تبغى؟"
+   },
+   "attributes": {
+    "msa": "ماذا تريد؟"
+   }
+  },
+  {
+   "id": "marker:0ff5d23ab3",
+   "kind": "marker",
+   "labels": {
+    "ar": "يلا نروح"
+   },
+   "attributes": {
+    "msa": "هيا بنا نذهب"
+   }
+  },
+  {
+   "id": "marker:10eb190558",
+   "kind": "marker",
+   "labels": {
+    "ar": "آش واقع؟"
+   },
+   "attributes": {
+    "msa": "ماذا يحدث؟"
+   }
+  },
+  {
+   "id": "marker:15fa1f0891",
+   "kind": "marker",
+   "labels": {
+    "ar": "شنو هاد الشي؟"
+   },
+   "attributes": {
+    "msa": "ما هذا؟"
+   }
+  },
+  {
+   "id": "marker:1af8fddedc",
+   "kind": "marker",
+   "labels": {
+    "ar": "زعموا أنَّ في بلادٍ بعيدةٍ ملكًا عادلًا."
+   },
+   "attributes": {
+    "msa": "زعموا أنَّ في بلادٍ بعيدةٍ ملكًا عادلًا."
+   }
+  },
+  {
+   "id": "marker:1c8e229671",
+   "kind": "marker",
+   "labels": {
+    "ar": "الحين."
+   },
+   "attributes": {
+    "msa": "الآن."
+   }
+  },
+  {
+   "id": "marker:1dee919cbb",
+   "kind": "marker",
+   "labels": {
+    "ar": "منين نتا؟"
+   },
+   "attributes": {
+    "msa": "من أين أنت؟"
+   }
+  },
+  {
+   "id": "marker:1e545acc88",
+   "kind": "marker",
+   "labels": {
+    "ar": "ليش؟"
+   },
+   "attributes": {
+    "msa": "لماذا؟"
+   }
+  },
+  {
+   "id": "marker:1f458d2bc8",
+   "kind": "marker",
+   "labels": {
+    "ar": "رايح"
+   },
+   "attributes": {
+    "msa": "أنا ذاهب"
+   }
+  },
+  {
+   "id": "marker:232c0a6494",
+   "kind": "marker",
+   "labels": {
+    "ar": "شنو غادي تدير؟"
+   },
+   "attributes": {
+    "msa": "ماذا ستفعل؟"
+   }
+  },
+  {
+   "id": "marker:24a24fa0ce",
+   "kind": "marker",
+   "labels": {
+    "ar": "واش لاباس؟"
+   },
+   "attributes": {
+    "msa": "هل أنت بخير؟"
+   }
+  },
+  {
+   "id": "marker:24fd5ca789",
+   "kind": "marker",
+   "labels": {
+    "ar": "هلّق"
+   },
+   "attributes": {
+    "msa": "الآن"
+   }
+  },
+  {
+   "id": "marker:29d720e936",
+   "kind": "marker",
+   "labels": {
+    "ar": "مش عارف"
+   },
+   "attributes": {
+    "msa": "لا أعرف"
+   }
+  },
+  {
+   "id": "marker:2a1c9c875f",
+   "kind": "marker",
+   "labels": {
+    "ar": "وبعد أن هدأ الغضب، تصالح الخصمان."
+   },
+   "attributes": {
+    "msa": "وبعد أن هدأ الغضب، تصالح الخصمان."
+   }
+  },
+  {
+   "id": "marker:2d6316cc81",
+   "kind": "marker",
+   "labels": {
+    "ar": "عندئذٍ أدرك أنه وقع في حيلة."
+   },
+   "attributes": {
+    "msa": "عندئذٍ أدرك أنه وقع في حيلة."
+   }
+  },
+  {
+   "id": "marker:33f5e9f4cc",
+   "kind": "marker",
+   "labels": {
+    "ar": "ما رحتش"
+   },
+   "attributes": {
+    "msa": "لم أذهب"
+   }
+  },
+  {
+   "id": "marker:344dd2c4a4",
+   "kind": "marker",
+   "labels": {
+    "ar": "لاباس؟"
+   },
+   "attributes": {
+    "msa": "كيف حالك؟"
+   }
+  },
+  {
+   "id": "marker:3ab7abbe20",
+   "kind": "marker",
+   "labels": {
+    "ar": "عافاك."
+   },
+   "attributes": {
+    "msa": "من فضلك."
+   }
+  },
+  {
+   "id": "marker:3b654dbba0",
+   "kind": "marker",
+   "labels": {
+    "ar": "فإذا بالباب يُفتح، وإذا بغريبٍ يدخل."
+   },
+   "attributes": {
+    "msa": "فإذا بالباب يُفتح، وإذا بغريبٍ يدخل."
+   }
+  },
+  {
+   "id": "marker:3b8a41e7da",
+   "kind": "marker",
+   "labels": {
+    "ar": "ما بدي"
+   },
+   "attributes": {
+    "msa": "لا أريد"
+   }
+  },
+  {
+   "id": "marker:3cb20ec288",
+   "kind": "marker",
+   "labels": {
+    "ar": "إمتى؟"
+   },
+   "attributes": {
+    "msa": "متى؟"
+   }
+  },
+  {
+   "id": "marker:3f6b32b40c",
+   "kind": "marker",
+   "labels": {
+    "ar": "إيه."
+   },
+   "attributes": {
+    "msa": "نعم."
+   }
+  },
+  {
+   "id": "marker:40a8fe1a9a",
+   "kind": "marker",
+   "labels": {
+    "ar": "أوي"
+   },
+   "attributes": {
+    "msa": "كثير جدًا"
+   }
+  },
+  {
+   "id": "marker:41130b7e72",
+   "kind": "marker",
+   "labels": {
+    "ar": "شلونك؟"
+   },
+   "attributes": {
+    "msa": "كيف حالك؟"
+   }
+  },
+  {
+   "id": "marker:42a5edd790",
+   "kind": "marker",
+   "labels": {
+    "ar": "فما إن دخل القصر حتى أُغلقت الأبواب."
+   },
+   "attributes": {
+    "msa": "فما إن دخل القصر حتى أُغلقت الأبواب."
+   }
+  },
+  {
+   "id": "marker:435f95e79c",
+   "kind": "marker",
+   "labels": {
+    "ar": "دابا."
+   },
+   "attributes": {
+    "msa": "الآن."
+   }
+  },
+  {
+   "id": "marker:436605f2f3",
+   "kind": "marker",
+   "labels": {
+    "ar": "هلق"
+   },
+   "attributes": {
+    "msa": "الآن"
+   }
+  },
+  {
+   "id": "marker:46a8d61939",
+   "kind": "marker",
+   "labels": {
+    "ar": "وفي صباح اليوم التالي، استعدّ للرحيل."
+   },
+   "attributes": {
+    "msa": "وفي صباح اليوم التالي، استعدّ للرحيل."
+   }
+  },
+  {
+   "id": "marker:4739f54e92",
+   "kind": "marker",
+   "labels": {
+    "ar": "شفيك؟"
+   },
+   "attributes": {
+    "msa": "ما بك؟"
+   }
+  },
+  {
+   "id": "marker:490d1c49b7",
+   "kind": "marker",
+   "labels": {
+    "ar": "يلا بينا"
+   },
+   "attributes": {
+    "msa": "هيا بنا"
+   }
+  },
+  {
+   "id": "marker:4a9ea75dee",
+   "kind": "marker",
+   "labels": {
+    "ar": "ما فهمت"
+   },
+   "attributes": {
+    "msa": "لا أفهم"
+   }
+  },
+  {
+   "id": "marker:4c3ee3127f",
+   "kind": "marker",
+   "labels": {
+    "ar": "ولمّا انقضى الليل، عاد كلٌّ إلى داره."
+   },
+   "attributes": {
+    "msa": "ولمّا انقضى الليل، عاد كلٌّ إلى داره."
+   }
+  },
+  {
+   "id": "marker:5038a38035",
+   "kind": "marker",
+   "labels": {
+    "ar": "شحالك؟"
+   },
+   "attributes": {
+    "msa": "كيف حالك؟"
+   }
+  },
+  {
+   "id": "marker:503c4b19e2",
+   "kind": "marker",
+   "labels": {
+    "ar": "شوية."
+   },
+   "attributes": {
+    "msa": "قليلًا."
+   }
+  },
+  {
+   "id": "marker:50433319e3",
+   "kind": "marker",
+   "labels": {
+    "ar": "ما كاينش."
+   },
+   "attributes": {
+    "msa": "لا يوجد."
+   }
+  },
+  {
+   "id": "marker:50ddf7b897",
+   "kind": "marker",
+   "labels": {
+    "ar": "وبينما هو يسير في الطريق، إذا بفارسٍ مقبل."
+   },
+   "attributes": {
+    "msa": "وبينما هو يسير في الطريق، إذا بفارسٍ مقبل."
+   }
+  },
+  {
+   "id": "marker:563e17c867",
+   "kind": "marker",
+   "labels": {
+    "ar": "أما هو، فقد آثر الصمت."
+   },
+   "attributes": {
+    "msa": "أما هو، فقد آثر الصمت."
+   }
+  },
+  {
+   "id": "marker:56ae75f4aa",
+   "kind": "marker",
+   "labels": {
+    "ar": "أبغى موية."
+   },
+   "attributes": {
+    "msa": "أريد ماءً."
+   }
+  },
+  {
+   "id": "marker:5754859f3c",
+   "kind": "marker",
+   "labels": {
+    "ar": "وش صار؟"
+   },
+   "attributes": {
+    "msa": "ماذا حدث؟"
+   }
+  },
+  {
+   "id": "marker:5815a133a0",
+   "kind": "marker",
+   "labels": {
+    "ar": "مفيش"
+   },
+   "attributes": {
+    "msa": "لا يوجد"
+   }
+  },
+  {
+   "id": "marker:5ab2aad682",
+   "kind": "marker",
+   "labels": {
+    "ar": "أبي ماي."
+   },
+   "attributes": {
+    "msa": "أريد ماءً."
+   }
+  },
+  {
+   "id": "marker:5ce22fb06b",
+   "kind": "marker",
+   "labels": {
+    "ar": "فين ساكن؟"
+   },
+   "attributes": {
+    "msa": "أين تسكن؟"
+   }
+  },
+  {
+   "id": "marker:5dd65b4403",
+   "kind": "marker",
+   "labels": {
+    "ar": "فين غادي؟"
+   },
+   "attributes": {
+    "msa": "إلى أين تذهب؟"
+   }
+  },
+  {
+   "id": "marker:5f9629d716",
+   "kind": "marker",
+   "labels": {
+    "ar": "لوين رايح؟"
+   },
+   "attributes": {
+    "msa": "إلى أين تذهب؟"
+   }
+  },
+  {
+   "id": "marker:60b5e714db",
+   "kind": "marker",
+   "labels": {
+    "ar": "فلما أصبح الصباح، أضاءت الشمس."
+   },
+   "attributes": {
+    "msa": "فلما أصبح الصباح، أضاءت الشمس."
+   }
+  },
+  {
+   "id": "marker:616fef5b92",
+   "kind": "marker",
+   "labels": {
+    "ar": "شنو سميتك؟"
+   },
+   "attributes": {
+    "msa": "ما اسمك؟"
+   }
+  },
+  {
+   "id": "marker:62ae8aaa4d",
+   "kind": "marker",
+   "labels": {
+    "ar": "مرحبا."
+   },
+   "attributes": {
+    "msa": "أهلًا وسهلًا."
+   }
+  },
+  {
+   "id": "marker:644d4637af",
+   "kind": "marker",
+   "labels": {
+    "ar": "بزاف."
+   },
+   "attributes": {
+    "msa": "كثيرًا."
+   }
+  },
+  {
+   "id": "marker:6843f6d461",
+   "kind": "marker",
+   "labels": {
+    "ar": "بكام؟"
+   },
+   "attributes": {
+    "msa": "كم ثمنه؟"
+   }
+  },
+  {
+   "id": "marker:694e7f35b8",
+   "kind": "marker",
+   "labels": {
+    "ar": "أنا غادي دابا."
+   },
+   "attributes": {
+    "msa": "أنا ذاهب الآن."
+   }
+  },
+  {
+   "id": "marker:69bfa06d51",
+   "kind": "marker",
+   "labels": {
+    "ar": "باغي."
+   },
+   "attributes": {
+    "msa": "أريد (يقولها رجل)."
+   }
+  },
+  {
+   "id": "marker:6a1db4856d",
+   "kind": "marker",
+   "labels": {
+    "ar": "ماشي هكاك."
+   },
+   "attributes": {
+    "msa": "ليس كذلك."
+   }
+  },
+  {
+   "id": "marker:6b8eb64380",
+   "kind": "marker",
+   "labels": {
+    "ar": "وما هي إلا لحظاتٌ حتى سمع طرقًا على الباب."
+   },
+   "attributes": {
+    "msa": "وما هي إلا لحظاتٌ حتى سمع طرقًا على الباب."
+   }
+  },
+  {
+   "id": "marker:6c59826773",
+   "kind": "marker",
+   "labels": {
+    "ar": "واش بغيتي شي حاجة؟"
+   },
+   "attributes": {
+    "msa": "هل تريد شيئًا؟"
+   }
+  },
+  {
+   "id": "marker:6cadb4dacf",
+   "kind": "marker",
+   "labels": {
+    "ar": "إزاي؟"
+   },
+   "attributes": {
+    "msa": "كيف؟"
+   }
+  },
+  {
+   "id": "marker:6dda45c1e2",
+   "kind": "marker",
+   "labels": {
+    "ar": "وكان ذلك سببًا في تغيّر مجرى الأحداث."
+   },
+   "attributes": {
+    "msa": "وكان ذلك سببًا في تغيّر مجرى الأحداث."
+   }
+  },
+  {
+   "id": "marker:703474adcc",
+   "kind": "marker",
+   "labels": {
+    "ar": "مين؟"
+   },
+   "attributes": {
+    "msa": "من؟"
+   }
+  },
+  {
+   "id": "marker:71c9385f33",
+   "kind": "marker",
+   "labels": {
+    "ar": "كيفك؟"
+   },
+   "attributes": {
+    "msa": "كيف حالك؟"
+   }
+  },
+  {
+   "id": "marker:73ab0a9450",
+   "kind": "marker",
+   "labels": {
+    "ar": "ما أبي."
+   },
+   "attributes": {
+    "msa": "لا أريد."
+   }
+  },
+  {
+   "id": "marker:74e1c03548",
+   "kind": "marker",
+   "labels": {
+    "ar": "تعالى"
+   },
+   "attributes": {
+    "msa": "تعالَ"
+   }
+  },
+  {
+   "id": "marker:75d542cda4",
+   "kind": "marker",
+   "labels": {
+    "ar": "بتعمل إيه؟"
+   },
+   "attributes": {
+    "msa": "ماذا تفعل؟"
+   }
+  },
+  {
+   "id": "marker:77959d2fa7",
+   "kind": "marker",
+   "labels": {
+    "ar": "استنى"
+   },
+   "attributes": {
+    "msa": "انتظر"
+   }
+  },
+  {
+   "id": "marker:7cfbe292d7",
+   "kind": "marker",
+   "labels": {
+    "ar": "وين ساير؟"
+   },
+   "attributes": {
+    "msa": "إلى أين تذهب؟"
+   }
+  },
+  {
+   "id": "marker:8282abbbac",
+   "kind": "marker",
+   "labels": {
+    "ar": "هيش وراك؟"
+   },
+   "attributes": {
+    "msa": "ماذا يوجد لديك؟"
+   }
+  },
+  {
+   "id": "marker:8749f4225d",
+   "kind": "marker",
+   "labels": {
+    "ar": "بروح كل يوم"
+   },
+   "attributes": {
+    "msa": "أذهب كل يوم"
+   }
+  },
+  {
+   "id": "marker:8a84898e7f",
+   "kind": "marker",
+   "labels": {
+    "ar": "شنو تبي؟"
+   },
+   "attributes": {
+    "msa": "ماذا تريد؟"
+   }
+  },
+  {
+   "id": "marker:8c4471b806",
+   "kind": "marker",
+   "labels": {
+    "ar": "وفي تلك الأثناء، كان رفيقه ينتظره."
+   },
+   "attributes": {
+    "msa": "وفي تلك الأثناء، كان رفيقه ينتظره."
+   }
+  },
+  {
+   "id": "marker:9043c3df15",
+   "kind": "marker",
+   "labels": {
+    "ar": "شو بدك؟"
+   },
+   "attributes": {
+    "msa": "ماذا تريد؟"
+   }
+  },
+  {
+   "id": "marker:9123845e33",
+   "kind": "marker",
+   "labels": {
+    "ar": "إزيك؟"
+   },
+   "attributes": {
+    "msa": "كيف حالك؟"
+   }
+  },
+  {
+   "id": "marker:91d0c10387",
+   "kind": "marker",
+   "labels": {
+    "ar": "مرّة حلو."
+   },
+   "attributes": {
+    "msa": "جميل جدًا."
+   }
+  },
+  {
+   "id": "marker:920b1fc076",
+   "kind": "marker",
+   "labels": {
+    "ar": "لو سمحت"
+   },
+   "attributes": {
+    "msa": "من فضلك"
+   }
+  },
+  {
+   "id": "marker:935d7cce0b",
+   "kind": "marker",
+   "labels": {
+    "ar": "دلوقتي"
+   },
+   "attributes": {
+    "msa": "الآن"
+   }
+  },
+  {
+   "id": "marker:9848529836",
+   "kind": "marker",
+   "labels": {
+    "ar": "وين رايح؟"
+   },
+   "attributes": {
+    "msa": "إلى أين تذهب؟"
+   }
+  },
+  {
+   "id": "marker:98627db44b",
+   "kind": "marker",
+   "labels": {
+    "ar": "تعال لهون"
+   },
+   "attributes": {
+    "msa": "تعال إلى هنا"
+   }
+  },
+  {
+   "id": "marker:9b163c2248",
+   "kind": "marker",
+   "labels": {
+    "ar": "بلغني أيها الملك السعيد أن..."
+   },
+   "attributes": {
+    "msa": "بلغني أيها الملك السعيد أن..."
+   }
+  },
+  {
+   "id": "marker:9b174480e7",
+   "kind": "marker",
+   "labels": {
+    "ar": "وفي ليلةٍ من الليالي، سمع صوتًا عجيبًا."
+   },
+   "attributes": {
+    "msa": "وفي ليلةٍ من الليالي، سمع صوتًا عجيبًا."
+   }
+  },
+  {
+   "id": "marker:9bfe6d39e4",
+   "kind": "marker",
+   "labels": {
+    "ar": "بدي"
+   },
+   "attributes": {
+    "msa": "أريد"
+   }
+  },
+  {
+   "id": "marker:9ed28936a0",
+   "kind": "marker",
+   "labels": {
+    "ar": "مش فاهم"
+   },
+   "attributes": {
+    "msa": "لا أفهم"
+   }
+  },
+  {
+   "id": "marker:a0d2e3bfcb",
+   "kind": "marker",
+   "labels": {
+    "ar": "فأخذ يحدثه بما جرى له."
+   },
+   "attributes": {
+    "msa": "فأخذ يحدثه بما جرى له."
+   }
+  },
+  {
+   "id": "marker:a19b7ad0b9",
+   "kind": "marker",
+   "labels": {
+    "ar": "سمح ليا."
+   },
+   "attributes": {
+    "msa": "سامحني."
+   }
+  },
+  {
+   "id": "marker:a868c5e6ac",
+   "kind": "marker",
+   "labels": {
+    "ar": "واجد."
+   },
+   "attributes": {
+    "msa": "كثيرًا."
+   }
+  },
+  {
+   "id": "marker:a97f903e80",
+   "kind": "marker",
+   "labels": {
+    "ar": "تمام"
+   },
+   "attributes": {
+    "msa": "جيد جدًا"
+   }
+  },
+  {
+   "id": "marker:ae56a354e7",
+   "kind": "marker",
+   "labels": {
+    "ar": "شو اسمك؟"
+   },
+   "attributes": {
+    "msa": "ما اسمك؟"
+   }
+  },
+  {
+   "id": "marker:aee7d839b2",
+   "kind": "marker",
+   "labels": {
+    "ar": "فهمت؟"
+   },
+   "attributes": {
+    "msa": "هل فهمت؟"
+   }
+  },
+  {
+   "id": "marker:b0b04fdc9b",
+   "kind": "marker",
+   "labels": {
+    "ar": "بجد؟"
+   },
+   "attributes": {
+    "msa": "حقًا؟"
+   }
+  },
+  {
+   "id": "marker:b15953ea82",
+   "kind": "marker",
+   "labels": {
+    "ar": "هو يالس الحين."
+   },
+   "attributes": {
+    "msa": "هو جالس الآن."
+   }
+  },
+  {
+   "id": "marker:b3171c98c1",
+   "kind": "marker",
+   "labels": {
+    "ar": "عايز إيه؟"
+   },
+   "attributes": {
+    "msa": "ماذا تريد؟"
+   }
+  },
+  {
+   "id": "marker:b3646f4b20",
+   "kind": "marker",
+   "labels": {
+    "ar": "شو صار؟"
+   },
+   "attributes": {
+    "msa": "ماذا حدث؟"
+   }
+  },
+  {
+   "id": "marker:b3f4588252",
+   "kind": "marker",
+   "labels": {
+    "ar": "ما فهمتش."
+   },
+   "attributes": {
+    "msa": "أنا لا أفهم."
+   }
+  },
+  {
+   "id": "marker:b591b7fde7",
+   "kind": "marker",
+   "labels": {
+    "ar": "تفضل."
+   },
+   "attributes": {
+    "msa": "تفضل."
+   }
+  },
+  {
+   "id": "marker:b5c0dafc53",
+   "kind": "marker",
+   "labels": {
+    "ar": "فلمّا سمع ذلك، تغيّر وجهه."
+   },
+   "attributes": {
+    "msa": "فلمّا سمع ذلك، تغيّر وجهه."
+   }
+  },
+  {
+   "id": "marker:b67a3a70a8",
+   "kind": "marker",
+   "labels": {
+    "ar": "حُكي أنَّ رجلًا كان في سالف العصر والأوان."
+   },
+   "attributes": {
+    "msa": "حُكي أنَّ رجلًا كان في سالف العصر والأوان."
+   }
+  },
+  {
+   "id": "marker:b7ccba280e",
+   "kind": "marker",
+   "labels": {
+    "ar": "منين؟"
+   },
+   "attributes": {
+    "msa": "من أين؟"
+   }
+  },
+  {
+   "id": "marker:bbd00b117d",
+   "kind": "marker",
+   "labels": {
+    "ar": "كاين."
+   },
+   "attributes": {
+    "msa": "يوجد / هناك."
+   }
+  },
+  {
+   "id": "marker:bcc9e920fc",
+   "kind": "marker",
+   "labels": {
+    "ar": "لا، ما باغي."
+   },
+   "attributes": {
+    "msa": "لا أريد (يقولها رجل)."
+   }
+  },
+  {
+   "id": "marker:c2585243eb",
+   "kind": "marker",
+   "labels": {
+    "ar": "إمتى؟"
+   },
+   "attributes": {
+    "msa": "متى؟"
+   }
+  },
+  {
+   "id": "marker:c278def26d",
+   "kind": "marker",
+   "labels": {
+    "ar": "بغيت أتاي بالنعناع."
+   },
+   "attributes": {
+    "msa": "أريد شايًا بالنعناع."
+   }
+  },
+  {
+   "id": "marker:c387771397",
+   "kind": "marker",
+   "labels": {
+    "ar": "مش عايز"
+   },
+   "attributes": {
+    "msa": "لا أريد"
+   }
+  },
+  {
+   "id": "marker:c7fd1095bf",
+   "kind": "marker",
+   "labels": {
+    "ar": "أبغي ماي."
+   },
+   "attributes": {
+    "msa": "أريد ماءً."
+   }
+  },
+  {
+   "id": "marker:cb69431013",
+   "kind": "marker",
+   "labels": {
+    "ar": "أنا بالطريق"
+   },
+   "attributes": {
+    "msa": "أنا في الطريق"
+   }
+  },
+  {
+   "id": "marker:cb789b3f62",
+   "kind": "marker",
+   "labels": {
+    "ar": "فين رايح؟"
+   },
+   "attributes": {
+    "msa": "إلى أين تذهب؟"
+   }
+  },
+  {
+   "id": "marker:cd1b08bf52",
+   "kind": "marker",
+   "labels": {
+    "ar": "رايح فين؟"
+   },
+   "attributes": {
+    "msa": "إلى أين تذهب؟"
+   }
+  },
+  {
+   "id": "marker:d05dd93d5e",
+   "kind": "marker",
+   "labels": {
+    "ar": "كيف؟"
+   },
+   "attributes": {
+    "msa": "كيف؟"
+   }
+  },
+  {
+   "id": "marker:d2bed03173",
+   "kind": "marker",
+   "labels": {
+    "ar": "إيه رأيك؟"
+   },
+   "attributes": {
+    "msa": "ما رأيك؟"
+   }
+  },
+  {
+   "id": "marker:d3e717a56f",
+   "kind": "marker",
+   "labels": {
+    "ar": "واخا."
+   },
+   "attributes": {
+    "msa": "حسنًا / موافق."
+   }
+  },
+  {
+   "id": "marker:d464be9a9c",
+   "kind": "marker",
+   "labels": {
+    "ar": "وهكذا انكشفت الحقيقة أمام الجميع."
+   },
+   "attributes": {
+    "msa": "وهكذا انكشفت الحقيقة أمام الجميع."
+   }
+  },
+  {
+   "id": "marker:d6e11d25fa",
+   "kind": "marker",
+   "labels": {
+    "ar": "كيف حالك؟"
+   },
+   "attributes": {
+    "msa": "كيف حالك؟"
+   }
+  },
+  {
+   "id": "marker:d7805f2f50",
+   "kind": "marker",
+   "labels": {
+    "ar": "ما بعرف"
+   },
+   "attributes": {
+    "msa": "أنا لا أعرف"
+   }
+  },
+  {
+   "id": "marker:d98eb42dd2",
+   "kind": "marker",
+   "labels": {
+    "ar": "هروح"
+   },
+   "attributes": {
+    "msa": "سأذهب"
+   }
+  },
+  {
+   "id": "marker:dba0b6936f",
+   "kind": "marker",
+   "labels": {
+    "ar": "ثم مضى في طريقه لا يلوي على شيء."
+   },
+   "attributes": {
+    "msa": "ثم مضى في طريقه لا يلوي على شيء."
+   }
+  },
+  {
+   "id": "marker:dc8f93b7fc",
+   "kind": "marker",
+   "labels": {
+    "ar": "كمان شوية"
+   },
+   "attributes": {
+    "msa": "بعد قليل"
+   }
+  },
+  {
+   "id": "marker:dd68cabae2",
+   "kind": "marker",
+   "labels": {
+    "ar": "الله يخليك."
+   },
+   "attributes": {
+    "msa": "بارك الله فيك."
+   }
+  },
+  {
+   "id": "marker:ddfb32e1ef",
+   "kind": "marker",
+   "labels": {
+    "ar": "ليه؟"
+   },
+   "attributes": {
+    "msa": "لماذا؟"
+   }
+  },
+  {
+   "id": "marker:de708c9f34",
+   "kind": "marker",
+   "labels": {
+    "ar": "وفي ذات يومٍ من الأيام، خرج الملك للصيد."
+   },
+   "attributes": {
+    "msa": "وفي ذات يومٍ من الأيام، خرج الملك للصيد."
+   }
+  },
+  {
+   "id": "marker:e281be26d3",
+   "kind": "marker",
+   "labels": {
+    "ar": "ما في"
+   },
+   "attributes": {
+    "msa": "لا يوجد"
+   }
+  },
+  {
+   "id": "marker:e3caeb512a",
+   "kind": "marker",
+   "labels": {
+    "ar": "دحين."
+   },
+   "attributes": {
+    "msa": "الآن."
+   }
+  },
+  {
+   "id": "marker:e4dbee5b3b",
+   "kind": "marker",
+   "labels": {
+    "ar": "وكان يا ما كان في قديم الزمان."
+   },
+   "attributes": {
+    "msa": "وكان يا ما كان في قديم الزمان."
+   }
+  },
+  {
+   "id": "marker:e795aae561",
+   "kind": "marker",
+   "labels": {
+    "ar": "إنت فين؟"
+   },
+   "attributes": {
+    "msa": "أين أنت؟"
+   }
+  },
+  {
+   "id": "marker:eb5c31aeae",
+   "kind": "marker",
+   "labels": {
+    "ar": "وبعد أيامٍ من السفر، بلغوا المدينة."
+   },
+   "attributes": {
+    "msa": "وبعد أيامٍ من السفر، بلغوا المدينة."
+   }
+  },
+  {
+   "id": "marker:ebcc3d5599",
+   "kind": "marker",
+   "labels": {
+    "ar": "كيداير؟"
+   },
+   "attributes": {
+    "msa": "كيف حالك؟"
+   }
+  },
+  {
+   "id": "marker:ec1d8df729",
+   "kind": "marker",
+   "labels": {
+    "ar": "شو؟"
+   },
+   "attributes": {
+    "msa": "ماذا؟"
+   }
+  },
+  {
+   "id": "marker:eca8bb1ad4",
+   "kind": "marker",
+   "labels": {
+    "ar": "وش تبي؟"
+   },
+   "attributes": {
+    "msa": "ماذا تريد؟"
+   }
+  },
+  {
+   "id": "marker:eda336161d",
+   "kind": "marker",
+   "labels": {
+    "ar": "بغيت نمشي."
+   },
+   "attributes": {
+    "msa": "أريد أن أذهب."
+   }
+  },
+  {
+   "id": "marker:f121d22f69",
+   "kind": "marker",
+   "labels": {
+    "ar": "بجم؟"
+   },
+   "attributes": {
+    "msa": "كم ثمنه؟"
+   }
+  },
+  {
+   "id": "marker:f1ccdb777f",
+   "kind": "marker",
+   "labels": {
+    "ar": "وايد."
+   },
+   "attributes": {
+    "msa": "كثيرًا جدًا."
+   }
+  },
+  {
+   "id": "marker:f43b51e943",
+   "kind": "marker",
+   "labels": {
+    "ar": "شو تبى؟"
+   },
+   "attributes": {
+    "msa": "ماذا تريد؟"
+   }
+  },
+  {
+   "id": "marker:f6a3b1179f",
+   "kind": "marker",
+   "labels": {
+    "ar": "شو عم تعمل؟"
+   },
+   "attributes": {
+    "msa": "ماذا تفعل الآن؟"
+   }
+  },
+  {
+   "id": "marker:f82e60f43f",
+   "kind": "marker",
+   "labels": {
+    "ar": "عايز أروح"
+   },
+   "attributes": {
+    "msa": "أريد أن أذهب"
+   }
+  },
+  {
+   "id": "marker:f9da2a9b20",
+   "kind": "marker",
+   "labels": {
+    "ar": "بعدين شوي"
+   },
+   "attributes": {
+    "msa": "بعد قليل"
+   }
+  },
+  {
+   "id": "marker:fbf0cfbdd6",
+   "kind": "marker",
+   "labels": {
+    "ar": "وكانت تلك نهاية ما جرى له."
+   },
+   "attributes": {
+    "msa": "وكانت تلك نهاية ما جرى له."
+   }
+  },
+  {
+   "id": "marker:fd930441d4",
+   "kind": "marker",
+   "labels": {
+    "ar": "وأدرك شهرزاد الصباح، فسكتت عن الكلام المباح."
+   },
+   "attributes": {
+    "msa": "وأدرك شهرزاد الصباح، فسكتت عن الكلام المباح."
+   }
+  },
+  {
+   "id": "marker:fdf50b13f0",
+   "kind": "marker",
+   "labels": {
+    "ar": "وين؟"
+   },
+   "attributes": {
+    "msa": "أين؟"
+   }
+  },
+  {
+   "id": "marker:fe0a336db6",
+   "kind": "marker",
+   "labels": {
+    "ar": "كيفك؟"
+   },
+   "attributes": {
+    "msa": "كيف حالك؟"
+   }
+  },
+  {
+   "id": "marker:fe9a4c5f1f",
+   "kind": "marker",
+   "labels": {
+    "ar": "وكان في سالف العصر والأوان تاجرٌ كثير المال."
+   },
+   "attributes": {
+    "msa": "وكان في سالف العصر والأوان تاجرٌ كثير المال."
+   }
+  },
+  {
+   "id": "marker:ff20b941db",
+   "kind": "marker",
+   "labels": {
+    "ar": "بشحال هادا؟"
+   },
+   "attributes": {
+    "msa": "كم ثمن هذا؟"
+   }
+  },
+  {
+   "id": "marker:ffecefa659",
+   "kind": "marker",
+   "labels": {
+    "ar": "ماشي"
+   },
+   "attributes": {
+    "msa": "حسنًا"
+   }
+  },
+  {
+   "id": "msa|فأجابته قائلةً: سأخبرك بكل شيء.",
+   "kind": "marker",
+   "labels": {
+    "ar": "فأجابته قائلةً: سأخبرك بكل شيء."
+   },
+   "attributes": {
+    "msa": "فأجابته قائلةً: سأخبرك بكل شيء."
+   }
+  },
+  {
+   "id": "msa|فقال له: أخبرني بحقيقة الأمر.",
+   "kind": "marker",
+   "labels": {
+    "ar": "فقال له: أخبرني بحقيقة الأمر."
+   },
+   "attributes": {
+    "msa": "فقال له: أخبرني بحقيقة الأمر."
+   }
+  },
+  {
+   "id": "opening:0a62390877",
+   "kind": "opening",
+   "labels": {
+    "ar": "بلغني أيها الملك السعيد أن..."
+   },
+   "attributes": {}
+  },
+  {
+   "id": "opening:0b945b6325",
+   "kind": "opening",
+   "labels": {
+    "ar": "كان يا ما كان يا مستمعين الكلام"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "opening:0d1fbe7ee9",
+   "kind": "opening",
+   "labels": {
+    "ar": "كان يا ما كان، في قديم الزمان"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "opening:551bb2e8b3",
+   "kind": "opening",
+   "labels": {
+    "ar": "كان يا سيدي حتى كان، حتى كان الله في كل مكان"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "opening:7c8e37fab7",
+   "kind": "opening",
+   "labels": {
+    "ar": "كان يا ما كان يا سامعين الكلام، وما يحلى الكلام إلا بذكر النبي عليه الصلاة والسلام"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "opening:7d7f5bd08e",
+   "kind": "opening",
+   "labels": {
+    "ar": "وحدوا الله وصلوا على نبيه ولا نبي بعد رسول الله"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "opening:7e8069f6a3",
+   "kind": "opening",
+   "labels": {
+    "ar": "حُكي أنَّ..."
+   },
+   "attributes": {}
+  },
+  {
+   "id": "opening:8604fc2266",
+   "kind": "opening",
+   "labels": {
+    "ar": "صلّوا على النبي"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "opening:abce53474b",
+   "kind": "opening",
+   "labels": {
+    "ar": "كان فيه سلطان ولا سلطان إلا الله"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "opening:b254421a53",
+   "kind": "opening",
+   "labels": {
+    "ar": "كان يا ما كان في قديم الزمان"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "opening:bcc3bc0e9f",
+   "kind": "opening",
+   "labels": {
+    "ar": "كان يا ما كان"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "opening:befc3f96dc",
+   "kind": "opening",
+   "labels": {
+    "ar": "زعموا أنَّ..."
+   },
+   "attributes": {}
+  },
+  {
+   "id": "opening:e2f6946f4b",
+   "kind": "opening",
+   "labels": {
+    "ar": "كان يا ما كان كان فيه ملك وما ملك إلا الله"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "opening:f4daf7300c",
+   "kind": "opening",
+   "labels": {
+    "ar": "حجيتك وما جيتك"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "proverb:0535139d67",
+   "kind": "proverb",
+   "labels": {
+    "ar": "ما يبكيك غير شفرك وما يحكّ لك غير ظفرك"
+   },
+   "attributes": {
+    "confidence": "medium",
+    "meaning": "لا يشعر بمعاناتك مثلما تشعر بها، ولا يقوم مقامك في حلها أحد."
+   }
+  },
+  {
+   "id": "proverb:05a2cb5e23",
+   "kind": "proverb",
+   "labels": {
+    "ar": "الجار قبل الدار"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "اختيار الجار الصالح مهم قبل اختيار المسكن."
+   }
+  },
+  {
+   "id": "proverb:0cfd1ce88f",
+   "kind": "proverb",
+   "labels": {
+    "ar": "جار الكريم مثل مجاور النهر، ما بخاف من العطش"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "القرب من الكريم يجلب العون والطمأنينة."
+   }
+  },
+  {
+   "id": "proverb:0dc93151e9",
+   "kind": "proverb",
+   "labels": {
+    "ar": "اللي دارها بيديه يفكها بسنيه"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "من تسبب في مشكلة فعليه أن يتحمل مسؤولية حلها."
+   }
+  },
+  {
+   "id": "proverb:0f607fa82c",
+   "kind": "proverb",
+   "labels": {
+    "ar": "إلا فاتك الكلام، قل سمعت، ويلا فاتك الطعام، قل شبعت"
+   },
+   "attributes": {
+    "confidence": "medium",
+    "meaning": "لا تُظهر الحسرة على ما فات، وتصرّف بما يحفظ كرامتك."
+   }
+  },
+  {
+   "id": "proverb:115a702b09",
+   "kind": "proverb",
+   "labels": {
+    "ar": "ذيل الكلب ما بنعدل لو حطوه بألف قالب وقالب"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "يصعب تغيير عادة راسخة بمجرد الضغط أو المظاهر."
+   }
+  },
+  {
+   "id": "proverb:15a869cdea",
+   "kind": "proverb",
+   "labels": {
+    "ar": "ضربني وبكى وسبقني وشكى"
+   },
+   "attributes": {
+    "confidence": "low",
+    "meaning": "يُقال عن المعتدي الذي يبدأ بالأذى ثم يدّعي أنه المظلوم."
+   }
+  },
+  {
+   "id": "proverb:183f786fb7",
+   "kind": "proverb",
+   "labels": {
+    "ar": "اللي يطيع أبوه يطيعونه عياله"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "من يحسن برّ والديه يُرجى أن يبرّه أبناؤه."
+   }
+  },
+  {
+   "id": "proverb:1c41a33165",
+   "kind": "proverb",
+   "labels": {
+    "ar": "يداك أوكتا وفوك نفخ"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "أنت السبب فيما أصابك، فلا تلقِ اللوم على غيرك."
+   }
+  },
+  {
+   "id": "proverb:207b3a2ec8",
+   "kind": "proverb",
+   "labels": {
+    "ar": "الحمار حمار لو مع الخيول سار"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "مرافقة أصحاب المكانة لا تغيّر الطبع أو القدرة وحدها."
+   }
+  },
+  {
+   "id": "proverb:2549153862",
+   "kind": "proverb",
+   "labels": {
+    "ar": "اليد الوحدة ما تصفق"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "لا يكتمل العمل غالبًا من دون تعاون."
+   }
+  },
+  {
+   "id": "proverb:2beb8924d5",
+   "kind": "proverb",
+   "labels": {
+    "ar": "اللي ما يعرف الصقر يشويه"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "من يجهل قيمة الشيء قد يسيء استعماله."
+   }
+  },
+  {
+   "id": "proverb:2efc360de3",
+   "kind": "proverb",
+   "labels": {
+    "ar": "إجري جري الوحوش غير رزقك ما بتحوش"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "لا ينال الإنسان إلا نصيبه مهما سعى؛ ويقال للتذكير بالرضا بعد بذل الجهد."
+   }
+  },
+  {
+   "id": "proverb:32104f5f74",
+   "kind": "proverb",
+   "labels": {
+    "ar": "إن وراء الأكمة ما وراءها"
+   },
+   "attributes": {
+    "confidence": "medium",
+    "meaning": "قد يكون وراء الأمر الظاهر أمر خفي أو سبب لم يُكشف بعد."
+   }
+  },
+  {
+   "id": "proverb:3220f6dd65",
+   "kind": "proverb",
+   "labels": {
+    "ar": "السمكة الخايسة تخيس السمك كله"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "قد يفسد فرد سيئ سمعة المجموعة أو يضر بها."
+   }
+  },
+  {
+   "id": "proverb:37246e8da9",
+   "kind": "proverb",
+   "labels": {
+    "ar": "رجع بخفي حنين"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "عاد خائبًا ولم يحقق ما خرج من أجله."
+   }
+  },
+  {
+   "id": "proverb:3feac5351b",
+   "kind": "proverb",
+   "labels": {
+    "ar": "رُبَّ قولٍ أشدُّ من صَوْل"
+   },
+   "attributes": {
+    "confidence": "medium",
+    "meaning": "قد يكون للكلمة أثر أشد من أثر الهجوم أو القوة."
+   }
+  },
+  {
+   "id": "proverb:406f9df265",
+   "kind": "proverb",
+   "labels": {
+    "ar": "يا خبر النهارده بفلوس، بكرة يبقى ببلاش"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "ما يبدو خبرًا نادرًا أو ثمينًا اليوم قد يصبح معروفًا للجميع غدًا."
+   }
+  },
+  {
+   "id": "proverb:425c1a1dd5",
+   "kind": "proverb",
+   "labels": {
+    "ar": "خوك في الصنعة عدوك"
+   },
+   "attributes": {
+    "confidence": "medium",
+    "meaning": "قد ينافسك زميل المهنة على الرزق أو الزبائن."
+   }
+  },
+  {
+   "id": "proverb:43d272f160",
+   "kind": "proverb",
+   "labels": {
+    "ar": "الفياق بكري بالذهب مشري"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "الاستيقاظ والعمل مبكرًا يجلبان المنفعة."
+   }
+  },
+  {
+   "id": "proverb:4b4626fe87",
+   "kind": "proverb",
+   "labels": {
+    "ar": "إجت الحزينة تفرح ما لاقاتش إلها مطرح"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "قد يعترض الفرح عائق أو تأتي الظروف على خلاف ما يتمناه المرء."
+   }
+  },
+  {
+   "id": "proverb:4e75351edb",
+   "kind": "proverb",
+   "labels": {
+    "ar": "العين ما بتقاوم مخرز"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "لا يُنصح بمواجهة قوة أكبر بأدوات لا تكافئها."
+   }
+  },
+  {
+   "id": "proverb:4fb43138d9",
+   "kind": "proverb",
+   "labels": {
+    "ar": "آش خاصك يا الخادم، لخواتم آمولاي"
+   },
+   "attributes": {
+    "confidence": "medium",
+    "meaning": "يُنتقد به طلب الكماليات مع إهمال الحاجات الأساسية أو عدم تناسب الطلب مع الحال."
+   }
+  },
+  {
+   "id": "proverb:4fcd766eff",
+   "kind": "proverb",
+   "labels": {
+    "ar": "من طول الغيبات جاب الغنايم"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "قد يعود الغائب بعد طول غيابه بخير أو أخبار نافعة."
+   }
+  },
+  {
+   "id": "proverb:53314c456c",
+   "kind": "proverb",
+   "labels": {
+    "ar": "اللي اختشوا ماتوا"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "يقال لمن يتصرف بلا حياء أو بلا اكتراث بنظرة الناس."
+   }
+  },
+  {
+   "id": "proverb:546120bad3",
+   "kind": "proverb",
+   "labels": {
+    "ar": "اللي على رأسه بطحة يحسس عليها"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "من يشعر بالذنب قد يظن أن الكلام العام موجه إليه."
+   }
+  },
+  {
+   "id": "proverb:55ffb93aa4",
+   "kind": "proverb",
+   "labels": {
+    "ar": "العارف، شوفتو كفاتو"
+   },
+   "attributes": {
+    "confidence": "low",
+    "meaning": "الخبير قد تكفيه النظرة ليفهم الأمر."
+   }
+  },
+  {
+   "id": "proverb:5b54ccb04e",
+   "kind": "proverb",
+   "labels": {
+    "ar": "ابن الفار حفار وابن الوز عوام"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "غالبًا ما يرث الأبناء صفات أو مهارات من أهلهم."
+   }
+  },
+  {
+   "id": "proverb:5c9a2827c9",
+   "kind": "proverb",
+   "labels": {
+    "ar": "الرزق يحب الخفية"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "العمل الهادئ المتقن والسعي من غير ضجيج أقرب إلى تحصيل الرزق."
+   }
+  },
+  {
+   "id": "proverb:5e3b9d7560",
+   "kind": "proverb",
+   "labels": {
+    "ar": "الناس بالناس والكل بالله"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "يحتاج الناس بعضهم إلى بعض، والتوفيق من الله."
+   }
+  },
+  {
+   "id": "proverb:5f5d875642",
+   "kind": "proverb",
+   "labels": {
+    "ar": "الكلام اللين بيخرج الحية من وكرها"
+   },
+   "attributes": {
+    "confidence": "low",
+    "meaning": "الرفق وحسن الكلام قد يحققان ما لا يحققه العنف."
+   }
+  },
+  {
+   "id": "proverb:617d4c38f9",
+   "kind": "proverb",
+   "labels": {
+    "ar": "العين بصيرة والإيد قصيرة"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "يرى المرء ما يحتاج إليه لكنه يعجز عن شرائه لقلة المال."
+   }
+  },
+  {
+   "id": "proverb:6981e98de5",
+   "kind": "proverb",
+   "labels": {
+    "ar": "الطبع غلب التطبع"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "تغلب الطباع الراسخة أحيانًا الصفات التي يتكلف المرء إظهارها."
+   }
+  },
+  {
+   "id": "proverb:6a94d287bc",
+   "kind": "proverb",
+   "labels": {
+    "ar": "من خلاّ نفسه سبوس، لعبت به الدياي"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "من عرّض نفسه للشبهات صار عرضة للاتهام والأذى."
+   }
+  },
+  {
+   "id": "proverb:71216f9f54",
+   "kind": "proverb",
+   "labels": {
+    "ar": "إن المنبت لا أرضًا قطع ولا ظهرًا أبقى"
+   },
+   "attributes": {
+    "confidence": "medium",
+    "meaning": "من يبالغ في الإسراع أو التشدد قد لا يبلغ غايته ويهلك وسيلته."
+   }
+  },
+  {
+   "id": "proverb:7141f79ad6",
+   "kind": "proverb",
+   "labels": {
+    "ar": "ابن بطني بيفهم رطني"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "القريب أو شديد الألفة يفهم كلام صاحبه وتلميحاته."
+   }
+  },
+  {
+   "id": "proverb:7174eebeb5",
+   "kind": "proverb",
+   "labels": {
+    "ar": "إجار ولو جار"
+   },
+   "attributes": {
+    "confidence": "low",
+    "meaning": "يُحضّ على عدم التفريط في الجار، حتى إن وقع منه أذى أو خلاف."
+   }
+  },
+  {
+   "id": "proverb:71c6f68c8f",
+   "kind": "proverb",
+   "labels": {
+    "ar": "اللي فاتك بليلة فاتك بحيلة"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "من سبقك زمنًا قد اكتسب خبرة وحيلة."
+   }
+  },
+  {
+   "id": "proverb:791480e813",
+   "kind": "proverb",
+   "labels": {
+    "ar": "رُبَّ رميةٍ من غير رامٍ"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "قد يصيب المرء أحيانًا من غير خبرة أو قصد متقن."
+   }
+  },
+  {
+   "id": "proverb:792cda3d20",
+   "kind": "proverb",
+   "labels": {
+    "ar": "الحديث ذو شجون"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "يجرّ الكلام بعضه إلى بعض، وقد يقود موضوع إلى موضوع آخر."
+   }
+  },
+  {
+   "id": "proverb:823d257888",
+   "kind": "proverb",
+   "labels": {
+    "ar": "إن البلاء موكل بالمنطق"
+   },
+   "attributes": {
+    "confidence": "medium",
+    "meaning": "قد يجلب الكلام المتسرع على صاحبه ما يخشاه."
+   }
+  },
+  {
+   "id": "proverb:825aa6e319",
+   "kind": "proverb",
+   "labels": {
+    "ar": "اللي بغا يسلم ما يحاذي مسلم"
+   },
+   "attributes": {
+    "confidence": "medium",
+    "meaning": "من أراد السلامة يتجنب إيذاء الناس أو الدخول في خصوماتهم."
+   }
+  },
+  {
+   "id": "proverb:860d2bed47",
+   "kind": "proverb",
+   "labels": {
+    "ar": "في الصيف ضيعت اللبن"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "يقال لمن فوّت فرصة نافعة ثم طلبها بعد فوات أوانها."
+   }
+  },
+  {
+   "id": "proverb:8670f9166b",
+   "kind": "proverb",
+   "labels": {
+    "ar": "اللي ما عرفك خسرك"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "من لم يعرف قيمتك قد يخسر صحبتك أو منفعتك."
+   }
+  },
+  {
+   "id": "proverb:8728d387ab",
+   "kind": "proverb",
+   "labels": {
+    "ar": "إن الجواد قد يعثر"
+   },
+   "attributes": {
+    "confidence": "medium",
+    "meaning": "حتى الكريم أو الحاذق قد يزلّ أو يخطئ."
+   }
+  },
+  {
+   "id": "proverb:9140e5d737",
+   "kind": "proverb",
+   "labels": {
+    "ar": "البعد بعد القلوب موب بعد الدروب"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "البعد الحقيقي هو انقطاع المودة لا المسافة."
+   }
+  },
+  {
+   "id": "proverb:9720b376e8",
+   "kind": "proverb",
+   "labels": {
+    "ar": "اللي ما يعرفك ما يثمنك"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "من لا يعرف المرء قد لا يقدّر فضله ومكانته."
+   }
+  },
+  {
+   "id": "proverb:9eb1234c67",
+   "kind": "proverb",
+   "labels": {
+    "ar": "اسأل مجرّب ولا تسأل طبيب"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "تُفضَّل الخبرة العملية أحيانًا في وصف تجربة بعينها."
+   }
+  },
+  {
+   "id": "proverb:9f6db119e0",
+   "kind": "proverb",
+   "labels": {
+    "ar": "الضيف أول يوم قمر منوّر، ثاني يوم رغيف مقوّر، ثالث يوم قرد مصوّر"
+   },
+   "attributes": {
+    "confidence": "low",
+    "meaning": "تبدأ الضيافة محببة، وقد يثقل طول الإقامة على المضيف."
+   }
+  },
+  {
+   "id": "proverb:a085db0d92",
+   "kind": "proverb",
+   "labels": {
+    "ar": "جبل ع جبل ما بلتقي، بني آدم ع بني آدم بلتقي"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "قد يلتقي الناس من جديد مهما طال الفراق."
+   }
+  },
+  {
+   "id": "proverb:a0fe09057f",
+   "kind": "proverb",
+   "labels": {
+    "ar": "الحر بالغمزة والعبد بالدبزة"
+   },
+   "attributes": {
+    "confidence": "medium",
+    "meaning": "صاحب الفهم يكفيه التلميح، أما غيره فيحتاج إلى تنبيه أشد."
+   }
+  },
+  {
+   "id": "proverb:a236938cd5",
+   "kind": "proverb",
+   "labels": {
+    "ar": "إذا فات الفوت ما ينفع الصوت"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "بعد ضياع الفرصة لا يفيد الندم أو رفع الصوت."
+   }
+  },
+  {
+   "id": "proverb:a23c5937ad",
+   "kind": "proverb",
+   "labels": {
+    "ar": "جارك القريب ولا أخوك البعيد"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "الجار القريب قد يكون عونًا أسرع من قريب بعيد."
+   }
+  },
+  {
+   "id": "proverb:a589297d39",
+   "kind": "proverb",
+   "labels": {
+    "ar": "بو طبيع ما ايوز عن طبعه"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "يصعب على المرء أن يترك طبعًا راسخًا فيه."
+   }
+  },
+  {
+   "id": "proverb:a78d498298",
+   "kind": "proverb",
+   "labels": {
+    "ar": "إن الحديد بالحديد يفلح"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "يُدفع الشيء أو الخصم بما يقاومه من جنسه أو قوته."
+   }
+  },
+  {
+   "id": "proverb:ae258a9840",
+   "kind": "proverb",
+   "labels": {
+    "ar": "مَن يزرع الشوك لا يحصد به العنب"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "من يعمل عملًا سيئًا لا ينتظر منه نتيجة طيبة."
+   }
+  },
+  {
+   "id": "proverb:af6293e2f6",
+   "kind": "proverb",
+   "labels": {
+    "ar": "اللي فات مات"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "ما مضى انتهى، والأولى التطلع إلى الحاضر والمستقبل."
+   }
+  },
+  {
+   "id": "proverb:ba4d3a6f5e",
+   "kind": "proverb",
+   "labels": {
+    "ar": "اللي في القدر يطلعه الملاس"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "ما خفي من أمر سيظهر مع الوقت."
+   }
+  },
+  {
+   "id": "proverb:bad3a699c2",
+   "kind": "proverb",
+   "labels": {
+    "ar": "الزين زين ولو قعد من منامه، والشين شين لو غسل بالصابون"
+   },
+   "attributes": {
+    "confidence": "low",
+    "meaning": "المظهر أو الطبع لا يتبدل بمجرد الزينة أو التنظيف."
+   }
+  },
+  {
+   "id": "proverb:bc682cc07f",
+   "kind": "proverb",
+   "labels": {
+    "ar": "اللي ما يعرفش يقول عدس"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "من يجهل حقيقة الموقف قد يفسره تفسيرًا خاطئًا."
+   }
+  },
+  {
+   "id": "proverb:c34b446a7d",
+   "kind": "proverb",
+   "labels": {
+    "ar": "لو كان فيه خير ما رماه الطير"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "قد يكون ترك الشيء علامة على أن فيه عيبًا أو ضررًا."
+   }
+  },
+  {
+   "id": "proverb:c52943ee2a",
+   "kind": "proverb",
+   "labels": {
+    "ar": "إن كنت عالبير اصرف بتدبير"
+   },
+   "attributes": {
+    "confidence": "medium",
+    "meaning": "ينبغي الاقتصاد حتى مع وفرة الموارد."
+   }
+  },
+  {
+   "id": "proverb:c7f66151cd",
+   "kind": "proverb",
+   "labels": {
+    "ar": "لبس قدك يواتيك"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "اختر ما يناسب قدرتك وحالك."
+   }
+  },
+  {
+   "id": "proverb:ce69ea6ede",
+   "kind": "proverb",
+   "labels": {
+    "ar": "إن جت تسحب على شعرة وإن ولت تقطع السلاسل"
+   },
+   "attributes": {
+    "confidence": "low",
+    "meaning": "تيسير الأمور أو تعسرها قد يتبدل؛ فالإقبال يجعل الصعب سهلًا والإدبار يعسر اليسير."
+   }
+  },
+  {
+   "id": "proverb:d0ce79fd10",
+   "kind": "proverb",
+   "labels": {
+    "ar": "العيش والملح ما بينتهيش"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "المشاركة في الطعام والعِشرة تنشئ وفاءً لا ينبغي نسيانه."
+   }
+  },
+  {
+   "id": "proverb:dc4a5e59d5",
+   "kind": "proverb",
+   "labels": {
+    "ar": "من طمع طبع"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "إذا استقر الطمع في المرء صار من طبعه."
+   }
+  },
+  {
+   "id": "proverb:de5d505240",
+   "kind": "proverb",
+   "labels": {
+    "ar": "ما دير خير ما يطرى باس"
+   },
+   "attributes": {
+    "confidence": "medium",
+    "meaning": "صيغة تحذيرية متشائمة من أن يؤدي فعل الخير إلى المتاعب."
+   }
+  },
+  {
+   "id": "proverb:e78cea15f3",
+   "kind": "proverb",
+   "labels": {
+    "ar": "إن غدًا لناظره قريب"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "ما ينتظره المرء سيأتي قريبًا، وسيظهر عندئذٍ ما خفي."
+   }
+  },
+  {
+   "id": "proverb:ec43d0a253",
+   "kind": "proverb",
+   "labels": {
+    "ar": "سبق السيف العذل"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "وقع الأمر وانتهى قبل أن ينفع اللوم أو العتاب."
+   }
+  },
+  {
+   "id": "proverb:eff43a4bee",
+   "kind": "proverb",
+   "labels": {
+    "ar": "عينيك ميزانك"
+   },
+   "attributes": {
+    "confidence": "medium",
+    "meaning": "اعتمد على بصرك وخبرتك في تقدير ما تراه."
+   }
+  },
+  {
+   "id": "proverb:f018169bc6",
+   "kind": "proverb",
+   "labels": {
+    "ar": "القرش الأبيض ينفع في اليوم الأسود"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "الادخار في أيام الرخاء يعين على أيام الشدة."
+   }
+  },
+  {
+   "id": "proverb:f12c8ea2b4",
+   "kind": "proverb",
+   "labels": {
+    "ar": "إن كبر ابنك خاويه"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "عامل ابنك بعد أن يكبر معاملة الرفيق، مع حفظ الاحترام."
+   }
+  },
+  {
+   "id": "proverb:f23924dc10",
+   "kind": "proverb",
+   "labels": {
+    "ar": "إذا عزَّ أخوك فهُن"
+   },
+   "attributes": {
+    "confidence": "low",
+    "meaning": "الصيغة واردة في كتب الأمثال، لكن المقصود الدقيق منها يحتاج إلى مراجعة شرح الرواية المعتمدة."
+   }
+  },
+  {
+   "id": "proverb:f7d43d8b2c",
+   "kind": "proverb",
+   "labels": {
+    "ar": "إن كان الكدب حجة يكون الصدق أنجى"
+   },
+   "attributes": {
+    "confidence": "medium",
+    "meaning": "الصدق أسلم من اتخاذ الكذب وسيلة للدفاع."
+   }
+  },
+  {
+   "id": "proverb:ff3d47ba61",
+   "kind": "proverb",
+   "labels": {
+    "ar": "الباب اللي ييك منه ريح سده واستريح"
+   },
+   "attributes": {
+    "confidence": "high",
+    "meaning": "ابتعد عن مصدر الأذى لتسلم من تبعاته."
+   }
+  },
+  {
+   "id": "region:egyptian",
+   "kind": "region",
+   "labels": {
+    "ar": "egyptian",
+    "en": "egyptian"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "region:gulf",
+   "kind": "region",
+   "labels": {
+    "ar": "gulf",
+    "en": "gulf"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "region:levantine",
+   "kind": "region",
+   "labels": {
+    "ar": "levantine",
+    "en": "levantine"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "region:maghrebi",
+   "kind": "region",
+   "labels": {
+    "ar": "maghrebi",
+    "en": "maghrebi"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "region:msa",
+   "kind": "region",
+   "labels": {
+    "ar": "msa",
+    "en": "msa"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:إكرام الضيف",
+   "kind": "schema",
+   "labels": {
+    "ar": "إكرام الضيف",
+    "en": "hospitality"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:احترام الكبير",
+   "kind": "schema",
+   "labels": {
+    "ar": "احترام الكبير",
+    "en": "respect for elders"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:الأمانة",
+   "kind": "schema",
+   "labels": {
+    "ar": "الأمانة",
+    "en": "honesty"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:البركة",
+   "kind": "schema",
+   "labels": {
+    "ar": "البركة",
+    "en": "blessing"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:التدبير",
+   "kind": "schema",
+   "labels": {
+    "ar": "التدبير",
+    "en": "prudence"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:التضامن العائلي",
+   "kind": "schema",
+   "labels": {
+    "ar": "التضامن العائلي",
+    "en": "family solidarity"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:التعاون",
+   "kind": "schema",
+   "labels": {
+    "ar": "التعاون",
+    "en": "cooperation"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:التكافل بين الجيران",
+   "kind": "schema",
+   "labels": {
+    "ar": "التكافل بين الجيران",
+    "en": "neighbourly solidarity"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:التواضع",
+   "kind": "schema",
+   "labels": {
+    "ar": "التواضع",
+    "en": "humility"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:التوبة وإصلاح الخطأ",
+   "kind": "schema",
+   "labels": {
+    "ar": "التوبة وإصلاح الخطأ",
+    "en": "repentance and making amends"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:الحكمة",
+   "kind": "schema",
+   "labels": {
+    "ar": "الحكمة",
+    "en": "wisdom"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:الشجاعة",
+   "kind": "schema",
+   "labels": {
+    "ar": "الشجاعة",
+    "en": "courage"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:الشهامة",
+   "kind": "schema",
+   "labels": {
+    "ar": "الشهامة",
+    "en": "chivalry"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:الصبر",
+   "kind": "schema",
+   "labels": {
+    "ar": "الصبر",
+    "en": "patience"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:العدل",
+   "kind": "schema",
+   "labels": {
+    "ar": "العدل",
+    "en": "justice"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:الفزعة والتعاون",
+   "kind": "schema",
+   "labels": {
+    "ar": "الفزعة والتعاون",
+    "en": "mutual aid"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:الفطنة",
+   "kind": "schema",
+   "labels": {
+    "ar": "الفطنة",
+    "en": "resourcefulness"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:القناعة",
+   "kind": "schema",
+   "labels": {
+    "ar": "القناعة",
+    "en": "contentment"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:الكرم",
+   "kind": "schema",
+   "labels": {
+    "ar": "الكرم",
+    "en": "generosity"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:النخوة",
+   "kind": "schema",
+   "labels": {
+    "ar": "النخوة",
+    "en": "solidarity and courage"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:الوفاء",
+   "kind": "schema",
+   "labels": {
+    "ar": "الوفاء",
+    "en": "loyalty"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:الوفاء بالعهد",
+   "kind": "schema",
+   "labels": {
+    "ar": "الوفاء بالعهد",
+    "en": "keeping one's word"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:برّ الوالدين",
+   "kind": "schema",
+   "labels": {
+    "ar": "برّ الوالدين",
+    "en": "filial respect"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:حفظ الجيرة",
+   "kind": "schema",
+   "labels": {
+    "ar": "حفظ الجيرة",
+    "en": "neighborliness"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:حفظ العِشرة",
+   "kind": "schema",
+   "labels": {
+    "ar": "حفظ العِشرة",
+    "en": "honoring shared bonds"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:حفظ ماء الوجه",
+   "kind": "schema",
+   "labels": {
+    "ar": "حفظ ماء الوجه",
+    "en": "preserving dignity"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "schema:صلة الرحم",
+   "kind": "schema",
+   "labels": {
+    "ar": "صلة الرحم",
+    "en": "kinship solidarity"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:01f58b1898",
+   "kind": "setting",
+   "labels": {
+    "ar": "الدار التقليدية وفناء البيت"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:0723235e44",
+   "kind": "setting",
+   "labels": {
+    "ar": "طريق القافلة ومحطة الاستراحة"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:130664ac09",
+   "kind": "setting",
+   "labels": {
+    "ar": "بستان زيتون في قرية فلسطينية أو أردنية"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:1f9377c6ab",
+   "kind": "setting",
+   "labels": {
+    "ar": "البيت أو الدار"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:24ff3936ae",
+   "kind": "setting",
+   "labels": {
+    "ar": "السوق القديم"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:26a77fb502",
+   "kind": "setting",
+   "labels": {
+    "ar": "الصحراء ودرب القوافل"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:2d38f1856e",
+   "kind": "setting",
+   "labels": {
+    "ar": "الواحة"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:38afa77fa2",
+   "kind": "setting",
+   "labels": {
+    "ar": "القرية والحقول"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:4277983383",
+   "kind": "setting",
+   "labels": {
+    "ar": "الحارة"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:43028cc093",
+   "kind": "setting",
+   "labels": {
+    "ar": "القهوة البلدي"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:4679541408",
+   "kind": "setting",
+   "labels": {
+    "ar": "الميناء وساحل الغوص على اللؤلؤ"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:472bd4b61e",
+   "kind": "setting",
+   "labels": {
+    "ar": "حارة شامية قديمة"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:4d23cec17f",
+   "kind": "setting",
+   "labels": {
+    "ar": "الغيط أو الحقل في الريف"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:6b02d31cd4",
+   "kind": "setting",
+   "labels": {
+    "ar": "قصر الملك"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:6c8b2787bb",
+   "kind": "setting",
+   "labels": {
+    "ar": "حارة جدة أو فناء البيت الحجازي"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:7a54cd34d3",
+   "kind": "setting",
+   "labels": {
+    "ar": "المجلس أو الديوانية (مجلس الضيافة؛ الديوانية شائعة في الكويت)"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:7f2414fd71",
+   "kind": "setting",
+   "labels": {
+    "ar": "قهوة شعبية"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:85336da895",
+   "kind": "setting",
+   "labels": {
+    "ar": "القصر الملكي"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:877c7b7d2c",
+   "kind": "setting",
+   "labels": {
+    "ar": "دار دمشقية ذات باحة داخلية"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:879f7883ba",
+   "kind": "setting",
+   "labels": {
+    "ar": "سوق أو خان على طريق القوافل"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:8d244032b9",
+   "kind": "setting",
+   "labels": {
+    "ar": "المدينة القديمة وأزقتها"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:979193f6ae",
+   "kind": "setting",
+   "labels": {
+    "ar": "مضافة ريفية أردنية أو فلسطينية"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:9a285d8363",
+   "kind": "setting",
+   "labels": {
+    "ar": "دكان البقال"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:9e248001cf",
+   "kind": "setting",
+   "labels": {
+    "ar": "سوق مطرح في عُمان"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:a041841041",
+   "kind": "setting",
+   "labels": {
+    "ar": "جبل أو وادٍ في بلاد الشام"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:a5cd6e6ebb",
+   "kind": "setting",
+   "labels": {
+    "ar": "ضفة النيل"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:b00c3ffbe5",
+   "kind": "setting",
+   "labels": {
+    "ar": "الميناء والسفينة"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:b05c2e1e59",
+   "kind": "setting",
+   "labels": {
+    "ar": "البيت في حارة قديمة"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:c89ec33def",
+   "kind": "setting",
+   "labels": {
+    "ar": "البستان"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:d5b5634a47",
+   "kind": "setting",
+   "labels": {
+    "ar": "الفريج والحارة (الحي السكني في الخليج)"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:d8b2c7d370",
+   "kind": "setting",
+   "labels": {
+    "ar": "السوق"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:e053061c22",
+   "kind": "setting",
+   "labels": {
+    "ar": "السوق أو السويقة"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:e5a93b1bd9",
+   "kind": "setting",
+   "labels": {
+    "ar": "ساحة القرية"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:e6ae7a3236",
+   "kind": "setting",
+   "labels": {
+    "ar": "الواحة وبساتين النخيل في نجد أو عُمان"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:e8ef4a0cdb",
+   "kind": "setting",
+   "labels": {
+    "ar": "ساحة الحكي أو مجلس الجدة"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:ea9695f8a6",
+   "kind": "setting",
+   "labels": {
+    "ar": "الرياض المغربي"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:f44259a387",
+   "kind": "setting",
+   "labels": {
+    "ar": "الجزيرة البعيدة"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:f452135f62",
+   "kind": "setting",
+   "labels": {
+    "ar": "المدينة وأسواقها"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:f8aafc62f5",
+   "kind": "setting",
+   "labels": {
+    "ar": "الحمّام الشعبي"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "setting:fcd84ce600",
+   "kind": "setting",
+   "labels": {
+    "ar": "الصحراء وطريق القوافل"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "virtue:charity",
+   "kind": "virtue",
+   "labels": {
+    "ar": "الإحسان",
+    "en": "charity"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "virtue:courage",
+   "kind": "virtue",
+   "labels": {
+    "ar": "الشجاعة",
+    "en": "courage"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "virtue:faith",
+   "kind": "virtue",
+   "labels": {
+    "ar": "الإيمان",
+    "en": "faith"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "virtue:gratitude",
+   "kind": "virtue",
+   "labels": {
+    "ar": "الشكر",
+    "en": "gratitude"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "virtue:justice",
+   "kind": "virtue",
+   "labels": {
+    "ar": "العدل",
+    "en": "justice"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "virtue:patience",
+   "kind": "virtue",
+   "labels": {
+    "ar": "الصبر",
+    "en": "patience"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "virtue:social_bond",
+   "kind": "virtue",
+   "labels": {
+    "ar": "الروابط الاجتماعية",
+    "en": "social bond"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "virtue:temperance",
+   "kind": "virtue",
+   "labels": {
+    "ar": "الاعتدال",
+    "en": "temperance"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "virtue:wisdom",
+   "kind": "virtue",
+   "labels": {
+    "ar": "الحكمة",
+    "en": "wisdom"
+   },
+   "attributes": {}
+  },
+  {
+   "id": "بسم الله، قال ليك: كان واحد...",
+   "kind": "opening",
+   "labels": {
+    "ar": "بسم الله، قال ليك: كان واحد..."
+   },
+   "attributes": {}
+  }
+ ],
+ "edges": [
+  {
+   "source": "schema:الكرم",
+   "relation": "is_a",
+   "target": "virtue:charity"
+  },
+  {
+   "source": "region:msa",
+   "relation": "values",
+   "target": "schema:الكرم"
+  },
+  {
+   "source": "schema:الوفاء بالعهد",
+   "relation": "is_a",
+   "target": "virtue:social_bond"
+  },
+  {
+   "source": "region:msa",
+   "relation": "values",
+   "target": "schema:الوفاء بالعهد"
+  },
+  {
+   "source": "schema:الحكمة",
+   "relation": "is_a",
+   "target": "virtue:wisdom"
+  },
+  {
+   "source": "region:msa",
+   "relation": "values",
+   "target": "schema:الحكمة"
+  },
+  {
+   "source": "schema:الصبر",
+   "relation": "is_a",
+   "target": "virtue:patience"
+  },
+  {
+   "source": "region:msa",
+   "relation": "values",
+   "target": "schema:الصبر"
+  },
+  {
+   "source": "schema:الشجاعة",
+   "relation": "is_a",
+   "target": "virtue:courage"
+  },
+  {
+   "source": "region:msa",
+   "relation": "values",
+   "target": "schema:الشجاعة"
+  },
+  {
+   "source": "schema:القناعة",
+   "relation": "is_a",
+   "target": "virtue:temperance"
+  },
+  {
+   "source": "region:msa",
+   "relation": "values",
+   "target": "schema:القناعة"
+  },
+  {
+   "source": "schema:العدل",
+   "relation": "is_a",
+   "target": "virtue:justice"
+  },
+  {
+   "source": "region:msa",
+   "relation": "values",
+   "target": "schema:العدل"
+  },
+  {
+   "source": "schema:التواضع",
+   "relation": "is_a",
+   "target": "virtue:temperance"
+  },
+  {
+   "source": "region:msa",
+   "relation": "values",
+   "target": "schema:التواضع"
+  },
+  {
+   "source": "schema:التدبير",
+   "relation": "is_a",
+   "target": "virtue:wisdom"
+  },
+  {
+   "source": "region:msa",
+   "relation": "values",
+   "target": "schema:التدبير"
+  },
+  {
+   "source": "schema:التوبة وإصلاح الخطأ",
+   "relation": "is_a",
+   "target": "virtue:faith"
+  },
+  {
+   "source": "region:msa",
+   "relation": "values",
+   "target": "schema:التوبة وإصلاح الخطأ"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_proverb",
+   "target": "proverb:860d2bed47"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_proverb",
+   "target": "proverb:37246e8da9"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_proverb",
+   "target": "proverb:ec43d0a253"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_proverb",
+   "target": "proverb:791480e813"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_proverb",
+   "target": "proverb:e78cea15f3"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_proverb",
+   "target": "proverb:792cda3d20"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_proverb",
+   "target": "proverb:71216f9f54"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_proverb",
+   "target": "proverb:32104f5f74"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_proverb",
+   "target": "proverb:823d257888"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_proverb",
+   "target": "proverb:8728d387ab"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_proverb",
+   "target": "proverb:a78d498298"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_proverb",
+   "target": "proverb:3feac5351b"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_proverb",
+   "target": "proverb:1c41a33165"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_proverb",
+   "target": "proverb:ae258a9840"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_proverb",
+   "target": "proverb:f23924dc10"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_character",
+   "target": "character:664d99a576"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_character",
+   "target": "character:76d73df0dc"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_character",
+   "target": "character:26eebbf6b5"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_character",
+   "target": "character:bc803aa92d"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_character",
+   "target": "character:d6c664a905"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_character",
+   "target": "character:ebb2aacfc8"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_character",
+   "target": "character:57f2760f7b"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_character",
+   "target": "character:090a33b547"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_setting",
+   "target": "setting:85336da895"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_setting",
+   "target": "setting:f452135f62"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_setting",
+   "target": "setting:b00c3ffbe5"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_setting",
+   "target": "setting:f44259a387"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_setting",
+   "target": "setting:fcd84ce600"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_setting",
+   "target": "setting:2d38f1856e"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_setting",
+   "target": "setting:1f9377c6ab"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_setting",
+   "target": "setting:c89ec33def"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_opening",
+   "target": "opening:0a62390877"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_opening",
+   "target": "opening:7e8069f6a3"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_opening",
+   "target": "opening:befc3f96dc"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_closing",
+   "target": "closing:5c93036135"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_closing",
+   "target": "closing:8e094e7b17"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_closing",
+   "target": "closing:8a32b6c454"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:de708c9f34"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:60b5e714db"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:e4dbee5b3b"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:9b163c2248"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:b67a3a70a8"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:1af8fddedc"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:fe9a4c5f1f"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:9b174480e7"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:50ddf7b897"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:42a5edd790"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:dba0b6936f"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:a0d2e3bfcb"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "msa|فقال له: أخبرني بحقيقة الأمر."
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "msa|فأجابته قائلةً: سأخبرك بكل شيء."
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:b5c0dafc53"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:2d6316cc81"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:8c4471b806"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:563e17c867"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:06e80b0b32"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:6b8eb64380"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:3b654dbba0"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:eb5c31aeae"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:46a8d61939"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:6dda45c1e2"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:0774187bcb"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:4c3ee3127f"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:2a1c9c875f"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:d464be9a9c"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:fbf0cfbdd6"
+  },
+  {
+   "source": "region:msa",
+   "relation": "has_marker",
+   "target": "marker:fd930441d4"
+  },
+  {
+   "source": "schema:الكرم",
+   "relation": "is_a",
+   "target": "virtue:charity"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "values",
+   "target": "schema:الكرم"
+  },
+  {
+   "source": "schema:الشهامة",
+   "relation": "is_a",
+   "target": "virtue:courage"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "values",
+   "target": "schema:الشهامة"
+  },
+  {
+   "source": "schema:الوفاء",
+   "relation": "is_a",
+   "target": "virtue:social_bond"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "values",
+   "target": "schema:الوفاء"
+  },
+  {
+   "source": "schema:صلة الرحم",
+   "relation": "is_a",
+   "target": "virtue:social_bond"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "values",
+   "target": "schema:صلة الرحم"
+  },
+  {
+   "source": "schema:حفظ الجيرة",
+   "relation": "is_a",
+   "target": "virtue:social_bond"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "values",
+   "target": "schema:حفظ الجيرة"
+  },
+  {
+   "source": "schema:الصبر",
+   "relation": "is_a",
+   "target": "virtue:patience"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "values",
+   "target": "schema:الصبر"
+  },
+  {
+   "source": "schema:الحكمة",
+   "relation": "is_a",
+   "target": "virtue:wisdom"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "values",
+   "target": "schema:الحكمة"
+  },
+  {
+   "source": "schema:القناعة",
+   "relation": "is_a",
+   "target": "virtue:temperance"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "values",
+   "target": "schema:القناعة"
+  },
+  {
+   "source": "schema:العدل",
+   "relation": "is_a",
+   "target": "virtue:justice"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "values",
+   "target": "schema:العدل"
+  },
+  {
+   "source": "schema:حفظ العِشرة",
+   "relation": "is_a",
+   "target": "virtue:social_bond"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "values",
+   "target": "schema:حفظ العِشرة"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_proverb",
+   "target": "proverb:53314c456c"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_proverb",
+   "target": "proverb:5c9a2827c9"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_proverb",
+   "target": "proverb:f018169bc6"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_proverb",
+   "target": "proverb:406f9df265"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_proverb",
+   "target": "proverb:9eb1234c67"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_proverb",
+   "target": "proverb:f12c8ea2b4"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_proverb",
+   "target": "proverb:05a2cb5e23"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_proverb",
+   "target": "proverb:546120bad3"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_proverb",
+   "target": "proverb:d0ce79fd10"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_proverb",
+   "target": "proverb:bc682cc07f"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_proverb",
+   "target": "proverb:af6293e2f6"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_proverb",
+   "target": "proverb:617d4c38f9"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_proverb",
+   "target": "proverb:c52943ee2a"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_proverb",
+   "target": "proverb:ce69ea6ede"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_proverb",
+   "target": "proverb:f7d43d8b2c"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_character",
+   "target": "character:c41dce2945"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_character",
+   "target": "character:b5c3c28b3e"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_character",
+   "target": "character:b951ae3b62"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_character",
+   "target": "character:accfb12a2c"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_character",
+   "target": "character:4c9c1ee530"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_character",
+   "target": "character:bfe78493a5"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_character",
+   "target": "character:ebb2aacfc8"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_character",
+   "target": "character:e7bf3e1d17"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_setting",
+   "target": "setting:4277983383"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_setting",
+   "target": "setting:d8b2c7d370"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_setting",
+   "target": "setting:9a285d8363"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_setting",
+   "target": "setting:43028cc093"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_setting",
+   "target": "setting:b05c2e1e59"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_setting",
+   "target": "setting:4d23cec17f"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_setting",
+   "target": "setting:a5cd6e6ebb"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_setting",
+   "target": "setting:6b02d31cd4"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_opening",
+   "target": "opening:e2f6946f4b"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_opening",
+   "target": "opening:7d7f5bd08e"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_opening",
+   "target": "opening:abce53474b"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_closing",
+   "target": "closing:a144380287"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_closing",
+   "target": "closing:0c751acc1a"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_closing",
+   "target": "closing:7fdbfc406d"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:9123845e33"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:b3171c98c1"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:e795aae561"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:cd1b08bf52"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:75d542cda4"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:ddfb32e1ef"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:6cadb4dacf"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:c2585243eb"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:b7ccba280e"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:6843f6d461"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:aee7d839b2"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:29d720e936"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:c387771397"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:9ed28936a0"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:5815a133a0"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:f82e60f43f"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:d98eb42dd2"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:8749f4225d"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:33f5e9f4cc"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:74e1c03548"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:77959d2fa7"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:490d1c49b7"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:920b1fc076"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:ffecefa659"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:a97f903e80"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:b0b04fdc9b"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:935d7cce0b"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:dc8f93b7fc"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:40a8fe1a9a"
+  },
+  {
+   "source": "region:egyptian",
+   "relation": "has_marker",
+   "target": "marker:d2bed03173"
+  },
+  {
+   "source": "schema:الكرم",
+   "relation": "is_a",
+   "target": "virtue:charity"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "values",
+   "target": "schema:الكرم"
+  },
+  {
+   "source": "schema:النخوة",
+   "relation": "is_a",
+   "target": "virtue:courage"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "values",
+   "target": "schema:النخوة"
+  },
+  {
+   "source": "schema:حفظ الجيرة",
+   "relation": "is_a",
+   "target": "virtue:social_bond"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "values",
+   "target": "schema:حفظ الجيرة"
+  },
+  {
+   "source": "schema:الوفاء",
+   "relation": "is_a",
+   "target": "virtue:social_bond"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "values",
+   "target": "schema:الوفاء"
+  },
+  {
+   "source": "schema:صلة الرحم",
+   "relation": "is_a",
+   "target": "virtue:social_bond"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "values",
+   "target": "schema:صلة الرحم"
+  },
+  {
+   "source": "schema:الصبر",
+   "relation": "is_a",
+   "target": "virtue:patience"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "values",
+   "target": "schema:الصبر"
+  },
+  {
+   "source": "schema:العدل",
+   "relation": "is_a",
+   "target": "virtue:justice"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "values",
+   "target": "schema:العدل"
+  },
+  {
+   "source": "schema:الأمانة",
+   "relation": "is_a",
+   "target": "virtue:justice"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "values",
+   "target": "schema:الأمانة"
+  },
+  {
+   "source": "schema:القناعة",
+   "relation": "is_a",
+   "target": "virtue:temperance"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "values",
+   "target": "schema:القناعة"
+  },
+  {
+   "source": "schema:التعاون",
+   "relation": "is_a",
+   "target": "virtue:social_bond"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "values",
+   "target": "schema:التعاون"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_proverb",
+   "target": "proverb:4b4626fe87"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_proverb",
+   "target": "proverb:2efc360de3"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_proverb",
+   "target": "proverb:5b54ccb04e"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_proverb",
+   "target": "proverb:7141f79ad6"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_proverb",
+   "target": "proverb:a23c5937ad"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_proverb",
+   "target": "proverb:7174eebeb5"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_proverb",
+   "target": "proverb:0cfd1ce88f"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_proverb",
+   "target": "proverb:a085db0d92"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_proverb",
+   "target": "proverb:6981e98de5"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_proverb",
+   "target": "proverb:207b3a2ec8"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_proverb",
+   "target": "proverb:115a702b09"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_proverb",
+   "target": "proverb:bad3a699c2"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_proverb",
+   "target": "proverb:9f6db119e0"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_proverb",
+   "target": "proverb:4e75351edb"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_proverb",
+   "target": "proverb:5f5d875642"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_character",
+   "target": "character:c41dce2945"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_character",
+   "target": "character:1ec8e80d93"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_character",
+   "target": "character:68c478296b"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_character",
+   "target": "character:5de5a00671"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_character",
+   "target": "character:11a08460e9"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_character",
+   "target": "character:c73b606acb"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_character",
+   "target": "character:dfc66e8e36"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_character",
+   "target": "character:dd322a7167"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_setting",
+   "target": "setting:472bd4b61e"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_setting",
+   "target": "setting:877c7b7d2c"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_setting",
+   "target": "setting:e5a93b1bd9"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_setting",
+   "target": "setting:979193f6ae"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_setting",
+   "target": "setting:7f2414fd71"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_setting",
+   "target": "setting:130664ac09"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_setting",
+   "target": "setting:879f7883ba"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_setting",
+   "target": "setting:a041841041"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_opening",
+   "target": "opening:0d1fbe7ee9"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_opening",
+   "target": "opening:7c8e37fab7"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_opening",
+   "target": "opening:0b945b6325"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_closing",
+   "target": "closing:df6fe2a1a5"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_closing",
+   "target": "closing:5acc347d49"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_closing",
+   "target": "closing:4b74866517"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:fe0a336db6"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:9043c3df15"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:fdf50b13f0"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:1e545acc88"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:3cb20ec288"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:d05dd93d5e"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:703474adcc"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:ec1d8df729"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:08a423d793"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:9bfe6d39e4"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:d7805f2f50"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:4a9ea75dee"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:3b8a41e7da"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:e281be26d3"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:00c738dbec"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:1f458d2bc8"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:5f9629d716"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:f6a3b1179f"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:0307efe88a"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:02c6849424"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:05bea70d47"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:436605f2f3"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:24fd5ca789"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:b3646f4b20"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:cb69431013"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:0ff5d23ab3"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:f9da2a9b20"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:ae56a354e7"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:0443d89119"
+  },
+  {
+   "source": "region:levantine",
+   "relation": "has_marker",
+   "target": "marker:98627db44b"
+  },
+  {
+   "source": "schema:الكرم",
+   "relation": "is_a",
+   "target": "virtue:charity"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "values",
+   "target": "schema:الكرم"
+  },
+  {
+   "source": "schema:إكرام الضيف",
+   "relation": "is_a",
+   "target": "virtue:charity"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "values",
+   "target": "schema:إكرام الضيف"
+  },
+  {
+   "source": "schema:الفزعة والتعاون",
+   "relation": "is_a",
+   "target": "virtue:social_bond"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "values",
+   "target": "schema:الفزعة والتعاون"
+  },
+  {
+   "source": "schema:برّ الوالدين",
+   "relation": "is_a",
+   "target": "virtue:social_bond"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "values",
+   "target": "schema:برّ الوالدين"
+  },
+  {
+   "source": "schema:الوفاء بالعهد",
+   "relation": "is_a",
+   "target": "virtue:social_bond"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "values",
+   "target": "schema:الوفاء بالعهد"
+  },
+  {
+   "source": "schema:الصبر",
+   "relation": "is_a",
+   "target": "virtue:patience"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "values",
+   "target": "schema:الصبر"
+  },
+  {
+   "source": "schema:الحكمة",
+   "relation": "is_a",
+   "target": "virtue:wisdom"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "values",
+   "target": "schema:الحكمة"
+  },
+  {
+   "source": "schema:الشجاعة",
+   "relation": "is_a",
+   "target": "virtue:courage"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "values",
+   "target": "schema:الشجاعة"
+  },
+  {
+   "source": "schema:القناعة",
+   "relation": "is_a",
+   "target": "virtue:temperance"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "values",
+   "target": "schema:القناعة"
+  },
+  {
+   "source": "schema:صلة الرحم",
+   "relation": "is_a",
+   "target": "virtue:social_bond"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "values",
+   "target": "schema:صلة الرحم"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_proverb",
+   "target": "proverb:2beb8924d5"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_proverb",
+   "target": "proverb:4fcd766eff"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_proverb",
+   "target": "proverb:a236938cd5"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_proverb",
+   "target": "proverb:ff3d47ba61"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_proverb",
+   "target": "proverb:5e3b9d7560"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_proverb",
+   "target": "proverb:c34b446a7d"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_proverb",
+   "target": "proverb:3220f6dd65"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_proverb",
+   "target": "proverb:dc4a5e59d5"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_proverb",
+   "target": "proverb:6a94d287bc"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_proverb",
+   "target": "proverb:183f786fb7"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_proverb",
+   "target": "proverb:ba4d3a6f5e"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_proverb",
+   "target": "proverb:2549153862"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_proverb",
+   "target": "proverb:9720b376e8"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_proverb",
+   "target": "proverb:9140e5d737"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_proverb",
+   "target": "proverb:a589297d39"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_character",
+   "target": "character:c3c42f30bc"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_character",
+   "target": "character:7daa037e6e"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_character",
+   "target": "character:db02d98bd9"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_character",
+   "target": "character:ac4dffe10b"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_character",
+   "target": "character:8f3008e1a1"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_character",
+   "target": "character:6d045c9d22"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_character",
+   "target": "character:d43a5c04ed"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_character",
+   "target": "character:e02e8cb4f5"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_setting",
+   "target": "setting:7a54cd34d3"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_setting",
+   "target": "setting:d5b5634a47"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_setting",
+   "target": "setting:24ff3936ae"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_setting",
+   "target": "setting:9e248001cf"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_setting",
+   "target": "setting:4679541408"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_setting",
+   "target": "setting:e6ae7a3236"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_setting",
+   "target": "setting:26a77fb502"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_setting",
+   "target": "setting:6c8b2787bb"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_opening",
+   "target": "opening:bcc3bc0e9f"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_opening",
+   "target": "opening:b254421a53"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_opening",
+   "target": "opening:8604fc2266"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_closing",
+   "target": "closing:c358ddbb9c"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_closing",
+   "target": "closing:f639443f9d"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_closing",
+   "target": "closing:935ff9375a"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:41130b7e72"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:eca8bb1ad4"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:0a1b262122"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:9848529836"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:5754859f3c"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:1c8e229671"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:0b4448b12b"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:56ae75f4aa"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:cb789b3f62"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:e3caeb512a"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:71c9385f33"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:91d0c10387"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:5038a38035"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:f43b51e943"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:c7fd1095bf"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:7cfbe292d7"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:f1ccdb777f"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:b15953ea82"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:41130b7e72"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:8a84898e7f"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:5ab2aad682"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:4739f54e92"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:f121d22f69"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:73ab0a9450"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:d6e11d25fa"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:69bfa06d51"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:bcc9e920fc"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:065ff1011d"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:a868c5e6ac"
+  },
+  {
+   "source": "region:gulf",
+   "relation": "has_marker",
+   "target": "marker:8282abbbac"
+  },
+  {
+   "source": "schema:الكرم",
+   "relation": "is_a",
+   "target": "virtue:charity"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "values",
+   "target": "schema:الكرم"
+  },
+  {
+   "source": "schema:التضامن العائلي",
+   "relation": "is_a",
+   "target": "virtue:social_bond"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "values",
+   "target": "schema:التضامن العائلي"
+  },
+  {
+   "source": "schema:التكافل بين الجيران",
+   "relation": "is_a",
+   "target": "virtue:social_bond"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "values",
+   "target": "schema:التكافل بين الجيران"
+  },
+  {
+   "source": "schema:احترام الكبير",
+   "relation": "is_a",
+   "target": "virtue:social_bond"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "values",
+   "target": "schema:احترام الكبير"
+  },
+  {
+   "source": "schema:حفظ ماء الوجه",
+   "relation": "is_a",
+   "target": "virtue:social_bond"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "values",
+   "target": "schema:حفظ ماء الوجه"
+  },
+  {
+   "source": "schema:الصبر",
+   "relation": "is_a",
+   "target": "virtue:patience"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "values",
+   "target": "schema:الصبر"
+  },
+  {
+   "source": "schema:القناعة",
+   "relation": "is_a",
+   "target": "virtue:temperance"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "values",
+   "target": "schema:القناعة"
+  },
+  {
+   "source": "schema:الفطنة",
+   "relation": "is_a",
+   "target": "virtue:wisdom"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "values",
+   "target": "schema:الفطنة"
+  },
+  {
+   "source": "schema:الوفاء",
+   "relation": "is_a",
+   "target": "virtue:social_bond"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "values",
+   "target": "schema:الوفاء"
+  },
+  {
+   "source": "schema:البركة",
+   "relation": "is_a",
+   "target": "virtue:gratitude"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "values",
+   "target": "schema:البركة"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_proverb",
+   "target": "proverb:71c6f68c8f"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_proverb",
+   "target": "proverb:4fb43138d9"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_proverb",
+   "target": "proverb:eff43a4bee"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_proverb",
+   "target": "proverb:55ffb93aa4"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_proverb",
+   "target": "proverb:a0fe09057f"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_proverb",
+   "target": "proverb:0f607fa82c"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_proverb",
+   "target": "proverb:0535139d67"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_proverb",
+   "target": "proverb:425c1a1dd5"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_proverb",
+   "target": "proverb:de5d505240"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_proverb",
+   "target": "proverb:0dc93151e9"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_proverb",
+   "target": "proverb:825aa6e319"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_proverb",
+   "target": "proverb:43d272f160"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_proverb",
+   "target": "proverb:c7f66151cd"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_proverb",
+   "target": "proverb:8670f9166b"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_proverb",
+   "target": "proverb:15a869cdea"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_character",
+   "target": "character:bc4f1cfdd0"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_character",
+   "target": "character:ec3b3e6d77"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_character",
+   "target": "character:7f99a4a8bb"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_character",
+   "target": "character:9f223e7f62"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_character",
+   "target": "character:ce3542d0b5"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_character",
+   "target": "character:f467ff08ff"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_character",
+   "target": "character:5b75dc2e94"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_character",
+   "target": "character:ad191d99f7"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_setting",
+   "target": "setting:8d244032b9"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_setting",
+   "target": "setting:e053061c22"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_setting",
+   "target": "setting:01f58b1898"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_setting",
+   "target": "setting:ea9695f8a6"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_setting",
+   "target": "setting:f8aafc62f5"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_setting",
+   "target": "setting:38afa77fa2"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_setting",
+   "target": "setting:0723235e44"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_setting",
+   "target": "setting:e8ef4a0cdb"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_opening",
+   "target": "opening:f4daf7300c"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_opening",
+   "target": "opening:551bb2e8b3"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_opening",
+   "target": "بسم الله، قال ليك: كان واحد..."
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_closing",
+   "target": "closing:9c103c7b86"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_closing",
+   "target": "closing:5dece733d8"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_closing",
+   "target": "closing:7892559dde"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:ebcc3d5599"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:344dd2c4a4"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:24a24fa0ce"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:0801bad9c5"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:616fef5b92"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:5dd65b4403"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:5ce22fb06b"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:c278def26d"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:6c59826773"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:435f95e79c"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:644d4637af"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:503c4b19e2"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:d3e717a56f"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:6a1db4856d"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:50433319e3"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:bbd00b117d"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:ff20b941db"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:10eb190558"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:15fa1f0891"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:3ab7abbe20"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:a19b7ad0b9"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:dd68cabae2"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:b591b7fde7"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:62ae8aaa4d"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:3f6b32b40c"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:694e7f35b8"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:232c0a6494"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:eda336161d"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:1dee919cbb"
+  },
+  {
+   "source": "region:maghrebi",
+   "relation": "has_marker",
+   "target": "marker:b3f4588252"
+  }
+ ]
+}
