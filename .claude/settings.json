@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "deny": [
+      "mcp__Firecrawl",
+      "mcp__TinyFish",
+      "mcp__Gmail__send_message",
+      "mcp__Gmail__reply",
+      "mcp__Gmail__forward",
+      "mcp__Google_Drive__share_file",
+      "mcp__Google_Drive__trash_file"
+    ],
+    "ask": [
+      "mcp__Google_Drive__create_file",
+      "mcp__Google_Drive__update_file",
+      "mcp__Google_Drive__copy_file",
+      "mcp__Google_Sheets__update_values",
+      "mcp__Google_Sheets__append_values",
+      "mcp__github__merge_pull_request",
+      "mcp__github__create_pull_request",
+      "Bash(git push:*)"
+    ]
+  }
+}
