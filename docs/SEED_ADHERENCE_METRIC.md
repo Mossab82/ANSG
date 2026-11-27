@@ -1,0 +1,56 @@
+# Seed Adherence Score (SAS)
+
+Code: `src/ansg/evaluation/seed_adherence.py`. Tests: `tests/unit/test_seed_adherence.py`.
+
+## What it measures
+SAS answers one question: **did the story use the cultural elements it was asked to use?** Those elements are the ones that `build_story_prompt` sampled from `data/cultural_seeds`:
+- the proverb;
+- the traditional opening and closing;
+- the character and setting;
+- the dialect of the dialogue.
+
+SAS does **not** measure:
+- cultural authenticity;
+- story quality or coherence;
+- the dissertation's CMPI. SAS is a new, separate metric, and nothing is taken from the thesis numbers.
+
+SAS is lexical. A story can paraphrase a proverb faithfully and still get a low proverb score. A story can also include the right words and still be bad.
+
+## Equations
+All components lie in [0, 1].
+
+| Component | Definition |
+|---|---|
+| phrase recall | r(P, W) = LCS_tokens(P, W) / \|P\| |
+| proverb | p = r(proverb, story) |
+| opening | o = r(opening, first \|opening\| + 10 tokens) |
+| closing | c = r(closing, last \|closing\| + 10 tokens) |
+| entities | e = ½ · (r(character, story) + r(setting, story)) |
+| dialect, dialect regions | d = h_t / (h_t + h_o), and 0 when no marker is found |
+| dialect, MSA | d = 1 / (1 + h_o) |
+| **score** | **SAS = 0.2·p + 0.2·o + 0.2·c + 0.2·e + 0.2·d** |
+
+**Terms:**
+- **LCS_tokens** is the longest common token subsequence, computed after normalisation. Normalisation removes diacritics and tatweel and unifies alef, ya, ta marbuta and hamza carriers. A leading و or ف on a token is ignored.
+- **h_t** is the number of story tokens that are distinctive markers of the target region.
+- **h_o** is the same count for the other regions.
+- **Distinctive markers** are built in three steps:
+  1. Take the tokens of a region's `dialect_markers`.
+  2. Remove tokens that occur in any MSA phrase in the seed files, or in another region's markers.
+  3. Remove a short declared list of standard or pan-dialect words (`NOT_DISTINCTIVE`).
+
+**Weights.** The equal weights are a declared default, not an empirical result. If an element was not requested, its component is reported as `None` and the remaining weights are renormalised. Every component is reported separately next to the score.
+
+## Known limitations
+- The marker sets are small: 11–24 tokens per region. They come from seed files that a native speaker has not yet reviewed.
+- The Levantine set mixes Jordanian, Palestinian, Syrian and Lebanese forms. The Gulf set mixes Najdi, Hijazi, Emirati, Kuwaiti and Omani forms.
+- A story written fully in MSA gets d = 0 for a dialect region, even if it is otherwise good. This is intended, because the prompt asks for dialect dialogue.
+- Exact lexical matching misses spelling variants that normalisation does not cover.
+
+## Validation plan (not yet done)
+1. Generate stories with the chosen backbone from seed prompts covering all five regions.
+2. Mossab rates each story blind on four 1–5 scales: dialect, language, coherence and culture. These are the same scales as the model-comparison review.
+3. Report Spearman's ρ, with a bootstrap 95% CI, between SAS and its components on one side and the human ratings on the other. Report n.
+4. Keep SAS only for what it correlates with. If d does not track the human dialect ratings, revise the marker sets before using d.
+
+Until step 3 is done, SAS is a diagnostic of instruction adherence and nothing more.
