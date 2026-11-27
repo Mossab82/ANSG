@@ -26,6 +26,8 @@ from torch.nn import functional as F
 
 # bias_fn(layer_index, seq_len) -> tensor broadcastable to [batch, heads, seq, seq], or None
 BiasFn = Callable[[int, int], "torch.Tensor | None"]
+# delta_fn(layer_index, x) -> extra output of the attention output projection (same shape as its output), or None
+DeltaFn = Callable[[int, "torch.Tensor"], "torch.Tensor | None"]
 
 
 @dataclass(frozen=True)
@@ -65,7 +67,8 @@ class BiasedAttention(nn.Module):
         self.c_attn = nn.Linear(spec.n_embd, 3 * spec.n_embd)
         self.c_proj = nn.Linear(spec.n_embd, spec.n_embd)
 
-    def forward(self, x: torch.Tensor, bias: torch.Tensor | None = None, return_probs: bool = False):
+    def forward(self, x: torch.Tensor, bias: torch.Tensor | None = None, return_probs: bool = False,
+                delta: Callable[[torch.Tensor], torch.Tensor | None] | None = None):
         b, t, d = x.shape
         q, k, v = self.c_attn(x).split(d, dim=-1)
         q, k, v = (z.view(b, t, self.n_head, self.head_dim).transpose(1, 2) for z in (q, k, v))
@@ -75,8 +78,12 @@ class BiasedAttention(nn.Module):
         causal = torch.ones(t, t, dtype=torch.bool, device=x.device).tril()
         logits = logits.masked_fill(~causal, torch.finfo(logits.dtype).min)
         probs = torch.softmax(logits, dim=-1)
-        out = (probs @ v).transpose(1, 2).contiguous().view(b, t, d)
-        out = self.c_proj(out)
+        z = (probs @ v).transpose(1, 2).contiguous().view(b, t, d)
+        out = self.c_proj(z)
+        if delta is not None:
+            extra = delta(z)
+            if extra is not None:
+                out = out + extra
         return (out, probs) if return_probs else (out, None)
 
 
@@ -89,8 +96,8 @@ class Block(nn.Module):
         self.c_fc = nn.Linear(spec.n_embd, 4 * spec.n_embd)
         self.c_proj = nn.Linear(4 * spec.n_embd, spec.n_embd)
 
-    def forward(self, x, bias=None, return_probs=False):
-        a, probs = self.attn(self.ln_1(x), bias, return_probs)
+    def forward(self, x, bias=None, return_probs=False, delta=None):
+        a, probs = self.attn(self.ln_1(x), bias, return_probs, delta)
         x = x + a
         x = x + self.c_proj(gelu_new(self.c_fc(self.ln_2(x))))
         return x, probs
@@ -107,7 +114,8 @@ class GPT2WithAttentionBias(nn.Module):
         self.h = nn.ModuleList(Block(spec) for _ in range(spec.n_layer))
         self.ln_f = nn.LayerNorm(spec.n_embd, eps=spec.layer_norm_epsilon)
 
-    def hidden_states(self, input_ids: torch.Tensor, bias_fn: BiasFn | None = None, return_probs: bool = False):
+    def hidden_states(self, input_ids: torch.Tensor, bias_fn: BiasFn | None = None, return_probs: bool = False,
+                      delta_fn: DeltaFn | None = None):
         t = input_ids.shape[1]
         if t > self.spec.n_positions:
             raise ValueError(f"sequence length {t} exceeds n_positions {self.spec.n_positions}")
@@ -116,13 +124,14 @@ class GPT2WithAttentionBias(nn.Module):
         all_probs = []
         for i, block in enumerate(self.h):
             bias = bias_fn(i, t) if bias_fn is not None else None
-            x, probs = block(x, bias, return_probs)
+            delta = (lambda z, i=i: delta_fn(i, z)) if delta_fn is not None else None
+            x, probs = block(x, bias, return_probs, delta)
             all_probs.append(probs)
         return self.ln_f(x), (all_probs if return_probs else None)
 
     def forward(self, input_ids: torch.Tensor, bias_fn: BiasFn | None = None, labels: torch.Tensor | None = None,
-                return_probs: bool = False):
-        hidden, probs = self.hidden_states(input_ids, bias_fn, return_probs)
+                return_probs: bool = False, delta_fn: DeltaFn | None = None):
+        hidden, probs = self.hidden_states(input_ids, bias_fn, return_probs, delta_fn)
         logits = hidden @ self.wte.weight.T  # tied output embedding, as in GPT-2
         loss = None
         if labels is not None:
