@@ -36,6 +36,15 @@ jobs:
             echo "::error::MODAL_TOKEN_ID or MODAL_TOKEN_SECRET GitHub Actions secret missing"
             exit 1
           fi
+          # Format checks only; values are never printed.
+          python - <<'PY'
+          import os
+          for name, prefix in (("MODAL_TOKEN_ID", "ak-"), ("MODAL_TOKEN_SECRET", "as-")):
+              v = os.environ[name]
+              print(f"{name}: starts_with_{prefix}={v.startswith(prefix)} "
+                    f"other_prefix={v.startswith('as-' if prefix == 'ak-' else 'ak-')} "
+                    f"length={len(v)} has_whitespace={v != v.strip() or ' ' in v}")
+          PY
       - name: Run comparison on Modal
         run: modal run modal_jobs/model_comparison.py
       - name: Commit outputs to a results branch
