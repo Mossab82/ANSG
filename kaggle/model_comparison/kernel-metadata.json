@@ -1,0 +1,16 @@
+{
+  "id": "mossabibrahim/ansg-arabic-model-comparison",
+  "title": "ANSG Arabic Model Comparison",
+  "code_file": "run_model_comparison.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": [],
+  "kernel_sources": [],
+  "competition_sources": [],
+  "model_sources": [],
+  "machine_shape": "NvidiaTeslaT4"
+}

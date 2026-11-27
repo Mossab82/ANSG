@@ -1,0 +1,63 @@
+name: ANSG Arabic model comparison (Kaggle GPU)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - experiment/base-model-comparison
+    paths:
+      - .github/workflows/ansg-model-comparison.yml
+      - kaggle/model_comparison/**
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ansg-model-comparison
+  cancel-in-progress: false
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    env:
+      KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+    steps:
+      - name: Check out research code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install Kaggle CLI
+        run: python -m pip install --upgrade kaggle six
+      - name: Validate Kaggle credential is configured
+        run: |
+          if [ -z "$KAGGLE_API_TOKEN" ]; then
+            echo "::error::KAGGLE_API_TOKEN GitHub Actions secret missing"
+            exit 1
+          fi
+      - name: Push private comparison kernel
+        run: |
+          kaggle kernels push -p kaggle/model_comparison
+          kaggle kernels list --mine --page-size 20
+      - name: Wait for GPU inference and collect outputs
+        run: python kaggle/model_comparison/wait_and_download.py
+      - name: Commit outputs to a results branch
+        if: always()
+        run: |
+          if [ ! -d kaggle-model-comparison-output ]; then
+            echo "No outputs to commit."
+            exit 0
+          fi
+          BRANCH="results/model-comparison-${{ github.run_id }}"
+          DEST="results/model_comparison/${{ github.run_id }}"
+          mkdir -p "$DEST"
+          find kaggle-model-comparison-output -type f \( -name '*.json' -o -name '*.md' -o -name '*.log' \) \
+            -exec cp {} "$DEST"/ \;
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add "$DEST"
+          git commit -m "Model comparison outputs from run ${{ github.run_id }}"
+          git push origin "$BRANCH"
