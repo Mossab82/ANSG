@@ -6,7 +6,7 @@ from pathlib import Path
 
 REF = "mossabibrahim/ansg-arabic-model-comparison"
 OUTPUT = Path("kaggle-model-comparison-output")
-DEADLINE = time.monotonic() + 3 * 3600
+DEADLINE = time.monotonic() + 5.5 * 3600
 
 
 def cli(*args):
