@@ -46,6 +46,7 @@ All components lie in [0, 1].
 - The Levantine set mixes Jordanian, Palestinian, Syrian and Lebanese forms. The Gulf set mixes Najdi, Hijazi, Emirati, Kuwaiti and Omani forms.
 - A story written fully in MSA gets d = 0 for a dialect region, even if it is otherwise good. This is intended, because the prompt asks for dialect dialogue.
 - Exact lexical matching misses spelling variants that normalisation does not cover.
+- **Coverage is low on narrative text.** On the first six parallel stories (about 90 words per variant), each variant matched only 0–3 distinctive markers, and several matched none. The seed markers are mostly greetings and questions. The dialect component d therefore needs larger marker lexicons before it can be trusted. One option is to derive them by frequency contrast from real dialect corpora such as IADD.
 
 ## Validation plan (not yet done)
 1. Generate stories with the chosen backbone from seed prompts covering all five regions.
