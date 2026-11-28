@@ -51,6 +51,7 @@ EXCLUDE: dict[str, str] = {
     "مجموعين": _OTHER, "وعرفو": _SPELL, "عرفو": _SPELL, "رجعو": _SPELL, "سمعو": _SPELL,
     "وتعلمو": _SPELL, "ووصلو": _SPELL, "شكرو": _SPELL, "صلحو": _SPELL, "خدمو": _SPELL,
     "كاين": "after normalisation also MSA كائن ('creature'); hit an Egyptian story",
+    "حل": "Moroccan 'open' but MSA 'solution'; hit an MSA test story",
     "جلسو": _SPELL, "تعاونو": _SPELL, "وتعاونو": _SPELL, "واتافقو": _SPELL,
 }
 

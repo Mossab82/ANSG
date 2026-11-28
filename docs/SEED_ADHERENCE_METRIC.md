@@ -67,7 +67,7 @@ All components lie in [0, 1].
   - Versions with at least one own marker: Egyptian 4/4, Levantine 2/4, **Gulf 0/4**, Maghrebi 4/4.
   - Gemini's Najdi uses words such as حنا، يم، طعس، كفو، شرى that the ChatGPT stories never used. The Gulf and Levantine markers therefore reflect one generator's vocabulary more than the dialect itself. This is direct evidence that d needs real dialect text or native review before it can be trusted.
   - Two false markers surfaced and were excluded: زي (also Jordanian/Palestinian) and كاين (after normalisation also MSA كائن).
-  - Gemini batch 2 exposed two more homographs, now in NOT_DISTINCTIVE: وش (Gulf "what", Egyptian "face") and كاين (Moroccan "there is", MSA كائن after normalisation).
+  - Gemini batch 2 exposed two more homographs, now in NOT_DISTINCTIVE: وش (Gulf "what", Egyptian "face") and كاين (Moroccan "there is", MSA كائن after normalisation). Rebuilt with 62 training stories (Egyptian 29, Levantine 28, Gulf 17, Maghrebi 112); حل (Moroccan "open", MSA "solution") was excluded after it hit an MSA test story. Test coverage: 9/9, 7/9, 7/9, 9/9, 0 cross hits.
   - The lexicon was then rebuilt with all 57 training stories (both generators): Egyptian 27, Levantine 26, Gulf 16, Maghrebi 103. Test-split coverage is unchanged (8/9, 7/9, 7/9, 9/9, 0 cross hits).
 
 ## Validation plan (not yet done)

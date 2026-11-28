@@ -69,7 +69,7 @@
           11,
           10
         ],
-        "other_variety_versions_hit": 1
+        "other_variety_versions_hit": 0
       }
     },
     "note": "Built from synthetic (ChatGPT) stories, so it reflects that generator's dialect choices. Coverage on the 9 test stories is not a validation of the markers on real dialect text.",
@@ -78,6 +78,7 @@
       "2026-11-28: removed حدا (Moroccan 'near') after a cross-variety hit in story 38",
       "2026-11-28: rebuilt by scripts/build_dialect_lexicon.py from 53 training stories (min_df=3); the test split was not read.",
       "2026-11-28: rebuilt by scripts/build_dialect_lexicon.py from 57 training stories (min_df=3); the test split was not read.",
+      "2026-11-28: rebuilt by scripts/build_dialect_lexicon.py from 62 training stories (min_df=3); the test split was not read.",
       "2026-11-28: rebuilt by scripts/build_dialect_lexicon.py from 62 training stories (min_df=3); the test split was not read."
     ]
   },
@@ -239,7 +240,6 @@
     "بوحدها",
     "بوحدي",
     "تما",
-    "حل",
     "خاصنا",
     "دراري",
     "زوينه",
