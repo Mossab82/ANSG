@@ -238,6 +238,56 @@ def heldout_loss(model, csam, dal, batcher, held, bs, use_adapters):
 
 
 @torch.no_grad()
+def csam_diagnostics(model, csam, batcher, held, n=32):
+    """How much can CSAM change attention at all?
+
+    Softmax ignores any bias that is constant along the key axis, so only the part of
+    the CSAM bias that varies across keys k (for a fixed query j, over k <= j) can move
+    attention. Reports that key-varying part (mean |b - row mean|) for heritage heads
+    0-3 and rhetorical heads 4-7, plus how often Eq. 4.20 activates any schema without
+    teacher forcing.
+    """
+    sample = held[:n]
+    ids, labels, mask, dialect, schema, has_schema = batcher(sample)
+    context = (model.wte(ids) * mask[..., None]).sum(1) / mask.sum(1, keepdim=True).clamp_min(1)
+    w_free, active = csam.activation(context)
+    w = torch.where(has_schema[:, None], schema, w_free)
+    t = ids.shape[1]
+    causal = torch.tril(torch.ones(t, t, dtype=torch.bool, device=ids.device))
+    per_layer = []
+    for layer in csam.settings.layers:
+        b = csam.bias(layer, model.wpe.weight[:t], w)                         # [B, 12, T, T]
+        if b is None:
+            continue
+        bm = b.masked_fill(~causal, 0)
+        cnt = causal.sum(-1).clamp_min(1)
+        row_mean = bm.sum(-1, keepdim=True) / cnt[:, None]
+        dev = ((b - row_mean).abs().masked_fill(~causal, 0).sum(-1) / cnt)      # [B, 12, T]
+        per_layer.append({"layer": layer,
+                          "heritage_key_varying": round(dev[:, 0:4].mean().item(), 6),
+                          "rhetorical_key_varying": round(dev[:, 4:8].mean().item(), 6),
+                          "max_abs_bias": round(b.abs().max().item(), 6)})
+    return {"examples": len(sample),
+            "with_gold_schema": int(has_schema.sum().item()),
+            "free_activation_rate": round(active.any(-1).float().mean().item(), 4),
+            "mean_active_schemas_free": round(active.sum(-1).float().mean().item(), 3),
+            "per_layer": per_layer}
+
+
+_ODD = set(chr(c) for c in range(0x0600, 0x0620)) - {"\u060c", "\u061b", "\u061f"}
+
+
+def banned_token_ids(tok):
+    """Vocabulary items containing Arabic sign/format characters (e.g. U+0605, U+060A,
+    U+0613) that leak into samples as noise; the comma, semicolon and question mark stay."""
+    if not hasattr(tok, "tok"):
+        return []
+    if not hasattr(tok, "_banned"):
+        tok._banned = [i for i in range(len(tok.tok)) if set(tok.tok.decode([i])) & _ODD]
+    return tok._banned
+
+
+@torch.no_grad()
 def generate(model, csam, dal, tok, prefix, dialect, schema_vec, max_new, temperature, top_p, device,
              repetition_penalty=1.3, no_repeat_ngram=3, min_new=0):
     ids = torch.tensor([tok.encode(clean(prefix))], device=device)
@@ -258,6 +308,9 @@ def generate(model, csam, dal, tok, prefix, dialect, schema_vec, max_new, temper
                       if tuple(hist[i:i + no_repeat_ngram - 1]) == prefix_ng]
             if banned:
                 logits[banned] = float("-inf")
+        bad = banned_token_ids(tok)
+        if bad:
+            logits[bad] = float("-inf")
         if step < min_new and tok.eos_id is not None:
             logits[tok.eos_id] = float("-inf")
         logits = logits / temperature
@@ -333,6 +386,8 @@ def main():
 
     base_loss = heldout_loss(model, csam, dal, batcher, held, args.batch, use_adapters=False)
     print("held-out loss, backbone only:", base_loss, flush=True)
+    diag_start = csam_diagnostics(model, csam, batcher, held)
+    print("CSAM diagnostics at start:", json.dumps(diag_start), flush=True)
 
     if args.smoke:
         args.eval_every = 10
@@ -403,6 +458,8 @@ def main():
     dal.eval()
     adapted_loss = heldout_loss(model, csam, dal, batcher, held, args.batch, use_adapters=True)
     print("held-out loss, with CSAM+DAL:", adapted_loss, flush=True)
+    diag_end = csam_diagnostics(model, csam, batcher, held)
+    print("CSAM diagnostics at end:", json.dumps(diag_end), flush=True)
 
     torch.save({"csam": csam.state_dict(), "dal": dal.state_dict(), "schema_ids": schema_ids,
                 "backbone": args.model, "args": vars(args)}, out_dir / "adapters.pt")
@@ -437,6 +494,8 @@ def main():
         "train_counts": counts, "heldout_size": len(held),
         "heldout_loss_backbone_only": base_loss, "heldout_loss_with_adapters": adapted_loss,
         "best_step": best["step"],
+        "csam_diagnostics": {"start": diag_start, "end": diag_end},
+        "generation_banned_tokens": len(banned_token_ids(tok)),
         "log": log, "samples": samples,
     }
     (out_dir / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
