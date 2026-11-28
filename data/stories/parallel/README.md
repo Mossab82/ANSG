@@ -23,3 +23,8 @@ Before training on model-generated text, check the generator's terms of use.
   Two spelling fixes: 0058 MSA «اسمه وثّابًا» → «اسمه وثّاب»; 0059 Egyptian «دلتّه» → «دلّته».
 - Batch 13 Gulf revision: the generator re-sent the five Gulf fields. 0059 and 0061 changed («يديدة»→«جديدة», «مب»→«مو»); 0058, 0060 and 0062 were identical. Each changed record has an `edits` note.
 - Gemini batch 1 (parallel-0063–0066, `generated_by: Gemini`). Field names were mapped (levantine_jordanian→levantine, gulf_najdi→gulf, moroccan→maghrebi); `genre`, `setting` and the batch's own id (`batch_id`) are kept. Its story_03 (الفزعة والتعاون: a boat pushed onto harbour rocks, rescued with ropes by other boats) was **not added**, because it nearly duplicates test story parallel-0046. Note: in story_01 the hero is ثامر in MSA but تامر in all dialects, including Najdi Gulf, which normally keeps ث.
+- Gemini batch 2 (parallel-0067–0071) was added in full; no plot overlaps a test story. Known issues, kept for now:
+  - All versions are 78–94 words, below the requested 110–140.
+  - The Gulf versions overuse «ما هو» + participle (e.g. «ما هو متأخر»، «ما هو مغير»، «ما هو مخلوف»), which sounds unnatural in Najdi. The prompt's instruction "use ما هو/مو instead of مب" probably caused this. Revised Gulf fields were requested; they will replace these when they arrive.
+  - 0067 (الحلم) retells Aesop's hare and tortoise. Its plot illustrates perseverance more than forbearance, and it treats السلحفاة as masculine.
+  - 0069 (الوفاء بالعهد): the captain sails through a storm against the navigator's advice to keep a promise, so the story praises taking a risk with the crew.
