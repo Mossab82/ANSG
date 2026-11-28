@@ -3,7 +3,10 @@
   "method": "Words that occur in one variety's versions of at least 2 parallel stories and in no other variety's or MSA versions (data/stories/parallel), then curated by hand to drop story-specific content words and ambiguous forms.",
   "curated_by": "Claude (assistant); not a native speaker",
   "review_status": "pending_native_review",
-  "note": "Small (16 synthetic stories). To be extended by frequency contrast on real dialect text such as IADD."
+  "note": "Small (16 synthetic stories). To be extended by frequency contrast on real dialect text such as IADD.",
+  "changes": [
+   "2026-11-28: removed عم (also 'uncle') and وقتها (also Egyptian) after out-of-sample check on stories 17-21"
+  ]
  },
  "egyptian": [
   "ميه",
@@ -27,7 +30,6 @@
   "قاله",
   "مي",
   "المي",
-  "عم",
   "حدا",
   "لحاله",
   "لحالها",
@@ -36,7 +38,6 @@
   "عالباب",
   "عالسوق",
   "عالمرتفع",
-  "وقتها",
   "ضل",
   "مرقوا",
   "مرق",
