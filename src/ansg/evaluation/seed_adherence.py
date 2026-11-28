@@ -66,6 +66,9 @@ NOT_DISTINCTIVE = frozenset({
     "هاد",
     # استنى (wait) is Levantine too; حدا is Levantine "someone" but Moroccan "near"
     "استني", "حدا",
+    # found on Gemini stories: وش is Gulf "what" but Egyptian "face" (وش الولد);
+    # كاين is Moroccan "there is" but also MSA كائن ("creature") after hamza normalisation
+    "وش", "كاين",
 })
 
 _DIACRITICS = re.compile(r"[ً-ْٰـ]")
