@@ -2967,6 +2967,17 @@
    "attributes": {}
   },
   {
+   "id": "schema:الإيثار",
+   "kind": "schema",
+   "labels": {
+    "ar": "الإيثار",
+    "en": "altruism"
+   },
+   "attributes": {
+    "source": "parallel_stories"
+   }
+  },
+  {
    "id": "schema:البركة",
    "kind": "schema",
    "labels": {
@@ -3039,6 +3050,39 @@
    "attributes": {}
   },
   {
+   "id": "schema:الحلم",
+   "kind": "schema",
+   "labels": {
+    "ar": "الحلم",
+    "en": "forbearance"
+   },
+   "attributes": {
+    "source": "parallel_stories"
+   }
+  },
+  {
+   "id": "schema:الحياء",
+   "kind": "schema",
+   "labels": {
+    "ar": "الحياء",
+    "en": "modesty"
+   },
+   "attributes": {
+    "source": "parallel_stories"
+   }
+  },
+  {
+   "id": "schema:الرحمة",
+   "kind": "schema",
+   "labels": {
+    "ar": "الرحمة",
+    "en": "mercy"
+   },
+   "attributes": {
+    "source": "parallel_stories"
+   }
+  },
+  {
    "id": "schema:الشجاعة",
    "kind": "schema",
    "labels": {
@@ -3046,6 +3090,17 @@
     "en": "courage"
    },
    "attributes": {}
+  },
+  {
+   "id": "schema:الشكر",
+   "kind": "schema",
+   "labels": {
+    "ar": "الشكر",
+    "en": "gratitude"
+   },
+   "attributes": {
+    "source": "parallel_stories"
+   }
   },
   {
    "id": "schema:الشهامة",
@@ -3066,6 +3121,17 @@
    "attributes": {}
   },
   {
+   "id": "schema:الصدق",
+   "kind": "schema",
+   "labels": {
+    "ar": "الصدق",
+    "en": "truthfulness"
+   },
+   "attributes": {
+    "source": "parallel_stories"
+   }
+  },
+  {
    "id": "schema:العدل",
    "kind": "schema",
    "labels": {
@@ -3073,6 +3139,17 @@
     "en": "justice"
    },
    "attributes": {}
+  },
+  {
+   "id": "schema:العفو",
+   "kind": "schema",
+   "labels": {
+    "ar": "العفو",
+    "en": "forgiveness"
+   },
+   "attributes": {
+    "source": "parallel_stories"
+   }
   },
   {
    "id": "schema:الفزعة والتعاون",
@@ -5767,6 +5844,41 @@
    "source": "region:maghrebi",
    "relation": "has_marker",
    "target": "marker:b3f4588252"
+  },
+  {
+   "source": "schema:الصدق",
+   "relation": "is_a",
+   "target": "virtue:justice"
+  },
+  {
+   "source": "schema:الحياء",
+   "relation": "is_a",
+   "target": "virtue:temperance"
+  },
+  {
+   "source": "schema:الحلم",
+   "relation": "is_a",
+   "target": "virtue:temperance"
+  },
+  {
+   "source": "schema:الإيثار",
+   "relation": "is_a",
+   "target": "virtue:charity"
+  },
+  {
+   "source": "schema:الرحمة",
+   "relation": "is_a",
+   "target": "virtue:charity"
+  },
+  {
+   "source": "schema:العفو",
+   "relation": "is_a",
+   "target": "virtue:charity"
+  },
+  {
+   "source": "schema:الشكر",
+   "relation": "is_a",
+   "target": "virtue:gratitude"
   }
  ]
 }

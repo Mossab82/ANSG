@@ -45,6 +45,15 @@ VALUE_TO_VIRTUE = {
     "صلة الرحم": "social_bond", "حفظ الجيرة": "social_bond", "التعاون": "social_bond",
     "الفزعة والتعاون": "social_bond", "التضامن العائلي": "social_bond", "التكافل بين الجيران": "social_bond",
     "برّ الوالدين": "social_bond", "احترام الكبير": "social_bond", "حفظ ماء الوجه": "social_bond",
+    # values introduced by the parallel stories (2026-11-28); same editorial status as above
+    "الصدق": "justice", "الحياء": "temperance", "الحلم": "temperance",
+    "الإيثار": "charity", "الرحمة": "charity", "العفو": "charity",
+    "الشكر": "gratitude",
+}
+# English labels for values that appear only in the parallel stories (no seed-file entry).
+STORY_ONLY_VALUES_EN = {
+    "الصدق": "truthfulness", "الحياء": "modesty", "الحلم": "forbearance", "الإيثار": "altruism",
+    "الرحمة": "mercy", "العفو": "forgiveness", "الشكر": "gratitude",
 }
 
 
@@ -91,6 +100,12 @@ def build_seed_ckg(seed_dir=None) -> dict[str, Any]:
             edge(r, f"has_{oc['type']}", node(oc["type"], oc["text"], oc["text"]))
         for m in seed["dialect_markers"]:
             edge(r, "has_marker", node("marker", f"{region}|{m['dialect']}", m["dialect"], msa=m["msa"]))
+
+    # schema nodes for values used by the parallel stories but absent from the seed files
+    for name, en in STORY_ONLY_VALUES_EN.items():
+        if f"schema:{name}" not in nodes:
+            s = node("schema", f"schema:{name}", name, en, source="parallel_stories")
+            edge(s, "is_a", f"virtue:{VALUE_TO_VIRTUE[name]}")
 
     return {
         "metadata": {

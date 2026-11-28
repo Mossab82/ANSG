@@ -33,6 +33,11 @@
 - **D3. Schema embeddings.** Resolved: no CST-Onto OWL file; OWL2Vec*-style embeddings are built from the seed graph.
 - **D4. GAN phase.** Read the Ch. 5 description of the discriminator and losses before designing Phase 2.
 - **D5. Sub-metrics without equations.** CMPI, Virtue, Rhetorical, Register, Coreference, Temporal and Causal each get a written formula in `docs/`. These formulas are this implementation's choices, not the dissertation's.
+- **D6. Training CSAM (decided 2026-11-28: options A + B).** Runs 4–5 showed no measurable CSAM effect without L_cultural (`results/phase1/2026-11-28-colab-t4-run4-5/NOTES.md`).
+  - **A: L_cultural (Eq. 4.18) is now on, λ_align = 0.1 and λ_schema = 0.05 (§4.3.5).** The dissertation's positive pairs come from ANHC motif annotations (§3.5.2), which are not available. Here they come from rule-based spans (`scripts/annotate_motif_spans.py`): the opening formula and the final quoted moral («...», labelled wisdom_transmission), plus seed proverbs when they occur. Negatives are random pairs outside a common span.
+  - **B: `--csam-init-std` and `--csam-lr-mult`** give Eq. 4.13's vectors a larger initial scale and CSAM a larger learning rate. These are engineering settings and leave the equations unchanged.
+  - **Known limitation of Eq. 4.13 as written.** Rel depends only on the positional encodings pos_j, pos_k and the schema embedding c_s, not on token content. CSAM can therefore learn position patterns per schema (e.g. attend within a local window, or to the story opening), but it cannot know where a motif span lies in a particular text. If CSAM stays inert after A + B, option C (content-dependent relevance) is the next test. It would be a declared deviation.
+  - Story values missing from the seed files (الصدق، الحياء، الحلم، الإيثار، الرحمة، العفو، الشكر) were added to `VALUE_TO_VIRTUE` and as schema nodes (34 schemas). This is an editorial mapping and needs review.
 
 ## Build order
 1. Backbone loads, and CSAM bias hooks into its attention. Unit test: zero bias gives exactly the original logits (Eq. 4.10 = Eq. 4.11 with B = 0).
