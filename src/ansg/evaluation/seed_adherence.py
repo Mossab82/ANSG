@@ -60,6 +60,8 @@ NOT_DISTINCTIVE = frozenset({
     "عم",
     # found on Phase 1 samples: ابي = "my father" (MSA) vs "I want" (Gulf); عندو is Levantine too
     "ابي", "عندو",
+    # ليش is Gulf as well as Levantine; باللي also means "of those who" (ب + اللي) in every variety
+    "ليش", "باللي",
 })
 
 _DIACRITICS = re.compile(r"[ً-ْٰـ]")
