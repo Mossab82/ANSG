@@ -23,7 +23,8 @@ Equations (all components lie in [0, 1]):
 ``LCS_tokens`` is the longest common token subsequence after Arabic
 normalisation. ``h_t`` counts story tokens that are distinctive markers of the
 target region; ``h_o`` counts distinctive markers of the other regions.
-Distinctive markers are the tokens of a region's ``dialect_markers`` that do not
+Distinctive markers are the tokens of a region's ``dialect_markers`` (plus the
+curated ``lexicons/dialect_lexicon.json``, when present) that do not
 occur in any MSA phrase of the seed files or in another region's markers,
 minus a short declared list of standard or pan-dialect words (``NOT_DISTINCTIVE``).
 The equal weights are a declared default, not an empirical result; the
@@ -37,7 +38,9 @@ from dataclasses import asdict, dataclass
 from functools import lru_cache
 from pathlib import Path
 
-from ..generation.seed_prompt import REGIONS, load_seed
+import json
+
+from ..generation.seed_prompt import REGIONS, SEED_DIR, load_seed
 
 WEIGHTS = {"proverb": 0.2, "opening": 0.2, "closing": 0.2, "entities": 0.2, "dialect": 0.2}
 EDGE_SLACK = 10
@@ -103,6 +106,11 @@ def distinctive_markers(seed_dir: Path | None = None) -> dict[str, frozenset[str
         r: {t for m in seeds[r]["dialect_markers"] for t in tokens(m["dialect"])} - msa_vocab
         for r in REGIONS if r != "msa"
     }
+    lexicon_path = (seed_dir or SEED_DIR) / "lexicons" / "dialect_lexicon.json"
+    if lexicon_path.exists():
+        lexicon = json.loads(lexicon_path.read_text(encoding="utf-8"))
+        for r in raw:
+            raw[r] |= {t for w in lexicon.get(r, []) for t in tokens(w)} - msa_vocab
     out = {}
     for r, toks in raw.items():
         others = set().union(*(v for k, v in raw.items() if k != r))
