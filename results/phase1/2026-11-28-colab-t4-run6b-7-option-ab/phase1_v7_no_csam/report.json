@@ -1,0 +1,602 @@
+{
+  "purpose": "Phase 1 of a new thesis-aligned implementation; not a dissertation reproduction",
+  "backbone": "aubmindlab/aragpt2-base",
+  "device": "cuda",
+  "args": {
+    "model": "aubmindlab/aragpt2-base",
+    "out": "/content/phase1_v7_no_csam",
+    "steps": 1500,
+    "batch": 8,
+    "seq": 256,
+    "lr": 0.0002,
+    "lambda_schema": 0.05,
+    "lambda_align": 0.1,
+    "csam_init_std": 0.1,
+    "csam_lr_mult": 10.0,
+    "iadd_per_region": 8000,
+    "iadd_pack": 6,
+    "parallel_repeat": 4,
+    "eval_every": 500,
+    "mix": "parallel=0.4,iadd=0.4,wikisource=0.2",
+    "min_new_tokens": 120,
+    "log_every": 100,
+    "seed": 42,
+    "smoke": false,
+    "no_csam": true,
+    "no_dal": false
+  },
+  "trainable_parameters": {
+    "csam": 9778507,
+    "dal_adapters": 737280,
+    "dal_total": 744965
+  },
+  "objective": "L_LM + lambda_schema * L_schema; L_cultural disabled",
+  "components": {
+    "csam": false,
+    "dal": true
+  },
+  "decoding": {
+    "temperature": 0.8,
+    "top_p": 0.9,
+    "repetition_penalty": 1.3,
+    "no_repeat_ngram": 3,
+    "min_new_tokens": 120
+  },
+  "sampling_mix": {
+    "parallel": 0.4,
+    "iadd": 0.4,
+    "wikisource": 0.2
+  },
+  "train_counts": {
+    "wikisource/msa": 532,
+    "parallel/msa": 260,
+    "parallel/egyptian": 260,
+    "parallel/levantine": 260,
+    "parallel/gulf": 260,
+    "parallel/maghrebi": 260,
+    "iadd/gulf": 983,
+    "iadd/levantine": 1276,
+    "iadd/maghrebi": 813,
+    "iadd/egyptian": 715
+  },
+  "heldout_size": 304,
+  "heldout_loss_backbone_only": {
+    "egyptian": {
+      "loss": 5.7882,
+      "n": 54
+    },
+    "gulf": {
+      "loss": 6.0374,
+      "n": 60
+    },
+    "iadd/egyptian": {
+      "loss": 5.722,
+      "n": 33
+    },
+    "iadd/gulf": {
+      "loss": 6.1586,
+      "n": 39
+    },
+    "iadd/levantine": {
+      "loss": 6.122,
+      "n": 58
+    },
+    "iadd/maghrebi": {
+      "loss": 6.2752,
+      "n": 46
+    },
+    "levantine": {
+      "loss": 6.0668,
+      "n": 79
+    },
+    "maghrebi": {
+      "loss": 6.19,
+      "n": 67
+    },
+    "msa": {
+      "loss": 5.164,
+      "n": 44
+    },
+    "parallel/egyptian": {
+      "loss": 5.9637,
+      "n": 12
+    },
+    "parallel/gulf": {
+      "loss": 5.859,
+      "n": 12
+    },
+    "parallel/levantine": {
+      "loss": 5.9845,
+      "n": 12
+    },
+    "parallel/maghrebi": {
+      "loss": 6.1347,
+      "n": 12
+    },
+    "parallel/msa": {
+      "loss": 5.3076,
+      "n": 12
+    },
+    "parallel_test/egyptian": {
+      "loss": 5.7969,
+      "n": 9
+    },
+    "parallel_test/gulf": {
+      "loss": 5.7498,
+      "n": 9
+    },
+    "parallel_test/levantine": {
+      "loss": 5.8213,
+      "n": 9
+    },
+    "parallel_test/maghrebi": {
+      "loss": 5.8288,
+      "n": 9
+    },
+    "parallel_test/msa": {
+      "loss": 5.2228,
+      "n": 9
+    },
+    "wikisource/msa": {
+      "loss": 5.0661,
+      "n": 23
+    }
+  },
+  "heldout_loss_with_adapters": {
+    "egyptian": {
+      "loss": 5.0701,
+      "n": 54
+    },
+    "gulf": {
+      "loss": 5.3281,
+      "n": 60
+    },
+    "iadd/egyptian": {
+      "loss": 5.3664,
+      "n": 33
+    },
+    "iadd/gulf": {
+      "loss": 5.7719,
+      "n": 39
+    },
+    "iadd/levantine": {
+      "loss": 5.8416,
+      "n": 58
+    },
+    "iadd/maghrebi": {
+      "loss": 5.7946,
+      "n": 46
+    },
+    "levantine": {
+      "loss": 5.5082,
+      "n": 79
+    },
+    "maghrebi": {
+      "loss": 5.4357,
+      "n": 67
+    },
+    "msa": {
+      "loss": 4.2981,
+      "n": 44
+    },
+    "parallel/egyptian": {
+      "loss": 4.7669,
+      "n": 12
+    },
+    "parallel/gulf": {
+      "loss": 4.6267,
+      "n": 12
+    },
+    "parallel/levantine": {
+      "loss": 4.7246,
+      "n": 12
+    },
+    "parallel/maghrebi": {
+      "loss": 4.8017,
+      "n": 12
+    },
+    "parallel/msa": {
+      "loss": 4.0371,
+      "n": 12
+    },
+    "parallel_test/egyptian": {
+      "loss": 4.388,
+      "n": 9
+    },
+    "parallel_test/gulf": {
+      "loss": 4.3405,
+      "n": 9
+    },
+    "parallel_test/levantine": {
+      "loss": 4.4041,
+      "n": 9
+    },
+    "parallel_test/maghrebi": {
+      "loss": 4.447,
+      "n": 9
+    },
+    "parallel_test/msa": {
+      "loss": 3.7841,
+      "n": 9
+    },
+    "wikisource/msa": {
+      "loss": 4.6355,
+      "n": 23
+    }
+  },
+  "best_step": 1500,
+  "csam_diagnostics": {
+    "start": {
+      "examples": 32,
+      "with_gold_schema": 9,
+      "free_activation_rate": 0.0,
+      "mean_active_schemas_free": 0.0,
+      "per_layer": [
+        {
+          "layer": 0,
+          "heritage_key_varying": 0.000166,
+          "rhetorical_key_varying": 0.000194,
+          "max_abs_bias": 0.094505
+        },
+        {
+          "layer": 1,
+          "heritage_key_varying": 0.000146,
+          "rhetorical_key_varying": 0.000185,
+          "max_abs_bias": 0.080544
+        },
+        {
+          "layer": 2,
+          "heritage_key_varying": 0.000181,
+          "rhetorical_key_varying": 0.000206,
+          "max_abs_bias": 0.075317
+        },
+        {
+          "layer": 3,
+          "heritage_key_varying": 0.000241,
+          "rhetorical_key_varying": 0.000183,
+          "max_abs_bias": 0.093302
+        },
+        {
+          "layer": 4,
+          "heritage_key_varying": 0.000256,
+          "rhetorical_key_varying": 0.000163,
+          "max_abs_bias": 0.094072
+        },
+        {
+          "layer": 5,
+          "heritage_key_varying": 0.000249,
+          "rhetorical_key_varying": 0.000198,
+          "max_abs_bias": 0.0768
+        },
+        {
+          "layer": 6,
+          "heritage_key_varying": 0.00021,
+          "rhetorical_key_varying": 0.000243,
+          "max_abs_bias": 0.113851
+        },
+        {
+          "layer": 7,
+          "heritage_key_varying": 0.000253,
+          "rhetorical_key_varying": 0.000281,
+          "max_abs_bias": 0.088993
+        },
+        {
+          "layer": 8,
+          "heritage_key_varying": 0.000184,
+          "rhetorical_key_varying": 0.000122,
+          "max_abs_bias": 0.069317
+        },
+        {
+          "layer": 9,
+          "heritage_key_varying": 0.000304,
+          "rhetorical_key_varying": 0.000248,
+          "max_abs_bias": 0.088203
+        },
+        {
+          "layer": 10,
+          "heritage_key_varying": 0.00022,
+          "rhetorical_key_varying": 0.000157,
+          "max_abs_bias": 0.08522
+        },
+        {
+          "layer": 11,
+          "heritage_key_varying": 0.00024,
+          "rhetorical_key_varying": 0.000146,
+          "max_abs_bias": 0.083259
+        }
+      ]
+    },
+    "end": {
+      "examples": 32,
+      "with_gold_schema": 9,
+      "free_activation_rate": 0.0,
+      "mean_active_schemas_free": 0.0,
+      "per_layer": [
+        {
+          "layer": 0,
+          "heritage_key_varying": 0.000268,
+          "rhetorical_key_varying": 0.000186,
+          "max_abs_bias": 0.346572
+        },
+        {
+          "layer": 1,
+          "heritage_key_varying": 5.3e-05,
+          "rhetorical_key_varying": 0.000241,
+          "max_abs_bias": 0.346924
+        },
+        {
+          "layer": 2,
+          "heritage_key_varying": 9.6e-05,
+          "rhetorical_key_varying": 0.000201,
+          "max_abs_bias": 0.345938
+        },
+        {
+          "layer": 3,
+          "heritage_key_varying": 0.000194,
+          "rhetorical_key_varying": 0.000103,
+          "max_abs_bias": 0.322121
+        },
+        {
+          "layer": 4,
+          "heritage_key_varying": 0.000224,
+          "rhetorical_key_varying": 9.1e-05,
+          "max_abs_bias": 0.346935
+        },
+        {
+          "layer": 5,
+          "heritage_key_varying": 9e-05,
+          "rhetorical_key_varying": 0.000114,
+          "max_abs_bias": 0.296392
+        },
+        {
+          "layer": 6,
+          "heritage_key_varying": 0.000118,
+          "rhetorical_key_varying": 3.3e-05,
+          "max_abs_bias": 0.346997
+        },
+        {
+          "layer": 7,
+          "heritage_key_varying": 5.7e-05,
+          "rhetorical_key_varying": 7.8e-05,
+          "max_abs_bias": 0.34537
+        },
+        {
+          "layer": 8,
+          "heritage_key_varying": 8.6e-05,
+          "rhetorical_key_varying": 4.3e-05,
+          "max_abs_bias": 0.346969
+        },
+        {
+          "layer": 9,
+          "heritage_key_varying": 0.000242,
+          "rhetorical_key_varying": 0.000142,
+          "max_abs_bias": 0.340641
+        },
+        {
+          "layer": 10,
+          "heritage_key_varying": 0.000174,
+          "rhetorical_key_varying": 0.000129,
+          "max_abs_bias": 0.346257
+        },
+        {
+          "layer": 11,
+          "heritage_key_varying": 0.000115,
+          "rhetorical_key_varying": 5e-05,
+          "max_abs_bias": 0.281267
+        }
+      ]
+    }
+  },
+  "generation_banned_tokens": 0,
+  "log": [
+    {
+      "step": 100,
+      "lm_loss": 5.4902,
+      "schema_loss": 17.5535,
+      "cultural_loss": 0.0,
+      "lr": 0.0019781476007338056,
+      "seconds": 47
+    },
+    {
+      "step": 200,
+      "lm_loss": 4.7324,
+      "schema_loss": 7.497,
+      "cultural_loss": 0.0,
+      "lr": 0.001913545457642601,
+      "seconds": 91
+    },
+    {
+      "step": 300,
+      "lm_loss": 4.6232,
+      "schema_loss": 6.3606,
+      "cultural_loss": 0.0,
+      "lr": 0.0018090169943749475,
+      "seconds": 136
+    },
+    {
+      "step": 400,
+      "lm_loss": 4.7408,
+      "schema_loss": 4.8441,
+      "cultural_loss": 0.0,
+      "lr": 0.0016691306063588583,
+      "seconds": 180
+    },
+    {
+      "step": 500,
+      "lm_loss": 4.5859,
+      "schema_loss": 4.9229,
+      "cultural_loss": 0.0,
+      "lr": 0.0015,
+      "seconds": 224
+    },
+    {
+      "step": 500,
+      "heldout_mean": 5.1786
+    },
+    {
+      "step": 600,
+      "lm_loss": 4.9576,
+      "schema_loss": 5.0895,
+      "cultural_loss": 0.0,
+      "lr": 0.0013090169943749475,
+      "seconds": 278
+    },
+    {
+      "step": 700,
+      "lm_loss": 4.2444,
+      "schema_loss": 4.4445,
+      "cultural_loss": 0.0,
+      "lr": 0.0011045284632676539,
+      "seconds": 322
+    },
+    {
+      "step": 800,
+      "lm_loss": 4.491,
+      "schema_loss": 4.6984,
+      "cultural_loss": 0.0,
+      "lr": 0.0008954715367323465,
+      "seconds": 366
+    },
+    {
+      "step": 900,
+      "lm_loss": 4.2609,
+      "schema_loss": 4.5257,
+      "cultural_loss": 0.0,
+      "lr": 0.0006909830056250527,
+      "seconds": 411
+    },
+    {
+      "step": 1000,
+      "lm_loss": 4.2784,
+      "schema_loss": 4.553,
+      "cultural_loss": 0.0,
+      "lr": 0.0005000000000000002,
+      "seconds": 456
+    },
+    {
+      "step": 1000,
+      "heldout_mean": 5.1326
+    },
+    {
+      "step": 1100,
+      "lm_loss": 4.5961,
+      "schema_loss": 4.6823,
+      "cultural_loss": 0.0,
+      "lr": 0.0003308693936411418,
+      "seconds": 510
+    },
+    {
+      "step": 1200,
+      "lm_loss": 5.205,
+      "schema_loss": 4.9497,
+      "cultural_loss": 0.0,
+      "lr": 0.00019098300562505265,
+      "seconds": 554
+    },
+    {
+      "step": 1300,
+      "lm_loss": 4.6514,
+      "schema_loss": 4.3857,
+      "cultural_loss": 0.0,
+      "lr": 8.645454235739925e-05,
+      "seconds": 599
+    },
+    {
+      "step": 1400,
+      "lm_loss": 4.4187,
+      "schema_loss": 4.2068,
+      "cultural_loss": 0.0,
+      "lr": 2.1852399266194424e-05,
+      "seconds": 643
+    },
+    {
+      "step": 1500,
+      "lm_loss": 5.3469,
+      "schema_loss": 0.0,
+      "cultural_loss": 0.0,
+      "lr": 0.0,
+      "seconds": 688
+    },
+    {
+      "step": 1500,
+      "heldout_mean": 5.128
+    }
+  ],
+  "samples": [
+    {
+      "region": "msa",
+      "value": "الحكمة",
+      "text": "حكي أن...لما فرغ من الكلام، قال: «الحزن سبب فساد الرجل». أجابه: لا يمكن لهذا الغريب أن يلهي نفسه عن هذه المشاكل؛ إن همه الأول هو مساعدته على التخلص من هذا الخطر. أحسن طريقة للتخلص منه هي ألا تشغل نفسك بالتفكير في أمر دينك أو وقتك؟» سألوه عما تفعله وماذا يجب عليك أن تفعل» أجابهم: «أحدها معاملة الناس بالإحسان وحسن معاملتهم ، والثاني الحرص على سلامة النفس وقبولها ما استطعت إلى آخر عمره» سيلاحقه ذلك حتى يتفرغ للبحث الجاد عنه بعد مماتك» ضحك وقال: «التقيت برجل دين يرعىني ويحرسني منذ فترة قريبة! قال: \"ما أصعبه إذا انصرفت عن عبادتك قبل إدراك واجباتك� تنتصر مبادئ الدين ولا تحزن على شيء ضاع منك» قلت: “لا تسرف في العبادة قال تعالى : { واعبدوا الله ولاتجرفوا من دونكم إنه لايحب عليكم إلجاء الناس } [ النساء ]والله الذي جعلنا مسلمين وجعل منا المسلمين قدوة لنا فيما كنا عليه وإلى يوم القيامة أعانك علينا حفظ دينه",
+      "sas": {
+        "proverb": 0.0,
+        "opening": 1.0,
+        "closing": 0.08333333333333333,
+        "entities": 0.0,
+        "dialect": 1.0,
+        "target_marker_hits": 0,
+        "other_marker_hits": 0,
+        "score": 0.4167
+      }
+    },
+    {
+      "region": "egyptian",
+      "value": "الوفاء",
+      "text": "وحدوا الله وصلوا على نبيه ولا نبي بعد رسول الله . وبعدين مش بيعادولنا رجوع من غير فلوس ، هو مالهوش حاجة في البلد ؟ ده كان زمان فيه 10 مليار جنيه بتاعي بلد كثيبة هتحكموا علينا.؟، والله أنا قلت ان هناك مؤامرة كاملة من قبل لجنة تقصي الحقائق التي شكلها الرئيس مبارك ورئيس الوزراء منذ بداية التسعينات ويريدون أن يطلع الشعب علي حقائق مهمة مثل إلغاء الإعفاءات الجمركية وغير ذلك من جرائم ضد المصريين أومعتقليين وسودانيين ومحميين بسكوت رسمي لمصر عن مجازر العصر التي ارتكبتها إسرائيل بحق الفلسطينيين قبل وبعد حرب لبنان 2006... وكمان برضو عايزين ترجع كل هذه الاخطاء الي بسبب النظام السابق اللي اتحركاه يا عصام عشان يعيش الكل هوه يوم كدة راجع ياعملت مافيش ذنب الراجل دا بقولك لسه لحد ما طلع ولاشي بس",
+      "sas": {
+        "proverb": 0.0,
+        "opening": 1.0,
+        "closing": 0.0,
+        "entities": 0.125,
+        "dialect": 1.0,
+        "target_marker_hits": 2,
+        "other_marker_hits": 0,
+        "score": 0.425
+      }
+    },
+    {
+      "region": "levantine",
+      "value": "حفظ الجيرة",
+      "text": "كان يا ما كان يا سامعين الكلام، وما يحلى الكلام إلا بذكر النبي عليه الصلاة والسلام . موجعه شوي وين حطمته الشمس بارتفاع فوق صوت السيجر والكورسيه . ولامن سأل فينا صحا رد و لا حدا سمع بخبر نزول القرآن على رسول الله عليه وسلم؟ أنا اللي بدي أشم عسل بدنا نشيل المي منك . كيف حالك أحسن من هيك انو رح توصل على خير بعد شو اعمل قالتلها وحطيت راسها شوفت حالو مع زوجي وبعدين منعرف شو هاد بدك هلأ انا مشان عرفك حق غيرك ولا غلطته انت كنت السببو ساعدتني خطفتني ايام الشباب ورا تلفزيونفي المسلسل طلعت بخلي بالكاميرا ع حالها يلي عملتلك هيك وقفلت عمي رامي بيعمل عملية قلب بروح بالبيت وقعدت اتفحصت وجهي قبل المكياج لان امي جوعانة ماتحسي بس عم يحكي معي متل ابو عمار بس الحمد لله روحوا ناموا وهدى أمي كل يوم اتغير بعرف شو صار وحلم بيوم يجمعنا قلتهالها حرام عليكي وبتنسى دوري والله روحت العب غيري كتير يعني انا بحكي معك وعم تحكي معي عدل لعنتن وانتي بعتذر لانك بتعترف بكل شي عم تغير تفكير الناس بتعزمي ما بتف",
+      "sas": {
+        "proverb": 0.14285714285714285,
+        "opening": 1.0,
+        "closing": 0.08333333333333333,
+        "entities": 0.16666666666666666,
+        "dialect": 0.8888888888888888,
+        "target_marker_hits": 8,
+        "other_marker_hits": 1,
+        "score": 0.4563
+      }
+    },
+    {
+      "region": "gulf",
+      "value": "الفزعة والتعاون",
+      "text": "كان يا ما كان في قديم الزمان مربع واحد، وكان له جناحان فوق الجناحين. قال السواق: «موقفك شديد ما يستحقه كل هذا البلد». وقف الفرس على الخشب قبل العرض المحدد. سمعو الطير بصوت عالي وقال لهم :ألا تستحقون أن تنحوا جانبا؟!. وعقبها رجع للساحة وساد الحيطة وطال الدور وماحصل؛ وصار البيت مطمئن ولا أثر فيه لقوه . رد أحد الصيادين قائلا : \"أبوالحوش معو مرايا؉ كل شي( اذا سلم من البحر طيب.قال المكيف- ماعندنا حيل نروح للمكان المعروف؊الئ وبعيد>.مشى يمشي ويخاف وينسى؅اعلى الحدود طيب اهو مازال يبي يسأل بهدوء وعندة؟ ! هذي قصة السمك قليل الخلق اللي جابوها الناس عشان اذا بيطرحوا لها يعني انتبسوا شوي",
+      "sas": {
+        "proverb": 0.2,
+        "opening": 1.0,
+        "closing": 0.0,
+        "entities": 0.17142857142857143,
+        "dialect": 1.0,
+        "target_marker_hits": 3,
+        "other_marker_hits": 0,
+        "score": 0.4743
+      }
+    },
+    {
+      "region": "maghrebi",
+      "value": "التكافل بين الجيران",
+      "text": "كان يا سيدي حتى كان، حتى كان الله في كل مكان وكل ما عجبك هناك على خاطر واحد الواد كينشاو دير والو لقاع باش يمجاش ، الملك شفي بحال هاد المرة شنو خاص عين ومليت باللي كيقول ليك ماشي كيخلصو من الدوشة ديالك . كلشم القلب ديال جوج ديال المدكرة دوزيت عسالي و حتا مسكين فالكرشيوات خليوها بعد ربع ساعة اللي كنقلب سلاتكم دار الوليد بوحد الناس تما شاء . كتكرم عليك ياروبي خليتي فقاطعني كي غادي منك قبل كتقدر تعمليها هضرة وليت عرفتيش ديما كنت تكعدنيش كلو دايرة عندها كي شنو غادي هو يجيب فيا كيتعبرو فيها راه مالي هي هي غير السويبة ؟ خايصت ليه ! جاوبه خليشي داك الوقت دبا متحنوشك ولا تيضحكو ليها كاملين: بلاصة نتمحرس عندك براسي. قال ليهم والومات خداموش بيه القران والسنة النبوية معا؟ فاللك كتنزل القرآن قول الله تعالى { لا ينسي الذين يسفهون كلام الله صوابا }» مدونة زدنا فالح",
+      "sas": {
+        "proverb": 0.16666666666666666,
+        "opening": 1.0,
+        "closing": 0.0,
+        "entities": 0.1,
+        "dialect": 1.0,
+        "target_marker_hits": 15,
+        "other_marker_hits": 0,
+        "score": 0.4533
+      }
+    }
+  ]
+}
