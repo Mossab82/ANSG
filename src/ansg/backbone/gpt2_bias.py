@@ -38,13 +38,14 @@ class GPT2Spec:
     n_layer: int
     n_head: int
     layer_norm_epsilon: float = 1e-5
+    activation: str = "gelu_new"
 
     @classmethod
     def from_hf_config(cls, config: Mapping) -> "GPT2Spec":
         get = config.get if isinstance(config, Mapping) else lambda k, d=None: getattr(config, k, d)
         act = get("activation_function", "gelu_new")
-        if act != "gelu_new":
-            raise ValueError(f"unsupported activation {act!r}; GPT-2 uses gelu_new")
+        if act not in ACTIVATIONS:
+            raise ValueError(f"unsupported activation {act!r}; expected one of {sorted(ACTIVATIONS)}")
         return cls(
             vocab_size=get("vocab_size"),
             n_positions=get("n_positions"),
@@ -52,11 +53,15 @@ class GPT2Spec:
             n_layer=get("n_layer"),
             n_head=get("n_head"),
             layer_norm_epsilon=get("layer_norm_epsilon", 1e-5),
+            activation=act,
         )
 
 
 def gelu_new(x: torch.Tensor) -> torch.Tensor:
     return 0.5 * x * (1.0 + torch.tanh(math.sqrt(2.0 / math.pi) * (x + 0.044715 * torch.pow(x, 3.0))))
+
+
+ACTIVATIONS = {"gelu_new": gelu_new, "gelu": F.gelu, "relu": F.relu}
 
 
 class BiasedAttention(nn.Module):
@@ -95,11 +100,12 @@ class Block(nn.Module):
         self.ln_2 = nn.LayerNorm(spec.n_embd, eps=spec.layer_norm_epsilon)
         self.c_fc = nn.Linear(spec.n_embd, 4 * spec.n_embd)
         self.c_proj = nn.Linear(4 * spec.n_embd, spec.n_embd)
+        self.act = ACTIVATIONS[spec.activation]
 
     def forward(self, x, bias=None, return_probs=False, delta=None):
         a, probs = self.attn(self.ln_1(x), bias, return_probs, delta)
         x = x + a
-        x = x + self.c_proj(gelu_new(self.c_fc(self.ln_2(x))))
+        x = x + self.c_proj(self.act(self.c_fc(self.ln_2(x))))
         return x, probs
 
 

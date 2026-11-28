@@ -22,6 +22,8 @@ MODEL_LAYER = {
     "ansg.provenance", "ansg.data.training_dataset",
     # Issue #15 generation runtime (cli, readiness, labels, artifacts, stub stay torch-free).
     "ansg.generation.runtime", "ansg.generation.cultural",
+    # Thesis-aligned implementation (docs/THESIS_ALIGNED_ARCHITECTURE.md).
+    "ansg.backbone.gpt2_bias", "ansg.csam_bias", "ansg.dal_lora",
 }
 
 PROBE = r"""
