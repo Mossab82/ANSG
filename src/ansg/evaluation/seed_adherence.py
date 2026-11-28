@@ -58,6 +58,8 @@ NOT_DISTINCTIVE = frozenset({
     "شوي",
     # عم: Levantine progressive particle, but also "paternal uncle" in every variety (ولاد عم)
     "عم",
+    # found on Phase 1 samples: ابي = "my father" (MSA) vs "I want" (Gulf); عندو is Levantine too
+    "ابي", "عندو",
 })
 
 _DIACRITICS = re.compile(r"[ً-ْٰـ]")

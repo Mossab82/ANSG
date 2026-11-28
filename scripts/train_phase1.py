@@ -33,6 +33,7 @@ import argparse
 import json
 import math
 import random
+import re
 import time
 from pathlib import Path
 
@@ -49,6 +50,21 @@ from ansg.knowledge.graph_embeddings import load_schema_embeddings
 
 ROOT = Path(__file__).resolve().parents[1]
 IADD_REGION = {"EGY": "egyptian", "LEV": "levantine", "GLF": "gulf", "MGH": "maghrebi"}
+# Keep Moroccan rows only for the Maghrebi variety (IADD MGH also holds Algerian and
+# Tunisian text), and the four Levantine countries; Gulf rows have no country code.
+IADD_COUNTRIES = {"egyptian": {"EGY"}, "levantine": {"JOR", "PSE", "SYR", "LBN"}, "maghrebi": {"MAR"}, "gulf": None}
+_DIAC = re.compile(r"[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640]")
+_LATIN = re.compile(r"[A-Za-z]")
+
+
+def clean(text: str) -> str:
+    """Strip diacritics and tatweel (AraGPT2 was trained on undiacritised text) and squeeze spaces."""
+    return " ".join(_DIAC.sub("", text).split())
+
+
+def arabic_ratio(text: str) -> float:
+    letters = [c for c in text if c.isalpha()]
+    return sum("\u0600" <= c <= "\u06FF" for c in letters) / len(letters) if letters else 0.0
 
 
 # ---------------------------------------------------------------- data
@@ -60,14 +76,14 @@ def load_examples(args, schema_ids: list[str]) -> list[dict]:
         rec = json.loads(line)
         paras = [p.strip() for p in rec["text"].split("\n") if len(p.split()) > 20]
         for p in paras:
-            examples.append({"text": p, "dialect": "msa", "schema": None, "source": "wikisource"})
+            examples.append({"text": clean(p), "dialect": "msa", "schema": None, "source": "wikisource"})
     sid = {s: i for i, s in enumerate(schema_ids)}
     for line in (ROOT / "data/stories/parallel/parallel_stories.jsonl").read_text(encoding="utf-8").splitlines():
         rec = json.loads(line)
         schema = sid.get(f"schema:{rec['value']}")
         for d in DIALECTS:
             for _ in range(args.parallel_repeat):
-                examples.append({"text": rec[d], "dialect": d, "schema": schema, "source": "parallel",
+                examples.append({"text": clean(rec[d]), "dialect": d, "schema": schema, "source": "parallel",
                                  "story_id": rec["id"]})
     if not args.smoke and args.iadd_per_region > 0:
         from datasets import load_dataset
@@ -75,8 +91,13 @@ def load_examples(args, schema_ids: list[str]) -> list[dict]:
         by_region: dict[str, list[str]] = {}
         for row in iadd:
             region = IADD_REGION.get(row["Region"])
-            if region and row["Sentence"]:
-                by_region.setdefault(region, []).append(row["Sentence"].strip())
+            text = (row["Sentence"] or "").strip()
+            if not region or len(text.split()) < 4 or _LATIN.search(text) or arabic_ratio(text) < 0.95:
+                continue
+            allowed = IADD_COUNTRIES[region]
+            if allowed is not None and row["Country"] not in allowed:
+                continue
+            by_region.setdefault(region, []).append(clean(text))
         for region, sents in by_region.items():
             rng.shuffle(sents)
             sents = sents[: args.iadd_per_region]
@@ -178,14 +199,18 @@ def build_backbone(args, examples):
     return model, HFTokenizer(args.model)
 
 
+USE = {"csam": True, "dal": True}  # set from --no-csam / --no-dal (ablation)
+
+
 def adapted_forward(model, csam, dal, ids, labels, mask, dialect, schema, has_schema, use_adapters=True):
     if not use_adapters:
         return model(ids, labels=labels), None, None
     context = (model.wte(ids) * mask[..., None]).sum(1) / mask.sum(1, keepdim=True).clamp_min(1)
     weights, _ = csam.activation(context)
     weights = torch.where(has_schema[:, None], schema, weights)            # teacher forcing for gold labels
-    out = model(ids, labels=labels, bias_fn=csam.bias_fn(model.wpe.weight, weights),
-                delta_fn=dal.delta_fn(dialect, csam.schema_embeddings(), weights))
+    out = model(ids, labels=labels,
+                bias_fn=csam.bias_fn(model.wpe.weight, weights) if USE["csam"] else None,
+                delta_fn=dal.delta_fn(dialect, csam.schema_embeddings(), weights) if USE["dal"] else None)
     return out, context, weights
 
 
@@ -199,18 +224,32 @@ def heldout_loss(model, csam, dal, batcher, held, bs, use_adapters):
             one = [x[j:j + 1] for x in (ids, labels, mask, dialect, schema, has_schema)]
             out, _, _ = adapted_forward(model, csam, dal, *one, use_adapters=use_adapters)
             totals.setdefault(e["dialect"], []).append(out["loss"].item())
-    return {d: round(sum(v) / len(v), 4) for d, v in sorted(totals.items())}
+            totals.setdefault(f"{e['source']}/{e['dialect']}", []).append(out["loss"].item())
+    return {d: {"loss": round(sum(v) / len(v), 4), "n": len(v)} for d, v in sorted(totals.items())}
 
 
 @torch.no_grad()
-def generate(model, csam, dal, tok, prefix, dialect, schema_vec, max_new, temperature, top_p, device):
-    ids = torch.tensor([tok.encode(prefix)], device=device)
+def generate(model, csam, dal, tok, prefix, dialect, schema_vec, max_new, temperature, top_p, device,
+             repetition_penalty=1.3, no_repeat_ngram=3):
+    ids = torch.tensor([tok.encode(clean(prefix))], device=device)
     d = torch.tensor([DIALECTS.index(dialect)], device=device)
     w = schema_vec[None].to(device)
     for _ in range(max_new):
         ctx = ids[:, -model.spec.n_positions:]
-        logits = model(ctx, bias_fn=csam.bias_fn(model.wpe.weight, w),
-                       delta_fn=dal.delta_fn(d, csam.schema_embeddings(), w))["logits"][0, -1] / temperature
+        logits = model(ctx, bias_fn=csam.bias_fn(model.wpe.weight, w) if USE["csam"] else None,
+                       delta_fn=dal.delta_fn(d, csam.schema_embeddings(), w) if USE["dal"] else None
+                       )["logits"][0, -1]
+        seen = ids[0].unique()
+        logits[seen] = torch.where(logits[seen] > 0, logits[seen] / repetition_penalty,
+                                   logits[seen] * repetition_penalty)
+        hist = ids[0].tolist()
+        if no_repeat_ngram > 1 and len(hist) >= no_repeat_ngram - 1:
+            prefix_ng = tuple(hist[-(no_repeat_ngram - 1):])
+            banned = [hist[i + no_repeat_ngram - 1] for i in range(len(hist) - no_repeat_ngram + 1)
+                      if tuple(hist[i:i + no_repeat_ngram - 1]) == prefix_ng]
+            if banned:
+                logits[banned] = float("-inf")
+        logits = logits / temperature
         probs = torch.softmax(logits, -1)
         sorted_p, order = probs.sort(descending=True)
         keep = sorted_p.cumsum(0) - sorted_p < top_p
@@ -238,7 +277,10 @@ def main():
     ap.add_argument("--log-every", type=int, default=100)
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--smoke", action="store_true")
+    ap.add_argument("--no-csam", action="store_true", help="ablation: train and evaluate without CSAM bias")
+    ap.add_argument("--no-dal", action="store_true", help="ablation: train and evaluate without DAL adapters")
     args = ap.parse_args()
+    USE["csam"], USE["dal"] = not args.no_csam, not args.no_dal
     if args.lambda_align:
         raise SystemExit("L_cultural needs motif-span annotations, which this corpus does not have yet.")
     if args.smoke:
@@ -329,6 +371,8 @@ def main():
                                  "dal_adapters": dal.adapter_parameter_count(),
                                  "dal_total": sum(p.numel() for p in dal.parameters())},
         "objective": "L_LM + lambda_schema * L_schema; L_cultural disabled (no motif-span annotations)",
+        "components": dict(USE),
+        "decoding": {"temperature": 0.8, "top_p": 0.9, "repetition_penalty": 1.3, "no_repeat_ngram": 3},
         "train_counts": counts, "heldout_size": len(held),
         "heldout_loss_backbone_only": base_loss, "heldout_loss_with_adapters": adapted_loss,
         "log": log, "samples": samples,
