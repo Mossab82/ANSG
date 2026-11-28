@@ -36,3 +36,44 @@ def test_cultural_loss_trains_eq_4_13_parameters():
     loss.backward()
     assert torch.isfinite(loss)
     assert csam.v_pos_k.grad is not None and csam.v_pos_k.grad.abs().sum() > 0
+
+
+class _ByteTok:
+    """Byte-level tokenizer: every byte is a token, so two tokens can form U+0605."""
+    eos_id = None
+    pad_id = 0
+
+    def encode(self, text):
+        return list(text.encode("utf-8"))
+
+    def decode(self, ids):
+        return bytes(ids).decode("utf-8", errors="ignore")
+
+
+class _FakeLM:
+    """After byte 0xD8 it prefers 0x85 (-> U+0605) over 0xA7 (-> ا); otherwise it emits 0xD8."""
+    class spec:
+        n_positions = 512
+
+    def __call__(self, ctx, **_):
+        logits = torch.full((1, ctx.shape[1], 256), -20.0)
+        if ctx[0, -1].item() == 0xD8:
+            logits[0, -1, 0x85], logits[0, -1, 0xA7] = 5.0, 3.0
+        else:
+            logits[0, -1, 0xD8] = 5.0
+        return {"logits": logits}
+
+
+@pytest.mark.parametrize("with_filter", [True, False])
+def test_generation_resamples_tokens_that_form_arabic_sign_characters(monkeypatch, with_filter):
+    monkeypatch.setitem(tp.USE, "csam", False)
+    monkeypatch.setitem(tp.USE, "dal", False)
+    odd = set(tp._ODD)
+    if not with_filter:
+        monkeypatch.setattr(tp, "_ODD", set())
+    torch.manual_seed(0)
+    text = tp.generate(_FakeLM(), None, None, _ByteTok(), "كان", "msa", torch.zeros(2), max_new=40,
+                       temperature=1.0, top_p=0.999, device="cpu", repetition_penalty=1.0,
+                       no_repeat_ngram=0, min_new=0)
+    n_odd = sum(ch in odd for ch in text)
+    assert (n_odd == 0) if with_filter else (n_odd > 0)

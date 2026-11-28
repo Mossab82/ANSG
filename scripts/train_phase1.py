@@ -374,10 +374,19 @@ def generate(model, csam, dal, tok, prefix, dialect, schema_vec, max_new, temper
         if step < min_new and tok.eos_id is not None:
             logits[tok.eos_id] = float("-inf")
         logits = logits / temperature
-        probs = torch.softmax(logits, -1)
-        sorted_p, order = probs.sort(descending=True)
-        keep = sorted_p.cumsum(0) - sorted_p < top_p
-        choice = order[keep][torch.multinomial(sorted_p[keep] / sorted_p[keep].sum(), 1)]
+        tail = hist[-6:]
+        before = tok.decode(tail)
+        for _ in range(20):
+            probs = torch.softmax(logits, -1)
+            sorted_p, order = probs.sort(descending=True)
+            keep = sorted_p.cumsum(0) - sorted_p < top_p
+            choice = order[keep][torch.multinomial(sorted_p[keep] / sorted_p[keep].sum(), 1)]
+            # byte-level BPE: a token can complete a byte sequence into an Arabic sign/format
+            # character (e.g. U+0605) that no single vocabulary item contains; resample then
+            added = tok.decode(tail + [choice.item()])[len(before):]
+            if not (set(added) & _ODD):
+                break
+            logits[choice] = float("-inf")
         if choice.item() == tok.eos_id and not isinstance(tok, SmokeTokenizer):
             break
         ids = torch.cat([ids, choice.view(1, 1)], dim=1)
@@ -576,6 +585,7 @@ def main():
         "best_step": best["step"],
         "csam_diagnostics": {"start": diag_start, "end": diag_end},
         "generation_banned_tokens": len(banned_token_ids(tok)),
+        "odd_chars_in_samples": sum(ch in _ODD for smp in samples for ch in smp["text"]),
         "log": log, "samples": samples,
     }
     (out_dir / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
