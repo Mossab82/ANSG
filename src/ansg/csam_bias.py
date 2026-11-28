@@ -18,6 +18,9 @@ open; the choices made here are declared, not taken from the dissertation:
 * The dialectal heads (8-11) receive no bias: Eq. 4.9 defines only βH and γR.
 * Each biased layer has its own relevance parameters; ``layers`` selects which.
 * Eq. 4.19's predictor is ŷ_s = σ(u_sᵀ e_context + b_s).
+* pos_j may be the positional encoding alone ([T, d], the literal reading of Eq. 4.13)
+  or the position-encoded input embedding of the token at j ([B, T, d]); see D7 in
+  docs/THESIS_ALIGNED_ARCHITECTURE.md for why both are supported.
 
 Because ``v_{s,i}ᵀ[pos_j; pos_k; c_s] = a_{s,i}·pos_j + b_{s,i}·pos_k + d_{s,i}·c_s``,
 the relevance logits are computed as an outer sum, O(S·T) per head instead of
@@ -92,9 +95,15 @@ class CulturalSchemaBias(nn.Module):
     def group_matrices(self, layer: int, positions: torch.Tensor, weights: torch.Tensor) -> torch.Tensor:
         """Eq. 4.12: [B, 2, 4, T, T] with H (group 0) and R (group 1).
 
-        Only schemas active in some batch element are evaluated; inactive ones
-        contribute w_s = 0 to the sum anyway, and skipping them bounds memory.
+        ``positions`` is either one table [T, d] shared by the batch (pos_j = positional
+        encoding of position j) or per-example position representations [B, T, d]
+        (pos_j = position-encoded input embedding of the token at j; see D7).
+        Only schemas active in an example are evaluated; inactive ones contribute
+        w_s = 0 to the sum anyway, and skipping them bounds memory.
         """
+        if positions.dim() == 3:
+            return torch.stack([self.group_matrices(layer, positions[b], weights[b:b + 1])[0]
+                                for b in range(positions.shape[0])])
         used = (weights != 0).any(dim=0).nonzero().flatten()
         t = positions.shape[0]
         if used.numel() == 0:
@@ -114,7 +123,10 @@ class CulturalSchemaBias(nn.Module):
         return out
 
     def bias_fn(self, positions_table: torch.Tensor, weights: torch.Tensor):
-        """Adapter for ``GPT2WithAttentionBias``: (layer, T) -> bias."""
+        """Adapter for ``GPT2WithAttentionBias``: (layer, T) -> bias.
+        ``positions_table`` is [T_max, d] or per-example [B, T, d]."""
+        if positions_table.dim() == 3:
+            return lambda layer, t: self.bias(layer, positions_table[:, :t], weights)
         return lambda layer, t: self.bias(layer, positions_table[:t], weights)
 
 

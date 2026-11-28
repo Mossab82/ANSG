@@ -212,7 +212,8 @@ def cultural_loss(model, csam, ids, weights, pos, neg):
     """L_cultural (Eq. 4.18) on the heritage matrices H (heads 0-3) of every CSAM layer,
     averaged over layers, heads and pairs."""
     t = ids.shape[1]
-    positions = model.wpe.weight[:t]
+    positions = pos_repr(model, ids)
+    positions = positions[:t] if positions.dim() == 2 else positions
     p = torch.tensor(pos, device=ids.device)
     q = torch.tensor(neg, device=ids.device)
     terms = []
@@ -269,6 +270,15 @@ def build_backbone(args, examples):
 
 
 USE = {"csam": True, "dal": True}  # set from --no-csam / --no-dal (ablation)
+CSAM_POS = {"mode": "position"}     # set from --csam-pos (D7)
+
+
+def pos_repr(model, ids):
+    """pos_j for Eq. 4.13: the positional-encoding table (literal reading), or the
+    position-encoded input embedding of each token, wte(x_j) + wpe(j) (D7)."""
+    if CSAM_POS["mode"] == "position":
+        return model.wpe.weight
+    return model.wte(ids) + model.wpe.weight[: ids.shape[1]][None]
 
 
 def adapted_forward(model, csam, dal, ids, labels, mask, dialect, schema, has_schema, use_adapters=True):
@@ -278,7 +288,7 @@ def adapted_forward(model, csam, dal, ids, labels, mask, dialect, schema, has_sc
     weights, _ = csam.activation(context)
     weights = torch.where(has_schema[:, None], schema, weights)            # teacher forcing for gold labels
     out = model(ids, labels=labels,
-                bias_fn=csam.bias_fn(model.wpe.weight, weights) if USE["csam"] else None,
+                bias_fn=csam.bias_fn(pos_repr(model, ids), weights) if USE["csam"] else None,
                 delta_fn=dal.delta_fn(dialect, csam.schema_embeddings(), weights) if USE["dal"] else None)
     return out, context, weights
 
@@ -316,7 +326,8 @@ def csam_diagnostics(model, csam, batcher, held, n=32):
     causal = torch.tril(torch.ones(t, t, dtype=torch.bool, device=ids.device))
     per_layer = []
     for layer in csam.settings.layers:
-        b = csam.bias(layer, model.wpe.weight[:t], w)                         # [B, 12, T, T]
+        pr = pos_repr(model, ids)
+        b = csam.bias(layer, pr[:t] if pr.dim() == 2 else pr, w)              # [B, 12, T, T]
         if b is None:
             continue
         bm = b.masked_fill(~causal, 0)
@@ -355,7 +366,7 @@ def generate(model, csam, dal, tok, prefix, dialect, schema_vec, max_new, temper
     w = schema_vec[None].to(device)
     for step in range(max_new):
         ctx = ids[:, -model.spec.n_positions:]
-        logits = model(ctx, bias_fn=csam.bias_fn(model.wpe.weight, w) if USE["csam"] else None,
+        logits = model(ctx, bias_fn=csam.bias_fn(pos_repr(model, ctx), w) if USE["csam"] else None,
                        delta_fn=dal.delta_fn(d, csam.schema_embeddings(), w) if USE["dal"] else None
                        )["logits"][0, -1]
         seen = ids[0].unique()
@@ -407,6 +418,8 @@ def main():
     ap.add_argument("--csam-init-std", type=float, default=0.02,
                     help="init std of the Eq. 4.13 vectors (option B; 0.02 = previous runs)")
     ap.add_argument("--csam-lr-mult", type=float, default=1.0, help="CSAM learning rate = lr x this (option B)")
+    ap.add_argument("--csam-pos", choices=["position", "token_position"], default="position",
+                    help="pos_j in Eq. 4.13: positional encoding only, or position-encoded token embedding (D7)")
     ap.add_argument("--iadd-per-region", type=int, default=8000)
     ap.add_argument("--iadd-pack", type=int, default=6)
     ap.add_argument("--parallel-repeat", type=int, default=4)
@@ -421,6 +434,7 @@ def main():
     ap.add_argument("--no-dal", action="store_true", help="ablation: train and evaluate without DAL adapters")
     args = ap.parse_args()
     USE["csam"], USE["dal"] = not args.no_csam, not args.no_dal
+    CSAM_POS["mode"] = args.csam_pos
     if args.lambda_align and not (ROOT / "data/stories/parallel/motif_spans.jsonl").exists():
         raise SystemExit("L_cultural needs data/stories/parallel/motif_spans.jsonl; "
                          "run scripts/annotate_motif_spans.py or pass --lambda-align 0")

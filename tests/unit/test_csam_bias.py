@@ -81,3 +81,18 @@ def test_objective_backpropagates_to_csam_parameters(setup):
     loss.backward()
     assert csam.v_pos_j.grad is not None and csam.v_pos_j.grad.abs().sum() > 0
     assert csam.w_proj.weight.grad is not None
+
+
+def test_per_example_positions_match_shared_table_and_vary_by_token():
+    torch.manual_seed(0)
+    T, D = 6, 24
+    csam = CulturalSchemaBias(CSAMSettings(n_head=12, d_model=D, graph_dim=8, layers=(0,)), torch.randn(3, 8))
+    w = torch.tensor([[0.9, 0.0, 0.0], [0.0, 0.7, 0.0]])
+    table = torch.randn(T, D)
+    shared = csam.group_matrices(0, table, w)
+    batched = csam.group_matrices(0, table.expand(2, T, D), w)
+    assert torch.allclose(shared, batched, atol=1e-6)
+    tokens = torch.randn(2, T, D)                      # different content per example
+    b = csam.bias(0, tokens, w)
+    assert b.shape == (2, 12, T, T)
+    assert not torch.allclose(b[0, 0], b[1, 0])

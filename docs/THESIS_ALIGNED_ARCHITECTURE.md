@@ -38,6 +38,18 @@
   - **B: `--csam-init-std` and `--csam-lr-mult`** give Eq. 4.13's vectors a larger initial scale and CSAM a larger learning rate. These are engineering settings and leave the equations unchanged.
   - **Known limitation of Eq. 4.13 as written.** Rel depends only on the positional encodings pos_j, pos_k and the schema embedding c_s, not on token content. CSAM can therefore learn position patterns per schema (e.g. attend within a local window, or to the story opening), but it cannot know where a motif span lies in a particular text. If CSAM stays inert after A + B, option C (content-dependent relevance) is the next test. It would be a declared deviation.
   - Story values missing from the seed files (الصدق، الحياء، الحلم، الإيثار، الرحمة، العفو، الشكر) were added to `VALUE_TO_VIRTUE` and as schema nodes (34 schemas). This is an editorial mapping and needs review.
+- **D7. What pos_j means in Eq. 4.13 (decided 2026-11-28; the aim is to follow the dissertation).**
+  - **Runs 6b/7 (A + B, literal reading):** L_cultural stayed at chance (1.376 against 1.386) and CSAM had no effect.
+  - **The dissertation describes pos_j in two ways.**
+    - The sentence after Eq. 4.13 calls pos_j and pos_k "positional encodings".
+    - §4.3.3 and the worked example in §4.3.7 require relevance to depend on the token at k. §4.3.3 lists "character-to-virtue associations" and attention between الحكيم and virtue terms. Eqs. 4.21–4.23 give token-specific relevances for one query position: مفتاح 0.448, يسهل 0.327, قال −0.254.
+    - A relevance computed from positions alone cannot produce token-specific values.
+  - **Reading adopted (`--csam-pos token_position`).** pos_j is the positional encoding as it enters the transformer, added to the embedding of the token at j: wte(x_j) + wpe(j). Everything else is unchanged: σ, the concatenation [pos_j; pos_k; c_s], v_{s,i}, c_s (Eq. 4.8), Eq. 4.12 and Eq. 4.18. The literal reading remains available (`--csam-pos position`, default) for comparison.
+  - **Toy evidence (`scripts/csam_learnability_check.py`).** Motif spans at random positions, 300 steps, L_cultural first → last 20 steps:
+    - `position`: 1.389 → 1.324.
+    - `token_position`: 1.381 → 1.124.
+    - Because H ≥ 0 (w_s ≥ 0, σ > 0), Eq. 4.18 cannot go below about 1.0 with one active schema of weight 1. `token_position` therefore approaches the floor, and `position` does not.
+  - **Not reproducible under either reading.** The negative relevance in Eq. 4.23 (−0.254) cannot come from σ(·), which is always in (0, 1). This is an internal inconsistency of the dissertation text and is recorded here, not resolved.
 
 ## Build order
 1. Backbone loads, and CSAM bias hooks into its attention. Unit test: zero bias gives exactly the original logits (Eq. 4.10 = Eq. 4.11 with B = 0).
