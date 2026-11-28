@@ -62,7 +62,12 @@ All components lie in [0, 1].
     | Old lexicon | 6/9 | 4/9 | 6/9 | 9/9 | 1 |
     | Rebuilt | 8/9 | 7/9 | 7/9 | 9/9 | 0 |
 
-  - All stories are ChatGPT-generated, so this measures agreement with one generator's dialect choices, not accuracy on real dialect text. Native review is still pending.
+  - The 53 stories were ChatGPT-generated, so this measures agreement with one generator's dialect choices, not accuracy on real dialect text. Native review is still pending.
+- **Cross-generator check (4 Gemini stories, parallel-0063–0066, scored with the lexicon built from ChatGPT stories only).**
+  - Versions with at least one own marker: Egyptian 4/4, Levantine 2/4, **Gulf 0/4**, Maghrebi 4/4.
+  - Gemini's Najdi uses words such as حنا، يم، طعس، كفو، شرى that the ChatGPT stories never used. The Gulf and Levantine markers therefore reflect one generator's vocabulary more than the dialect itself. This is direct evidence that d needs real dialect text or native review before it can be trusted.
+  - Two false markers surfaced and were excluded: زي (also Jordanian/Palestinian) and كاين (after normalisation also MSA كائن).
+  - The lexicon was then rebuilt with all 57 training stories (both generators): Egyptian 27, Levantine 26, Gulf 16, Maghrebi 103. Test-split coverage is unchanged (8/9, 7/9, 7/9, 9/9, 0 cross hits).
 
 ## Validation plan (not yet done)
 1. Generate stories with the chosen backbone from seed prompts covering all five regions.

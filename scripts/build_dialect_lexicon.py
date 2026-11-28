@@ -37,6 +37,7 @@ EXCLUDE: dict[str, str] = {
     "واهل": _CONTENT, "ناحيه": _MSA, "فهموا": _MSA, "وفهموا": _MSA, "جنبه": _OTHER,
     "بتلف": _CONTENT, "حصل": _MSA, "كفايه": _MSA, "ومش": "مش is pan-dialect (NOT_DISTINCTIVE)",
     "باله": _OTHER, "بكره": _SPELL,
+    "زي": "also Jordanian/Palestinian (found in a Gemini Levantine story)",
     # levantine
     "لحاله": _OTHER, "بيعرف": _OTHER, "بيقدر": _OTHER, "بقدر": _OTHER, "بعرف": _OTHER,
     "قاله": _OTHER, "باتجاه": _MSA, "فات": _OTHER, "اخدت": _OTHER, "قالتله": _OTHER,
@@ -49,6 +50,7 @@ EXCLUDE: dict[str, str] = {
     "الحجره": _CONTENT, "ا": "single letter", "والا": _MSA, "الثوب": _MSA, "الحجار": _OTHER,
     "مجموعين": _OTHER, "وعرفو": _SPELL, "عرفو": _SPELL, "رجعو": _SPELL, "سمعو": _SPELL,
     "وتعلمو": _SPELL, "ووصلو": _SPELL, "شكرو": _SPELL, "صلحو": _SPELL, "خدمو": _SPELL,
+    "كاين": "after normalisation also MSA كائن ('creature'); hit an Egyptian story",
     "جلسو": _SPELL, "تعاونو": _SPELL, "وتعاونو": _SPELL, "واتافقو": _SPELL,
 }
 
