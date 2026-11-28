@@ -52,6 +52,17 @@ All components lie in [0, 1].
   - 15 of the 20 dialect variants contain at least one target marker. Egyptian is weakest, at 3 of 5.
   - Two ambiguous Levantine markers produced cross-variety hits: عم (also "uncle") and وقتها (also Egyptian). Both were removed, and no cross-variety hits remain.
   - The commit message for that change says 16 of 20; the correct figure is 15 of 20.
+- **Rebuild from training stories only (`scripts/build_dialect_lexicon.py`, 2026-11-28).**
+  - Built from the 53 training stories. A word is kept if it occurs in at least 3 stories of one variety and in no other variety's or MSA version. A hand-curated exclusion list (with a reason per word) removes MSA words, words other varieties also use, spelling-only forms and the Maghrebi opening formula. The test split was not read.
+  - Sizes: Egyptian 28, Levantine 24, Gulf 16, Maghrebi 93 (before merging with seed markers).
+  - On the 9 reserved test stories, the share of dialect versions with at least one own marker:
+
+    | | Egyptian | Levantine | Gulf | Maghrebi | Cross-variety hits |
+    |---|---|---|---|---|---|
+    | Old lexicon | 6/9 | 4/9 | 6/9 | 9/9 | 1 |
+    | Rebuilt | 8/9 | 7/9 | 7/9 | 9/9 | 0 |
+
+  - All stories are ChatGPT-generated, so this measures agreement with one generator's dialect choices, not accuracy on real dialect text. Native review is still pending.
 
 ## Validation plan (not yet done)
 1. Generate stories with the chosen backbone from seed prompts covering all five regions.
