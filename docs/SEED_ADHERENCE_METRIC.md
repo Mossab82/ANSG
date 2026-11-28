@@ -48,6 +48,10 @@ All components lie in [0, 1].
 - Exact lexical matching misses spelling variants that normalisation does not cover.
 - **Coverage is low on narrative text.** On the first six parallel stories (about 90 words per variant), each variant matched only 0–3 distinctive markers, and several matched none. The seed markers are mostly greetings and questions. The dialect component d therefore needs larger marker lexicons before it can be trusted. One option is to derive them by frequency contrast from real dialect corpora such as IADD.
 - **First extension (`data/cultural_seeds/lexicons/dialect_lexicon.json`).** Words exclusive to one variety across the 16 parallel stories were curated by hand into the lexicon. Region sizes are now 26–57 markers. Every dialect variant of those stories now has at least one marker. This coverage is **in-sample**: the lexicon was built from the same stories, so it says nothing yet about new text. The real test is new stories and generated text. The lexicon has not been reviewed by a native speaker.
+- **First out-of-sample check (stories 17–21, not used to build the lexicon).**
+  - 15 of the 20 dialect variants contain at least one target marker. Egyptian is weakest, at 3 of 5.
+  - Two ambiguous Levantine markers produced cross-variety hits: عم (also "uncle") and وقتها (also Egyptian). Both were removed, and no cross-variety hits remain.
+  - The commit message for that change says 16 of 20; the correct figure is 15 of 20.
 
 ## Validation plan (not yet done)
 1. Generate stories with the chosen backbone from seed prompts covering all five regions.
