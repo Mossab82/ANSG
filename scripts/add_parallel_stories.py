@@ -19,6 +19,25 @@ from ansg.generation.seed_prompt import REGIONS
 OUT = Path(__file__).resolve().parents[1] / "data" / "stories" / "parallel" / "parallel_stories.jsonl"
 
 
+def split_records(line: str) -> list[dict]:
+    """Parse one JSONL line; if the generator merged several stories into one object
+    (the key "value" repeats), split it back into one record per story."""
+    pairs = json.loads(line, object_pairs_hook=lambda kv: kv)
+    if isinstance(pairs, dict):
+        return [pairs]
+    groups, cur = [], []
+    for key, val in pairs:
+        if key == "value" and cur:
+            groups.append(dict(cur))
+            cur = []
+        cur.append((key, val))
+    if cur:
+        groups.append(dict(cur))
+    if len(groups) > 1:
+        print(f"NOTE: one line held {len(groups)} merged stories; split them")
+    return groups
+
+
 def profile(text: str, region: str, markers) -> tuple[int, int]:
     toks = tokens(text)
     others = frozenset().union(*(v for k, v in markers.items() if k != region))
@@ -34,10 +53,11 @@ def main():
     n = len(existing)
     markers = distinctive_markers()
     added = []
+    records = []
     for line in Path(args.batch).read_text(encoding="utf-8").splitlines():
-        if not line.strip():
-            continue
-        rec = json.loads(line)
+        if line.strip():
+            records.extend(split_records(line))
+    for rec in records:
         missing = [r for r in REGIONS if not rec.get(r)]
         if missing:
             print(f"SKIP ({rec.get('value')}): missing {missing}")

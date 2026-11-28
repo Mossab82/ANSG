@@ -64,6 +64,8 @@ NOT_DISTINCTIVE = frozenset({
     "ليش", "باللي",
     # هاد is Levantine (Palestinian, Syrian) as well as Moroccan
     "هاد",
+    # استنى (wait) is Levantine too; حدا is Levantine "someone" but Moroccan "near"
+    "استني", "حدا",
 })
 
 _DIACRITICS = re.compile(r"[ً-ْٰـ]")

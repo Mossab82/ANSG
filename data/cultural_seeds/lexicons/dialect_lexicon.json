@@ -5,7 +5,8 @@
   "review_status": "pending_native_review",
   "note": "Small (16 synthetic stories). To be extended by frequency contrast on real dialect text such as IADD.",
   "changes": [
-   "2026-11-28: removed عم (also 'uncle') and وقتها (also Egyptian) after out-of-sample check on stories 17-21"
+   "2026-11-28: removed عم (also 'uncle') and وقتها (also Egyptian) after out-of-sample check on stories 17-21",
+   "2026-11-28: removed حدا (Moroccan 'near') after a cross-variety hit in story 38"
   ]
  },
  "egyptian": [
@@ -30,7 +31,6 @@
   "قاله",
   "مي",
   "المي",
-  "حدا",
   "لحاله",
   "لحالها",
   "عالارض",
