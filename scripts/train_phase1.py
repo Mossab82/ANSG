@@ -239,11 +239,11 @@ def heldout_loss(model, csam, dal, batcher, held, bs, use_adapters):
 
 @torch.no_grad()
 def generate(model, csam, dal, tok, prefix, dialect, schema_vec, max_new, temperature, top_p, device,
-             repetition_penalty=1.3, no_repeat_ngram=3):
+             repetition_penalty=1.3, no_repeat_ngram=3, min_new=0):
     ids = torch.tensor([tok.encode(clean(prefix))], device=device)
     d = torch.tensor([DIALECTS.index(dialect)], device=device)
     w = schema_vec[None].to(device)
-    for _ in range(max_new):
+    for step in range(max_new):
         ctx = ids[:, -model.spec.n_positions:]
         logits = model(ctx, bias_fn=csam.bias_fn(model.wpe.weight, w) if USE["csam"] else None,
                        delta_fn=dal.delta_fn(d, csam.schema_embeddings(), w) if USE["dal"] else None
@@ -258,6 +258,8 @@ def generate(model, csam, dal, tok, prefix, dialect, schema_vec, max_new, temper
                       if tuple(hist[i:i + no_repeat_ngram - 1]) == prefix_ng]
             if banned:
                 logits[banned] = float("-inf")
+        if step < min_new and tok.eos_id is not None:
+            logits[tok.eos_id] = float("-inf")
         logits = logits / temperature
         probs = torch.softmax(logits, -1)
         sorted_p, order = probs.sort(descending=True)
@@ -284,6 +286,9 @@ def main():
     ap.add_argument("--iadd-pack", type=int, default=6)
     ap.add_argument("--parallel-repeat", type=int, default=4)
     ap.add_argument("--eval-every", type=int, default=500, help="held-out check; the best adapters are kept")
+    ap.add_argument("--mix", default="parallel=0.4,iadd=0.4,wikisource=0.2",
+                    help="sampling weight per training source; 'uniform' samples examples uniformly")
+    ap.add_argument("--min-new-tokens", type=int, default=120)
     ap.add_argument("--log-every", type=int, default=100)
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--smoke", action="store_true")
@@ -342,10 +347,26 @@ def main():
 
     import copy
     best = {"step": 0, "mean": float("inf"), "state": None}
+    by_source: dict[str, list[dict]] = {}
+    for e in train:
+        by_source.setdefault(e["source"], []).append(e)
+    if args.mix == "uniform":
+        mix = None
+    else:
+        mix = {k: float(v) for k, v in (kv.split("=") for kv in args.mix.split(","))}
+        mix = {k: w for k, w in mix.items() if k in by_source}
+    print("sampling mix:", mix or "uniform", flush=True)
+
+    def draw(n):
+        if mix is None:
+            return rng.sample(train, n)
+        sources = rng.choices(list(mix), weights=list(mix.values()), k=n)
+        return [rng.choice(by_source[s]) for s in sources]
+
     rng = random.Random(args.seed)
     log, start = [], time.time()
     for step in range(1, args.steps + 1):
-        batch = rng.sample(train, args.batch)
+        batch = draw(args.batch)
         ids, labels, mask, dialect, schema, has_schema = batcher(batch)
         out, context, _ = adapted_forward(model, csam, dal, ids, labels, mask, dialect, schema, has_schema)
         loss = out["loss"]
@@ -395,7 +416,8 @@ def main():
         if key in schema_ids:
             schema_vec[schema_ids.index(key)] = 1.0
         text = generate(model, csam, dal, tok, e["opening"] or "كان يا ما كان", region, schema_vec,
-                        max_new=60 if args.smoke else 220, temperature=0.8, top_p=0.9, device=device)
+                        max_new=60 if args.smoke else 220, temperature=0.8, top_p=0.9, device=device,
+                        min_new=0 if args.smoke else args.min_new_tokens)
         sas = seed_adherence(text, region, e).as_dict()
         samples.append({"region": region, "value": e["value"], "text": text, "sas": sas})
         lines += [f"## {region} (value: {e['value']})", "", text, "", f"SAS: {sas['score']} {sas}", ""]
@@ -409,7 +431,9 @@ def main():
                                  "dal_total": sum(p.numel() for p in dal.parameters())},
         "objective": "L_LM + lambda_schema * L_schema; L_cultural disabled (no motif-span annotations)",
         "components": dict(USE),
-        "decoding": {"temperature": 0.8, "top_p": 0.9, "repetition_penalty": 1.3, "no_repeat_ngram": 3},
+        "decoding": {"temperature": 0.8, "top_p": 0.9, "repetition_penalty": 1.3, "no_repeat_ngram": 3,
+                     "min_new_tokens": args.min_new_tokens},
+        "sampling_mix": mix or "uniform",
         "train_counts": counts, "heldout_size": len(held),
         "heldout_loss_backbone_only": base_loss, "heldout_loss_with_adapters": adapted_loss,
         "best_step": best["step"],
