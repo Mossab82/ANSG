@@ -44,3 +44,22 @@ Dialect words do appear, for example the Levantine sample contains قاله، ح
 4. Held-out loss is reported by source and variety.
 5. `--no-csam` and `--no-dal` flags allow an ablation.
 6. SAS markers: ابي ("my father" vs Gulf "I want") and عندو (also Levantine) are excluded.
+
+---
+# Phase 1, second run (Colab T4, 2026-11-28, commit 777af54)
+
+**Result: failed.** The final log lines reported by Mossab:
+- The train LM loss reached **1.61**.
+- Held-out loss on *parallel stories*: 10.6–12.5 across all five varieties. In the first run the per-variety figures, which mixed sources, were about 5.6–5.8.
+- Wikisource MSA held-out: 4.46.
+- Held-out IADD text appeared **only for Gulf**.
+
+**Causes:**
+1. **My bug.** The IADD country filter used codes (EGY, JOR, MAR…), but IADD stores full names. The datasets-server statistics list Palestine, Morocco, Egypt, Algeria, Lebanon, Iraq, Tunisia, Jordan, Syria and NA. As a result, every Egyptian, Levantine and Maghrebi IADD row was dropped. Gulf survived only because it has no country filter.
+2. **Overfitting.** Without IADD, the 23 synthetic parallel stories, each repeated 20 times, dominated training. The model memorised them: the train loss fell to 1.6 while the loss on held-out stories rose.
+
+**Fixes:**
+- Country names corrected.
+- The run now stops if any variety has no IADD training text.
+- `--parallel-repeat` default lowered from 20 to 4.
+- Held-out checks every 500 steps; the best adapters are restored at the end.

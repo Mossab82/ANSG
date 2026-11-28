@@ -52,7 +52,9 @@ ROOT = Path(__file__).resolve().parents[1]
 IADD_REGION = {"EGY": "egyptian", "LEV": "levantine", "GLF": "gulf", "MGH": "maghrebi"}
 # Keep Moroccan rows only for the Maghrebi variety (IADD MGH also holds Algerian and
 # Tunisian text), and the four Levantine countries; Gulf rows have no country code.
-IADD_COUNTRIES = {"egyptian": {"EGY"}, "levantine": {"JOR", "PSE", "SYR", "LBN"}, "maghrebi": {"MAR"}, "gulf": None}
+# Country values as stored in IADD (checked with the datasets-server statistics endpoint).
+IADD_COUNTRIES = {"egyptian": {"Egypt"}, "levantine": {"Palestine", "Jordan", "Syria", "Lebanon"},
+                  "maghrebi": {"Morocco"}, "gulf": None}
 _DIAC = re.compile(r"[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640]")
 _LATIN = re.compile(r"[A-Za-z]")
 
@@ -273,7 +275,8 @@ def main():
     ap.add_argument("--lambda-align", type=float, default=0.0)
     ap.add_argument("--iadd-per-region", type=int, default=8000)
     ap.add_argument("--iadd-pack", type=int, default=6)
-    ap.add_argument("--parallel-repeat", type=int, default=20)
+    ap.add_argument("--parallel-repeat", type=int, default=4)
+    ap.add_argument("--eval-every", type=int, default=500, help="held-out check; the best adapters are kept")
     ap.add_argument("--log-every", type=int, default=100)
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--smoke", action="store_true")
@@ -319,6 +322,19 @@ def main():
     base_loss = heldout_loss(model, csam, dal, batcher, held, args.batch, use_adapters=False)
     print("held-out loss, backbone only:", base_loss, flush=True)
 
+    if args.smoke:
+        args.eval_every = 10
+    missing = [d for d in DIALECTS if not any(e["dialect"] == d and e["source"] == "iadd" for e in train)
+               ] if not args.smoke and args.iadd_per_region > 0 else []
+    if [d for d in missing if d != "msa"]:
+        raise SystemExit(f"no IADD training text for {missing}; check the IADD filters")
+
+    def mean_loss(res):
+        vals = [v["loss"] for k, v in res.items() if "/" not in k]
+        return sum(vals) / len(vals)
+
+    import copy
+    best = {"step": 0, "mean": float("inf"), "state": None}
     rng = random.Random(args.seed)
     log, start = [], time.time()
     for step in range(1, args.steps + 1):
@@ -340,7 +356,21 @@ def main():
                    "lr": sched.get_last_lr()[0], "seconds": round(time.time() - start)}
             log.append(rec)
             print(rec, flush=True)
+        if step % args.eval_every == 0 or step == args.steps:
+            csam.eval(); dal.eval()
+            res = heldout_loss(model, csam, dal, batcher, held, args.batch, use_adapters=True)
+            csam.train(); dal.train()
+            m = mean_loss(res)
+            log.append({"step": step, "heldout_mean": round(m, 4)})
+            print({"step": step, "heldout_mean": round(m, 4)}, flush=True)
+            if m < best["mean"]:
+                best = {"step": step, "mean": m,
+                        "state": (copy.deepcopy(csam.state_dict()), copy.deepcopy(dal.state_dict()))}
 
+    if best["state"] is not None:
+        csam.load_state_dict(best["state"][0])
+        dal.load_state_dict(best["state"][1])
+        print(f"restored best adapters from step {best['step']} (held-out mean {best['mean']:.4f})", flush=True)
     csam.eval()
     dal.eval()
     adapted_loss = heldout_loss(model, csam, dal, batcher, held, args.batch, use_adapters=True)
@@ -375,6 +405,7 @@ def main():
         "decoding": {"temperature": 0.8, "top_p": 0.9, "repetition_penalty": 1.3, "no_repeat_ngram": 3},
         "train_counts": counts, "heldout_size": len(held),
         "heldout_loss_backbone_only": base_loss, "heldout_loss_with_adapters": adapted_loss,
+        "best_step": best["step"],
         "log": log, "samples": samples,
     }
     (out_dir / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
