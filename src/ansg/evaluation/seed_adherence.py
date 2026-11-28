@@ -69,6 +69,9 @@ NOT_DISTINCTIVE = frozenset({
     # found on Gemini stories: وش is Gulf "what" but Egyptian "face" (وش الولد);
     # كاين is Moroccan "there is" but also MSA كائن ("creature") after hamza normalisation
     "وش", "كاين",
+    # seed markers that the parallel stories show are shared: تعالي is also MSA;
+    # باغي/بغيت (want) are Moroccan as well as Gulf
+    "تعالي", "باغي", "بغيت",
 })
 
 _DIACRITICS = re.compile(r"[ً-ْٰـ]")

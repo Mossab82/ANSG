@@ -38,11 +38,13 @@ EXCLUDE: dict[str, str] = {
     "بتلف": _CONTENT, "حصل": _MSA, "كفايه": _MSA, "ومش": "مش is pan-dialect (NOT_DISTINCTIVE)",
     "باله": _OTHER, "بكره": _SPELL,
     "زي": "also Jordanian/Palestinian (found in a Gemini Levantine story)",
+    "عدي": "Egyptian 'passed' (عدّى) but also the personal name عدي",
     # levantine
     "لحاله": _OTHER, "بيعرف": _OTHER, "بيقدر": _OTHER, "بقدر": _OTHER, "بعرف": _OTHER,
     "قاله": _OTHER, "باتجاه": _MSA, "فات": _OTHER, "اخدت": _OTHER, "قالتله": _OTHER,
     "ع": "single letter",
     # gulf
+    "صوب": "Levantine also says صوب ('towards')",
     "ذاك": _MSA, "وبقت": _OTHER, "ثاني": _SPELL, "كذا": _MSA, "الدرب": _MSA, "درب": _MSA,
     # maghrebi
     "ولكن": _MSA, "حجيتك": _FORMULA, "جيتك": _FORMULA, "دار": _MSA, "كاملين": _OTHER,
@@ -51,6 +53,7 @@ EXCLUDE: dict[str, str] = {
     "مجموعين": _OTHER, "وعرفو": _SPELL, "عرفو": _SPELL, "رجعو": _SPELL, "سمعو": _SPELL,
     "وتعلمو": _SPELL, "ووصلو": _SPELL, "شكرو": _SPELL, "صلحو": _SPELL, "خدمو": _SPELL,
     "كاين": "after normalisation also MSA كائن ('creature'); hit an Egyptian story",
+    "ليكم": "Egyptian also says ليكم ('to you')",
     "حل": "Moroccan 'open' but MSA 'solution'; hit an MSA test story",
     "جلسو": _SPELL, "تعاونو": _SPELL, "وتعاونو": _SPELL, "واتافقو": _SPELL,
 }

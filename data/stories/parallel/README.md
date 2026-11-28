@@ -28,3 +28,9 @@ Before training on model-generated text, check the generator's terms of use.
   - The Gulf versions overuse «ما هو» + participle (e.g. «ما هو متأخر»، «ما هو مغير»، «ما هو مخلوف»), which sounds unnatural in Najdi. The prompt's instruction "use ما هو/مو instead of مب" probably caused this. Revised Gulf fields arrived and were applied to 0067 and 0069–0071 (0068 was unchanged). The only «ما هو» left is the natural «ما هو بالسرعة» in 0067.
   - 0067 (الحلم) retells Aesop's hare and tortoise. Its plot illustrates perseverance more than forbearance, and it treats السلحفاة as masculine.
   - 0069 (الوفاء بالعهد): the captain sails through a storm against the navigator's advice to keep a promise, so the story praises taking a risk with the crew.
+- Gemini batches 3–6 (its story_11–story_30, 20 stories): **11 added** (parallel-0072–0082), 9 not added.
+  - Not added, near-duplicates of test stories: story_18 (الشجاعة: a boat stuck between waves and rocks is rescued, like 0046) and story_28 (الرحمة: an injured small bird is rescued, like 0039).
+  - Not added, not narratives: story_14, 19, 24 and 29 (clever_riddle). Each is a question whose answer is the value's own name ("what trait raises its owner...? — humility"), with no events.
+  - Not added, too thin or incoherent: story_20 and 30 (63–75 words, almost no events) and story_25 (the traveller confesses to taking a grain of sand, but the story never shows him taking it).
+  - Quality fell across these batches. Versions shrank from about 90 to 63 words against a requested 110–140. Values repeated despite the requested list (العدل twice, القناعة again). Two genres became fixed templates: the riddle and "a traveller meets a small sand creature".
+  - Kept but noted: 0081 (الكرم, sharing apples with a hungry rabbit) shares the basic act of sharing food with the hungry with test story 0048, but the setting, characters and plot differ.
