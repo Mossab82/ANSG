@@ -54,6 +54,7 @@ EXCLUDE: dict[str, str] = {
     "وتعلمو": _SPELL, "ووصلو": _SPELL, "شكرو": _SPELL, "صلحو": _SPELL, "خدمو": _SPELL,
     "كاين": "after normalisation also MSA كائن ('creature'); hit an Egyptian story",
     "ليكم": "Egyptian also says ليكم ('to you')",
+    "نخلي": "'let us leave' is also Egyptian, Levantine and Gulf; hit 4 test versions",
     "حل": "Moroccan 'open' but MSA 'solution'; hit an MSA test story",
     "جلسو": _SPELL, "تعاونو": _SPELL, "وتعاونو": _SPELL, "واتافقو": _SPELL,
 }
