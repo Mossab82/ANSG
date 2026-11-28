@@ -48,6 +48,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("batch")
     ap.add_argument("--generated-by", default="ChatGPT")
+    ap.add_argument("--split", choices=["train", "test"], default="train",
+                    help="test = held out from training and from dialect-lexicon building")
     args = ap.parse_args()
     existing = [json.loads(l) for l in OUT.read_text(encoding="utf-8").splitlines() if l.strip()] if OUT.exists() else []
     n = len(existing)
@@ -68,7 +70,7 @@ def main():
             words = len(rec[r].split())
             hits, other = profile(rec[r], r, markers)
             checks[r] = {"words": words, "target_markers": hits, "other_markers": other}
-        rec = {"id": f"parallel-{n:04d}", "value": rec["value"], "synthetic": True,
+        rec = {"id": f"parallel-{n:04d}", "value": rec["value"], "split": args.split, "synthetic": True,
                "generated_by": args.generated_by, "review_status": "pending_native_review",
                **{r: rec[r] for r in REGIONS}, "checks": checks}
         added.append(rec)

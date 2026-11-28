@@ -83,6 +83,11 @@ def load_examples(args, schema_ids: list[str]) -> list[dict]:
     for line in (ROOT / "data/stories/parallel/parallel_stories.jsonl").read_text(encoding="utf-8").splitlines():
         rec = json.loads(line)
         schema = sid.get(f"schema:{rec['value']}")
+        if rec.get("split") == "test":   # reserved test stories: evaluation only, never trained on
+            for d in DIALECTS:
+                examples.append({"text": clean(rec[d]), "dialect": d, "schema": schema,
+                                 "source": "parallel_test", "story_id": rec["id"]})
+            continue
         for d in DIALECTS:
             for _ in range(args.parallel_repeat):
                 examples.append({"text": clean(rec[d]), "dialect": d, "schema": schema, "source": "parallel",
@@ -117,7 +122,9 @@ def split(examples, seed):
     held_story = set(rng.sample(stories, max(1, len(stories) // 6))) if len(stories) > 1 else set()
     train, held = [], []
     for e in examples:
-        if e["source"] == "parallel":
+        if e["source"] == "parallel_test":
+            held.append(e)
+        elif e["source"] == "parallel":
             (held if e["story_id"] in held_story else train).append(e)
         else:
             (held if rng.random() < 0.05 else train).append(e)
