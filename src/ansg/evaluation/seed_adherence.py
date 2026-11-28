@@ -51,6 +51,8 @@ NOT_DISTINCTIVE = frozenset({
     # found ambiguous on the parallel stories: ليه = "why" (EGY) but "to him" (MAG);
     # مش is also Levantine; نمشي is also Gulf
     "ليه", "مش", "نمشي",
+    # شوي is Gulf as well as Levantine
+    "شوي",
 })
 
 _DIACRITICS = re.compile(r"[ً-ْٰـ]")
