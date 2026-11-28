@@ -72,6 +72,8 @@ NOT_DISTINCTIVE = frozenset({
     # seed markers that the parallel stories show are shared: تعالي is also MSA;
     # باغي/بغيت (want) are Moroccan as well as Gulf
     "تعالي", "باغي", "بغيت",
+    # ملي (Moroccan "when") = ملى ("filled", Egyptian/Levantine) after ى/ي normalisation
+    "ملي", "وملي",
 })
 
 _DIACRITICS = re.compile(r"[ً-ْٰـ]")
